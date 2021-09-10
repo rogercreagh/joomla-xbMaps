@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<updates>
+	<update>
+		<name>xbMaps</name>
+		<description>Open Street Maps for Joomla</description>
+		<element>com_xbmaps</element>
+		<type>component</type>
+		<client>administrator</client>
+		<version>0.2.0</version>
+		<infourl>
+			https://crosborne.uk/xbmaps#changelog
+		</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">https://crosborne.uk/downloads?download=15</downloadurl>
+		</downloads>
+		<maintainer>Roger C-O</maintainer>
+		<maintainerurl>https://crosborne.uk/xbmaps</maintainerurl>
+		<targetplatform name="joomla" version="3.(9|10)"/>	
+	</update>
+</updates>		

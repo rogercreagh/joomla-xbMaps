@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- xbMaps admin/models/forms/track.xml v0.1.1.h 22nd August 2021 -->
+<form>
+
+	<fieldset name="trackset" addfieldpath="/administrator/components/com_xbmaps/models/fields">
+
+		<field 
+			name="id"  type="number" 
+			label="JGLOBAL_FIELD_ID_LABEL" description="JGLOBAL_FIELD_ID_DESC" 
+			readonly="true" class="readonly" 
+			size="10" default="0" 
+		/>
+
+		<field name="title" type="text"
+			label="JGLOBAL_TITLE" description="JFIELD_TITLE_DESC"
+			class="inputbox input-xxlarge input-large-text" size="30" required="true" 
+		/>
+
+		<field name="alias" type="text"
+			label="JFIELD_ALIAS_LABEL" description="JFIELD_ALIAS_DESC"
+			hint="JFIELD_ALIAS_PLACEHOLDER"
+			class="inputbox" size="45" 
+		/>
+
+		<field name="description" type="editor"
+			class="inputbox" label="XBMAPS_DESCRIPTION" description="XBMAPS_DESCRIPTION_DESC"
+			filter="JComponentHelper::filterText"  buttons="true" hide="article,pagebreak,readmore"  
+		/>
+<!-- 
+ 		<field name="tracks_folder" type="folderlist"
+			label="XBMAPS_TRACKS_FOLDER_LABEL" description="XBMAPS_TRACKS_FOLDER_DESC"
+			directory=""
+			hide_none="true"
+			hide_default="true"
+			recursive="true"
+			required="true"
+			filter=""
+			onchange="this.form.submit();"
+		>
+		</field>		
+		
+		<field name="new_folder" type="text"
+			label="XBMAPS_TRACK_NEWFOLDER_LABEL" description="XBMAPS_TRACK_NEWFOLDER_DESC"
+			maxlength = "20"
+			default=""
+		/>
+-->
+		<field name="gpx_filename" type="text" 
+			label="GPX File" description="To change the GPX file use the Select and Upload controls below" 
+			value="" class="xbfilecontrol xbbold"
+			readonly="true"
+		/>
+		<field name="gpx_folder" type="text"
+			label="GPX Folder" description="Folder to use in the options tab"
+			readonly="true" class="xbbold"
+		/>
+ 				
+		<field name="select_gpxfile" type="filelist"
+			label="XBMAPS_GPXFILE_LABEL" description="XBMAPS_GPXFILE_DESC"
+			directory = ""
+			class="xbfilecontrol"
+			filter = ".(.gpx)$"
+			hide_default = "true"
+  			onchange="document.getElementById('jform_gpx_filename').value='/'+document.getElementById('jform_gpx_folder').value + '/' + this.value;"
+		/>
+		<field name="upload_gpxfile"
+			type="file" accept=".gpx"
+			label="XBMAPS_UPLOAD_GPX_LABEL"
+			description="XBMAPS_UPLOAD_GPX_DESC"
+		/>
+					
+		<field name="rec_date" type="calendar"
+			label="XBMAPS_RECORDED_DATE_LABEL" description="XBMAPS_RECORDED_DATE_DESC"
+			class="inputbox" size="20" format="%Y-%m-%d %H:%M:%S" filter="user_utc" 
+		/>	
+
+		<field name="track_colour" type="color" 
+			label="XBMAPS_TRACK_COL_LABEL"
+			description="XBMAPS_TRACK_COL_DESC" 
+			default="" format="hex"
+		/>	
+			
+		<field name="catid" type="catsubtree" extension="com_xbmaps" 
+			label="JCATEGORY" description="JCATEGORY_DESC" 
+			itemtype="track"
+			published="1"
+			class="chzn-custom-value"
+			required="true"
+		>
+			<option value="0">JOPTION_SELECT_CATEGORY</option>
+		</field>
+		
+		<field name="state" type="list"
+			label="JSTATUS" description="JFIELD_PUBLISHED_DESC"
+			class="chzn-color-state" filter="intval" size="1" default="1"
+		>
+			<option value="1">JPUBLISHED</option>
+			<option value="0">JUNPUBLISHED</option>
+			<option value="2">JARCHIVED</option>
+			<option value="-2">JTRASHED</option>
+		</field>
+		
+		<field name="note" type="textarea" rows="3" cols="50"
+			label="XBMAPS_ADMIN_NOTE" description="XBMAPS_ADMIN_NOTE_DESC"
+		/>
+
+		<field name="tags" type="tag"
+			label="JTAG" description="JTAG_DESC"
+			multiple="true"
+		/>
+
+		<field name="created" type="calendar"
+			label="XBMAPS_CREATED_DATE" description="XBMAPS_CREATED_DATE_DESC"
+			class="inputbox" size="20" format="%Y-%m-%d %H:%M:%S" filter="user_utc" />
+
+		<field name="created_by" type="user"
+			label="XBMAPS_CREATED_BY" description="XBMAPS_CREATED_BY_DESC" />
+		
+		<field name="created_by_alias" type="text"
+			label="JGLOBAL_FIELD_CREATED_BY_ALIAS_LABEL" description="JGLOBAL_FIELD_CREATED_BY_ALIAS_DESC"
+			class="inputbox" size="20" />
+
+		<field name="modified" type="calendar"
+			label="XBMAPS_MODIFIED_DATE" description="XBMAPS_MODIFIED_DATE_DESC"
+			class="inputbox" size="20" format="%Y-%m-%d %H:%M:%S" filter="user_utc" />
+
+		<field name="modified_by" type="user"
+			label="XBMAPS_MODIFIED_BY" description="XBMAPS_MODIFIED_BY_DESC" />
+		
+		<field
+			name="ordering"
+			type="text"
+			label="JFIELD_ORDERING_LABEL"
+			description="JFIELD_ORDERING_DESC"
+			size="6"
+			default="0"
+		/>
+		
+		<field name="maplist" type= "subform"
+			label= "XBMAPS_MAPLIST_LABEL"
+			description="XBMAPS_MAPLIST_DESC"
+			min= "0"
+			max= "10"
+			multiple= "true"
+			buttons= "add,remove"
+			layout="joomla.form.field.subform.repeatable-table"
+			groupByFieldset="false" 
+		>
+			<form>
+				<field name="map_id" type="maps" 
+				label="XBMAPS_ADDMAP_LABEL" >
+					<option value="">JSELECT</option>	
+				</field>
+				<field name="track_colour" type="color" 
+				label="XBMAPS_TRACK_COL_LABEL"
+				default="" format="hex"
+				class="trkcol"
+				hint="XBMAPS_TRACK_COL_HINT"
+				/>
+				<field name="maplistorder" type="hidden" value=""
+				/>
+			</form>
+		</field>			
+		
+	</fieldset>
+	<fields name="params">
+		<fieldset
+				name="params"
+				label="JGLOBAL_FIELDSET_DISPLAY_OPTIONS"
+		>
+		<field name="def_tracks_folder" type="folderlist"
+			label="XBMAPS_TRACKGPX_NOTE_LABEL" description="XBMAPS_DEF_TRACKS_FOLDER_DESC"
+  			directory="images"
+  			hide_none="false"
+  			hide_default="true"
+  			recursive="true" useglobal="true"
+  		>
+  			<option value="xbmaps-tracks">XBMAPS_FOLDER_TRACKS</option>
+		</field>
+		
+			<field name="has_elevation" type="hidden" 
+				label="XBMAPS_TRACK_ELE_LABEL"
+				description="XBMAPS_TRACK_ELE_DESC" 
+				default="" 
+			/>		
+		</fieldset>
+	</fields>
+</form>

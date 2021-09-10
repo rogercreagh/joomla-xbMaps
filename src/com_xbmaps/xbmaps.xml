@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="3.1" method="upgrade">
+	<name>xbmaps</name>
+	<creationDate>10th September 2021</creationDate>
+	<version>0.1.2.0</version>
+	<author>Roger C-O</author>
+	<authorEmail>roger@crosborne.uk</authorEmail>
+	<authorUrl>www.crosborne.uk</authorUrl>
+	<copyright>(c) Roger Creagh-Osborne, 2021. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
+	<description>COM_XBMAPS_XML_DESCRIPTION</description>
+
+	<scriptfile>script.xbmaps.php</scriptfile>
+
+	<files folder="site">
+	    <filename>index.html</filename>
+	    <filename>xbmaps.php</filename>
+	    <filename>controller.php</filename>
+	    <filename>router.php</filename>
+	    <folder>controllers</folder>
+	    <folder>helpers</folder>
+	    <folder>models</folder>
+	    <folder>views</folder>
+	    <folder>layouts</folder>
+	</files>
+
+	<languages folder="site/language">
+		<language tag="en-GB">en-GB/en-GB.com_xbmaps.ini</language>
+	</languages>
+
+	<media destination="com_xbmaps" folder="media">
+		<filename>index.html</filename>
+		<folder>css</folder>
+		<folder>images</folder>
+		<folder>js</folder>
+	</media>
+
+	<install>
+		<sql>
+			<file charset="utf8" driver="mysql">sql/install.mysql.utf8.sql</file>
+		</sql>
+	</install>
+	<uninstall>
+		<sql>
+			<file charset="utf8" driver="mysql">sql/uninstall.mysql.utf8.sql</file>
+		</sql>
+	</uninstall>
+	<update>
+		<schemas>
+			<schemapath type="mysql">sql/updates/mysql</schemapath>
+		</schemas>
+	</update>
+
+	<administration>
+		<files folder="admin">
+			<filename>index.html</filename>
+			<filename>xbmaps.php</filename>
+			<filename>access.xml</filename>
+			<filename>config.xml</filename>
+			<filename>controller.php</filename>
+			<folder>controllers</folder>
+			<folder>helpers</folder>
+			<folder>models</folder>
+			<folder>sql</folder>
+			<folder>tables</folder>
+			<folder>views</folder>
+		</files>
+
+		<languages folder="admin/language">
+			<language tag="en-GB">en-GB/en-GB.com_xbmaps.ini</language>
+			<language tag="en-GB">en-GB/en-GB.com_xbmaps.sys.ini</language>
+		</languages>
+
+		<menu img="class:xbmaps"
+			link="option=com_xbmaps&amp;view=cpanel"
+			view="cpanel">xbMaps</menu>
+		<submenu>
+			<menu link="option=com_xbmaps"
+				view="cpanel" img="class:xbmaps-cpanel"
+				alt="xbmaps/Cpanel">
+					xbmaps_iconmenu_cpanel
+			</menu>
+			<menu link="option=com_xbmaps&amp;view=maps"
+				view="maps" img="class:xbmaps-maps"
+				alt="xbmaps/Maps">
+					xbmaps_iconmenu_maps
+			</menu>
+			<menu link="option=com_xbmaps&amp;view=markers"
+				view="markers" img="class:xbmaps-markers"
+				alt="xbmaps/Markers">
+					xbmaps_iconmenu_markers
+			</menu>
+			<menu link="option=com_xbmaps&amp;view=tracks"
+				view="tracks" img="class:xbmaps-tracks"
+				alt="xbmaps/Tracks">
+					xbmaps_iconmenu_tracks
+			</menu>
+			<menu link="option=com_xbmaps&amp;view=mcategories"
+				view="catsinfo" img="class:categories"
+				alt="xbmaps/CatsInfo">
+					xbmaps_iconmenu_catsinfo
+			</menu>
+			<menu link="option=com_categories&amp;extension=xbmaps"
+				view="catsinfo" img="class:categories"
+				alt="xbmaps/Categories">
+					xbmaps_iconmenu_categories
+			</menu>
+			<menu link="option=com_xbmaps&amp;view=tags"
+				view="tags" img="class:xbmaps-tags"
+				alt="xbmaps/Tags">
+					xbmaps_iconmenu_tagsinfo
+			</menu>
+
+		</submenu>
+	</administration>
+
+	<updateservers>
+		<server type="extension" priority="1" name="xbMaps Updates">
+			http://www.crosborne.co.uk/jupdates/update_xbmaps.xml
+		</server>
+	 </updateservers>
+</extension>

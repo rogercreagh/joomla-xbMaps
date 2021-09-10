@@ -1,0 +1,300 @@
+<?php
+/*******
+ * @package xbMaps
+ * @version 0.1.2.c 10th September 2021
+ * @filesource admin/helpers/xbmapsgeneral.php
+ * @author Roger C-O
+ * @copyright Copyright (c) Roger Creagh-Osborne, 2021
+ * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ ******/
+defined( '_JEXEC' ) or die( 'Restricted access' );
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\Helper\ContentHelper;
+use Joomla\CMS\Access\Access;
+use Joomla\CMS\Installer\Installer;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Version;
+use Joomla\CMS\Router\Route;
+use Joomla\Registry\Registry;
+
+class XbmapsGeneral extends ContentHelper {
+
+	/**
+	 * @name makeSummaryText
+	 * @desc returns a plain text version of the source trunctated at the first or last sentence within the specified length
+	 * @param string $source the string to make a summary from
+	 * @param int $len the maximum length of the summary
+	 * @param bool $first if true truncate at end of first sentence, else at the last sentence within the max length
+	 * @return string
+	 */
+	public static function makeSummaryText(string $source, int $len=250, bool $first = true) {
+		if ($len == 0 ) {$len = 100; $first = true; }
+		//first strip any html and truncate to max length
+		$summary = HTMLHelper::_('string.truncate', $source, $len, true, false);
+		//strip off ellipsis if present (we'll put it back at end)
+		$hadellip = false;
+		if (substr($summary,strlen($summary)-3) == '...') {
+			$summary = substr($summary,0,strlen($summary)-3);
+			$hadellip = true;
+		}
+		// get a version with '? ' and '! ' replaced by '. '
+		$dotsonly = str_replace(array('! ','? '),'. ',$summary.' ');
+		if ($first) {
+			// look for first ". " as end of sentence
+			$dot = strpos($dotsonly,'. ');
+		} else {
+			// look for last ". " as end of sentence
+			$dot = strrpos($dotsonly,'. ');
+		}
+		// are we going to cut some more off?)
+		if (($dot!==false) && ($dot < strlen($summary)-3)) {
+			$hadellip = true;
+		}
+		if ($dot>3) {
+			$summary = substr($summary,0, $dot+1);
+		}
+		if ($hadellip) {
+			// put back ellipsis with a space
+			$summary .= ' ...';
+		}
+		return $summary;
+	}
+	
+	public static function credit() {
+		if (self::penPont()) {
+			return '';
+		}
+		$credit='<div class="xbcredit">';
+		if (Factory::getApplication()->isClient('administrator')==true) {
+			$xmldata = Installer::parseXMLInstallFile(JPATH_ADMINISTRATOR.'/components/com_xbmaps/xbmaps.xml');
+			$credit .= '<a href="http://crosborne.uk/xbmaps" target="_blank">
+                xbMaps Component '.$xmldata['version'].' '.$xmldata['creationDate'].'</a>';
+			$credit .= '<br />'.Text::_('XBMAPS_BEER_TAG');
+			$credit .= Text::_('XBMAPS_BEER_FORM');
+		} else {
+			$credit .= 'xbMaps by <a href="http://crosborne.uk/xbmaps" target="_blank">CrOsborne</a>';
+		}
+		$credit .= '</div>';
+		return $credit;
+	}
+	
+	public static function Deg2DMS($value, $islat=true, $rettype="string") {
+		$isnortheast = ($value >= 0);
+		if ($islat) {
+			$dir = ($isnortheast) ? 'N' : 'E';
+		} else {
+			$dir = ($isnortheast) ? 'S' : 'W';
+		}
+		$value = abs($value);
+		$deg = floor($value);
+		$value = ($value - $deg)*60;
+		$min = floor($value);
+		$sec = ($value - $min)*60;
+		if ($rettype == 'array') {
+			return array($deg, $min, $sec, $dir);
+		}
+		// or if you want the string representation
+		return sprintf('%d&deg; %d\' %d&quot; %s', $deg, $min, $sec, $dir);
+	}
+	
+	public static function DMS2Deg($deg, $min, $sec, $dir) {
+		$value = $deg + ($min/60) + ($sec/3600);
+		$neg = (($dir='W') || ($dir='S')) ? -1 : 1;
+		$value = $value * $neg;
+		return $value;
+	}
+	
+	public static function penPont() {
+		$params = ComponentHelper::getParams('com_xbmaps');
+		$beer = trim($params->get('roger_beer'));
+		//        Factory::getApplication()->enqueueMessage(password_hash($beer.'PASSWORD_DEFAULT'));
+		$hashbeer = $params->get('penpont');
+		if (password_verify($beer,$hashbeer)) { return true; }
+		return false;
+	}
+	
+	public static function isJ4() {
+		$version = new Version();
+		return $version->isCompatible('4.0.0-alpha');
+	}
+	
+	public static function trackMapsArray(int $trkid, int $state = 4) {
+		$isAdmin = Factory::getApplication()->isClient('administrator');
+		$link = 'index.php?option=com_xbmaps';
+		$link .= $isAdmin ? '&task=map.edit&id=' : '&view=map&id=';
+		$db = Factory::getDBO();
+		$query = $db->getQuery(true);
+		
+		$query->select('a.track_colour AS track_colour, m.title, m.id, m.state AS mstate ')
+		->from('#__xbmaps_maptracks AS a')
+		->join('LEFT','#__xbmaps_maps AS m ON m.id=a.map_id')
+		->where('a.track_id = "'.$trkid.'"' )
+		
+		->order('m.title', 'ASC');
+		if ($state!=4){
+			$query->where('m.state = '.$state);
+		}
+		
+		$db->setQuery($query);
+		$list = $db->loadObjectList();
+		foreach ($list as $i=>$item){
+			if ($isAdmin) {
+				$ilink = Route::_($link . $item->id);
+				
+			} else {
+				
+			}
+			$item->display = '';
+			//if not published highlight in yellow if admin or grey if view
+			if ($item->mstate != 1) {
+				$flag = $isAdmin ? 'xbhlt' : 'xbdim';
+				$item->display .= '<span class="'.$flag.'">'.$item->title.'</span>';
+			} else {
+				$item->display .= $item->title;
+			}
+			//link if isAdmin or isPublished
+			if (($isAdmin) || ($item->mstate == 1)) {
+				$item->linkedtitle = '<a href="'.$ilink.'">'.$item->display.'</a>';
+			} else {
+				$item->linkedtitle = $item->display;
+			}
+		}
+		return $list;
+	}
+	
+	public static function mapTracksArray(int $mapid, int $state = 4) {
+		$isAdmin = Factory::getApplication()->isClient('administrator');
+		$link = 'index.php?option=com_xbmaps';
+		$link .= $isAdmin ? '&task=track.edit&id=' : '&view=track&id=';
+		$db = Factory::getDBO();
+		$query = $db->getQuery(true);
+		
+		$query->select('a.track_colour AS track_colour, t.title, t.id, t.alias, t.state AS tstate, t.track_colour AS defcol,
+			t.gpx_filename AS gpx_filename')
+		->from('#__xbmaps_maptracks AS a')
+		->join('LEFT','#__xbmaps_tracks AS t ON t.id=a.track_id')
+		->where('a.map_id = "'.$mapid.'"' )
+		->order('a.listorder', 'ASC');
+		if ($state!=4){
+			$query->where('t.state = '.$state);
+		}
+				
+		$db->setQuery($query);
+		$list = $db->loadObjectList();
+		foreach ($list as $i=>$item){
+			$ilink = Route::_($link . $item->id);
+			$item->display = '';
+			//if not published highlight in yellow if editable or grey if view
+			if ($item->tstate != 1) {
+				$flag = $isAdmin ? 'xbhlt' : 'xbdim';
+				$item->display .= '<span class="'.$flag.'">'.$item->title.'</span>';
+			} else {
+				$item->display .= $item->title;
+			}
+			//if item not published only link if isAdmin
+			if (($isAdmin) || ($item->tstate == 1)) {
+				$item->linkedtitle = '<a href="'.$ilink.'">'.$item->display.'</a>';
+			} else {
+				$item->linkedtitle = $item->display;
+			}
+			if ($item->track_colour=='') {$item->track_colour = $item->defcol; }
+		}
+		return $list;
+	}
+	
+	public static function markerMapsArray(int $mrkid, int $state = 4) {
+		$isAdmin = Factory::getApplication()->isClient('administrator');
+		$link = 'index.php?option=com_xbmaps';
+		$link .= $isAdmin ? '&task=map.edit&id=' : '&view=map&id=';
+		$db = Factory::getDBO();
+		$query = $db->getQuery(true);
+		
+		$query->select('a.show_popup AS show_popup, m.title, m.id, m.state AS mstate ')
+		->from('#__xbmaps_mapmarkers AS a')
+		->join('LEFT','#__xbmaps_maps AS m ON m.id=a.map_id')
+		->where('a.marker_id = "'.$mrkid.'"' )
+		
+		->order('m.title', 'ASC');
+		if ($state!=4){
+			$query->where('m.state = '.$state);
+		}
+		
+		$db->setQuery($query);
+		$list = $db->loadObjectList();
+		foreach ($list as $i=>$item){
+			if ($isAdmin) {
+				$ilink = Route::_($link . $item->id);
+				
+			} else {
+				
+			}
+			$item->display = '';
+			//if not published highlight in yellow if admin or grey if view
+			if ($item->mstate != 1) {
+				$flag = $isAdmin ? 'xbhlt' : 'xbdim';
+				$item->display .= '<span class="'.$flag.'">'.$item->title.'</span>';
+			} else {
+				$item->display .= $item->title;
+			}
+			//link if isAdmin or isPublished
+			if (($isAdmin) || ($item->mstate == 1)) {
+				$item->linkedtitle = '<a href="'.$ilink.'">'.$item->display.'</a>';
+			} else {
+				$item->linkedtitle = $item->display;
+			}
+		}
+		return $list;
+	}
+	
+	public static function mapMarkersArray(int $mapid, int $state = 4) {
+		$isAdmin = Factory::getApplication()->isClient('administrator');
+		$link = 'index.php?option=com_xbmaps';
+		$link .= $isAdmin ? '&task=marker.edit&id=' : '&view=marker&id=';
+		$db = Factory::getDBO();
+		$query = $db->getQuery(true);
+		
+		$query->select('a.show_popup AS show_popup, mk.title AS mktitle, mk.id AS mkid,
+                mk.description AS mkdesc, mk.latitude AS mklat, mk.longitude AS mklong,
+                mk.marker_type AS markertype, mk.params AS mkparams, mk.state AS mkstate ')
+                ->from('#__xbmaps_mapmarkers AS a')
+                ->join('LEFT','#__xbmaps_markers AS mk ON mk.id=a.marker_id')
+                ->where('a.map_id = "'.$mapid.'"' )
+                
+                ->order('a.listorder', 'ASC');
+                if ($state!=4){
+                    $query->where('mk.state = '.$state);
+                }
+                
+                
+			$db->setQuery($query);
+			$list = $db->loadObjectList();
+			foreach ($list as $i=>$item){
+				$ilink = Route::_($link . $item->mkid);
+				$item->display = '';
+				//if not published highlight in yellow if editable or grey if view
+				if ($item->mkstate != 1) {
+					$flag = $isAdmin ? 'xbhlt' : 'xbdim';
+					$item->display .= '<span class="'.$flag.'">'.$item->mktitle.'</span>';
+				} else {
+					$item->display .= $item->mktitle;
+				}
+				//if item not published only link if isAdmin
+				if (($isAdmin) || ($item->mkstate == 1)) {
+					$item->linkedtitle = '<a href="'.$ilink.'">'.$item->display.'</a>';
+				} else {
+					$item->linkedtitle = $item->display;
+				}
+				
+				$params = new Registry;
+				$params->loadString($item->mkparams, 'JSON');
+				$item->mkparams = $params;
+				
+			}
+			return $list;
+	}
+	
+	
+}

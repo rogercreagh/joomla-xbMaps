@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- xbMaps admin/models/forms/map.xml v0.1.2.b 3rd September 2021 -->
+<form>
+
+	<fieldset addfieldpath="/administrator/components/com_xbmaps/models/fields">
+
+		<field 
+			name="id"  type="number" 
+			label="JGLOBAL_FIELD_ID_LABEL" description="JGLOBAL_FIELD_ID_DESC" 
+			readonly="true" class="readonly" 
+			size="10" default="0" 
+		/>
+
+		<field name="title" type="text"
+			label="JGLOBAL_TITLE" description="JFIELD_TITLE_DESC"
+			class="inputbox input-xxlarge input-large-text" size="30" required="true" 
+		/>
+
+		<field name="alias" type="text"
+			label="JFIELD_ALIAS_LABEL" description="JFIELD_ALIAS_DESC"
+			hint="JFIELD_ALIAS_PLACEHOLDER"
+			class="inputbox" size="45" 
+		/>
+
+		<field name="description" type="editor"
+			class="inputbox" label="XBMAPS_DESCRIPTION" description="XBMAPS_DESCRIPTION_DESC"
+			filter="JComponentHelper::filterText"  buttons="true" hide="article,pagebreak,readmore"  
+		/>
+			
+		<field name="map_type" type="list"
+			label="XBMAPS_MAP_TYPE_LABEL" description="XBMAPS_MAP_TYPE_DESC"
+			default="" useglobal="true"
+		>
+			<option value="osm">XBMAPS_OPENSTREETMAP</option>
+			<option value="cycloOSM">XBMAPS_CYLOOSM</option>
+			<option value="opentopomap">XBMAPS_OPENTOPOMAP</option>
+			<option value="ersi_Sat">XBMAPS_ERSISATMAP</option>
+			<option value="wikimedia">XBMAPS_WIKIMEDIA_MAPS</option>
+			<option value="osm_bw">XBMAPS_OPENSTREETMAP_BLACK_WHITE</option>
+			<option value="osm_de">XBMAPS_OPENSTREETMAP_GERMANY</option>
+			<option value="osm_fr">XBMAPS_OPENSTREETMAP_FRANCE</option>
+			<option value="osm_hot">XBMAPS_HUMANITARIAN_OPENSTREETMAP</option>
+		</field>
+
+		<field name="centre_latitude" type="xbselectmaparea" 
+			maptype="map"  
+			label="XBMAPS_LATITUDE" description="XBMAPS_MAP_LATITUDE_DESC" 
+			class="inputbox"
+		/>
+		
+		<field name="centre_longitude" type="xbselectmaparea" 
+			maptype="map"  
+			label="XBMAPS_LONGITUDE" description="XBMAPS_MAP_LONGITUDE_DESC" 
+			class="inputbox"
+		/>
+		<field name="dmslatitude" type="xbselectmaparea" 
+			label="XBMAPS_DMS_LAT_LABEL" description="XBMAPS_DMS_LATLONG_DESC" 
+			readonly="true" class="inputbox" 
+		/>
+		<field name="dmslongitude" type="xbselectmaparea" 
+			label="XBMAPS_DMS_LONG_LABEL" description="XBMAPS_DMS_LATLONG_DESC" 
+			readonly="true" class="inputbox" 
+		 />
+
+		<field name="default_zoom" type="xbselectmaparea" 
+			maptype="map"  
+			label="XBMAPS_MAP_ZOOM_LABEL" description="XBMAPS_MAP_ZOOM_DESC" 
+			class="inputbox" size="40" 
+		/>
+
+		<field name="map_width" type="number" 
+			class="inputbox" 
+			label="XBMAPS_WIDTH" description="XBMAPS_MAP_WIDTH_DESC"
+			min="0" max="9999" step="1"
+			default="0"
+		/>
+		<field name="width_unit" type="dimunits"
+			label="XBMAPS_UNITS" description="XBMAPS_UNITS_DESC"
+			default="px"
+			>
+		</field>
+
+		<field name="map_height" type="number" 
+			class="inputbox" 
+			label="XBMAPS_HEIGHT" description="XBMAPS_MAP_HEIGHT_DESC" 
+			min="1" max="9999" step="1"
+			default="500"
+		/>
+		
+		<field name="height_unit" type="dimunits"
+			label="XBMAPS_UNITS" description="XBMAPS_UNITS_DESC"
+			default="px"
+			>
+		</field>
+
+		<field name="fit_bounds" type="radio"
+ 			default="1"
+			label="XBMAPS_MAP_FIT_LABEL"
+			description="XBMAPS_MAP_FIT_DESC"
+			class="btn-group btn-group-yesno"
+			>
+			<option value="0" >JNO</option>
+			<option value="1">JYES</option>
+		</field>	
+		
+		<field name="catid" type="catsubtree" extension="com_xbmaps" 
+			label="JCATEGORY" description="JCATEGORY_DESC" 
+			itemtype="map"
+			published="1"
+			class="chzn-custom-value"
+			required="true"
+		>
+			<option value="0">JOPTION_SELECT_CATEGORY</option>
+		</field>
+		
+		<field name="state" type="list"
+			label="JSTATUS" description="JFIELD_PUBLISHED_DESC"
+			class="chzn-color-state" filter="intval" size="1" default="1"
+		>
+			<option value="1">JPUBLISHED</option>
+			<option value="0">JUNPUBLISHED</option>
+			<option value="2">JARCHIVED</option>
+			<option value="-2">JTRASHED</option>
+		</field>
+		
+		<field name="note" type="textarea" rows="3" cols="50"
+			label="XBMAPS_ADMIN_NOTE" description="XBMAPS_ADMIN_NOTE_DESC"
+		/>
+
+		<field name="tags" type="tag"
+			label="JTAG" description="JTAG_DESC"
+			multiple="true"
+		/>
+
+		<field name="created" type="calendar"
+			label="XBMAPS_CREATED_DATE" description="XBMAPS_CREATED_DATE_DESC"
+			class="inputbox" size="20" format="%Y-%m-%d %H:%M:%S" filter="user_utc" />
+
+		<field name="created_by" type="user"
+			label="XBMAPS_CREATED_BY" description="XBMAPS_CREATED_BY_DESC" />
+		
+		<field name="created_by_alias" type="text"
+			label="JGLOBAL_FIELD_CREATED_BY_ALIAS_LABEL" description="JGLOBAL_FIELD_CREATED_BY_ALIAS_DESC"
+			class="inputbox" size="20" />
+
+		<field name="modified" type="calendar"
+			label="XBMAPS_MODIFIED_DATE" description="XBMAPS_MODIFIED_DATE_DESC"
+			class="inputbox" size="20" format="%Y-%m-%d %H:%M:%S" filter="user_utc" />
+
+		<field name="modified_by" type="user"
+			label="XBMAPS_MODIFIED_BY" description="XBMAPS_MODIFIED_BY_DESC" />
+		
+		<field
+			name="ordering"
+			type="text"
+			label="JFIELD_ORDERING_LABEL"
+			description="JFIELD_ORDERING_DESC"
+			size="6"
+			default="0"
+		/>
+		
+		<field name="tracklist" type= "subform"
+			label= "XBMAPS_TRACKLIST_LABEL"
+			description="XBMAPS_TRACKLIST_DESC"
+			min= "0"
+			max= "10"
+			multiple= "true"
+			buttons= "add,remove,move"
+			layout="joomla.form.field.subform.repeatable-table"
+			groupByFieldset="false" 
+		>
+			<form>
+				<field name="track_id" type="tracks" label="XBMAPS_ADDTRACK_LABEL" >
+					<option value="">JSELECT</option>	
+				</field>
+				<field name="track_colour" type="color" 
+				label="XBMAPS_TRACK_COL_LABEL"
+				default="" format="hex"
+				class="trkcol"
+				hint="XBMAPS_TRACK_COL_HINT"
+				/>
+			</form>
+		</field>			
+			
+		<field name="markerlist" type= "subform"
+			label= "XBMAPS_MARKERLIST_LABEL"
+			description="XBMAPS_MARKERLIST_DESC"
+			min= "0"
+			max= "10"
+			multiple= "true"
+			buttons= "add,remove,move"
+			layout="joomla.form.field.subform.repeatable-table"
+			groupByFieldset="false" 
+		>
+			<form>
+				<field name="marker_id" type="markers" label="XBMAPS_ADDMARKER_LABEL" >
+					<option value="">JSELECT</option>	
+				</field>
+				<field name="show_popup" type="list"
+				label="XBMAPS_SHOW_POPUP" >
+					<option value="">Disable</option>
+					<option value="0">Closed</option>
+					<option value="1">Open</option>
+				</field>
+			</form>
+		</field>			
+			
+	</fieldset>
+	
+	<fields name="params">
+		<fieldset
+				name="params"
+				label="JGLOBAL_FIELDSET_DISPLAY_OPTIONS"
+		>
+			<field name="mapcontrols_note" type="note"
+				label="XBMAPS_DEFAULT_MAP_CONTROLS_LABEL" description="XBMAPS_DEFAULT_MAP_CONTROLS_DESC"
+			/>
+			<field name="map_zoom_control" type="radio"  
+				label="XBMAPS_MAP_SHOW_ZOOM_CONTROL_LABEL" description="XBMAPS_MAP_SHOW_ZOOM_CONTROL_DESC"
+				class="btn-group btn-group-yesno" 
+				default="" useglobal="true"
+			>
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>		
+			<field name="map_home_button" type="radio"  
+				label="XBMAPS_MAP_SHOW_HOME_BUTTON_LABEL" description="XBMAPS_MAP_SHOW_HOME_BUTTON_DESC"
+				class="btn-group btn-group-yesno" 
+				showon="map_zoom_control:1"
+				default="" useglobal="true"
+			>
+				<option value="0">JNO</option>
+				<option value="1">JYES</option>
+			</field>		
+			<field name="map_zoom_wheel" type="radio" 
+				label="XBMAPS_MAP_MOUSE_WHEEL_ZOOM_LABEL" description="XBMAPS_MAP_MOUSE_WHEEL_ZOOM_DESC"
+				class="btn-group btn-group-yesno" 
+				default="" useglobal="true"
+			>
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field name="map_current_position" type="radio"  
+				label="XBMAPS_MAP_SHOW_CURRENT_POSITION_LABEL" description="XBMAPS_MAP_SHOW_CURRENT_POSITION_DESC"
+				class="btn-group btn-group-yesno" 
+				default="" useglobal="true"
+			>
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			
+			<field name="map_full_screen" type="radio"  
+				label="XBMAPS_MAP_SHOW_FULL_SCREEN_BUTTON_LABEL" description="XBMAPS_MAP_SHOW_FULL_SCREEN_BUTTON_DESC"
+				class="btn-group btn-group-yesno" 
+				default="" useglobal="true"
+			>
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>		
+			<field name="map_search" type="radio"  
+				label="XBMAPS_MAP_SHOW_SEARCH_BUTTON_LABEL" description="XBMAPS_MAP_SHOW_SEARCH_BUTTON_DESC"
+				class="btn-group btn-group-yesno" 
+				default="" useglobal="true"
+			>
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>		
+			<field name="map_easyprint" type="radio"  
+				label="XBMAPS_MAP_SHOW_PRINT_BUTTON_LABEL" description="XBMAPS_MAP_SHOW_PRINT_BUTTON_DESC"
+				class="btn-group btn-group-yesno" 
+				default="" useglobal="true"
+			>
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field name="marker_clustering" type="radio" 
+				label="XBMAPS_MARKER_CLUSTERING_LABEL" description="XBMAPS_MARKER_CLUSTERING_DESC"
+				class="btn-group btn-group-yesno" 
+				default="" useglobal="true"
+			>
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>	
+			<field name="centre_marker" type="radio"  
+				label="XBMAPS_MAP_SHOW_CENTRE_MARKER_LABEL" description="XBMAPS_MAP_SHOW_CENTRE_MARKER_DESC"
+				class="btn-group btn-group-yesno" 
+				default="1"
+			>
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			
+			<field name="show_map_title" type="radio"  
+				label="XBMAPS_MAP_TITLE_LABEL" description="XBMAPS_MAP_TITLE_DESC"
+				class="btn-group btn-group-yesno" 
+				default="1"
+			>
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field name="show_map_desc" type="radio"  
+				label="XBMAPS_MAP_DESC_LABEL" description="XBMAPS_MAP_DESC_DESC"
+				class="btn-group btn-group-yesno" 
+				default="1"
+			>
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field name="map_desc_position" type="radio"  
+				label="XBMAPS_MAP_DESCPOS_LABEL" description="XBMAPS_MAP_DESCPOS_DESC"
+				class="btn-group btn-group-yesno" 
+				showon="show_map_desc:1"
+				default="below"
+			>
+				<option value="below">XBMAPS_BELOW</option>
+				<option value="above">XBMAPS_ABOVE</option>
+			</field>
+
+			<field name="map_border" type="radio"
+	 			default="1"
+				label="XBMAPS_MAP_BORDER_LABEL"
+				description="XBMAPS_MAP_BORDER_DESC"
+				class="btn-group btn-group-yesno"
+				>
+				<option value="0" >JNO</option>
+				<option value="1">JYES</option>
+			</field>	
+			<field name="map_border_width" type="number"
+				class="inputbox" 
+				label="XBMAPS_WIDTH" description="XBMAPS_BORDER_WIDTH_DESC"
+				min="1" max="20" step="1"
+				default="1"
+				showon="map_border:1"
+			/>
+			<field name="map_border_colour" type="color" 
+				label="XBMAPS_MAP_BORDER_COL_LABEL"
+				description="XBMAPS_MAP_BORDER_COL_DESC" 
+				default="#eee" format="hex"
+				showon="map_border:1"
+			/>		
+		
+		</fieldset>
+	</fields>
+	
+	<fields name="metadata" label="JGLOBAL_FIELDSET_METADATA_OPTIONS">
+		<fieldset name="jmetadata" label="JGLOBAL_FIELDSET_METADATA_OPTIONS">
+
+			<field name="metakey" type="textarea"
+				label="JFIELD_META_KEYWORDS_LABEL" description="JFIELD_META_KEYWORDS_DESC"
+				rows="3" cols="30" 
+			/>
+
+			<field name="metadesc" type="textarea"
+				label="JFIELD_META_DESCRIPTION_LABEL" description="JFIELD_META_DESCRIPTION_DESC"
+				rows="3" cols="30" 
+			/>
+
+			<field name="robots"
+				type="list"
+				label="JFIELD_METADATA_ROBOTS_LABEL"
+				description="JFIELD_METADATA_ROBOTS_DESC" >
+					<option value="">JGLOBAL_USE_GLOBAL</option>
+					<option value="index, follow">JGLOBAL_INDEX_FOLLOW</option>
+					<option value="noindex, follow">JGLOBAL_NOINDEX_FOLLOW</option>
+					<option value="index, nofollow">JGLOBAL_INDEX_NOFOLLOW</option>
+					<option value="noindex, nofollow">JGLOBAL_NOINDEX_NOFOLLOW</option>
+			</field>
+
+			<field name="author" type="text"
+				label="JAUTHOR"
+				description="JFIELD_METADATA_AUTHOR_DESC"
+				size="20" 
+			/>
+
+			<field name="rights" type="textarea" 
+				label="JFIELD_META_RIGHTS_LABEL"
+				description="JFIELD_META_RIGHTS_DESC" 
+				filter="string"
+				cols="30" 
+				rows="2" 
+			/>
+
+		</fieldset>
+	</fields>
+</form>

@@ -1,0 +1,591 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- xbMaps config.xml v0.1.2.b 4th September 2021 -->
+<config>
+<!-- GENERAL TAB -->				
+	<fieldset name="general"
+		label="XBMAPS_GENERAL" description="XBMAPS_FSET_GENERAL_DESC"
+		>
+  		<field name="showcatsnote" type="note"
+			label="XBMAPS_SHOW_CATSTAGS_NOTE_LABEL"
+			description="XBMAPS_SHOW_CATSTAGS_NOTE_DESC"
+			class="info"
+		/>	
+		<field name="global_use_cats" type="radio"
+ 			default="1"
+			label="XBMAPS_CONFIG_USE_CATS_LABEL" description="XBMAPS_CONFIG_USE_CATS_DESC"
+			class="btn-group btn-group-yesno"
+		>
+			<option value="0" >JNO</option>
+			<option value="1">JYES</option>
+		</field>	
+		<field name="global_use_tags" type="radio"
+ 			default="1"
+			label="XBMAPS_CONFIG_USE_TAGS_LABEL" description="XBMAPS_CONFIG_USE_TAGS_DESC"
+			class="btn-group btn-group-yesno"
+		>
+			<option value="0" >JNO</option>
+			<option value="1">JYES</option>
+		</field>
+		
+ 		<field name="select_note" type="note"
+			label="XBMAPS_SELECT_NOTE_LABEL" description="XBMAPS_SELECT_NOTE_DESC"
+		/>	
+		<field name="centre_latitude" type="xbselectmaparea" 
+			maptype="map"  
+			label="XBMAPS_LATITUDE" description="XBMAPS_MAP_LATITUDE_DESC" 
+			class="inputbox" size="40" 
+			default="52.5"
+		/>		
+		<field name="centre_longitude" type="xbselectmaparea" 
+			maptype="map"  
+			label="XBMAPS_LONGITUDE" description="XBMAPS_MAP_LONGITUDE_DESC" 
+			class="inputbox" size="40" 
+			default="-1.1"
+		/>		
+		<field name="default_zoom" type="xbselectmaparea" 
+			maptype="map"  
+			label="XBMAPS_MAP_ZOOM_LABEL" description="XBMAPS_MAP_ZOOM_DESC" 
+			class="inputbox" size="40" 
+			default="8"
+		/>
+
+	</fieldset>
+	
+<!-- MAPS TAB -->				
+	<fieldset name="maps"  addfieldpath="/administrator/components/com_xbmaps/models/fields"
+		label="XBMAPS_FSET_MAP_SETTINGS_LABEL" 
+		description="XBMAPS_FSET_MAP_SETTINGS_DESC"
+		>	
+ 		<field name="mapcat_note" type="note"
+			label="XBMAPS_MAPCAT_NOTE_LABEL" description="XBMAPS_MAPCAT_NOTE_DESC"
+			showon="global_use_cats:1"
+		/>	
+ 		<field name="mapnocat_note" type="note"
+			label="" description="Categories for maps are disabled on global tab"
+			showon="global_use_cats:0"
+		/>	
+ 		<field name="maps_use_cats" type="radio"
+			label="XBMAPS_USE_MAP_CATS_LABEL" description="XBMAPS_USE_MAP_CATS_DESC"
+			class="btn-group btn-group-yesno"
+			showon="global_use_cats:1"
+			default="1"
+		>
+			<option value="0" >JNO</option>
+			<option value="1">XBMAPS_YES_UNLINKED</option>
+			<option value="2">XBMAPS_YES_LINKED</option>
+		</field>			
+		<field name="def_new_mapcat" type="category"
+			extension="com_xbmaps"
+			label="XBMAPS_MAP_DEFCAT_LABEL" description="XBMAPS_DEFCAT_DESC"
+			showon="global_use_cats:1[AND]maps_use_cats!:0"
+		>			
+			<option value="" >XBMAPS_SELECT_DEFAULT</option>
+		</field>
+		<field name="rootcat_map" type="category"
+			extension="com_xbmaps"
+			label="XBMAPS_MAP_CAT_ROOT_LABEL" description="XBMAPS_CAT_ROOT_DESC"
+			showon="global_use_cats:1[AND]maps_use_cats!:0"
+			default=""
+		>
+			<option value="">JOPTION_SELECT_CATEGORY</option>
+		</field>
+		<field name="incroot_map" type="radio"
+			label="XBMAPS_INC_ROOT_LABEL" description="XBMAPS_INC_ROOT_DESC"
+			class="btn-group btn-group-yesno"
+			showon="global_use_cats:1[AND]maps_use_cats!:0[AND]rootcat_map!:"
+			default="1"
+		>
+			<option value="0" >JNO</option>
+			<option value="1">JYES</option>
+		</field>
+ 		
+ 		<field name="maptag_note" type="note"
+			label="XBMAPS_MAPTAG_NOTE_LABEL" 
+  			showon="global_use_tags:1"
+		/>	
+ 		<field name="mapnotags_note" type="note"
+			label="" description="XBMAPS_NOTAGS_DESC"
+			showon="global_use_tags:0"
+		/>	
+ 		<field name="maps_use_tags" type="radio"
+			label="XBMAPS_USE_MAP_TAGS_LABEL" description="XBMAPS_USE_MAP_TAGS_DESC"
+			class="btn-group btn-group-yesno"
+			showon="global_use_tags:1"
+			default="1"
+		>
+			<option value="0" >JNO</option>
+			<option value="1">JYES</option>
+		</field>	
+ 		
+ 		<field name="maps_note" type="note"
+			label="XBMAPS_MAPS_NOTE_LABEL" description="XBMAPS_MAPS_NOTE_DESC"
+		/>	
+		<field name="map_type" type="list"
+			label="XBMAPS_MAP_TYPE_LABEL" description="XBMAPS_MAP_TYPE_DESC"
+			default="osm" 	
+		>
+			<option value="osm">XBMAPS_OPENSTREETMAP</option>
+			<option value="cycloOSM">XBMAPS_CYLOOSM</option>
+			<option value="opentopomap">XBMAPS_OPENTOPOMAP</option>
+			<option value="ersi_Sat">XBMAPS_ERSISATMAP</option>
+			<option value="wikimedia">XBMAPS_WIKIMEDIA_MAPS</option>
+			<option value="osm_bw">XBMAPS_OPENSTREETMAP_BLACK_WHITE</option>
+			<option value="osm_de">XBMAPS_OPENSTREETMAP_GERMANY</option>
+			<option value="osm_fr">XBMAPS_OPENSTREETMAP_FRANCE</option>
+			<option value="osm_hot">XBMAPS_HUMANITARIAN_OPENSTREETMAP</option>
+		</field>
+		
+		<field name="mapcontrols_note" type="note"
+			label="XBMAPS_DEFAULT_MAP_CONTROLS_LABEL"
+		/>
+<!--
+		<field name="map_type_control" type="radio"  
+			label="XBMAPS_MAP_SHOW_TYPE_CONTROL_LABEL" description="XBMAPS_MAP_SHOW_TYPE_CONTROL_DESC"
+			class="btn-group btn-group-yesno" 
+			default="0" 
+		>
+			<option value="0">JHIDE</option>
+			<option value="1">JSHOW</option>
+		</field>
+		
+		<field name="map_type_position" type="radio"  
+			label="XBMAPS_MAP_TYPE_POSITION_CONTROL_LABEL" description="XBMAPS_MAP_TYPE_POSITION_CONTROL_DESC"
+			class="btn-group btn-group-yesno" 
+			default="0" 
+			showon="map_type_control:1"
+		>
+			<option value="0">Top Left</option>
+			<option value="1">Top Right</option>
+		</field>
+  -->
+  		
+		<field name="map_zoom_control" type="radio"  
+			label="XBMAPS_MAP_SHOW_ZOOM_CONTROL_LABEL" description="XBMAPS_MAP_SHOW_ZOOM_CONTROL_DESC"
+			class="btn-group btn-group-yesno" 
+			default="1" 
+		>
+			<option value="0">JHIDE</option>
+			<option value="1">JSHOW</option>
+		</field>		
+		<field name="map_home_button" type="radio"  
+			label="XBMAPS_MAP_SHOW_HOME_BUTTON_LABEL" description="XBMAPS_MAP_SHOW_HOME_BUTTON_DESC"
+			class="btn-group btn-group-yesno" 
+			showon="map_zoom_control!:0"
+			default="0"
+		>
+			<option value="0">JHIDE</option>
+			<option value="1">JSHOW</option>
+		</field>		
+
+		<field name="map_zoom_wheel" type="radio" 
+			label="XBMAPS_MAP_MOUSE_WHEEL_ZOOM_LABEL" description="XBMAPS_MAP_MOUSE_WHEEL_ZOOM_DESC"
+			class="btn-group btn-group-yesno" 
+			default="0" 
+		>
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+
+		<field name="map_full_screen" type="radio"  
+			label="XBMAPS_MAP_SHOW_FULL_SCREEN_BUTTON_LABEL" description="XBMAPS_MAP_SHOW_FULL_SCREEN_BUTTON_DESC"
+			class="btn-group btn-group-yesno" 
+			default="1" 
+		>
+			<option value="0">JHIDE</option>
+			<option value="1">JSHOW</option>
+		</field>		
+		
+		<field name="map_search" type="radio"  
+			label="XBMAPS_MAP_SHOW_SEARCH_BUTTON_LABEL" description="XBMAPS_MAP_SHOW_SEARCH_BUTTON_DESC"
+			class="btn-group btn-group-yesno" 
+			default="0" 
+		>
+			<option value="0">JHIDE</option>
+			<option value="1">JSHOW</option>
+		</field>		
+
+		<field name="map_current_position" type="radio"  
+			label="XBMAPS_MAP_SHOW_CURRENT_POSITION_LABEL" description="XBMAPS_MAP_SHOW_CURRENT_POSITION_DESC"
+			class="btn-group btn-group-yesno" 
+			default="0" 
+		>
+			<option value="0">JHIDE</option>
+			<option value="1">JSHOW</option>
+		</field>
+		
+		<field name="map_easyprint" type="radio"  
+			label="XBMAPS_MAP_SHOW_PRINT_BUTTON_LABEL" description="XBMAPS_MAP_SHOW_PRINT_BUTTON_DESC"
+			class="btn-group btn-group-yesno" 
+			default="0" 
+		>
+			<option value="0">JHIDE</option>
+			<option value="1">JSHOW</option>
+		</field>
+
+<!-- 
+ 		<field name="mapui_note" type="note"
+			label="XBMAPS_MAP_UI_SETTINGS_LABEL" description="XBMAPS_MAP_UI_SETTINGS_DESC"
+		/>
+ -->
+		
+	</fieldset>
+	
+<!-- MARKERS TAB -->				
+	<fieldset name="markers" 
+		label="XBMAPS_FSET_MARKER_SETTINGS_LABEL" 
+		description="XBMAPS_FSET_MARKER_SETTINGS_DESC"
+		>	
+		
+ 		<field name="markercat_note" type="note"
+			label="XBMAPS_MARKERCAT_NOTE_LABEL" description="XBMAPS_MARKERCAT_NOTE_DESC"
+			showon="global_use_cats:1"
+		/>	
+ 		<field name="markernocat_note" type="note"
+			label="" description="XBMAPS_MARKERNOCAT_NOTE_DESC"
+			showon="global_use_cats:0"
+		/>	
+ 		<field name="markers_use_cats" type="radio"
+			label="XBMAPS_USE_MARKER_CATS_LABEL" description="XBMAPS_USE_MARKER_CATS_DESC"
+			class="btn-group btn-group-yesno"
+			showon="global_use_cats:1"
+			default="0"
+		>
+			<option value="0" >JNO</option>
+			<option value="1">XBMAPS_YES_UNLINKED</option>
+			<option value="2">XBMAPS_YES_LINKED</option>
+		</field>			
+		<field name="def_new_markercat" type="category"
+			extension="com_xbmaps"
+			label="XBMAPS_MARKER_DEFCAT_LABEL" description="XBMAPS_DEFCAT_DESC"
+			showon="global_use_cats:1[AND]markers_use_cats!:0"
+		>			
+			<option value="" >XBMAPS_SELECT_DEFAULT</option>
+		</field>
+		<field name="rootcat_marker" type="category"
+			extension="com_xbmaps"
+			label="XBMAPS_MARKER_CAT_ROOT_LABEL" description="XBMAPS_CAT_ROOT_DESC"
+			showon="global_use_cats:1[AND]markers_use_cats!:0"
+			default=""
+		>
+			<option value="">JOPTION_SELECT_CATEGORY</option>
+		</field>
+		<field name="incroot_marker" type="radio"
+			label="XBMAPS_INC_ROOT_LABEL" description="XBMAPS_INC_ROOT_DESC"
+			class="btn-group btn-group-yesno"
+			showon="global_use_cats:1[AND]markers_use_cats!:0[AND]rootcat_marker!:"
+			default="1"
+		>
+			<option value="0" >JNO</option>
+			<option value="1">JYES</option>
+		</field>
+ 		
+ 		<field name="markertag_note" type="note"
+			label="XBMAPS_MARKERTAG_NOTE_LABEL" 
+  			showon="global_use_tags:1"
+		/>	
+ 		<field name="markernotags_note" type="note"
+			label="" description="XBMAPS_NOTAGS_DESC"
+			showon="global_use_tags:0"
+		/>	
+ 		<field name="markers_use_tags" type="radio"
+			label="XBMAPS_USE_MARKER_TAGS_LABEL" description="XBMAPS_USE_MARKER_TAGS_DESC"
+			class="btn-group btn-group-yesno"
+			showon="global_use_tags:1"
+			default="0"
+		>
+			<option value="0" >JNO</option>
+			<option value="1">JYES</option>
+		</field>	
+		<field name="marker_clustering" type="radio" 
+			label="XBMAPS_MARKER_CLUSTERING_LABEL" description="XBMAPS_MARKER_CLUSTERING_DESC"
+			class="btn-group btn-group-yesno" 
+			default="1" 
+		>
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>	
+		<field name="def_markers_folder" type="folderlist"
+			label="XBMAPS_MARKERS_DEFFOLDER_LABEL" description="XBMAPS_MARKERS_DEFFOLDER_DESC"
+  			directory="images"
+  			hide_none="true" hide_default="true"
+  			recursive="true" required="true"
+  			default="xbmaps/markers"
+  		>
+		</field>
+		<!-- 
+		<field name="def_marker_colour" type="color" 
+			label="XBMAPS_MARKER_DEFCOL_LABEL"
+			description="XBMAPS_MARKER_DEFCOL_DESC" 
+			default="#808" format="hex"
+		/>	
+		 -->
+					
+	</fieldset>
+	
+<!-- TRACKS TAB -->				
+	<fieldset name="Tracks" 
+		label="XBMAPS_FSET_TRACK_SETTINGS_LABEL" 
+		description="XBMAPS_FSET_TRACK_SETTINGS_DESC"
+		>	
+		
+ 		<field name="trackcat_note" type="note"
+			label="XBMAPS_TRACKCAT_NOTE_LABEL" description="XBMAPS_TRACKCAT_NOTE_DESC"
+			showon="global_use_cats:1"
+		/>	
+ 		<field name="tracknocat_note" type="note"
+			label="XBMAPS_TRACKCAT_NOTE_LABEL" description=""
+			showon="global_use_cats:0"
+		/>	
+ 		<field name="tracks_use_cats" type="radio"
+			label="XBMAPS_USE_TRACK_CATS_LABEL" description="XBMAPS_USE_TRACK_CATS_DESC"
+			class="btn-group btn-group-yesno"
+			showon="global_use_cats:1"
+			default="1"
+		>
+			<option value="0" >JNO</option>
+			<option value="1">XBMAPS_YES_UNLINKED</option>
+			<option value="2">XBMAPS_YES_LINKED</option>
+		</field>			
+		<field name="def_new_trackcat" type="category"
+			extension="com_xbmaps"
+			label="XBMAPS_TRACK_DEFCAT_LABEL" description="XBMAPS_DEFCAT_DESC"
+			showon="global_use_cats:1[AND]maps_use_cats!:0"
+		>			
+			<option value="" >XBMAPS_SELECT_DEFAULT</option>
+		</field>
+		<field name="rootcat_track" type="category"
+			extension="com_xbmaps"
+			label="XBMAPS_TRACK_CAT_ROOT_LABEL" description="XBMAPS_CAT_ROOT_DESC"
+			showon="global_use_cats:1[AND]maps_use_cats!:0"
+			default=""
+		>
+			<option value="">JOPTION_SELECT_CATEGORY</option>
+		</field>
+		<field name="incroot_track" type="radio"
+			label="XBMAPS_INC_ROOT_LABEL" description="XBMAPS_INC_ROOT_DESC"
+			class="btn-group btn-group-yesno"
+			showon="global_use_cats:1[AND]maps_use_cats!:0[AND]rootcat_map!:"
+			default="1"
+		>
+			<option value="0" >JNO</option>
+			<option value="1">JYES</option>
+		</field>
+ 		
+ 		<field name="tracktag_note" type="note"
+			label="XBMAPS_TRACKTAG_NOTE_LABEL" description="XBMAPS_TRACKTAG_NOTE_DESC"
+  			showon="global_use_tags:1"
+		/>	
+ 		<field name="tracknotags_note" type="note"
+			label="XBMAPS_TRACKTAG_NOTE_LABEL" description="XBMAPS_TRACKNOTAG_NOTE_DESC"
+			showon="global_use_tags:0"
+		/>	
+ 		<field name="tracks_use_tags" type="radio"
+			label="XBMAPS_USE_TRACK_TAGS_LABEL" description="XBMAPS_USE_TRACK_TAGS_DESC"
+			class="btn-group btn-group-yesno"
+			showon="global_use_tags:1"
+			default="1"
+		>
+			<option value="0" >JNO</option>
+			<option value="1">JYES</option>
+		</field>	
+ 		
+ 		<field name="gpx_note" type="note"
+			label="XBMAPS_TRACKGPX_NOTE_LABEL" description="XBMAPS_TRACKGPX_NOTE_DESC"
+		/>	
+		<field name="def_tracks_folder" type="folderlist"
+			label="XBMAPS_TRACKS_DEFFOLDER_LABEL" description="XBMAPS_TRACKS_DEFFOLDER_DESC"
+  			directory="images"
+  			hide_none="true" hide_default="true"
+  			recursive="true" required="true"
+  			default="xbmaps-tracks"
+  		>
+  			<option value="xbmaps-tracks">XBMAPS_FOLDER_TRACKS</option>
+  			<option value="">XBMAPS_FOLDER_SUBIMAGES</option>
+		</field>
+		<field name="def_track_colour" type="color" 
+			label="XBMAPS_TRACK_DEFCOL_LABEL"
+			description="XBMAPS_TRACK_DEFCOL_DESC" 
+			default="#808" format="hex"
+		/>	
+		
+ 		<field name="trk_disp_note" type="note"
+			label="XBMAPS_TRACKDISP_NOTE_LABEL" description="XBMAPS_TRACKDISP_NOTE_DESC"
+		/>	
+ 		<field name="enable_track_view" type="radio"
+			label="XBMAPS_ENABLE_TRACK_VIEW_LABEL" description="XBMAPS_ENABLE_TRACK_VIEW_DESC"
+			class="btn-group btn-group-yesno"
+			default="1"
+		>
+			<option value="0" >JNO</option>
+			<option value="1">JYES</option>
+		</field>	
+		<field name="track_map_type" type="list"
+			label="XBMAPS_TRACKMAP_TYPE_LABEL" description="XBMAPS_TRACKMAP_TYPE_DESC"
+			showon="enable_track_view:1"
+			default="osm" 	
+		>
+			<option value="osm">XBMAPS_OPENSTREETMAP</option>
+			<option value="cycloOSM">XBMAPS_CYLOOSM</option>
+			<option value="opentopomap">XBMAPS_OPENTOPOMAP</option>
+			<option value="ersi_Sat">XBMAPS_ERSISATMAP</option>
+			<option value="wikimedia">XBMAPS_WIKIMEDIA_MAPS</option>
+			<option value="map_bw">XBMAPS_OPENSTREETMAP_BLACK_WHITE</option>
+			<option value="map_de">XBMAPS_OPENSTREETMAP_GERMANY</option>
+			<option value="map_fr">XBMAPS_OPENSTREETMAP_FRANCE</option>
+			<option value="map_hot">XBMAPS_HUMANITARIAN_OPENSTREETMAP</option>
+		</field>
+			<field name="show_track_title" type="radio"  
+				label="XBMAPS_TRACK_TITLE_LABEL" description="XBMAPS_TRACK_TITLE_DESC"
+				class="btn-group btn-group-yesno" 
+				showon="enable_track_view:1"
+				default="1"
+			>
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field name="show_track_desc" type="radio"  
+				label="XBMAPS_TRACK_DESC_LABEL" description="XBMAPS_TRACK_DESC_DESC"
+				class="btn-group btn-group-yesno" 
+				showon="enable_track_view:1"
+				default="1"
+			>
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field name="track_desc_position" type="radio"  
+				label="XBMAPS_TRACK_DESCPOS_LABEL" description="XBMAPS_TRACK_DESCPOS_DESC"
+				class="btn-group btn-group-yesno" 
+				showon="enable_track_view:1[AND]show_track_desc:1"
+				default="below"
+			>
+				<option value="below">XBMAPS_BELOW</option>
+				<option value="above">XBMAPS_ABOVE</option>
+			</field>
+
+
+		
+	</fieldset>
+	
+<!-- REGISTRATION TAB -->				
+	<fieldset name="reg"
+		label="XBMAPS_BEER_LBL"
+		description="XBMAPS_BEER_DESC"
+	>
+	  	<field name="beernote" type="note"
+			label="XBMAPS_BEER_NOTE"
+			description="XBMAPS_BEER_LINK"
+			class="info"
+		/>	
+		<field name="roger_beer" type="password"
+			label="XBMAPS_BEER_FIELD" description="XBMAPS_BEER_FIELD_DESC"
+			default=""
+		/>	
+		<field name="penpont" type="hidden"
+			default="$2y$10$DeCwB16giLjgL7HgM1RDSeHROFs7QQef2dBQ9jEKehiTGj05jbonK" 
+		/>		
+	</fieldset>		
+
+<!-- META TAB -->
+	<fieldset name="meta"
+		label="XBMAPS_METADATA"
+		description="XBMAPS_METADATA_DESC"
+	>
+		<field name="metanote1" type="note"
+			description="XBMAPS_META_NOTE1"
+			class="alert"
+		/>
+
+		<field name="show_rights" type="radio"
+			label="XBMAPS_META_SHOW_RIGHTS_LABEL" description="XBMAPS_META_SHOW_RIGHTS_DESC"
+ 			class="btn-group btn-group-yesno"
+			default="0"
+		>
+			<option value="0" >JNO</option>
+			<option value="1">JYES</option>
+		</field>
+		
+		<field name="def_rights" type="text" 
+			label="XBMAPS_META_DEF_RIGHTS_LABEL" description="XBMAPS_META_DEF_RIGHTS_DESC" 
+			size="150" showon="show_rights:1"
+			default="XBMAPS_META_DEF_RIGHTS_VALUE" 
+		/>	
+		<field name="show_desc" type="radio"
+			label="XBMAPS_META_SHOW_DESC_LABEL" description="XBMAPS_META_SHOW_DESC_DESC"
+ 			class="btn-group btn-group-yesno"
+			default="0"
+		>
+			<option value="0" >JNO</option>
+			<option value="1">JYES</option>
+		</field>
+		
+		<field name="show_author" type="radio"
+			label="XBMAPS_SHOW_AUTHOR_LABEL" description="XBMAPS_SHOW_AUTHOR_DESC"
+ 			class="btn-group btn-group-yesno"
+			default="0"
+		>
+			<option value="0" >JNO</option>
+			<option value="1">JYES</option>
+		</field>
+		
+		<field name="def_author"  type="text" 
+			label="XBMAPS_META_DEF_AUTHOR_LABEL" description="XBMAPS_META_DEF_AUTHOR_DESC" 
+			size="150" 
+			showon="show_author:1"
+			default="" 
+		/>	
+			
+		<field name="metanote2" type="note"
+			description="XBMAPS_META_KETWORDS_NOTE"
+			class="alert"
+		/>
+		<field name="show_keywords" type="radio"
+			label="XBMAPS_SHOW_KEYWORDS_LABEL"
+			description="XBMAPS_SHOW_KEYWORDS_DESC"
+ 			class="btn-group btn-group-yesno"
+			default="0"
+		>
+			<option value="0" >JNO</option>
+			<option value="1">JYES</option>
+		</field>
+		
+		<field name="tags_keywords" type="radio"
+			label="XBMAPS_META_TAGS2KEYWORDS_LABEL" description="XBMAPS_META_TAGS2KEYWORDS_DESC"
+ 			class="btn-group btn-group-yesno"
+ 			showon="show_keywords:1[AND]global_use_tags:1"
+			default="0"
+			>
+			<option value="0" >JNO</option>
+			<option value="1">JYES</option>
+		</field>	
+		<field name="metanote3" type="note"
+			description="XBMAPS_META_GEN_NOTE"
+			class="alert"
+		/>
+		<field name="show_generator" type="list"
+			label="XBMAPS_META_SHOW_GEN_LABEL" description="XBMAPS_META_SHOW_GEN_DESC"
+			default="1"
+		>
+			<option value="0" >JHIDE</option>
+			<option value="1">XBMAPS_META_GEN_USE_VAL</option>
+			<option value="2">XBMAPS_META_GEN_USE_DEF</option>
+		</field>
+		
+		<field name="def_generator" type="text" 
+			label="XBMAPS_META_GEN_LABEL" description="XBMAPS_META_GEN_DESC" 
+			default="Use system default" 
+			size="100" showon="show_generator:1"
+		/>	
+		
+	</fieldset>
+
+<!-- PERMISSIONS TAB -->
+	<fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC" >
+		
+		<field name="rules" type="rules" 
+			label="JCONFIG_PERMISSIONS_LABEL" 
+			component="com_xbmaps" 
+			filter="rules" validate="rules" section="component" />
+	</fieldset>
+
+	
+</config>

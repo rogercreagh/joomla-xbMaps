@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.1.2.c 9th September 2021
+ * @version 0.2.1 13th September 2021
  * @filesource admin/helpers/xbmaphelper.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -673,7 +673,11 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 			$o[] = '{ startIconUrl: \''.Uri::root().'/media/com_xbmaps/images/start.png\',';
 			$o[] = ' endIconUrl: \''.Uri::root().'/media/com_xbmaps/images/end.png\',';
 			$o[] = ' shadowUrl: \'\', iconSize: [24, 25],iconAnchor: [12, 25]}';
-			$o[] = '}).on(\'loaded\',function(e) {e.target.bindPopup(\'<b>'.addslashes($trk->title).'</b><br />Distance: \'+parseInt(e.target.get_distance())/1000+\' km<br />Speed: \'+e.target.get_moving_speed().toFixed(2)+\' km/hr<br />Time: \'+e.target.get_duration_string(e.target.get_moving_time())+\'<br />Climbed: \'+Math.trunc(e.target.get_elevation_gain())+\' m\')});';
+			$o[] = '}).on(\'loaded\',function(e) {e.target.bindPopup(\'<b>'.addslashes($trk->title).'</b><br />Distance: \'+parseInt(e.target.get_distance())/1000+\' km<br />\'';
+			$o[] = '+((e.target.get_moving_time() > 0) ? \'Speed: \'+e.target.get_moving_speed().toFixed(2)+\' km/hr<br />Time: \'+e.target.get_duration_string(e.target.get_moving_time())+\'<br />\' : \'\')';
+			$o[] = '+((e.target.get_elevation_gain() >5) ? \'Climbed: \'+Math.trunc(e.target.get_elevation_gain())+\' m\' : \'\'))});';
+			
+//			$o[] = '}).on(\'loaded\',function(e) {e.target.bindPopup(\'<b>'.addslashes($trk->title).'</b><br />Distance: \'+parseInt(e.target.get_distance())/1000+\' km<br />Speed: \'+e.target.get_moving_speed().toFixed(2)+\' km/hr<br />Time: \'+e.target.get_duration_string(e.target.get_moving_time())+\'<br />Climbed: \'+Math.trunc(e.target.get_elevation_gain())+\' m\')});';
 			
 			$aliaslist .= $cleanalias.',';
 		}

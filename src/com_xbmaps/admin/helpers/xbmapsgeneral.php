@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.1.2.c 10th September 2021
+ * @version 0.2.1 13th September 2021
  * @filesource admin/helpers/xbmapsgeneral.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -141,11 +141,11 @@ class XbmapsGeneral extends ContentHelper {
 		$db->setQuery($query);
 		$list = $db->loadObjectList();
 		foreach ($list as $i=>$item){
-			if ($isAdmin) {
+			if (($isAdmin) || ($item->mstate == 1)) {
 				$ilink = Route::_($link . $item->id);
 				
 			} else {
-				
+				$ilink = '';
 			}
 			$item->display = '';
 			//if not published highlight in yellow if admin or grey if view

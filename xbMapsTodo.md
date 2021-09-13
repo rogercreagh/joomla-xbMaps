@@ -1,6 +1,6 @@
 ###  xbMaps ToDo List
 
-version: 0.5.0
+version: 0.3.0
 
 #### From Roadmap
 

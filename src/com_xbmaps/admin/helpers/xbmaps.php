@@ -78,9 +78,9 @@ class XbmapsHelper extends ContentHelper {
 					$vName == 'marker'
 					);
 			JHtmlSidebar::addEntry(
-					Text::_('XBMAPS_ICONMENU_CATSINFO'),
-					'index.php?option=com_xbmaps&view=catsinfo',
-					$vName == 'listcats'
+					Text::_('XBMAPS_ICONMENU_CATSLIST'),
+					'index.php?option=com_xbmaps&view=catslist',
+					$vName == 'catslist'
 					);
 			JHtmlSidebar::addEntry(
 					Text::_('XBMAPS_ICONMENU_NEWCAT'),

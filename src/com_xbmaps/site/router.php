@@ -72,11 +72,11 @@ class XbmapsRouter extends JComponentRouterBase {
 //		    case 'markerlist':
 //		    	$vars['view'] = 'markerlist';
 //		    	break;
-		    case 'categories':
-				$vars['view'] = 'categories';
+		    case 'catlist':
+				$vars['view'] = 'catlist';
 				break;
-			case 'tags':
-				$vars['view'] = 'tags';
+			case 'taglist':
+				$vars['view'] = 'taglist';
 				break;
 			case 'map':
 			    $vars['view'] = 'map';

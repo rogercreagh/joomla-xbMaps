@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" version="3.1" method="upgrade">
 	<name>xbmaps</name>
-	<creationDate>17th September 2021</creationDate>
+	<creationDate>18th September 2021</creationDate>
 	<version>0.3.0.a</version>
 	<author>Roger C-O</author>
 	<authorEmail>roger@crosborne.uk</authorEmail>
@@ -95,7 +95,7 @@
 				alt="xbmaps/Tracks">
 					xbmaps_iconmenu_tracks
 			</menu>
-			<menu link="option=com_xbmaps&amp;view=mcategories"
+			<menu link="option=com_xbmaps&amp;view=catslist"
 				view="catsinfo" img="class:categories"
 				alt="xbmaps/CatsInfo">
 					xbmaps_iconmenu_catslist

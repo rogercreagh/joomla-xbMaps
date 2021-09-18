@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.3.0.a 17th September 2021
+ * @version 0.3.0.a 18th September 2021
  * @filesource admin/views/catslist/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -22,9 +22,9 @@ $listDirn      = $this->escape($this->state->get('list.direction'));
 
 $cateditlink = 'index.php?option=com_categories&task=category.edit&id=';
 $catlink = 'index.php?option=com_xbmaps&view=catinfo&id=';
-$mapslink = 'index.php?option=com_xbmaps&view=maps&catid=';
-$mrkslink = 'index.php?option=com_xbmaps&view=markers&catid=';
-$trkslink = 'index.php?option=com_xbmaps&view=tracks&catid=';
+$maplink = 'index.php?option=com_xbmaps&view=maps&catid=';
+$mrklink = 'index.php?option=com_xbmaps&view=markers&catid=';
+$trklink = 'index.php?option=com_xbmaps&view=tracks&catid=';
 
 $prevext ='';
 //TODO ----------
@@ -41,16 +41,13 @@ $prevext ='';
 	
 	<div>
 		<h3><?php echo Text::_('XBMAPS_CATSPAGE_TITLE'); ?></h3>
-		<?php  if(Factory::getSession()->get('xbbooks_ok',false) != false) : ?>
-	      	<p class="xbnote"><?php echo Text::_('COM_XBFILMS_CATSPAGE_SUBTITLE'); ?></p>
-      	<?php endif; ?>
-      	<p class="xb095"><?php echo Text::_('COM_XBFILMS_CATSPAGE_SUBTITLE2'); ?></p>
+      	<p class="xb095"><?php echo Text::_('XBMAPS_CATSPAGE_SUBTITLE'); ?></p>
      </div>
 	
 	<div class="pull-right span2">
 		<p style="text-align:right;">
 			<?php $fnd = $this->pagination->total;
-			echo $fnd .' '. Text::_(($fnd==1)?'XBCULTURE_CATEGORY':'XBCULTURE_CATEGORIES').' '.Text::_('XBCULTURE_FOUND'); ?>
+			echo $fnd .' '. Text::_(($fnd==1)?'XBMAPS_CATEGORY':'XBMAPS_CATEGORIES').' '.Text::_('XBMAPS_FOUND'); ?>
 		</p>
 	</div>
 	<div class="clearfix"></div>
@@ -77,22 +74,19 @@ $prevext ='';
 				<?php echo Text::_('JSTATUS'); ?>
 			</th>
 			<th>
-				<?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_CAPCATEGORY', 'path', $listDirn, $listOrder );?>
+				<?php echo HTMLHelper::_('grid.sort', 'XBMaPS_CAPCATEGORY', 'path', $listDirn, $listOrder );?>
 			</th>
 			<th>
-				<?php echo Text::_('XBCULTURE_CAPDESCRIPTION') ;?>
+				<?php echo Text::_('XBMAPS_CAPDESCRIPTION') ;?>
 			</th>
 			<th>
-				<?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_CAPFILMS', 'bcnt', $listDirn, $listOrder );?>
+				<?php echo HTMLHelper::_('grid.sort', 'XBMAPS_MAPS', 'mapcnt', $listDirn, $listOrder );?>
 			</th>
 			<th>
-				<?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_CAPREVIEWS', 'rcnt', $listDirn, $listOrder );?>
+				<?php echo HTMLHelper::_('grid.sort', 'XBMAPS_MARKERS', 'mrkcnt', $listDirn, $listOrder );?>
 			</th>
 			<th>
-				<?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_CAPPEOPLE', 'pcnt', $listDirn, $listOrder );?>
-			</th>
-			<th>
-				<?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_CAPCHARACTERS', 'chcnt', $listDirn, $listOrder );?>
+				<?php echo HTMLHelper::_('grid.sort', 'XBMAPS_TRACKS', 'trkcnt', $listDirn, $listOrder );?>
 			</th>
 			<th class="nowrap hidden-tablet hidden-phone" style="width:45px;">
 				<?php echo HTMLHelper::_('grid.sort', 'JGRID_HEADING_ID', 'id', $listDirn, $listOrder );?>
@@ -109,21 +103,6 @@ $prevext ='';
 		<tbody>
 			<?php foreach ($this->items as $i => $item) :
 				$canCheckin = $user->authorise('core.manage', 'com_checkin');
-				if ($prevext != $item->extension) {
-					switch ($item->extension) {
-						case 'com_xbfilms':
-							$section = 'xbFilms Categories <span class="xbnit xb09"> - for Films and Film Reviews</span>' ;
-							break;
-						case 'com_xbpeople':
-							$section = 'xbPeople Categories <span class="xbnit xb09"> - grey counts all xbCulture components, coloured counts books only</span>';
-							break;
-						default:
-							$section = $item->extension;
-							break;
-					}
-					echo '<tr><td colspan="10" class="xb12 xbbold">'.$section.'</td></tr>';
-					$prevext = $item->extension;
-				}
 			?>
 			<tr class="row<?php echo $i % 2; ?>" >	
 					<td class="center hidden-phone">
@@ -134,7 +113,7 @@ $prevext ='';
 						<?php echo HTMLHelper::_('jgrid.published', $item->published, $i, 'category.', false, 'cb'); ?>
 							<?php if ($item->note!=''){ ?>
 								<span class="btn btn-micro active hasTooltip" title="" 
-									data-original-title="<?php echo '<b>'.Text::_( 'XBCULTURE_CAPNOTE' ) .'</b>: '. htmlentities($item->note); ?>">
+									data-original-title="<?php echo '<b>'.Text::_( 'XBMAPS_NOTE' ) .'</b>: '. htmlentities($item->note); ?>">
 									<i class="icon- xbinfo"></i>
 								</span>
 							<?php } else {?>
@@ -145,14 +124,14 @@ $prevext ='';
  				<td>
 					<?php if ($item->checked_out) {
     					$couname = Factory::getUser($item->checked_out)->username;
-    					echo HTMLHelper::_('jgrid.checkedout', $i, Text::_('XBCULTURE_OPENED_BY').': '.$couname, $item->checked_out_time, 'categories.', false);
+    					echo HTMLHelper::_('jgrid.checkedout', $i, Text::_('XBMAPS_OPENED_BY').': '.$couname, $item->checked_out_time, 'categories.', false);
     				} ?>
 					<span class="xbnote"> 
  					<?php 	$path = substr($item->path, 0, strrpos($item->path, '/'));
 						$path = str_replace('/', ' - ', $path);
 						echo $path.($path!='') ? ' - <br/>' : ''; ?>
 						</span>    				
-    					<a href="<?php echo JRoute::_($cvlink . $item->id); ?>" title="Details" 
+    					<a href="<?php echo JRoute::_($catlink . $item->id); ?>" title="Details" 
     						class="label label-success" style="padding:2px 8px;">
     						<span class="xb11"><?php echo $item->title; ?></span>
     					</a>
@@ -161,36 +140,23 @@ $prevext ='';
     				<p class="xb09"><?php echo $item->description; ?></p>
     			</td>
     			<td align="center">
-   					<?php if ($item->bcnt >0) : ?> 
-   						<span class="badge bkcnt">
-   							<a href="<?php echo $bvlink.$item->id;?>"><?php echo $item->bcnt; ?>
+   					<?php if ($item->mapcnt >0) : ?> 
+   						<span class="badge mapcnt">
+   							<a href="<?php echo $maplink.$item->id;?>"><?php echo $item->mapcnt; ?>
    						</a></span>
    					<?php endif; ?>
    				</td>
     			<td align="center">
-   					<?php if ($item->rcnt >0) : ?> 
-   						<span class="badge revcnt">
-   							<a href="<?php echo $rvlink.$item->id;?>"><?php echo $item->rcnt; ?>
+   					<?php if ($item->mrkcnt >0) : ?> 
+   						<span class="badge mrkcnt">
+   							<a href="<?php echo $mrklink.$item->id;?>"><?php echo $item->mrkcnt; ?>
    						</a></span>
    					<?php endif; ?>
    				</td>
     			<td align="center">
-   					<?php if ($item->pcnt >0) : ?> 
+   					<?php if ($item->trkcnt >0) : ?> 
    						<span class="badge">
-   							<a href="<?php echo $pplink.$item->id;?>"><?php echo $item->pcnt; ?>
-   						</a></span>
-   						<span class="badge percnt">
-   							<a href="<?php echo $pvlink.$item->id;?>"><?php echo $item->bpcnt; ?>
-   						</a></span>
-   					<?php endif; ?>
-   				</td>
-    			<td align="center">
-   					<?php if ($item->chcnt >0) : ?>
-   						<span class="badge">
-   							<a href="<?php echo $chplink.$item->id;?>"><?php echo $item->chcnt; ?>  						
-   						</a></span>
-   						<span class="badge chcnt">
-   							<a href="<?php echo $chvlink.$item->id;?>"><?php echo $item->bchcnt; ?>  						
+   							<a href="<?php echo $trklink.$item->id;?>"><?php echo $item->trkcnt; ?>
    						</a></span>
    					<?php endif; ?>
    				</td>
@@ -209,5 +175,5 @@ $prevext ='';
 	<?php echo HTMLHelper::_('form.token'); ?>
 </form>
 <div class="clearfix"></div>
-<p><?php echo XbfilmsGeneral::credit();?></p>
+<p><?php echo XbmapsGeneral::credit();?></p>
 

@@ -63,6 +63,6 @@ class XbmapsViewCatslist extends JViewLegacy {
 
     protected function setDocument() {
     	$document = Factory::getDocument();
-    	$document->setTitle(Text::_('XBMAPS_TTILE_CATSLIST'));
+    	$document->setTitle(strip_tags(Text::_('XBMAPS_TTILE_CATSLIST')));
     }
 }

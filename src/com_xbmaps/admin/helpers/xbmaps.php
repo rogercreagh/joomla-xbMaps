@@ -173,6 +173,7 @@ class XbmapsHelper extends ContentHelper {
 	 * @return array of objects or null if not found
 	 */
 	public static function getCat($catid) {
+	    if ($catid==0) return null;
 		$db = Factory::getDBO();
 		$query = $db->getQuery(true);
 		$query->select('*')

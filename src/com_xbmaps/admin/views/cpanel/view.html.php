@@ -39,7 +39,7 @@ class XbmapsViewCpanel extends JViewLegacy {
 		$this->trackCnts = $this->get('TrackCounts');
 		$this->markerCnts = $this->get('MarkerCounts');
 		
-		$cat = XbmapsHelper::getCat($this->params->get('def_new_mapcat'));
+		$cat = XbmapsHelper::getCat($this->params->get('def_new_mapcat','0'));
 		$this->mapcat = (is_null($cat)) ? '<i>not set</i>' : '<b>'.$cat->title.'</b>';
 		$cat = XbmapsHelper::getCat($this->params->get('def_new_markercat'));
 		$this->markercat = (is_null($cat)) ? '<i>not set</i>' : '<b>'.$cat->title.'</b>';

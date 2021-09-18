@@ -74,19 +74,20 @@ $prevext ='';
 				<?php echo Text::_('JSTATUS'); ?>
 			</th>
 			<th>
-				<?php echo HTMLHelper::_('grid.sort', 'XBMaPS_CAPCATEGORY', 'path', $listDirn, $listOrder );?>
+				<?php echo HTMLHelper::_('grid.sort', 'XBMaPS_CATEGORY', 'path', $listDirn, $listOrder );?>&nbsp;
+				<?php echo HTMLHelper::_('grid.sort', 'XBMAPS_TITLE', 'title', $listDirn, $listOrder );?>
 			</th>
 			<th>
-				<?php echo Text::_('XBMAPS_CAPDESCRIPTION') ;?>
+				<?php echo Text::_('XBMAPS_DESCRIPTION') ;?>
 			</th>
 			<th>
-				<?php echo HTMLHelper::_('grid.sort', 'XBMAPS_MAPS', 'mapcnt', $listDirn, $listOrder );?>
+				<?php echo HTMLHelper::_('grid.sort', ucfirst('XBMAPS_MAPS'), 'mapcnt', $listDirn, $listOrder );?>
 			</th>
 			<th>
-				<?php echo HTMLHelper::_('grid.sort', 'XBMAPS_MARKERS', 'mrkcnt', $listDirn, $listOrder );?>
+				<?php echo HTMLHelper::_('grid.sort', ucfirst('XBMAPS_MARKERS'), 'mrkcnt', $listDirn, $listOrder );?>
 			</th>
 			<th>
-				<?php echo HTMLHelper::_('grid.sort', 'XBMAPS_TRACKS', 'trkcnt', $listDirn, $listOrder );?>
+				<?php echo HTMLHelper::_('grid.sort', ucfirst('XBMAPS_TRACKS'), 'trkcnt', $listDirn, $listOrder );?>
 			</th>
 			<th class="nowrap hidden-tablet hidden-phone" style="width:45px;">
 				<?php echo HTMLHelper::_('grid.sort', 'JGRID_HEADING_ID', 'id', $listDirn, $listOrder );?>
@@ -127,9 +128,18 @@ $prevext ='';
     					echo HTMLHelper::_('jgrid.checkedout', $i, Text::_('XBMAPS_OPENED_BY').': '.$couname, $item->checked_out_time, 'categories.', false);
     				} ?>
 					<span class="xbnote"> 
- 					<?php 	$path = substr($item->path, 0, strrpos($item->path, '/'));
-						$path = str_replace('/', ' - ', $path);
-						echo $path.($path!='') ? ' - <br/>' : ''; ?>
+ 					<?php if ($listOrder=='path') {
+ 					    $prefix = '';
+ 					    $slashes = substr_count($item->path,'/');
+ 					    if ($slashes>0) {
+     					    $prefix .= '<span style="padding-left:'.($slashes*15).'px">';
+     					    $prefix .= '└─&nbsp;</span>';					        
+ 					    }
+ 					} else {
+                      $prefix = substr($item->path,0,strrpos($item->path, '/')).' ';
+                    }
+                      echo $prefix;
+                      ?>
 						</span>    				
     					<a href="<?php echo JRoute::_($catlink . $item->id); ?>" title="Details" 
     						class="label label-success" style="padding:2px 8px;">

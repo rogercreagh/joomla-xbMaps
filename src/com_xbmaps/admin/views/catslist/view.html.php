@@ -49,10 +49,10 @@ class XbmapsViewCatslist extends JViewLegacy {
         
         //index.php?option=com_categories&view=category&layout=edit&extension=com_xbfilms
         if ($canDo->get('core.create') > 0) {
-        	ToolbarHelper::custom('catlist.categorynew','new','','XBMAPS_NEWCAT',false);
+        	ToolbarHelper::custom('catslist.categorynew','new','','XBMAPS_NEWCAT',false);
         }
         if ($canDo->get('core.admin')) {
-        	ToolbarHelper::editList('catlist.categoryedit', 'XBFILMS_EDITCAT');       	
+        	ToolbarHelper::editList('catslist.categoryedit', 'XBMAPS_EDITCAT');       	
          }
                   
          if ($canDo->get('core.admin')) {

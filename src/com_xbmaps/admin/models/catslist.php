@@ -68,7 +68,7 @@ class XbmapsModelCatslist extends JModelList {
 		}
 		
 		// Add the list ordering clause.
-		$orderCol       = $this->state->get('list.ordering', 'title');
+		$orderCol       = $this->state->get('list.ordering', 'path');
 		$orderDirn      = $this->state->get('list.direction', 'ASC');		
 		$query->order('extension, '.$db->escape($orderCol.' '.$orderDirn));
 		

@@ -98,7 +98,7 @@
 			<menu link="option=com_xbmaps&amp;view=mcategories"
 				view="catsinfo" img="class:categories"
 				alt="xbmaps/CatsInfo">
-					xbmaps_iconmenu_catsinfo
+					xbmaps_iconmenu_catslist
 			</menu>
 			<menu link="option=com_categories&amp;extension=xbmaps"
 				view="catsinfo" img="class:categories"

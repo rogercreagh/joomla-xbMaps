@@ -29,7 +29,7 @@ $trkslink = 'index.php?option=com_xbmaps&view=tracks&catid=';
 $prevext ='';
 //TODO ----------
 ?>
-<form action="index.php?option=com_xbmaps&view=fcategories" method="post" id="adminForm" name="adminForm">
+<form action="index.php?option=com_xbmaps&view=catslist" method="post" id="adminForm" name="adminForm">
 	<?php if (!empty( $this->sidebar)) : ?>
         <div id="j-sidebar-container" class="span2">
 			<?php echo $this->sidebar; ?>
@@ -40,7 +40,7 @@ $prevext ='';
 	<?php endif;?>
 	
 	<div>
-		<h3><?php echo Text::_('COM_XBFILMS_CATSPAGE_TITLE'); ?></h3>
+		<h3><?php echo Text::_('XBMAPS_CATSPAGE_TITLE'); ?></h3>
 		<?php  if(Factory::getSession()->get('xbbooks_ok',false) != false) : ?>
 	      	<p class="xbnote"><?php echo Text::_('COM_XBFILMS_CATSPAGE_SUBTITLE'); ?></p>
       	<?php endif; ?>

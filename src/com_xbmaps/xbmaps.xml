@@ -100,11 +100,13 @@
 				alt="xbmaps/CatsInfo">
 					xbmaps_iconmenu_catslist
 			</menu>
+			<!-- 
 			<menu link="option=com_categories&amp;extension=xbmaps"
 				view="catsinfo" img="class:categories"
 				alt="xbmaps/Categories">
 					xbmaps_iconmenu_categories
 			</menu>
+			 -->
 			<menu link="option=com_xbmaps&amp;view=tagslist"
 				view="tagslist" img="class:xbmaps-tags"
 				alt="xbmaps/Tags">

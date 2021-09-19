@@ -45,7 +45,7 @@ class XbmapsViewCatslist extends JViewLegacy {
     protected function addToolBar() {
         $canDo = XbmapsHelper::getActions();
         
-        ToolbarHelper::title(Text::_( 'XBMAPS' ).': '.Text::_( 'XBMAPS_TITLE_CATSLIST' ), 'folder' );
+        ToolbarHelper::title(Text::_( 'XBMAPS_TITLE_CATSLIST' ), '' );
         
         //index.php?option=com_categories&view=category&layout=edit&extension=com_xbfilms
         if ($canDo->get('core.create') > 0) {

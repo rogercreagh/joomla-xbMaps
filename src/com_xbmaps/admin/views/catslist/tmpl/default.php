@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.3.0.a 18th September 2021
+ * @version 0.3.0.e 19th September 2021
  * @filesource admin/views/catslist/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -74,7 +74,7 @@ $prevext ='';
 				<?php echo Text::_('JSTATUS'); ?>
 			</th>
 			<th>
-				<?php echo HTMLHelper::_('grid.sort', 'XBMaPS_CATEGORY', 'path', $listDirn, $listOrder );?>&nbsp;
+				<?php echo HTMLHelper::_('grid.sort', 'XBMAPS_HIERARCHY', 'path', $listDirn, $listOrder );?>&nbsp;
 				<?php echo HTMLHelper::_('grid.sort', 'XBMAPS_TITLE', 'title', $listDirn, $listOrder );?>
 			</th>
 			<th>
@@ -165,7 +165,7 @@ $prevext ='';
    				</td>
     			<td align="center">
    					<?php if ($item->trkcnt >0) : ?> 
-   						<span class="badge">
+   						<span class="badge trkcnt">
    							<a href="<?php echo $trklink.$item->id;?>"><?php echo $item->trkcnt; ?>
    						</a></span>
    					<?php endif; ?>

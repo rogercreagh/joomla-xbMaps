@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.1.0.m 24th July 2021
+ * @version 0.3.0.e 19th September 2021
  * @filesource admin/helpers/xbmaps.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -96,6 +96,11 @@ class XbmapsHelper extends ContentHelper {
 					Text::_('XBMAPS_ICONMENU_TAGSLIST'),
 					'index.php?option=com_xbmaps&view=tagslist',
 					$vName == 'listtags'
+					);
+			JHtmlSidebar::addEntry(
+					Text::_('XBMAPS_ICONMENU_TAGS'),
+					'index.php?option=com_tags',
+					$vName == 'tags'
 					);
 			JHtmlSidebar::addEntry(
 					Text::_('XBMAPS_ICONMENU_OPTIONS'),

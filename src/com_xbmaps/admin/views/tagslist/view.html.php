@@ -45,7 +45,7 @@ class XbmapsViewTagslist extends JViewLegacy {
     protected function addToolBar() {
         $canDo = XbmapsHelper::getActions();
         
-        ToolbarHelper::title(Text::_( 'XBMAPS' ).': '.Text::_( 'XBMAPS_TITLE_TAGSLIST' ), 'tags' );
+        ToolbarHelper::title(Text::_( 'XBMAPS_TITLE_TAGSLIST' ), '' );
         
         if ($canDo->get('core.create') > 0) {
         	ToolbarHelper::addNew('tagslist.tagnew');

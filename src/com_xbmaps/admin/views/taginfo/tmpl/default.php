@@ -9,6 +9,9 @@
  ******/
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\HTML\HTMLHelper;
+
 $item = $this->item;
 $telink = 'index.php?option=com_tags&task=tag.edit&id=';
 $xblink = 'index.php?option=com_xbmaps';
@@ -22,37 +25,45 @@ $xblink = 'index.php?option=com_xbmaps';
 <?php else : ?>
 	<div id="j-main-container" class="span12">
 <?php endif;?>
+		<div style="max-width:1080px;">
 		<form action="index.php?option=com_xbmaps&view=tag" method="post" id="adminForm" name="adminForm">
 		<div class="row-fluid xbmb8">
 			<div class= "span3">
-				  <h3><?php echo JText::_('XBMAPS_TAG_ITEMS'); ?></h3>
+				  <h3><?php echo Text::_('XBMAPS_TAG_ITEMS'); ?></h3>
+				  <p class="xbnit"><?php Text::_('XBMAPS_TAGINFO_INFO'); ?></p>
 			</div>
 			<div class="span5">
 				<a href="<?php echo $telink.$item->id; ?>" class="badge badge-info">
 					<h2><?php echo $item->title; ?></h2>
 				</a>
 			</div>
-            <div class="span2">
-                <p><?php echo '<i>'.JText::_('XBMAPS_ALIAS').'</i>: '.$item->alias; ?></p>
-            </div>
-			<div class= "span2">
-				<p><?php echo '<i>'.JText::_('JGRID_HEADING_ID').'</i>: '.$item->id; ?></p>
+			<div class="span4">
+				<div class="row-fluid">
+		            <div class="span7">
+		                <p><?php echo '<i>'.Text::_('XBMAPS_ALIAS').'</i>: '.$item->alias; ?></p>
+		            </div>
+					<div class= "span5">
+						<p><?php echo '<i>'.Text::_('JGRID_HEADING_ID').'</i>: '.$item->id; ?></p>
+					</div>
+				</div>
+				<div class="row-fluid xbmb8">
+					<div class= "span6">
+							<p><i><?php echo Text::_('XBMAPS_TAG').' '.Text::_('XBMAPS_HIERARCHY'); ?>: </i>
+							<?php $path = str_replace('/', ' - ', $item->path);
+								echo 'root - '.$path; ?>
+							</p>
+					</div>
+					<div class= "span6">
+						<?php if (!empty($item->note)) : ?>
+							<p><i><?php echo Jtext::_('XBMAPS_ADMIN_NOTE'); ?>:</i>  <?php echo $item->note; ?></p>
+						<?php endif; ?>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="row-fluid xbmb8">
-			<div class= "span6">
-					<p class="xb11"><i><?php echo JText::_('XBMAPS_TAG').' '.Jtext::_('XBMAPS_HEIRARCHY'); ?>: </i>
-					<?php $path = str_replace('/', ' - ', $item->path);
-						echo 'root - '.$path; ?>
-					</p>
-			</div>
-			<div class= "span6">
-				<p><i><?php echo Jtext::_('XBMAPS_ADMIN_NOTE'); ?>:</i>  <?php echo $item->note; ?></p>
-			</div>
-		</div>
-		<div class="row-fluid xbmb8">
 			<div class= "span2">
-				<p><i><?php echo JText::_('XBMAPS_DESCRIPTION'); ?>:</i></p>
+				<p><i><?php echo Text::_('XBMAPS_DESCRIPTION'); ?>:</i></p>
 			</div>
    			<div class="span10">
 			<?php if ($item->description != '') : ?>
@@ -60,7 +71,7 @@ $xblink = 'index.php?option=com_xbmaps';
     				<?php echo $item->description; ?>
     			</div>
     		<?php else: ?>
-    			<p><i><?php echo JText::_('XBMAPS_NO_DESCRIPTION'); ?></i></p>
+    			<p><i>(<?php echo Text::_('XBMAPS_NO_DESCRIPTION'); ?>)</i></p>
 			<?php endif; ?>
 			</div>
 		</div>
@@ -71,7 +82,7 @@ $xblink = 'index.php?option=com_xbmaps';
 					<?php if ($item->mapcnt > 0 ) : ?>
 						<ul>
 						<?php foreach ($item->maps as $i=>$bk) { 
-							echo '<li><a href="'.$xblink.'&view=map&task=map.edit&id='.$bk->bid.'">'.$bk->title.'</a></li> ';
+							echo '<li><a href="'.$xblink.'&view=map&task=map.edit&id='.$bk->id.'">'.$bk->title.'</a></li> ';
 						} ?>				
 						</ul>
 					<?php endif; ?>
@@ -81,7 +92,7 @@ $xblink = 'index.php?option=com_xbmaps';
 					<?php if ($item->mrkcnt > 0 ) : ?>
 						<ul>
 						<?php foreach ($item->markers as $i=>$rev) { 
-							echo '<li><a href="'.$xblink.'&view=marker&task=marker.edit&id='.$rev->rid.'">'.$rev->title.'</a></li> ';
+							echo '<li><a href="'.$xblink.'&view=marker&task=marker.edit&id='.$rev->id.'">'.$rev->title.'</a></li> ';
 						} ?>				
 						</ul>
 					<?php endif; ?>
@@ -94,7 +105,7 @@ $xblink = 'index.php?option=com_xbmaps';
 					<?php if ($item->trkcnt > 0 ) : ?>
 						<ul>
 						<?php foreach ($item->tracks as $i=>$per) { 
-							echo '<li><a href="'.$xblink.'&view=track&task=track.edit&id='.$per->pid.'">'.$per->title.'</a></li> ';
+							echo '<li><a href="'.$xblink.'&view=track&task=track.edit&id='.$per->id.'">'.$per->title.'</a></li> ';
 						} ?>				
 						</ul>
 					<?php endif; ?>
@@ -115,13 +126,14 @@ $xblink = 'index.php?option=com_xbmaps';
 		</div>
 		<input type="hidden" name="task" value="" />
 		<input type="hidden" name="tid" value="<?php echo $item->id;?>" />
-		<?php echo JHtml::_('form.token'); ?>
+		<?php echo HTMLHelper::_('form.token'); ?>
 		</form>
+		</div>
 	</div>
 </div>
 <div class="clearfix"></div>
 <p class="xbtc xbmt16">
 	<a href="<?php echo $xblink; ?>&view=tagslist" class="btn btn-small">
-		<?php echo JText::_('XBMAPS_TAGLIST'); ?></a>
+		<?php echo Text::_('XBMAPS_TAGLIST'); ?></a>
 </div>
 <p><?php echo XbmapsGeneral::credit();?></p>

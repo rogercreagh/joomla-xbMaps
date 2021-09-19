@@ -1,6 +1,6 @@
 /*******
  * @package xbMaps
- * @version 0.1.1.h 22nd August 2021
+ * @version 0.3.0.e 19th September 2021
  * @filesource media/css/xbmaps.css
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -84,6 +84,10 @@ ul.nav-tabs {
 	background-color: #aaa !important;
 	color: #fff !important;
 }
+
+.mapcnt { background-color: #deefef !important;  }           
+.trkcnt { background-color: #efdeef !important;  }      
+.mrkcnt { background-color: #efdfdf !important;  }           
 
 /* boxes with rounded corner border and gradient shading */
 .xbbox {

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.1.2.a 30th August 2021
+ * @version 0.3.0.e 19th September 2021
  * @filesource admin/tables/marker.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -23,7 +23,7 @@ class XbmapsTableMarker extends JTable
 	public function __construct(&$db) {
 		$this->setColumnAlias('published', 'state');
 		parent::__construct('#__xbmaps_markers', 'id', $db);
-		Tags::createObserver($this, array('typeAlias' => 'com_xbmaps.track'));
+		Tags::createObserver($this, array('typeAlias' => 'com_xbmaps.marker'));
 	}
 	
 	public function check() {

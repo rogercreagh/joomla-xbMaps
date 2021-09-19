@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbMaps admin/models/forms/filter_catslist.xml v0.3.0.a 17th September 2021 -->
+<!-- xbFilms admin/models/forms/filter_tagslist.xml v0.3.0.d 19th September 2021 -->
 <form>
 	<fields name="filter" addfieldpath="administrator/components/com_xbmaps/models/fields">
 		<field
@@ -21,9 +21,9 @@
 		<field
 			name="branch"
 			type="sql"
-			label="XBMAPS_CATBRANCH_LABEL"
-			description="XBMAPS_CATBRANCH_DESC"
-			query="SELECT DISTINCT t.id, t.path, t.alias AS alias, t.title AS title FROM `#__categories` AS t WHERE t.extension = 'com_xbmaps' ORDER BY t.title"
+			label="XBMAPS_TAGBRANCH_LABEL"
+			description="XBMAPS_TAGBRANCH_DESC"
+			query="SELECT DISTINCT t.id, t.path, t.alias AS alias, t.title AS title FROM `#__tags` AS t LEFT JOIN `#__contentitem_tag_map` AS m ON m.tag_id = t.id WHERE m.type_alias IN ('com_xbfilms.film','com_xbpeople.person','com_xbpeople.character','com_xbfilms.review') ORDER BY t.title"
   			key_field="id"
   			value_field="title"
 			onchange="this.form.submit();"

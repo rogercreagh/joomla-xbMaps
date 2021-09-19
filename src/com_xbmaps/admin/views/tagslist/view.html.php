@@ -1,8 +1,8 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.3.0.d 17th September 2021
- * @filesource admin/views/catslist/view.html.php
+ * @version 0.3.0.d 19th September 2021
+ * @filesource admin/views/tagslist/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -10,10 +10,10 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Toolbar\ToolbarHelper;
-use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Factory;
 
-class XbmapsViewCatslist extends JViewLegacy {
+class XbmapsViewTagslist extends JViewLegacy {
     
     function display($tpl = null) {
         // Get data from the model
@@ -31,8 +31,8 @@ class XbmapsViewCatslist extends JViewLegacy {
         	
             return false;
         }
-                
-        XbmapsHelper::addSubmenu('catslist');
+              
+        XbmapsHelper::addSubmenu('tagslist');
         $this->sidebar = JHtmlSidebar::render();
         
         // Set the toolbar
@@ -45,24 +45,27 @@ class XbmapsViewCatslist extends JViewLegacy {
     protected function addToolBar() {
         $canDo = XbmapsHelper::getActions();
         
-        ToolbarHelper::title(Text::_( 'XBMAPS' ).': '.Text::_( 'XBMAPS_TITLE_CATSLIST' ), 'folder' );
+        ToolbarHelper::title(Text::_( 'XBMAPS' ).': '.Text::_( 'XBMAPS_TITLE_TAGSLIST' ), 'tags' );
         
-        //index.php?option=com_categories&view=category&layout=edit&extension=com_xbfilms
         if ($canDo->get('core.create') > 0) {
-        	ToolbarHelper::custom('catslist.categorynew','new','','XBMAPS_NEWCAT',false);
+        	ToolbarHelper::addNew('tagslist.tagnew');
         }
+        if ($canDo->get('core.edit') || ($canDo->get('core.edit.own'))) {
+        	ToolbarHelper::editList('tagslist.tagedit');
+        }
+        
+        ToolbarHelper::custom(); //spacer
+        
         if ($canDo->get('core.admin')) {
-        	ToolbarHelper::editList('catslist.categoryedit', 'XBMAPS_EDITCAT');       	
-         }
-                  
-         if ($canDo->get('core.admin')) {
         	ToolbarHelper::preferences('com_xbmaps');
         }
-        ToolbarHelper::help( '', false,'https://crosborne.uk/xbmaps/doc?tmpl=component#admin-cats' );
+        ToolbarHelper::help( '', false,'https://crosborne.uk/xbmaps/doc?tmpl=component#admin-tags' );
     }
-
-    protected function setDocument() {
+    
+    protected function setDocument()
+    {
     	$document = Factory::getDocument();
-    	$document->setTitle(strip_tags(Text::_('XBMAPS_TITLE_CATSLIST')));
+    	$document->setTitle(strip_tags(Text::_('XBMAPS_TTILE_TAGSLIST')));
     }
+    
 }

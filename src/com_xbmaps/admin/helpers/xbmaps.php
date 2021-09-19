@@ -93,8 +93,8 @@ class XbmapsHelper extends ContentHelper {
 					$vName == 'categories'
 					);
 			JHtmlSidebar::addEntry(
-					Text::_('XBMAPS_ICONMENU_TAGSINFO'),
-					'index.php?option=com_xbmaps&view=tagsinfo',
+					Text::_('XBMAPS_ICONMENU_TAGSLIST'),
+					'index.php?option=com_xbmaps&view=tagslist',
 					$vName == 'listtags'
 					);
 			JHtmlSidebar::addEntry(

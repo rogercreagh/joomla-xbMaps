@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" version="3.1" method="upgrade">
 	<name>xbmaps</name>
-	<creationDate>18th September 2021</creationDate>
-	<version>0.3.0.c</version>
+	<creationDate>19th September 2021</creationDate>
+	<version>0.3.0.d</version>
 	<author>Roger C-O</author>
 	<authorEmail>roger@crosborne.uk</authorEmail>
 	<authorUrl>www.crosborne.uk</authorUrl>
@@ -96,7 +96,7 @@
 					xbmaps_iconmenu_tracks
 			</menu>
 			<menu link="option=com_xbmaps&amp;view=catslist"
-				view="catsinfo" img="class:categories"
+				view="catslist" img="class:categories"
 				alt="xbmaps/CatsInfo">
 					xbmaps_iconmenu_catslist
 			</menu>
@@ -105,10 +105,10 @@
 				alt="xbmaps/Categories">
 					xbmaps_iconmenu_categories
 			</menu>
-			<menu link="option=com_xbmaps&amp;view=tags"
-				view="tags" img="class:xbmaps-tags"
+			<menu link="option=com_xbmaps&amp;view=tagslist"
+				view="tagslist" img="class:xbmaps-tags"
 				alt="xbmaps/Tags">
-					xbmaps_iconmenu_tagsinfo
+					xbmaps_iconmenu_tagslist
 			</menu>
 
 		</submenu>

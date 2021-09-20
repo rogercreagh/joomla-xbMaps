@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- xbMaps site/models/forms/filter_tags.xml v0.3.0.f 20th September 2021 -->
+<form>
+	<fields name="filter" addfieldpath="administrator/components/com_xbmaps/models/fields">
+		<field
+			name="search"
+			type="text"
+			label="COM_CONTENT_FILTER_SEARCH_DESC"
+			description="XBMAPS_SEARCH_DESC"
+			hint="JSEARCH_FILTER"
+		/>
+		<field
+			name="branch"
+			type="sql"
+			label="XBMAPS_BRANCH_LABEL"
+			description="XBMAPS_BRANCH_DESC"
+			query="SELECT DISTINCT t.id, t.path, t.alias AS alias, t.title AS title FROM `#__tags` AS t LEFT JOIN `#__contentitem_tag_map` AS m ON m.tag_id = t.id WHERE m.type_alias IN ('com_xbfilms.film','com_xbpeople.person','com_xbpeople.character','com_xbfilms.review') ORDER BY t.title"
+  			key_field="alias"
+  			value_field="title"
+			onchange="this.form.submit();"
+			>
+			<option value="">XBMAPS_ENTIRE_TREE</option>
+		</field>
+			<field name="tagtype"
+				type="radio"
+				default="" required="true"
+				label="XBMAPS_TAGGROUP_LABEL"
+				description="XBMAPS_TAGGROUP_DESC"
+	  			class="btn-group btn-small"				>
+					<option value="" onchange="this.form.submit();">XBMAPS_ALLTAGS</option>
+					<option value="film" onchange="this.form.submit();">XBMAPS_TAGMAPS</option>
+					<option value="person" onchange="this.form.submit();">XBMAPS_TAGMARKERS</option>
+					<option value="review" onchange="this.form.submit();">XBMAPS_TAGTRACKS</option>
+			</field>	
+	</fields>
+</form>

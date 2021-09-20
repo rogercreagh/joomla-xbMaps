@@ -212,7 +212,7 @@ class XbmapsHelperRoute
 	public static function getCategoriesRoute() {
 		$items  = self::getItems();
 		foreach ($items as $item) {
-			if (isset($item->query['view']) && $item->query['view'] === 'categories' &&
+			if (isset($item->query['view']) && $item->query['view'] === 'catlist' &&
 				(empty($item->query['layout']) || $item->query['layout'] === 'default')) {
 					return $item->id;
 			}

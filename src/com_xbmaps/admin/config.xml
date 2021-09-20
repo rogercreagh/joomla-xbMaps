@@ -48,6 +48,15 @@
 			class="inputbox" size="40" 
 			default="8"
 		/>
+ 		<field name="hide_empty" type="radio"
+			label="Hide empty fields"
+			description="Hide empty fields in site views or show labels/placeholders for them. Showing empty fields will make the display consistent between items, but wastes space if you are not using some fields"
+ 			class="btn-group btn-group-yesno"
+			default="0"
+			>
+				<option value="0" >JSHOW</option>
+				<option value="1">JHIDE</option>
+		</field>	
 
 	</fieldset>
 	

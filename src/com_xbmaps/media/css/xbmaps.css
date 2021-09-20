@@ -85,11 +85,17 @@ ul.nav-tabs {
 	color: #fff !important;
 }
 
-.mapcnt { background-color: #deefef !important;  }           
-.trkcnt { background-color: #efdeef !important;  }      
-.mrkcnt { background-color: #efdfdf !important;  }           
+.mapcnt, .mrkcnt, .trkcnt {
+    border: solid 1px #31708f;
+      color: #31708f !important;
+}
 
-/* boxes with rounded corner border and gradient shading */
+.mapcnt { background-color: #deefef !important;  }           
+.mrkcnt { background-color: #deefde !important;  }      
+.trkcnt { background-color: #efdeef !important;  }      
+.othcnt { background-color: #efefef !important;  }    
+
+/* boxes with rounded corner bor,fder and gradient shading */
 .xbbox {
 	padding: 8px 7px 7px 15px;
 	margin: 0 0 8px;

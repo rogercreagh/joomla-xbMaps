@@ -23,7 +23,7 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 
 $itemid = XbmapsHelperRoute::getCategoriesRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
-$catlink = 'index.php?option=com_xbmaps&view=catinfo'.$itemid.'&id=';
+$catlink = 'index.php?option=com_xbmaps&view=category'.$itemid.'&id=';
 
 $itemid = XbmapsHelperRoute::getMapsRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
@@ -50,11 +50,20 @@ $prevext='';
 		<table class="table table-striped table-hover" style="table-layout:fixed;" id="xbcats">	
 			<thead>
 				<tr>
-					<th><?php echo JHTML::_('grid.sort', 'XBMAPS_TITLE', 'title', $listDirn, $listOrder );?></th>
+					<th>
+						<?php echo HTMLHelper::_('grid.sort', 'XBMAPS_CATEGORY', 'path', $listDirn, $listOrder );?>&nbsp;
+						<?php echo HTMLHelper::_('grid.sort', 'XBMAPS_TITLE', 'title', $listDirn, $listOrder );?>
+					</th>
 					<th class="hidden-phone"><?php echo JText::_('XBMAPS_DESCRIPTION');?></th>
-					<th class="center" style="width:50px;"><?php echo JHTML::_('grid.sort', 'XBMAPS_MAPS', 'mapcnt', $listDirn, $listOrder );?></th>
-					<th class="center" style="width:50px;"><?php echo JHTML::_('grid.sort', 'XBMAPS_MARKERS', 'trkcnt', $listDirn, $listOrder );?></th>
-					<th class="center" style="width:50px;"><?php echo JHTML::_('grid.sort', 'XBMAPS_TRACKS', 'mrkcnt', $listDirn, $listOrder );?></th>
+					<th class="center" style="width:50px;">
+						<?php echo HTMLHelper::_('grid.sort', 'XBMAPS_MAPS', 'mapcnt', $listDirn, $listOrder );?>
+					</th>
+					<th class="center" style="width:50px;">
+						<?php echo HTMLHelper::_('grid.sort', 'XBMAPS_MARKERS', 'trkcnt', $listDirn, $listOrder );?>
+					</th>
+					<th class="center" style="width:50px;">
+						<?php echo HTMLHelper::_('grid.sort', 'XBMAPS_TRACKS', 'mrkcnt', $listDirn, $listOrder );?>
+					</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -79,17 +88,17 @@ $prevext='';
 					<td class="hidden-phone"><?php echo $item->description; ?></td>
 	    			<td class="center">
 	   					<?php if ($item->mapcnt >0) : ?> 
-	   						<a href="<?php echo JRoute::_($maplink.$item->id); ?>" class="badge bkcnt"><?php echo $item->mapcnt; ?></a>
+	   						<a href="<?php echo JRoute::_($maplink.$item->id); ?>" class="badge mapcnt"><?php echo $item->mapcnt; ?></a>
 	   					<?php endif; ?>
 	   				</td>
 	    			<td class="center">
 	   					<?php if ($item->mrkcnt >0) : ?> 
-	   						<span class="badge revcnt"><?php echo $item->mrkcnt; ?></span>
+	   						<span class="badge percnt"><?php echo $item->mrkcnt; ?></span>
 	   					<?php endif; ?>
 	   				</td>
 	    			<td class="center">
 	   					<?php if ($item->trkcnt >0) : ?> 
-	   						<a href="<?php echo JRoute::_($trklink.$item->id); ?>" class="badge percnt"><?php echo $item->trkcnt; ?></a>
+	   						<a href="<?php echo JRoute::_($trklink.$item->id); ?>" class="badge trkcnt"><?php echo $item->trkcnt; ?></a>
 	   					<?php endif; ?>
 	   				</td>
 				</tr>

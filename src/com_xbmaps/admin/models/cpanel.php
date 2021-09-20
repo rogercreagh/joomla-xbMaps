@@ -66,9 +66,9 @@ class XbmapsModelCpanel extends JModelList {
 		$db = $this->getDbo();
 		$query = $db->getQuery(true);
 		$query->select('a.*')
-		->select('(SELECT COUNT(*) FROM #__xbmaps_maps AS m WHERE m.catid=a.id) AS mapcatcnt')
-		->select('(SELECT COUNT(*) FROM #__xbmaps_markers AS mk WHERE mk.catid=a.id) AS mrkcatcnt')
-		->select('(SELECT COUNT(*) FROM #__xbmaps_tracks AS tk WHERE tk.catid=a.id) AS trkcatcnt')
+		->select('(SELECT COUNT(*) FROM #__xbmaps_maps AS m WHERE m.catid=a.id) AS mapcnt')
+		->select('(SELECT COUNT(*) FROM #__xbmaps_markers AS mk WHERE mk.catid=a.id) AS mrkcnt')
+		->select('(SELECT COUNT(*) FROM #__xbmaps_tracks AS tk WHERE tk.catid=a.id) AS trkcnt')
 		->from('#__categories AS a')
 		->where('a.extension = '.$db->quote("com_xbmaps"))
 		->order($db->quoteName('path') . ' ASC');
@@ -127,21 +127,18 @@ class XbmapsModelCpanel extends JModelList {
 		$tags = $db->loadObjectList();
 		foreach ($tags as $k=>$t) {
 			if (!key_exists($t->tagname, $result['tags'])) {
-				$result['tags'][$t->tagname]=array('id' => $t->id, 'tmapcnt' =>0, 'tmrkcnt' => 0, 'trkcnt' => 0, 'tagcnt'=>0);
+				$result['tags'][$t->tagname]=array('id' => $t->id, 'mapcnt' =>0, 'mrkcnt' => 0, 'trkcnt' => 0, 'tagcnt'=>0);
 			}
 			$result['tags'][$t->tagname]['tagcnt'] += $t->tagcnt;
 			switch ($t->type_alias) {
 				case 'com_xbmaps.map' :
-					$result['tags'][$t->tagname]['tmapcnt'] += $t->tagcnt;
+					$result['tags'][$t->tagname]['mapcnt'] += $t->tagcnt;
 					break;
 				case 'com_xbmaps.marker':
-					$result['tags'][$t->tagname]['tmrkcnt'] += $t->tagcnt;
+					$result['tags'][$t->tagname]['mrkcnt'] += $t->tagcnt;
 					break;
 				case 'com_xbmaps.track':
-					$result['tags'][$t->tagname]['ttrkcnt'] += $t->tagcnt;
-					break;
-				case 'com_xbbooks.review':
-					$result['tags'][$t->tagname]['trcnt'] += $t->tagcnt;
+					$result['tags'][$t->tagname]['trkcnt'] += $t->tagcnt;
 					break;
 			}
 		}

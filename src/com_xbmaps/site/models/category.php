@@ -66,7 +66,7 @@ class XbmapsModelCategory extends JModelItem {
 					->from('#__categories AS c');
 					$query->join('LEFT','#__xbmaps_markers AS b ON b.catid = c.id');
 					$query->where('c.id='.$item->id);
-					$query->order('b,title');
+					$query->order('b.title');
 					$db->setQuery($query);
 					$item->markers = $db->loadObjectList();
 				} else {

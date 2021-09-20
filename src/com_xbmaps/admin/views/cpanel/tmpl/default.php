@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.1.2.d 10th September 2021
+ * @version 0.3.0.g 20th September 2021
  * @filesource admin/views/cpanel/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -242,17 +242,67 @@ use Joomla\CMS\Language\Text;
 					<div class="xbbox xbboxyell">
 						<h2 class="xbtitle">
 							<span class="badge badge-info pull-right"><?php //echo Text::_('XBMAPS_TOTAL').' '. $this->trackStates['total']; ?></span> 
-							<?php echo ucfirst(Text::_('XBMAPS_CATEGORIES')); ?>
+							<?php echo Text::_('XBMAPS_CATEGORIES'); ?>
 						</h2>
+				<div class="row-striped">
+					<div class="row-fluid">
+						<div class="span6">
+							<span class="badge badge-success xbmr10"><?php echo $this->catStates['published']; ?></span>
+							<?php echo Text::_('XBMAPS_PUBLISHED'); ?>
+						</div>
+						<div class="span6">
+							<span class="badge <?php echo $this->catStates['unpublished']>0 ?'badge-yellow' : ''; ?> xbmr10"><?php echo $this->catStates['unpublished']; ?></span>
+							<?php echo Text::_('XBMAPS_UNPUBLISHED'); ?>
+						</div>
+					</div>
+ 					<div class="row-fluid">
+						<div class="span6">
+							<span class="badge <?php echo $this->catStates['archived']>0 ?'badge-warning' : ''; ?> xbmr10"><?php echo $this->catStates['archived']; ?></span>
+							<?php echo Text::_('XBMAPS_ARCHIVED'); ?>
+						</div>
+						<div class="span6">
+							<span class="badge <?php echo $this->catStates['trashed']>0 ?'badge-important' : ''; ?> xbmr10"><?php echo $this->catStates['trashed']; ?></span>
+							<?php echo Text::_('XBMAPS_TRASHED'); ?>
+						</div>
+					</div>
+                 </div>
+                 <h3 class="xbsubtitle"><?php  echo Text::_('XBMAPS_COUNT_CATS'); ?><span class="xb09 xbnorm"> <i>(<?php echo Text::_('XBMAPS_MAPS_MRKS_TRKS'); ?>)</i></span></h3>
+                 <div class="row-striped">
+					<div class="row-fluid">
+						    <?php echo $this->catlist; ?>
+					</div>
+				</div>
 					</div>            			
             	</div>
             	<div class="span6">
-					<div class="xbbox xbboxgrey">
-						<h2 class="xbtitle">
-							<span class="badge badge-info pull-right"><?php //echo Text::_('XBMAPS_TOTAL').' '. $this->trackStates['total']; ?></span> 
-							<?php echo ucfirst(Text::_('XBMAPS_TAGS')); ?>
-						</h2>
-					</div>            			
+			<div class="xbbox xbboxgrey">
+				<h2 class="xbtitle">
+					<span class="badge badge-info pull-right"><?php echo ($this->tags['tagcnts']['mapcnt'] + $this->tags['tagcnts']['mrkcnt']  + $this->tags['tagcnts']['trkcnt']) ; ?></span> 
+					<?php echo Text::_('XBMAPS_TAGS'); ?>
+				</h2>
+				<div class="row-striped">
+					<div class="row-fluid">
+                      <?php echo 'Films: ';
+						echo '<span class="bkcnt badge  pull-right">'.$this->tags['tagcnts']['mapcnt'].'</span>'; ?>
+                    </div>  
+                    <div class="row-fluid">
+                      <?php echo 'People: ';
+						echo '<span class="percnt badge pull-right">'.$this->tags['tagcnts']['mrkcnt'].'</span>'; ?>
+                    </div>  
+                    <div class="row-fluid">
+                      <?php echo 'Reviews: ';
+						echo '<span class="revcnt badge pull-right">'.$this->tags['tagcnts']['trkcnt'].'</span>'; ?>
+                    </div>  
+                 </div>
+				 <h3 class="xbsubtitle"><?php echo Text::_('XBMAPS_COUNT_TAGS'); ?><span class="xb09 xbnorm"><i>(<?php echo Text::_('XBMAPS_MAPS_MRKS_TRKS'); ?>)</i></span></h3>
+              <div class="row-fluid">
+                 <div class="row-striped">
+					<div class="row-fluid">
+						<?php echo $this->taglist; ?>
+                   </div>
+                 </div>
+			</div>
+		</div>
             	</div>
             	</div>
            	</div>

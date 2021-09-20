@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.1.2.d 10th September 2021
+ * @version 0.3.0.g 20th September 2021
  * @filesource admin/views/cpanel/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -39,6 +39,10 @@ class XbmapsViewCpanel extends JViewLegacy {
 		$this->trackCnts = $this->get('TrackCounts');
 		$this->markerCnts = $this->get('MarkerCounts');
 		
+		$this->catStates = $this->get('CatStates');
+		$this->cats = $this->get('Cats');
+		$this->tags = $this->get('Tagcnts');
+		
 		$cat = XbmapsHelper::getCat($this->params->get('def_new_mapcat','0'));
 		$this->mapcat = (is_null($cat)) ? '<i>not set</i>' : '<b>'.$cat->title.'</b>';
 		$cat = XbmapsHelper::getCat($this->params->get('def_new_markercat'));
@@ -51,7 +55,37 @@ class XbmapsViewCpanel extends JViewLegacy {
 		
 		$params = ComponentHelper::getParams('com_xbmaps');
 		
-		$this->addToolbar();
+		// Check for errors.
+		if (count($errors = $this->get('Errors'))) {
+		    throw new Exception(implode("\n", $errors), 500);
+		}
+		
+		$clink='index.php?option=com_xbmaps&view=catinfo&id=';
+		$this->catlist = '<ul class="inline">';
+		foreach ($this->cats as $key=>$value) {
+		    $this->catlist .= '<li>';
+		    if ($value['level']==1) {
+		        $this->catlist .= '&nbsp;&nbsp;&nbsp;';
+		    } else {
+		        $this->catlist .= str_repeat('-&nbsp;', $value['level']-1);
+		    }
+		    $lbl = $value['published']==1 ? 'label-success' : '';
+		    $this->catlist .='<a class="label label-success" href="'.$clink.$value['id'].'">'.$value['title'].'</a>&nbsp;(<i>'.$value['mapcnt'].':'.$value['mrkcnt'].':'.$value['trkcnt'].'</i>) ';
+	        $this->catlist .= '</li>';
+		}
+		$this->catlist .= '</ul>';
+		
+		$tlink='index.php?option=com_xbmaps&view=taginfo&id=';
+		$this->taglist = '<ul class="inline">';
+		foreach ($this->tags['tags'] as $key=>$value) {
+		    //       	$result[$key] = $t->tagcnt;
+		    $this->taglist .= '<li><a class="label label-info" href="'.$tlink.$value['id'].'">'.$key.'</a>&nbsp;(<i>'.$value['mapcnt'].':'.$value['mrkcnt'].':'.$value['trkcnt'].')</i></li> ';
+		}
+		$this->taglist .= '</ul>';
+		//        $result['taglist'] = trim($result['taglist'],', ');
+		
+	
+	   $this->addToolbar();
 		XbmapsHelper::addSubmenu('cpanel');
 		$this->sidebar = JHtmlSidebar::render();
 		

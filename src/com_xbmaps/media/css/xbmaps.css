@@ -85,7 +85,7 @@ ul.nav-tabs {
 	color: #fff !important;
 }
 
-.mapcnt, .mrkcnt, .trkcnt {
+.mapcnt, .mrkcnt, .trkcnt, .othcnt {
     border: solid 1px #31708f;
       color: #31708f !important;
 }

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.3.0.d 19th September 2021
+ * @version 0.3.0.h 21st September 2021
  * @filesource admin/views/tagslist/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -12,6 +12,7 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Component\ComponentHelper;
 
 class XbmapsViewTagslist extends JViewLegacy {
     
@@ -24,6 +25,13 @@ class XbmapsViewTagslist extends JViewLegacy {
         $this->activeFilters = $this->get('ActiveFilters');
         
         $this->searchTitle = $this->state->get('filter.search');
+        
+        $this->params = ComponentHelper::getParams('com_xbmaps');
+        //we are not bothered whether cats and tags are linked or not so a simple && will suffice
+        $this->global_use_tags = $this->params->get('global_use_tags');
+        $this->maptags = $this->global_use_tags && $this->params->get('maps_use_tags');
+        $this->mrktags = $this->global_use_tags && $this->params->get('markers_use_tags');
+        $this->trktags = $this->global_use_tags && $this->params->get('tracks_use_tags');
         
         // Check for errors.
         if (count($errors = $this->get('Errors'))) {

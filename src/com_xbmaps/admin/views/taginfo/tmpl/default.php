@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.3.0.e 19th September 2021
+ * @version 0.3.0.h 21st September 2021
  * @filesource admin/views/tag/tmpl/edit.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -25,6 +25,29 @@ $xblink = 'index.php?option=com_xbmaps';
 <?php else : ?>
 	<div id="j-main-container" class="span12">
 <?php endif;?>
+	<?php if ($this->global_use_tags == 0) : ?>
+		<div class="j-toggle-main alert alert-error">
+	      <button type="button" class="close" data-dismiss="alert">×</button>
+			<h4 class="alert-heading"><?php echo Text::_('XBMAPS_TAGS_GLOBAL_DISABLED'); ?></h4> 
+			<div class="alert-message"><?php echo Text::_('XBMAPS_TAGS_GLOBAL_DISABLED_INFO'); ?></div>      
+	      </div>
+		<div>
+	<?php  elseif (!$this->maptags || !$this->mrktags || !$this->trktags) : ?>
+		<div class="j-toggle-main alert alert-warn">
+	      <button type="button" class="close" data-dismiss="alert">×</button>
+			<h4 class="alert-heading">
+				<?php if(!$this->maptags) echo 'Map '; ?>
+				<?php if(!$this->mrktags) echo 'Marker '; ?>
+				<?php if(!$this->trktags) echo 'Track '; ?>
+				<?php echo Text::_('XBMAPS_TAGSTYPE_DISABLED'); ?>
+			</h4> 
+			<div class="alert-message"><?php echo Text::_('XBMAPS_TAGSTYPE_DISABLED_INFO'); ?>
+			</div>      
+	      </div>
+		<div>
+	<?php endif; ?>
+	
+
 		<div style="max-width:1080px;">
 		<form action="index.php?option=com_xbmaps&view=tag" method="post" id="adminForm" name="adminForm">
 		<div class="row-fluid xbmb8">
@@ -77,7 +100,7 @@ $xblink = 'index.php?option=com_xbmaps';
 		</div>
 		<div class="row-fluid">
 			<div class= "span6">
- 				<div class="xbbox xbboxcyan">
+ 				<div class="xbbox <?php echo $this->maptags ? 'xbboxcyan' : 'xbboxgrey'; ?>">
 					<p><?php echo $item->mapcnt; ?> maps tagged <span class="label label-info"><?php echo $item->title; ?></span></p>
 					<?php if ($item->mapcnt > 0 ) : ?>
 						<ul>
@@ -87,7 +110,7 @@ $xblink = 'index.php?option=com_xbmaps';
 						</ul>
 					<?php endif; ?>
 				</div>
-				<div class="xbbox xbboxmag">
+				<div class="xbbox <?php echo $this->mrktags ? 'xbboxmag' : 'xbboxgrey'; ?>">
 					<p><?php echo $item->mrkcnt; ?> markers tagged <span class="label label-info"><?php echo $item->title; ?></span></p>
 					<?php if ($item->mrkcnt > 0 ) : ?>
 						<ul>
@@ -100,7 +123,7 @@ $xblink = 'index.php?option=com_xbmaps';
 			</div>
 
             <div class= "span6">
-   				<div class="xbbox xbboxgrn">
+   				<div class="xbbox <?php echo $this->trktags ? 'xbboxgrn' : 'xbboxgrey'; ?>">
 					<p><?php echo $item->trkcnt; ?> tracks tagged <span class="label label-info"><?php echo $item->title; ?></span></p>
 					<?php if ($item->trkcnt > 0 ) : ?>
 						<ul>

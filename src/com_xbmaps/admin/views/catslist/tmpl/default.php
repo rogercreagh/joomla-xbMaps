@@ -38,7 +38,26 @@ $prevext ='';
 	<?php else : ?>
         <div id="j-main-container">
 	<?php endif;?>
-	
+	<?php if ($this->global_use_cats == 0) : ?>
+		<div class="j-toggle-main alert alert-error">
+	      <button type="button" class="close" data-dismiss="alert">×</button>
+			<h4 class="alert-heading"><?php echo Text::_('XBMAPS_CATS_GLOBAL_DISABLED'); ?></h4> 
+			<div class="alert-message"><?php echo Text::_('XBMAPS_CATS_GLOBAL_DISABLED_INFO'); ?>      
+	      </div>
+		</div>
+	<?php  elseif (!$this->mapcats || !$this->mrkcats || !$this->trkcats) : ?>
+		<div class="j-toggle-main alert alert-warn">
+	      <button type="button" class="close" data-dismiss="alert">×</button>
+			<h4 class="alert-heading">
+				<?php if(!$this->mapcats) echo 'Map '; ?>
+				<?php if(!$this->mrkcats) echo 'Marker '; ?>
+				<?php if(!$this->trkcats) echo 'Track '; ?>
+				<?php echo Text::_('XBMAPS_CATSTYPE_DISABLED'); ?>
+			</h4> 
+			<div class="alert-message"><?php echo Text::_('XBMAPS_CATS_GLOBAL_DISABLED_INFO'); ?>
+	      	</div>
+		</div>
+	<?php endif; ?>
 	<div>
 		<h3><?php echo Text::_('XBMAPS_CATSPAGE_TITLE'); ?></h3>
       	<p class="xb095"><?php echo Text::_('XBMAPS_CATSPAGE_SUBTITLE'); ?></p>
@@ -65,11 +84,11 @@ $prevext ='';
 	<?php else : ?>	
 
 <table class="table table-striped table-hover">
-<thead>
-<tr>
-					<th class="hidden-phone center" style="width:25px;">
-						<?php echo HTMLHelper::_('grid.checkall'); ?>
-					</th>
+	<thead>
+		<tr>
+			<th class="hidden-phone center" style="width:25px;">
+				<?php echo HTMLHelper::_('grid.checkall'); ?>
+			</th>
 			<th width="5%">
 				<?php echo Text::_('JSTATUS'); ?>
 			</th>
@@ -80,13 +99,13 @@ $prevext ='';
 			<th>
 				<?php echo Text::_('XBMAPS_DESCRIPTION') ;?>
 			</th>
-			<th>
+			<th<?php if (!$this->mapcats) echo ' class="xbdim"';?> style="text-align:center;">
 				<?php echo HTMLHelper::_('grid.sort', ucfirst('XBMAPS_MAPS'), 'mapcnt', $listDirn, $listOrder );?>
 			</th>
-			<th>
+			<th<?php if (!$this->mrkcats) echo ' class="xbdim"';?> style="text-align:center;">
 				<?php echo HTMLHelper::_('grid.sort', ucfirst('XBMAPS_MARKERS'), 'mrkcnt', $listDirn, $listOrder );?>
 			</th>
-			<th>
+			<th<?php if(!$this->trkcats) echo ' class="xbdim"';?> style="text-align:center;">
 				<?php echo HTMLHelper::_('grid.sort', ucfirst('XBMAPS_TRACKS'), 'trkcnt', $listDirn, $listOrder );?>
 			</th>
 			<th class="nowrap hidden-tablet hidden-phone" style="width:45px;">
@@ -149,28 +168,28 @@ $prevext ='';
     			<td>
     				<p class="xb09"><?php echo $item->description; ?></p>
     			</td>
-    			<td align="center">
+    			<td style="text-align:center;">
    					<?php if ($item->mapcnt >0) : ?> 
    						<span class="badge mapcnt">
    							<a href="<?php echo $maplink.$item->id;?>"><?php echo $item->mapcnt; ?>
    						</a></span>
    					<?php endif; ?>
    				</td>
-    			<td align="center">
+    			<td style="text-align:center;">
    					<?php if ($item->mrkcnt >0) : ?> 
    						<span class="badge mrkcnt">
    							<a href="<?php echo $mrklink.$item->id;?>"><?php echo $item->mrkcnt; ?>
    						</a></span>
    					<?php endif; ?>
    				</td>
-    			<td align="center">
+    			<td style="text-align:center;">
    					<?php if ($item->trkcnt >0) : ?> 
    						<span class="badge trkcnt">
    							<a href="<?php echo $trklink.$item->id;?>"><?php echo $item->trkcnt; ?>
    						</a></span>
    					<?php endif; ?>
    				</td>
-  				<td align="center">
+  				<td>
 					<?php echo $item->id; ?>
 				</td>
 			</tr>

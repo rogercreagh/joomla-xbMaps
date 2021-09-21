@@ -1,7 +1,7 @@
 <?php
 /*******
   * @package xbMaps
- * @version 0.3.0.e 19th September 2021
+ * @version 0.3.0.h 21st September 2021
  * @filesource admin/views/catinfo/tmpl/edit.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -26,6 +26,26 @@ $xblink = 'index.php?option=com_xbmaps';
 <?php else : ?>
 	<div id="j-main-container" class="span12">
 <?php endif;?>
+	<?php if ($this->global_use_cats == 0) : ?>
+		<div class="j-toggle-main alert alert-error">
+	      <button type="button" class="close" data-dismiss="alert">×</button>
+			<h4 class="alert-heading"><?php echo Text::_('XBMAPS_CATS_GLOBAL_DISABLED'); ?></h4> 
+			<div class="alert-message"><?php echo Text::_('XBMAPS_CATS_GLOBAL_DISABLED_INFO'); ?>      
+	      </div>
+		</div>
+	<?php  elseif (!$this->mapcats || !$this->mrkcats || !$this->trkcats) : ?>
+		<div class="j-toggle-main alert alert-warn">
+	      <button type="button" class="close" data-dismiss="alert">×</button>
+			<h4 class="alert-heading">
+				<?php if(!$this->mapcats) echo 'Map '; ?>
+				<?php if(!$this->mrkcats) echo 'Marker '; ?>
+				<?php if(!$this->trkcats) echo 'Track '; ?>
+				<?php echo Text::_('XBMAPS_CATSTYPE_DISABLED'); ?>
+			</h4> 
+			<div class="alert-message"><?php echo Text::_('XBMAPS_CATS_GLOBAL_DISABLED_INFO'); ?>
+	      	</div>
+		</div>
+	<?php endif; ?>
 		<div style="max-width:1080px;">
 		<form action="index.php?option=com_xbmaps&view=catinfo" method="post" id="adminForm" name="adminForm">
 		<div class="row-fluid xbmb8">
@@ -79,7 +99,7 @@ $xblink = 'index.php?option=com_xbmaps';
 		</div>
 		<div class="row-fluid">
 			<div class= "span4">
-				<div class="xbbox xbboxcyan">
+				<div class="xbbox <?php echo $this->mapcats ? 'xbboxcyan' : 'xbboxgrey'; ?>">
 					<p><?php echo $item->mapcnt.' '.Text::_('XBMAPS_MAPS').' '.Text::_('XBMAPS_IN_CATEGORY'); ?>  <span class="label label-success"><?php echo $item->title; ?></span></p>
 					<?php if ($item->mapcnt > 0 ) : ?>
 						<ul>
@@ -91,7 +111,7 @@ $xblink = 'index.php?option=com_xbmaps';
 				</div>
 			</div>
 			<div class= "span4">
-				<div class="xbbox xbboxmag">
+				<div class="xbbox <?php echo $this->mrkcats ? 'xbboxgrn' : 'xbboxgrey'; ?>">
 					<p><?php echo $item->mrkcnt.' '.Text::_('XBMAPS_MARKERS').' '.Text::_('XBMAPS_IN_CATEGORY'); ?>  <span class="label label-success"><?php echo $item->title; ?></span></p>
 					<?php if ($item->mrkcnt > 0 ) : ?>
 						<ul>
@@ -103,7 +123,7 @@ $xblink = 'index.php?option=com_xbmaps';
 				</div>
 			</div>
 			<div class= "span4">
-				<div class="xbbox xbboxgrn">
+				<div class="xbbox <?php echo $this->trkcats ? 'xbboxmag' : 'xbboxgrey'; ?>">
 					<p><?php echo $item->trkcnt.' '.Text::_('XBMAPS_TRACKS').' '.Text::_('XBMAPS_IN_CATEGORY'); ?>  <span class="label label-success"><?php echo $item->title; ?></span></p>
 					<?php if ($item->trkcnt > 0 ) : ?>
 						<ul>

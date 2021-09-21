@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.3.0.e 19th September 2021
+ * @version 0.3.0.h 21st September 2021
  * @filesource admin/views/tagslist/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -35,6 +35,27 @@ $trackslink = 'index.php?option=com_xbmaps&view=tracks&tagid=';
 	<?php else : ?>
         <div id="j-main-container">
 	<?php endif;?>
+	<?php if ($this->global_use_tags == 0) : ?>
+		<div class="j-toggle-main alert alert-error">
+	      <button type="button" class="close" data-dismiss="alert">×</button>
+			<h4 class="alert-heading"><?php echo Text::_('XBMAPS_TAGS_GLOBAL_DISABLED'); ?></h4> 
+			<div class="alert-message"><?php echo Text::_('XBMAPS_TAGS_GLOBAL_DISABLED_INFO'); ?></div>      
+	      </div>
+		<div>
+	<?php  elseif (!$this->maptags || !$this->mrktags || !$this->trktags) : ?>
+		<div class="j-toggle-main alert alert-warn">
+	      <button type="button" class="close" data-dismiss="alert">×</button>
+			<h4 class="alert-heading">
+				<?php if(!$this->maptags) echo 'Map '; ?>
+				<?php if(!$this->mrktags) echo 'Marker '; ?>
+				<?php if(!$this->trktags) echo 'Track '; ?>
+				<?php echo Text::_('XBMAPS_TAGSTYPE_DISABLED'); ?>
+			</h4> 
+			<div class="alert-message"><?php echo Text::_('XBMAPS_TAGSTYPE_DISABLED_INFO'); ?>
+			</div>      
+	      </div>
+		<div>
+	<?php endif; ?>
 	
 	<div>
       <h3><?php echo Text::_('XBMAPS_TAGSPAGE_TITLE'); ?></h3>
@@ -77,16 +98,16 @@ $trackslink = 'index.php?option=com_xbmaps&view=tracks&tagid=';
 			<th>
 				<?php echo Text::_('XBMAPS_DESCRIPTION') ;?>
 			</th>
-			<th>
-				<?php echo HTMLHelper::_('grid.sort', 'XBMAPS_MAPS', 'mapcnt', $listDirn, $listOrder );?>
+			<th<?php if (!$this->maptags) echo ' class="xbdim"';?> style="text-align:center;">
+				<?php echo HTMLHelper::_('grid.sort', ucfirst('XBMAPS_MAPS'), 'mapcnt', $listDirn, $listOrder );?>
 			</th>
-			<th>
-				<?php echo HTMLHelper::_('grid.sort', 'XBMAPS_MARKERS', 'mrkcnt', $listDirn, $listOrder );?>
+			<th<?php if (!$this->mrktags) echo ' class="xbdim"';?> style="text-align:center;">
+				<?php echo HTMLHelper::_('grid.sort', ucfirst('XBMAPS_MARKERS'), 'mrkcnt', $listDirn, $listOrder );?>
 			</th>
-			<th>
-				<?php echo HTMLHelper::_('grid.sort', 'XBMAPS_TRACKS', 'trkcnt', $listDirn, $listOrder );?>
+			<th<?php if(!$this->trktags) echo ' class="xbdim"';?> style="text-align:center;">
+				<?php echo HTMLHelper::_('grid.sort', ucfirst('XBMAPS_TRACKS'), 'trkcnt', $listDirn, $listOrder );?>
 			</th>
-			<th>
+			<th style="text-align:center;">
 				<?php echo Text::_('XBMAPS_OTHERS') ;?>
 			</th>
 			<th class="nowrap hidden-tablet hidden-phone" style="width:45px;">
@@ -128,10 +149,19 @@ $trackslink = 'index.php?option=com_xbmaps&view=tracks&tagid=';
     					echo JHtml::_('jgrid.checkedout', $i, Text::_('XBMAPS_OPENED_BY').': '.$couname, $item->checked_out_time, 'tags.', false);
     				} ?>
 					<span class="xbnote"> 
- 					<?php 	$path = substr($item->path, 0, strrpos($item->path, '/'));
-						$path = str_replace('/', ' - ', $path);
-						echo $path; ?>
-					  - </span>    				
+ 					<?php if ($listOrder=='path') {
+ 					    $prefix = '';
+ 					    $slashes = substr_count($item->path,'/');
+ 					    if ($slashes>0) {
+     					    $prefix .= '<span style="padding-left:'.($slashes*15).'px">';
+     					    $prefix .= '└─&nbsp;</span>';					        
+ 					    }
+ 					} else {
+                      $prefix = substr($item->path,0,strrpos($item->path, '/')).' ';
+                    }
+                      echo $prefix;
+                      ?>
+						</span>    				
     				<a href="<?php echo JRoute::_($taginfolink . $item->id); ?>" title="Details" 
     					class="label label-info" style="padding:4px 8px;">
     					<span class="xb12"><?php echo $item->title; ?></span>
@@ -140,35 +170,35 @@ $trackslink = 'index.php?option=com_xbmaps&view=tracks&tagid=';
     			<td>
     				<p class="xb09"><?php echo $item->description; ?></p>
     			</td>
-    			<td align="center">
+    			<td style="text-align:center;">
    					<?php if ($item->mapcnt >0) : ?> 
    						<span class="badge mapcnt">
    							<a href="<?php echo $mapslink.$item->id;?>"><?php echo $item->mapcnt; ?>
    						</a></span>
    					<?php endif; ?>
    				</td>
-    			<td align="center">
+    			<td style="text-align:center;">
    					<?php if ($item->mrkcnt >0) : ?> 
    						<span class="badge mrkcnt">
    							<a href="<?php echo $markerslink.$item->id;?>"><?php echo $item->mrkcnt; ?>
    						</a></span>
    					<?php endif; ?>
    				</td>
-    			<td align="center">
+    			<td style="text-align:center;">
    					<?php if ($item->trkcnt >0) : ?> 
    						<span class="badge trkcnt">
    							<a href="<?php echo $trackslink.$item->id;?>"><?php echo $item->trkcnt; ?>
    						</a></span>
    					<?php endif; ?>
    				</td>
-    			<td align="center">
+    			<td style="text-align:center;">
    					<?php if ($item->othcnt >0) : ?>
    						<span class="badge othcnt">
    							<?php echo $item->othcnt; ?>  						
    						</span>
    					<?php endif; ?>
    				</td>
-  				<td align="center">
+  				<td>
 					<?php echo $item->id; ?>
 				</td>
 			</tr>

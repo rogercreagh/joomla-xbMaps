@@ -79,10 +79,11 @@ $prevext='';
 	 				<td>
 						<p class="xbml20">
  						<?php  if ($this->show_parent != 0) : ?>      
-					<span class="xbnote"> 
- 					<?php 	$path = substr($item->path, 0, strrpos($item->path, '/'));
-						$path = str_replace('/', ' - ', $path);
-						echo $path.($path!='') ? ' - <br/>' : ''; ?>						
+					<span class="xbnote xb09"> 
+ 						    <?php if (substr_count($item->path,'/')>0) {
+ 						    	$ans = substr($item->path, 0, strrpos($item->path, '/'));
+ 						    	echo str_replace('/',' - ',$ans).' - ';
+ 						    } ?>
 					 </span>
  						<?php endif; //show_parent?>
     					<a href="<?php echo JRoute::_($catlink . $item->id.'&ext='.$item->extension); ?>" title="Details" 

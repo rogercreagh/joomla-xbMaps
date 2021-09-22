@@ -70,16 +70,11 @@ $xblink = 'index.php?option=com_xbmaps';
 					</div>
 				</div>
 				<div class="row-fluid xbmb8">
-					<div class= "span6">
+					<div class= "span12">
 							<p><i><?php echo Text::_('XBMAPS_TAG').' '.Text::_('XBMAPS_HIERARCHY'); ?>: </i>
 							<?php $path = str_replace('/', ' - ', $item->path);
 								echo 'root - '.$path; ?>
 							</p>
-					</div>
-					<div class= "span6">
-						<?php if (!empty($item->note)) : ?>
-							<p><i><?php echo Jtext::_('XBMAPS_ADMIN_NOTE'); ?>:</i>  <?php echo $item->note; ?></p>
-						<?php endif; ?>
 					</div>
 				</div>
 			</div>
@@ -88,7 +83,7 @@ $xblink = 'index.php?option=com_xbmaps';
 			<div class= "span2">
 				<p><i><?php echo Text::_('XBMAPS_DESCRIPTION'); ?>:</i></p>
 			</div>
-   			<div class="span10">
+   			<div class="span6">
 			<?php if ($item->description != '') : ?>
      			<div class="xbbox xbboxgrey" style="max-width:400px;">
     				<?php echo $item->description; ?>
@@ -96,6 +91,11 @@ $xblink = 'index.php?option=com_xbmaps';
     		<?php else: ?>
     			<p><i>(<?php echo Text::_('XBMAPS_NO_DESCRIPTION'); ?>)</i></p>
 			<?php endif; ?>
+			</div>
+			<div class= "span4">
+				<?php if (!empty($item->note)) : ?>
+					<p><i><?php echo Jtext::_('XBMAPS_ADMIN_NOTE'); ?>:</i>  <?php echo $item->note; ?></p>
+				<?php endif; ?>
 			</div>
 		</div>
 		<div class="row-fluid">

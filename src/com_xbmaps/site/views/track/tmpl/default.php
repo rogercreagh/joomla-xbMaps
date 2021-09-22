@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.1.1.j 25th August 2021
+ * @version 0.3.0.h 22nd September 2021
  * @filesource site/views/track/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -106,17 +106,17 @@ $trackslink = 'index.php?option=com_xbmaps&view=tracklist';
 			</span>&nbsp;
 			<?php endif; ?>
 			<?php if($item->prev > 0) : ?>
-				<a href="<?php echo JRoute::_(XbmapsHelperRoute::getMapLink($item->prev)); ?>" class="btn btn-small">
+				<a href="<?php echo JRoute::_(XbmapsHelperRoute::getTrackLink($item->prev)); ?>" class="btn btn-small">
 					<?php echo Text::_('XBMAPS_PREV'); ?></a>
 		    <?php endif; ?>
 		</div>
 		<div class="span8"><center>
-			<a href="<?php echo JRoute::_($mapslink); ?>" class="btn btn-small">
-				<?php echo JText::_('XBMAPS_MAPSLIST'); ?></a></center>
+			<a href="<?php echo JRoute::_($trackslink); ?>" class="btn btn-small">
+				<?php echo JText::_('XBMAPS_TRACKSLIST'); ?></a></center>
 		</div>
 		<div class="span2">
 			<?php if($item->next > 0) : ?>
-				<a href="<?php echo JRoute::_(XbmapsHelperRoute::getMapLink($item->next)); ?>" class="btn btn-small pull-right">
+				<a href="<?php echo JRoute::_(XbmapsHelperRoute::getTrackLink($item->next)); ?>" class="btn btn-small pull-right">
 					<?php echo JText::_('XBMAPS_NEXT'); ?></a>
 		    <?php endif; ?>
 		</div>

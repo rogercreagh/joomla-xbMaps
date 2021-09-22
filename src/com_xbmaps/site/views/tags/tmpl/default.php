@@ -90,8 +90,9 @@ $trkslink = $xblink.'tracklist'.$itemid.'&tagid=';
                         	</span>
 						<?php endif; //show_parent?>
 	    				<span  class="xb11 xbbold">
-	    					<a href="<?php echo JRoute::_($tvlink . $item->id); ?>" title="Details">
-	    						<?php echo $item->title; ?>
+	    					<a href="<?php echo JRoute::_($tvlink . $item->id); ?>" title="Details"
+    						class="label label-info" style="padding:2px 8px;">
+    						<span class="xb11"><?php echo $item->title; ?></span>
 	    					</a>
 	    				</span>
 	    				</p>

@@ -1,7 +1,7 @@
 <?php 
 /*******
  * @package xbMaps
- * @version 0.3.0.f 20th September 2021
+ * @version 0.3.0.h 22nd September 2021
  * @filesource site/views/tags/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -65,9 +65,15 @@ $trkslink = $xblink.'tracklist'.$itemid.'&tagid=';
 				<?php  if ($this->show_desc != 0) : ?>      
 					<th class="hidden-phone"><?php echo JText::_('XBMAPS_DESCRIPTION');?></th>
 				<?php endif; ?>
+				<?php if ($this->maptags) : ?>				
 					<th class="center" style="width:50px;"><?php echo HTMLHelper::_('grid.sort', 'XBMAPS_MAPS', 'mapcnt', $listDirn, $listOrder );?></th>
+				<?php endif; ?>
+				<?php if ($this->mrktags) : ?>
 					<th class="center" style="width:50px;"><?php echo HTMLHelper::_('grid.sort', 'XBMAPS_MARKERS', 'mrkcnt', $listDirn, $listOrder );?></th>
+				<?php endif; ?>
+				<?php if ($this->trktags) : ?>
 					<th class="center" style="width:50px;"><?php echo HTMLHelper::_('grid.sort', 'XBMAPS_TRACKS', 'trkcnt', $listDirn, $listOrder );?></th>
+				<?php endif; ?>
 				</tr>
 			</thead>
 			<tbody>
@@ -93,21 +99,27 @@ $trkslink = $xblink.'tracklist'.$itemid.'&tagid=';
 				<?php  if ($this->show_desc != 0) : ?>      
 					<td class="hidden-phone"><?php echo $item->description; ?></td>
 				<?php endif; ?>
+				<?php if ($this->maptags) : ?>				
 	    			<td class="center">
-	   					<?php if ($item->mapcnt >0) : ?> 
+	   					<?php if ($item->mapcnt >0) : ?>
 	   						<a class="badge mapcnt" href="<?php  echo JRoute::_($mapslink.$item->id); ?>"><?php echo $item->mapcnt; ?></a>
 	   					<?php endif; ?>
 	   				</td>
+				<?php endif; ?>
+				<?php if ($this->mrktags) : ?>				
 	    			<td class="center">
 	   					<?php if ($item->mrkcnt >0) : ?> 
 	   						<span class="badge mrkcnt"><?php echo $item->mrkcnt; ?></span>
 	   					<?php endif; ?>
 	   				</td>
+				<?php endif; ?>
+				<?php if ($this->trktags) : ?>				
 	    			<td class="center">
 	   					<?php if ($item->trkcnt >0) : ?> 
 	   						<a class="badge trkcnt" href="<?php  echo JRoute::_($trkslink.$item->id); ?>"><?php echo $item->trkcnt; ?></a>
 	   					<?php endif; ?>
 	   				</td>
+				<?php endif; ?>
 				</tr>
 				<?php endforeach; ?>
 			</tbody>

@@ -1,7 +1,7 @@
 <?php 
 /*******
  * @package xbMaps
- * @version 0.3.0.f 20th September 2021
+ * @version 0.3.0.h 22nd September 2021
  * @filesource site/views/tag/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -18,7 +18,16 @@ class XbmapsViewTag extends JViewLegacy {
 		
 		$this->state = $this->get('State');
 		$this->params = $this->state->get('params');
-
+		//if tags disabled on front-end redirect to maps view (we shouldn't even be here)
+		if ($this->params->get('global_use_tags')==0) {
+			$app = Factory::getApplication();
+			$app->redirect('index.php?option=com_xbmaps&view=maplist');
+			$app->close();
+		}
+		$this->maptags = $this->params->get('maps_use_tags');
+		$this->mrktags = $this->params->get('markers_use_tags');
+		$this->trktags = $this->params->get('tracks_use_tags');
+		
 		if (count($errors = $this->get('Errors'))) {
 			Factory::getApplication()->enqueueMessage(implode('<br />', $errors),'error');
 			return false;

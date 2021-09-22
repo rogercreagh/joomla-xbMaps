@@ -1,7 +1,7 @@
 <?php 
 /*******
  * @package xbMaps
- * @version 0.3.0.c 18th September 2021
+ * @version 0.3.0.h 22nd September 2021
  * @filesource site/views/catlist/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -19,7 +19,17 @@ class XbmapsViewCatlist extends JViewLegacy {
 //		$this->pagination	= $this->get('Pagination');
 		$this->state		= $this->get('State');
 		$this->params      = $this->state->get('params');
-//		$this->filterForm    	= $this->get('FilterForm');
+		//if cats disabled on front-end redirect to maps view (we shouldn't even be here)
+		if ($this->params->get('global_use_cats')==0) {
+			$app = Factory::getApplication();
+			$app->redirect('index.php?option=com_xbmaps&view=maplist');
+			$app->close();			
+		}
+		$this->mapcats = $this->params->get('maps_use_cats');
+		$this->mrkcats = $this->params->get('markers_use_cats');
+		$this->trkcats = $this->params->get('tracks_use_cats');
+
+		//		$this->filterForm    	= $this->get('FilterForm');
 //		$this->activeFilters 	= $this->get('ActiveFilters');
 //		$this->searchTitle = $this->state->get('filter.search');
 		

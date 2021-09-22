@@ -1,7 +1,7 @@
 <?php 
 /*******
  * @package xbMaps
- * @version 0.3.0.f 20th September 2021
+ * @version 0.3.0.h 22nd September 2021
  * @filesource site/views/category/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -19,6 +19,15 @@ class XbmapsViewCategory extends JViewLegacy {
 		
 		$this->state = $this->get('State');
 		$this->params = $this->state->get('params');
+		//if cats disabled on front-end redirect to maps view (we shouldn't even be here)
+		if ($this->params->get('global_use_cats')==0) {
+			$app = Factory::getApplication();
+			$app->redirect('index.php?option=com_xbmaps&view=maplist');
+			$app->close();
+		}
+		$this->mapcats = $this->params->get('maps_use_cats');
+		$this->mrkcats = $this->params->get('markers_use_cats');
+		$this->trkcats = $this->params->get('tracks_use_cats');
 		
 		if (count($errors = $this->get('Errors'))) {
 			Factory::getApplication()->enqueueMessage(implode('<br />', $errors),'error');

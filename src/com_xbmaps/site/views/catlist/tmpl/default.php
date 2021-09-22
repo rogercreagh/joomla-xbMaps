@@ -1,7 +1,7 @@
 <?php 
 /*******
  * @package xbMaps
- * @version 0.3.0.c 18th September 2021
+ * @version 0.3.0.h 22nd September 2021
  * @filesource site/views/catlist/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -55,15 +55,21 @@ $prevext='';
 						<?php echo HTMLHelper::_('grid.sort', 'XBMAPS_TITLE', 'title', $listDirn, $listOrder );?>
 					</th>
 					<th class="hidden-phone"><?php echo JText::_('XBMAPS_DESCRIPTION');?></th>
+				<?php if ($this->mapcats) : ?>				
 					<th class="center" style="width:50px;">
 						<?php echo HTMLHelper::_('grid.sort', 'XBMAPS_MAPS', 'mapcnt', $listDirn, $listOrder );?>
 					</th>
+				<?php endif; ?>
+				<?php if ($this->mrkcats) : ?>
 					<th class="center" style="width:50px;">
 						<?php echo HTMLHelper::_('grid.sort', 'XBMAPS_MARKERS', 'trkcnt', $listDirn, $listOrder );?>
 					</th>
+				<?php endif; ?>
+				<?php if ($this->trkcats) : ?>
 					<th class="center" style="width:50px;">
 						<?php echo HTMLHelper::_('grid.sort', 'XBMAPS_TRACKS', 'mrkcnt', $listDirn, $listOrder );?>
 					</th>
+				<?php endif; ?>
 				</tr>
 			</thead>
 			<tbody>
@@ -86,21 +92,27 @@ $prevext='';
 	    				</p>
 	    			</td>
 					<td class="hidden-phone"><?php echo $item->description; ?></td>
+				<?php if ($this->mapcats) : ?>
 	    			<td class="center">
 	   					<?php if ($item->mapcnt >0) : ?> 
 	   						<a href="<?php echo JRoute::_($maplink.$item->id); ?>" class="badge mapcnt"><?php echo $item->mapcnt; ?></a>
 	   					<?php endif; ?>
 	   				</td>
+				<?php endif; ?>
+				<?php if ($this->mrkcats) : ?>
 	    			<td class="center">
 	   					<?php if ($item->mrkcnt >0) : ?> 
 	   						<span class="badge percnt"><?php echo $item->mrkcnt; ?></span>
 	   					<?php endif; ?>
 	   				</td>
+				<?php endif; ?>
+				<?php if ($this->trkcats) : ?>
 	    			<td class="center">
 	   					<?php if ($item->trkcnt >0) : ?> 
 	   						<a href="<?php echo JRoute::_($trklink.$item->id); ?>" class="badge trkcnt"><?php echo $item->trkcnt; ?></a>
 	   					<?php endif; ?>
 	   				</td>
+				<?php endif; ?>
 				</tr>
 				<?php endif; ?>
 				<?php endforeach; ?>

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.3.0.f 20th September 2021
+ * @version 0.3.0.h 22nd September 2021
  * @filesource site/views/tag/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -64,6 +64,7 @@ $tclink = $xblink.'tags' . $itemid;
 	</div>
 <?php endif; ?>
 <div class="row-fluid">
+<?php if ($this->maptags) : ?>
 	<div class= "span4">
 		<div class="xbbox xbboxcyan xbmh200 xbyscroll">
 			<p><?php echo $item->mapcnt.' '.Text::_('XBMAPS_MAPS_TAGGED'); ?></p>
@@ -76,6 +77,8 @@ $tclink = $xblink.'tags' . $itemid;
 			<?php endif; ?>
 		</div>
 	</div>
+ <?php endif; ?>
+ <?php if ($this->mrktags) : ?>
 	<div class= "span4">
 		<div class="xbbox xbboxgrn xbmh200 xbyscroll">
 			<p><?php echo $item->mrkcnt.' '.Text::_('XBMAPS_MARKERS_TAGGED'); ?></p>
@@ -89,6 +92,8 @@ $tclink = $xblink.'tags' . $itemid;
 			<?php endif; ?>
 		</div>
 	</div>
+ <?php endif; ?>
+ <?php if ($this->trktags) : ?>
 	<div class= "span4">
 		<div class="xbbox xbboxmag xbmh200 xbyscroll">
 			<p><?php echo $item->trkcnt.' '.Text::_('XBMAPS_TRACKS_TAGGED'); ?></p>
@@ -101,6 +106,7 @@ $tclink = $xblink.'tags' . $itemid;
 			<?php endif; ?>
 		</div>
 	</div>
+ <?php endif; ?>
 </div>
 <div class="row-fluid">
 	<div class= "span12">

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.3.0.f 20th September 2021
+ * @version 0.3.0.h 22nd September 2021
  * @filesource site/views/category/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -64,7 +64,8 @@ $show_catdesc = $this->params->get('show_catdesc',1);
 		</div>
 	</div>
 <?php endif; ?>
-<div class="row-fluid">
+	<div class="row-fluid">
+<?php if ($this->mapcats) : ?>
     	<div class= "span4">
     		<div class="xbbox xbboxcyan xbyscroll xbmh300">
     			<p><?php echo $item->mapcnt; ?> maps</p>
@@ -79,6 +80,8 @@ $show_catdesc = $this->params->get('show_catdesc',1);
     			<?php endif; ?>
     		</div>
     	</div>
+ <?php endif; ?>
+ <?php if ($this->mrkcats) : ?>
     	<div class= "span4">
     		<div class="xbbox xbboxgrn xbyscroll xbmh300">
     			<p><?php echo $item->mrkcnt; ?> markers</p>
@@ -94,6 +97,8 @@ $show_catdesc = $this->params->get('show_catdesc',1);
     			<?php endif; ?>
     		</div>
     	</div>
+ <?php endif; ?>
+ <?php if ($this->trkcats) : ?>
     	<div class= "span4">
     		<div class="xbbox xbboxmag xbyscroll xbmh300">
     			<p><?php echo $item->trkcnt; ?> tracks</p>
@@ -108,6 +113,7 @@ $show_catdesc = $this->params->get('show_catdesc',1);
     			<?php endif; ?>
     		</div>
     	</div>
+<?php endif; ?>
 </div>
 <div class="clearfix"></div>
 <p class="xbtc xbmt16">

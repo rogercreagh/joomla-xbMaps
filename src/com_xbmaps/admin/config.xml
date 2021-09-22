@@ -358,14 +358,14 @@
 		<field name="def_new_trackcat" type="category"
 			extension="com_xbmaps"
 			label="XBMAPS_TRACK_DEFCAT_LABEL" description="XBMAPS_DEFCAT_DESC"
-			showon="global_use_cats:1[AND]maps_use_cats!:0"
+			showon="global_use_cats:1[AND]tracks_use_cats!:0"
 		>			
 			<option value="" >XBMAPS_SELECT_DEFAULT</option>
 		</field>
 		<field name="rootcat_track" type="category"
 			extension="com_xbmaps"
 			label="XBMAPS_TRACK_CAT_ROOT_LABEL" description="XBMAPS_CAT_ROOT_DESC"
-			showon="global_use_cats:1[AND]maps_use_cats!:0"
+			showon="global_use_cats:1[AND]tracks_use_cats!:0"
 			default=""
 		>
 			<option value="">JOPTION_SELECT_CATEGORY</option>
@@ -373,7 +373,7 @@
 		<field name="incroot_track" type="radio"
 			label="XBMAPS_INC_ROOT_LABEL" description="XBMAPS_INC_ROOT_DESC"
 			class="btn-group btn-group-yesno"
-			showon="global_use_cats:1[AND]maps_use_cats!:0[AND]rootcat_map!:"
+			showon="global_use_cats:1[AND]tracks_use_cats!:0[AND]rootcat_map!:"
 			default="1"
 		>
 			<option value="0" >JNO</option>

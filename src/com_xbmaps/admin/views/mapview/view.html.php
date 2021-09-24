@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.1.2.d 10th September 2021
+ * @version 0.4.0 24th September 2021
  * @filesource admin/views/mapview/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -30,7 +30,7 @@ class XbmapsViewMapview extends JViewLegacy {
 		if ($this->params['map_border']==1) {
 		    $this->borderstyle = 'border:'.$this->params['map_border_width'].'px solid '.$this->params['map_border_colour'].';';
 		}		
-		
+		$this->fit_bounds = $this->params['fit_bounds'];
 		if (count($errors = $this->get('Errors'))) {
 		    throw new Exception(implode("\n", $errors), 500);
 		}

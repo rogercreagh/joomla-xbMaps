@@ -74,6 +74,20 @@
 			class="inputbox" size="20" format="%Y-%m-%d %H:%M:%S" filter="user_utc" 
 		/>	
 
+		<field name="rec_device" type="recdevice"
+			label="Device used" description="Device used to record the track" 
+			class="chzn-custom-value"
+		>
+			<option value="">Select or add device</option>
+		</field>
+		
+		<field name="activity" type="activity"
+			label="Activity type" description="Type of activity whilst recording track" 
+			class="chzn-custom-value"
+		>
+			<option value="">Select or add activity</option>
+		</field>
+		
 		<field name="track_colour" type="color" 
 			label="XBMAPS_TRACK_COL_LABEL"
 			description="XBMAPS_TRACK_COL_DESC" 

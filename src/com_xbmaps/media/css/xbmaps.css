@@ -1,6 +1,6 @@
 /*******
  * @package xbMaps
- * @version 0.3.0.e 19th September 2021
+ * @version 0.4.0.a 24th September 2021
  * @filesource media/css/xbmaps.css
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -59,6 +59,14 @@ ul.nav-tabs {
 .subform-repeatable .table th {
   font-weight:normal;
   font-style:italic;
+}
+
+/* style accordions */
+.xbaccordion .accordion-heading {
+	background-color:#eee;	
+}
+.xbaccordion .accordion-body {
+	background-color:aliceblue;
 }
 
 /* additional badge/label colours with info(blue) success(green), warning(orange) important(red) */

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.3.0.g 20th September 2021
+ * @version 0.4.0.a 24th September 2021
  * @filesource admin/views/cpanel/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -154,7 +154,7 @@ use Joomla\CMS\Language\Text;
 				<div id="xbinfo" class="span4">
 					<div class="row-fluid">
 			        	<?php echo HTMLHelper::_('bootstrap.startAccordion', 'slide-cpanel', array('active' => 'keyconfig')); ?>
-		        		<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-cpanel', Text::_('XBMAPS_KEY_CONFIG'), 'keyconfig'); ?>
+		        		<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-cpanel', Text::_('XBMAPS_KEY_CONFIG'), 'keyconfig','xbaccordion'); ?>
 		        		Maps
 		        		<ul>
 		        			<li>Categories: 
@@ -205,7 +205,7 @@ use Joomla\CMS\Language\Text;
 		        			</li>
 		        		</ul>
 	        			<?php echo HTMLHelper::_('bootstrap.endSlide'); ?>
-		        		<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-cpanel', Text::_('XBMAPS_SYSINFO'), 'sysinfo'); ?>
+		        		<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-cpanel', Text::_('XBMAPS_SYSINFO'), 'sysinfo','xbaccordion'); ?>
 	        			<p><b><?php echo Text::_( 'XBMAPS_COMPONENT' ); ?></b>
 							<br /><?php echo Text::_('XBMAPS_VERSION').': '.$this->xmldata['version'].'<br/>'.
 								$this->xmldata['creationDate'];?>
@@ -216,7 +216,7 @@ use Joomla\CMS\Language\Text;
 							<br/><?php echo $this->client['platform'].'<br/>'.$this->client['browser']; ?>
 						</p>
 	        			<?php echo HTMLHelper::_('bootstrap.endSlide'); ?>
-		        		<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-cpanel', Text::_('XBMAPS_REGINFO'), 'reginfo'); ?>
+		        		<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-cpanel', Text::_('XBMAPS_REGINFO'), 'reginfo','xbaccordion'); ?>
 		        		 <?php if (XbmapsGeneral::penPont()) : ?>
 		        			<p><?php echo Text::_('XBMAPS_THANKS_REG'); ?></p>
 		        		<?php else : ?>
@@ -224,16 +224,17 @@ use Joomla\CMS\Language\Text;
 		        			 <?php echo Text::_('XBMAPS_BEER_TAG').'<br />'.Text::_('XBMAPS_BEER_FORM');?>
 		        		<?php endif; ?>
 	        			<?php echo HTMLHelper::_('bootstrap.endSlide'); ?>
-	        			<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-cpanel', JText::_('XBMAPS_ABOUT'), 'about'); ?>
+	        			<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-cpanel', JText::_('XBMAPS_ABOUT'), 'about','xbaccordion'); ?>
 	        			<p><?php echo JText::_( 'XBMAPS_ABOUT_INFO' ); ?></p>
 	        			<?php echo HTMLHelper::_('bootstrap.endSlide'); ?>
-	        			<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-cpanel', JText::_('XBMAPS_LICENSE'), 'license'); ?>
+	        			<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-cpanel', JText::_('XBMAPS_LICENSE'), 'license','xbaccordion'); ?>
 	        			<p><?php echo JText::_( 'XBMAPS_LICENSE_INFO' ); ?></p>
 	        			<hr />
 	        			<p>
 	        				<?php echo Text::_( 'XBMAPS' ).' '.$this->xmldata['copyright']; ?>
 	        			</p>
-							<?php echo HTMLHelper::_('bootstrap.endSlide'); ?>
+						<?php echo HTMLHelper::_('bootstrap.endSlide'); ?>
+						<?php echo HTMLHelper::_('bootstrap.endAccordion'); ?>
 					</div>		
 				</div>
 			</div>	

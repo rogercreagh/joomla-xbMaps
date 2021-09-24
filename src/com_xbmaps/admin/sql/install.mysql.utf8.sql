@@ -46,6 +46,8 @@ CREATE TABLE IF NOT EXISTS `#__xbmaps_tracks` (
  
   `gpx_filename` varchar(190) NOT NULL DEFAULT '',
   `rec_date` datetime,
+  `rec_device` varchar(190) NOT NULL DEFAULT '',
+  `activity` varchar(190) NOT NULL DEFAULT '',
   `track_colour` varchar(10),
    
   `catid` int NOT NULL  DEFAULT '0',

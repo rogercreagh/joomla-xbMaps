@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.1.2.d 10th September 2021
+ * @version 0.4.0.a 24th September 2021
  * @filesource site/views/map/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -37,7 +37,7 @@ class XbmapsViewMap extends JViewLegacy {
 		        $this->show_cats = $this->params['maps_use_cats'];
 		    }
 		}
-		
+		$this->fit_bounds = $this->params['fit_bounds'];
 		$gtags = $this->params->get('global_use_tags');
 		$mtags = $this->params->get('maps_use_tags');
 		$this->show_tags = false;

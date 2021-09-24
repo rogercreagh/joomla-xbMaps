@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.1.1.c 11th August 2021
+ * @version 0.4.0.a 24th September 2021
  * @filesource admin/models/fields/tracks.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -10,8 +10,9 @@
 defined('JPATH_BASE') or die;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Form\FormHelper;
 
-JFormHelper::loadFieldClass('list');
+FormHelper::loadFieldClass('list');
 
 class JFormFieldTracks extends JFormFieldList {
     

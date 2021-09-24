@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.1.2.d 10th September 2021
+ * @version 0.4.0 24th September 2021
  * @filesource admin/views/mapview/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -37,7 +37,7 @@ if ($item->params->get('map_easyprint',0)>0) {
 }
 
 if (!empty($item->tracks)) {
-    $map->renderTracks($item->tracks,true);
+	$map->renderTracks($item->tracks,$this->fit_bounds);
 }
 
 if (!empty($item->markers)) {

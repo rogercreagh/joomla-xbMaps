@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.1.1.h 22nd August 2021
+ * @version 0.4.0.a 24th September 2021
  * @filesource admin/views/track/tmpl/edit.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -60,25 +60,42 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 	
 				<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'details', Text::_('Details')); ?>
 				<div class="row-fluid">
-					<div class="span9">  	
-	     	    		<?php echo $this->form->renderField('gpx_folder'); ?> 
-	    				<i><?php echo Text::_('XBMAPS_GPXFOLDER_NOTE'); ?>  
-	    				<a href="index.php?option=com_config&view=component&component=com_xbmaps#Tracks"><?php echo Text::_('XBMAPS_GPX_FOLDER'); ?></a> 
-	    				<?php echo Text::_('XBMAPS_GPXFOLDER_NOTE2'); ?></i></p>
+					<div class="span9">  
+						<div class="pull-left xbml20">
+		     	    		<?php echo $this->form->renderField('gpx_folder'); ?> 
+						</div>	
+						<div class="pull-left">
+		    				<i><?php echo Text::_('XBMAPS_GPXFOLDER_NOTE'); ?>  
+		    				<a href="index.php?option=com_config&view=component&component=com_xbmaps#Tracks">
+		    					<?php echo Text::_('XBMAPS_GPX_FOLDER'); ?></a> 
+		    				<?php echo Text::_('XBMAPS_GPXFOLDER_NOTE2'); ?></i>
+		    			</div> 					
+	    				<div class="clearfix"></div> 	
 	    				<p><?php echo $this->form->renderField('select_gpxfile'); ?>
 	    				<div class="clearfix"></div> 					
-	    				<div class="pull-left">
-		    				<?php echo $this->form->renderField('upload_gpxfile'); ?>   					
-	    				</div> 					
-	    				<div class="pull-left">
-    						<button class="btn btn-warning" type="submit" 
-								onclick="if(confirmImport()) {this.form.submit();}" >
-								<i class="icon-upload icon-white"></i><?php echo JText::_('XBMAPS_UPLOAD_GPX'); ?>
-							</button>
-	    				</div> 					
-	    				<div class="clearfix"></div> 	
+
+				<div class="row-fluid">
+					<div class="span9">
+			        	<?php echo HTMLHelper::_('bootstrap.startAccordion', 'slide-cpanel', array('active' => '')); ?>
+		        		<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-cpanel', Text::_('Click to upload new GPX file'), 'upload','xbaccordion'); ?>
+		    				<div class="pull-left">
+			    				<?php echo $this->form->renderField('upload_gpxfile'); ?>   					
+		    				</div> 					
+		    				<div class="pull-right xbmr20">
+	    						<button class="btn btn-warning" type="submit" 
+									onclick="if(confirmImport()) {this.form.submit();}" >
+									<i class="icon-upload icon-white"></i><?php echo JText::_('XBMAPS_UPLOAD_GPX'); ?>
+								</button>
+		    				</div> 					
+		    				<div class="clearfix"></div> 	
+	        			<?php echo HTMLHelper::_('bootstrap.endSlide'); ?>
+	        			<?php echo HTMLHelper::_('bootstrap.endAccordion'); ?>
+					</div>
+	        	</div>
 	    				<p> </p>				
             	    	<?php echo $this->form->renderField('rec_date'); ?>  					
+            	    	<?php echo $this->form->renderField('rec_device'); ?>  					
+            	    	<?php echo $this->form->renderField('activity'); ?>  					
             	    	<?php echo $this->form->renderField('track_colour'); ?> 
             	    	<?php echo $this->form->renderField('maplist'); ?>            	    	 					
             	    	<?php echo $this->form->renderField('description'); ?>   					

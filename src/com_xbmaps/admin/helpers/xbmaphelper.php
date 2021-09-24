@@ -663,6 +663,7 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 	public function renderTracks( $tracks, $fitbounds = false) {
 		$mapname = 'map'.$this->name.$this->id;
 		$aliaslist = '';
+		$fitto = 400; 	//delay to allow tracks to render before fitting bounds
 		$o 	= array();
 		foreach ($tracks as $trk) {
 			$cleanalias = str_replace('-','_',$trk->alias);
@@ -678,14 +679,14 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 			$o[] = '+((e.target.get_elevation_gain() >5) ? \'Climbed: \'+Math.trunc(e.target.get_elevation_gain())+\' m\' : \'\'))});';
 			
 //			$o[] = '}).on(\'loaded\',function(e) {e.target.bindPopup(\'<b>'.addslashes($trk->title).'</b><br />Distance: \'+parseInt(e.target.get_distance())/1000+\' km<br />Speed: \'+e.target.get_moving_speed().toFixed(2)+\' km/hr<br />Time: \'+e.target.get_duration_string(e.target.get_moving_time())+\'<br />Climbed: \'+Math.trunc(e.target.get_elevation_gain())+\' m\')});';
-			
+			$fitto += 300;
 			$aliaslist .= $cleanalias.',';
 		}
 		$aliaslist = trim($aliaslist,',');
 		$o[] = 'var tracksLayer = L.featureGroup(['.$aliaslist.']);';
 		$o[] = 'tracksLayer.addTo('.$mapname.');';
 		if ($fitbounds) {
-			$o[] = 'setTimeout(function(){ '.$mapname.'.fitBounds(tracksLayer.getBounds()); }, 500);';
+			$o[] = 'setTimeout(function(){ '.$mapname.'.fitBounds(tracksLayer.getBounds()); }, '.$fitto.');';
 		}
 		//     $o[] = $mapname.'.on(\'load\', function() { '.$mapname.'.fitBounds(tracksLayer.getBounds());});';
 		$this->output[] = implode("\n", $o);

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.1.2.c 10th September 2021
+ * @version 0.4.0.a 24th September 2021
  * @filesource site/views/map/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -68,7 +68,7 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
 			}	
 			
 			if (!empty($item->tracks)) {
-				$map->renderTracks($item->tracks,true);
+				$map->renderTracks($item->tracks,$this->fit_bounds);
 			}
 			if (!empty($item->markers)) {
 			    foreach ($item->markers as $mrk) {

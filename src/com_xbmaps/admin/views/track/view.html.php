@@ -35,7 +35,7 @@ class XbmapsViewTrack extends JViewLegacy {
 		}
 		$this->gpxinfo= '';
 		if ($this->item->gpx_filename!='') {
-			$this->gpxinfo = XbmapsHelper::parseGpxHeader($this->item->gpxfilename);
+			$this->gpxinfo = XbmapsHelper::parseGpxHeader($this->item->gpx_filename);
 		}
 		
 		$this->addToolbar();

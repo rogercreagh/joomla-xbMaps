@@ -92,6 +92,18 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 	        			<?php echo HTMLHelper::_('bootstrap.endAccordion'); ?>
 					</div>
 	        	</div>
+	        	<?php if(!empty($this->gpxinfo)) : ?>
+	        	<div class="xbbox xbboxmag">
+	        		<h4>Metadata from GPX file</h4>
+	        		<ul>
+	        			<li>GPX Name  : <?php echo $this->gpxinfo['gpxname']; ?></li>
+	        			<li>Track Name : <?php echo $this->gpxinfo['trkname']; ?></li>
+	        			<li>Creator (rec_device) : <?php echo $this->gpxinfo['creator']; ?></li>
+	        			<li>Date/Time (rec_date) : <?php echo $this->gpxinfo['recdate']; ?></li>	        			
+	        		</ul>
+	        		<p><i>Copy/paste above info to title, rec_device and rec_date if required</i></p>
+	        	</div>
+	        	<?php endif;?>
 	    				<p> </p>				
             	    	<?php echo $this->form->renderField('rec_date'); ?>  					
             	    	<?php echo $this->form->renderField('rec_device'); ?>  					
@@ -106,6 +118,14 @@ HTMLHelper::_('formbehavior.chosen', 'select');
         			</div>
         		</div>
     			<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
+    			<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'params', JText::_('Layout Options')); ?>
+           	    	<?php echo $this->form->renderField('show_track_title','params'); ?>  					
+           	    	<?php echo $this->form->renderField('show_track_info','params'); ?>  					
+           	    	<?php echo $this->form->renderField('show_track_desc','params'); ?>  					
+           	    	<?php echo $this->form->renderField('track_info_width','params'); ?>  					
+           	    	<?php echo $this->form->renderField('show_track_popover','params'); ?>  					
+    			
+   				<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
     			<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'publishing', JText::_('Publishing')); ?>
     			<div class="row-fluid form-horizontal-desktop">
     				<div class="span6">

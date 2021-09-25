@@ -93,7 +93,7 @@
 			description="XBMAPS_TRACK_COL_DESC" 
 			default="" format="hex"
 		/>	
-			
+		
 		<field name="catid" type="catsubtree" extension="com_xbmaps" 
 			label="JCATEGORY" description="JCATEGORY_DESC" 
 			itemtype="track"
@@ -191,12 +191,58 @@
   		>
   			<option value="xbmaps-tracks">XBMAPS_FOLDER_TRACKS</option>
 		</field>
+			<field name="show_track_title" type="radio"  
+				label="XBMAPS_TRACK_TITLE_LABEL" description="XBMAPS_TRACK_TITLE_DESC"
+				class="btn-group btn-group-yesno" 
+				showon="enable_track_view:1"
+				default="1" useglobal="true"
+			>
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field name="show_track_info" type="list"  
+				label="Show Track Info Pane" description="This is separate to the popup when the track start/finish is clicked but has the same info. Show information about track on the single track view. If above selected it will appear in a full width box immediately above the map, if below it will appear immediately inder the map. Description will appear in same area."
+				showon="enable_track_view:1"
+				default="" useglobal="true"
+			>
+				<option value="">JHIDE</option>
+				<option value="above">XBMAPS_ABOVE</option>
+				<option value="right">XBMAPS_RIGHT</option>
+				<option value="below">XBMAPS_BELOW</option>
+				<option value="left">XBMAPS_LEFT</option>
+			</field>
+			<field name="track_info_width" type="list"  
+				label="Track Info Width" description="The width of the total map area allocated to the info pane on right/left."
+				showon="show_track_info:'left'[OR]show_track_info:'right'"
+				default="" useglobal="true"
+			>
+				<option value="17">17%</option>
+				<option value="33">33%</option>
+				<option value="50">50%</option>
+				<option value="67">67%</option>
+				<option value="83">83%</option>
+			</field>
+			
+			<field name="show_track_desc" type="radio"  
+				label="XBMAPS_TRACK_DESC_LABEL" description="XBMAPS_TRACK_DESC_DESC"
+				class="btn-group btn-group-yesno" 
+				showon="enable_track_view:1"
+				default="1" useglobal="true"
+			>
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field name="show_track_popover" type="list"  
+				label="Show popover track info" description="Popover will show track title, record date, distance, time, speed and climb and optionally description text when the track or the start/finish icons are clicked in both mapview and trackview."
+				class="btn-group btn-group-yesno" 
+				default="1" useglobal="true"
+			>
+				<option value="0">JNO</option>
+				<option value="1">Yes, info only</option>
+				<option value="2">Yes, include description</option>
+			</field>
+
 		
-			<field name="has_elevation" type="hidden" 
-				label="XBMAPS_TRACK_ELE_LABEL"
-				description="XBMAPS_TRACK_ELE_DESC" 
-				default="" 
-			/>		
 		</fieldset>
 	</fields>
 </form>

@@ -190,7 +190,7 @@ class XbmapsHelper extends ContentHelper {
 	
 	public static function parseGpxHeader($gpxfile) {
 		$gpxinfo=array();
-		$xml = simplexml_load_file($gpxfile);
+		$xml = simplexml_load_file(JPATH_ROOT.$gpxfile);
 		$root_attributes = $xml->attributes();
 		$gpxinfo['creator'] = $root_attributes->creator;
 		$gpxinfo['gpxname'] = $xml->metadata->name;

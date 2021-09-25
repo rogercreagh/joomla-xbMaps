@@ -188,4 +188,14 @@ class XbmapsHelper extends ContentHelper {
 		return $db->loadObjectList()[0];
 	}
 	
+	public static function parseGpxHeader($gpxfile) {
+		$gpxinfo=array();
+		$xml = simplexml_load_file($gpxfile);
+		$root_attributes = $xml->attributes();
+		$gpxinfo['creator'] = $root_attributes->creator;
+		$gpxinfo['gpxname'] = $xml->metadata->name;
+		$gpxinfo['trkname'] = $xml->trk->name;
+		$gpxinfo['recdate'] = $xml->trk->trkseg[0]->trkpt[0]->time;
+		return $gpxinfo;
+	}
 }

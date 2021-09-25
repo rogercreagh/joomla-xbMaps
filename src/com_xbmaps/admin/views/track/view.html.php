@@ -28,11 +28,16 @@ class XbmapsViewTrack extends JViewLegacy {
         //$this->params      = $this->get('State')->get('params');
         $this->params = ComponentHelper::getParams('com_xbmaps');
         $this->track_map_type = $this->params->get('track_map_type','');
+        
         // Check for errors.
 		if (count($errors = $this->get('Errors'))) {
 			throw new Exception(implode("\n", $errors), 500);
 		}
-				
+		$this->gpxinfo= '';
+		if ($this->item->gpx_filename!='') {
+			$this->gpxinfo = XbmapsHelper::parseGpxHeader($this->item->gpxfilename);
+		}
+		
 		$this->addToolbar();
 		
 		parent::display($tpl);

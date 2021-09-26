@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.1.1.i 23rd August 2021
+ * @version 0.4.0.b 26th September 2021
  * @filesource site/views/track/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -23,8 +23,7 @@ class XbmapsViewTrack extends JViewLegacy {
 		
 		$this->item = $this->get('Item');
 		$this->state = $this->get('State');
-		$iparams = $this->item->params;
-		$this->params = $iparams;
+		$this->params = $this->item->params;
 		//$sparams is used to get menu options that are not global and may override item params
 		$sparams = $this->state->get('params');
 		
@@ -47,10 +46,17 @@ class XbmapsViewTrack extends JViewLegacy {
 		        $this->show_tags = $this->params['tracks_use_tags'];
 		    }
 		}
-		//aren't these the wrong way round - iparams should take priority, and aren't they merged anyway
-		$this->showtracktitle = $sparams['show_track_title']=='' ? $iparams['show_track_title'] : $sparams['show_track_title'];
-		$this->showtrackdesc = $sparams['show_track_desc']=='' ? $iparams['show_track_desc'] : $sparams['show_track_desc'];
-		$this->trackdescpos = $sparams['track_desc_position']=='' ? $iparams['track_desc_position'] : $sparams['track_desc_position'];
+		//TODO set default for all params
+		$this->show_title = $this->params->get('show_track_title');
+		$this->show_info = $this->params['show_track_info'];
+		$this->info_width = $this->params['track_info_width'];
+		$this->mainspan = 12 - $this->info_width;
+		$this->show_desc = $this->params['show_description'];
+		$this->show_popover = $this->params['show_track_popover'];
+		
+//		$this->showtracktitle = $sparams['show_track_title']=='' ? $iparams['show_track_title'] : $sparams['show_track_title'];
+//		$this->showtrackdesc = $sparams['show_track_desc']=='' ? $iparams['show_track_desc'] : $sparams['show_track_desc'];
+//		$this->trackdescpos = $sparams['track_desc_position']=='' ? $iparams['track_desc_position'] : $sparams['track_desc_position'];
 		$this->centre_latitude = $this->params->get('centre_latitude');
 		$this->centre_longitude = $this->params->get('centre_longitude');
 		$this->default_zoom = $this->params->get('default_zoom');

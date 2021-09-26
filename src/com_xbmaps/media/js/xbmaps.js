@@ -118,8 +118,11 @@ function xbMarkerCoordInfo() {
 	var coordMsg = '<div class="xbmsgsuccess" style="text-align:left;">';
 	coordMsg += 'Lat: '+window.lat+' ('+window.dmslat+'),&nbsp;&nbsp;Long: '+window.lng+' ('+window.dmslng+')';
 	coordMsg += '</div>';  
-	jQuery('#coordInfo', window.parent.document).html(coordMsg);
-	    
+	jQuery('#coordInfo', window.parent.document).html(coordMsg);	    
+}
+
+function xbSaveTrackStats(trkuid, dist, movetime, speed, climbed) {
+	
 }
 
 function xbSetDirectory(srcCtrl,destCtrl) {

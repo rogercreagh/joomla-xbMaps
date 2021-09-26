@@ -465,14 +465,14 @@
 			</field>
 			<field name="track_info_width" type="list"  
 				label="Track Info Width" description="The width of the total map area allocated to the info pane on right/left."
-				showon="show_track_info:'left'[OR]show_track_info:'right'"
-				default=""
+				showon="show_track_info:left[OR]show_track_info:right"
+				default="0"
 			>
-				<option value="17">17%</option>
-				<option value="33">33%</option>
-				<option value="50">50%</option>
-				<option value="67">67%</option>
-				<option value="83">83%</option>
+				<option value="2">17%</option>
+				<option value="4">33%</option>
+				<option value="6">50%</option>
+				<option value="8">67%</option>
+				<option value="10">83%</option>
 			</field>
 			
 			<field name="show_track_desc" type="radio"  

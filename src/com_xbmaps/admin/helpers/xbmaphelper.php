@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.2.1 13th September 2021
+ * @version 0.4.0.b 26th September 2021
  * @filesource admin/helpers/xbmaphelper.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -660,7 +660,7 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		return true;
 	}
 	
-	public function renderTracks( $tracks, $fitbounds = false) {
+	public function renderTracks( $tracks, $fitbounds = false, $info = true, $pop = true) {
 		$mapname = 'map'.$this->name.$this->id;
 		$aliaslist = '';
 		$fitto = 400; 	//delay to allow tracks to render before fitting bounds
@@ -674,13 +674,34 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 			$o[] = '{ startIconUrl: \''.Uri::root().'/media/com_xbmaps/images/start.png\',';
 			$o[] = ' endIconUrl: \''.Uri::root().'/media/com_xbmaps/images/end.png\',';
 			$o[] = ' shadowUrl: \'\', iconSize: [24, 25],iconAnchor: [12, 25]}';
-			$o[] = '}).on(\'loaded\',function(e) {e.target.bindPopup(\'<b>'.addslashes($trk->title).'</b><br />Distance: \'+parseInt(e.target.get_distance())/1000+\' km<br />\'';
-			$o[] = '+((e.target.get_moving_time() > 0) ? \'Speed: \'+e.target.get_moving_speed().toFixed(2)+\' km/hr<br />Time: \'+e.target.get_duration_string(e.target.get_moving_time())+\'<br />\' : \'\')';
-			$o[] = '+((e.target.get_elevation_gain() >5) ? \'Climbed: \'+Math.trunc(e.target.get_elevation_gain())+\' m\' : \'\'))});';
+			$o[] = '}).on(\'loaded\',function(e) {';
+			$o[] = 'var dist = \'<i>Distance: </i>\'+parseInt(e.target.get_distance())/1000+\' km\';';
+			$o[] = 'var speed = ((e.target.get_moving_time() > 0) ? \'<i>Speed: </i>: \'+e.target.get_moving_speed().toFixed(2)+\' km/hr\':\'\');';
+			$o[] = 'var time = ((e.target.get_moving_time() > 0) ? \'<i>Time: </i>: \'+e.target.get_duration_string(e.target.get_moving_time()):\'\');';
+			$o[] = 'var climb = ((e.target.get_elevation_gain() > 5) ? \'<i>Climbed: </i>: \'+Math.trunc(e.target.get_elevation_gain())+\' m\':\'\');';
+			if ($info) {
+				$o[] = 'jQuery(\'#'.$cleanalias.'\', window.document).html(\'<li>\'+dist+\'</li><li>\'+speed+\'</li><li>\'+time+\'</li><li>\'+climb+\'</li>\');';				
+			}
+			if ($pop) {
+				$o[] = 'e.target.bindPopup(\'<b>'.addslashes($trk->title).'</b><br />\'+dist+\'<br />\'+speed+\'<br />Time: \'+time+\'<br />\'+climb';
+			}
+			$o[] = ')});';
+			
+//			$o[] = '}).on(\'loaded\',function(e) {\'';
+//			$o[] = '+var dist = \'<i>Distance: </i>\'+parseInt(e.target.get_distance())/1000+\' km\';';
+//			$o[] = '+jQuery(\'#'.$cleanalias.'\', window.document).html(dist); e.target.bindPopup(\'<b>'.addslashes($trk->title).'</b><br />\'+dist+\'<br />\'';
+			
+//			$o[] = '}).on(\'loaded\',function(e) {e.target.bindPopup(\'<b>'.addslashes($trk->title).'</b><br />Distance: \'+parseInt(e.target.get_distance())/1000+\' km<br />\'';
+//			$o[] = '+((e.target.get_moving_time() > 0) ? \'Speed: \'+e.target.get_moving_speed().toFixed(2)+\' km/hr<br />Time: \'+e.target.get_duration_string(e.target.get_moving_time())+\'<br />\' : \'\')';
+//			$o[] = '+((e.target.get_elevation_gain() >5) ? \'Climbed: \'+Math.trunc(e.target.get_elevation_gain())+\' m\' : \'\'))});';
 			
 //			$o[] = '}).on(\'loaded\',function(e) {e.target.bindPopup(\'<b>'.addslashes($trk->title).'</b><br />Distance: \'+parseInt(e.target.get_distance())/1000+\' km<br />Speed: \'+e.target.get_moving_speed().toFixed(2)+\' km/hr<br />Time: \'+e.target.get_duration_string(e.target.get_moving_time())+\'<br />Climbed: \'+Math.trunc(e.target.get_elevation_gain())+\' m\')});';
 			$fitto += 300;
 			$aliaslist .= $cleanalias.',';
+			
+//			$o[] = 'dist=\'Distance: \'+parseInt('.$cleanalias.'.get_distance())/1000 +\' km\';';
+//			$o[] = 'jQuery(\'#'+$cleanalias+'\', window.document).html(dist);';
+//			$o[] = 'document.getElementById(\''+$cleanalias+'\').innerHtml = dist;';
 		}
 		$aliaslist = trim($aliaslist,',');
 		$o[] = 'var tracksLayer = L.featureGroup(['.$aliaslist.']);';
@@ -692,7 +713,7 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		$this->output[] = implode("\n", $o);
 		//			$o[] = '';
 	}
-	
+		
 	public function renderMap() {
 		$o = array();
 		$o[] = 'jQuery(document).ready(function() {';

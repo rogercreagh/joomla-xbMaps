@@ -92,18 +92,8 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 	        			<?php echo HTMLHelper::_('bootstrap.endAccordion'); ?>
 					</div>
 	        	</div>
-	        	<?php if(!empty($this->gpxinfo)) : ?>
-	        	<div class="xbbox xbboxmag">
-	        		<h4>Metadata from GPX file</h4>
-	        		<ul>
-	        			<li>GPX Name  : <?php echo $this->gpxinfo['gpxname']; ?></li>
-	        			<li>Track Name : <?php echo $this->gpxinfo['trkname']; ?></li>
-	        			<li>Creator (rec_device) : <?php echo $this->gpxinfo['creator']; ?></li>
-	        			<li>Date/Time (rec_date) : <?php echo $this->gpxinfo['recdate']; ?></li>	        			
-	        		</ul>
-	        		<p><i>Copy/paste above info to title, rec_device and rec_date if required</i></p>
-	        	</div>
-	        	<?php endif;?>
+	        	<div class="row-fluid">
+	        		<div class"span6">
 	    				<p> </p>				
             	    	<?php echo $this->form->renderField('rec_date'); ?>  					
             	    	<?php echo $this->form->renderField('rec_device'); ?>  					
@@ -112,6 +102,22 @@ HTMLHelper::_('formbehavior.chosen', 'select');
             	    	<?php echo $this->form->renderField('maplist'); ?>            	    	 					
             	    	<?php echo $this->form->renderField('description'); ?>   					
           
+	        		</div>
+	        		<div class"span6">
+			        	<?php if(!empty($this->gpxinfo)) : ?>
+			        	<div class="xbbox xbboxmag">
+			        		<h4>Metadata from GPX file</h4>
+			        		<ul>
+			        			<li>GPX Name  : <?php echo $this->gpxinfo['gpxname']; ?></li>
+			        			<li>Track Name : <?php echo $this->gpxinfo['trkname']; ?></li>
+			        			<li>Creator (rec_device) : <?php echo $this->gpxinfo['creator']; ?></li>
+			        			<li>Date/Time (rec_date) : <?php echo $this->gpxinfo['recdate']; ?></li>	        			
+			        		</ul>
+			        		<p><i>Copy/paste above info to title, rec_device and rec_date if required</i></p>
+			        	</div>
+			        	<?php endif;?>
+	        		</div>
+	        	</div>
 	    			</div>
         			<div class="span3">
         				<?php echo LayoutHelper::render('joomla.edit.global', $this); ?>

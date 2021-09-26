@@ -108,9 +108,9 @@ class com_xbmapsInstallerScript
 	        echo '<p>For help and information see <a href="https://crosborne.co.uk/xbmaps/doc" target="_blank">
 	            www.crosborne.co.uk/xbmaps/doc</a> or use Help button in xbMaps Control Panel</p>';
 	        echo '<h4>Next steps</h4>';
-		        echo '<p><i>Review &amp; set the options</i>&nbsp;&nbsp;';
+		        echo '<p>IMPORTANT - <i>Review &amp; set the options</i>&nbsp;&nbsp;';
 		        echo '<a href="index.php?option=com_config&view=component&component=com_xbmaps" class="btn btn-small btn-info">xbMaps Options</a>';
-		        echo ' <i>you probably want to do this first, when you save the options you will return to the xbMaps Control Panel.</i></p>';
+		        echo ' <i>It is recommended to have a look at the options, check the defaults match your expectations and save them. When you save the options you will return to the xbMaps Control Panel.</i></p>';
 		        echo '</div>';
     	}
 	}

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.1.1.j 27th August 2021
+ * @version 0.4.0.b 26th September 2021
  * @filesource admin/views/trackview/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -36,9 +36,21 @@ $map->renderMap();
 		 	</div>
 		</div>
 		<div class="row-fluid">
-			<div class="span12" style="margin:0;padding:0; <?php echo $this->borderstyle; ?>">
+			<div class="span8" style="margin:0;padding:0; <?php echo $this->borderstyle; ?>">
 				<div id="xbMap<?php echo $uid; ?>" style="<?php echo $this->mapstyle; ?>">
 				</div>
+			</div>
+			<div class="span4">
+				<div class="xbbox xbboxmag">
+					<ul style="list-style-type:none;">
+						<li><i>Recording start : </i><?php echo $this->item->rec_date; ?></li>
+						<li><i>Activity type: </i><?php echo $this->item->activity; ?></li> 
+						<li><i>Record device: </i><?php echo $this->item->rec_device; ?></li>
+						<div id="<?php echo str_replace('-','_',$this->item->alias); ?>">		
+						</div>
+					</ul>
+				</div>
+		 		<?php echo $this->item->description; ?>			
 			</div>
 		</div>
 		<input type="hidden" name="task" value="" />

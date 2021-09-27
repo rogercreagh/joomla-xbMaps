@@ -72,7 +72,7 @@ $trackslink = 'index.php?option=com_xbmaps&view=tracklist';
 				<?php endif; ?>
 			</ul>
 			<?php if ($this->show_stats) : ?>
-			<ul class="xbhlist">
+			<ul style="list-style-type:none;">
 					<div id="<?php echo str_replace('-','_',$item->alias); ?>">		
 					</div>
 			</ul>
@@ -115,7 +115,7 @@ $trackslink = 'index.php?option=com_xbmaps&view=tracklist';
 			<?php endif; ?>
 		</ul>
 		<?php if ($this->show_stats) : ?>
-		<ul class="xbhlist">
+		<ul style="list-style-type:none;">
 				<div id="<?php echo str_replace('-','_',$item->alias); ?>">		
 				</div>
 		</ul>

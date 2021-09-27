@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.4.0.a 24th September 2021
+ * @version 0.4.0.c 27th September 2021
  * @filesource admin/views/track/tmpl/edit.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -127,8 +127,10 @@ HTMLHelper::_('formbehavior.chosen', 'select');
     			<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'params', JText::_('Layout Options')); ?>
            	    	<?php echo $this->form->renderField('show_track_title','params'); ?>  					
            	    	<?php echo $this->form->renderField('show_track_info','params'); ?>  					
-           	    	<?php echo $this->form->renderField('show_track_desc','params'); ?>  					
            	    	<?php echo $this->form->renderField('track_info_width','params'); ?>  					
+           	    	<?php echo $this->form->renderField('show_activity','params'); ?>  					
+           	    	<?php echo $this->form->renderField('show_stats','params'); ?>  					
+           	    	<?php echo $this->form->renderField('show_track_desc','params'); ?>  					
            	    	<?php echo $this->form->renderField('show_track_popover','params'); ?>  					
     			
    				<?php echo HTMLHelper::_('bootstrap.endTab'); ?>

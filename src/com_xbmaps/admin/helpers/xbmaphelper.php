@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.4.0.b 26th September 2021
+ * @version 0.4.0.c 27th September 2021
  * @filesource admin/helpers/xbmaphelper.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -243,28 +243,6 @@ class XbMapHelper {
 		
 		$o[]= 'var marker'.$markerId.' = L.marker(['.$lat.', '.$lng.'])';
 					
-		
-// 		$style = '';
-// 		if ($width != '') {
-// 			$style .= 'width: '.(int)$width.'px;';
-// 		}
-// 		if ($height != '') {
-// 			$style .= 'height: '.(int)$height.'px;';
-// 		}
-// 		if ($style != '') {
-// 		    $style = 'style="'.$style.'"';
-// 		}
-// 		$text='';
-// 		if ($title != ''){
-// 			$text .= '<b>' . addslashes($title) . '</b><br />';
-// 		}
-// 		if (($title != '') && ($description != '')) {
-// 			$text .= '<br />';
-// 		}
-// 		if ($description != '') {
-// 			$text .=  addslashes($description);
-// 		}	
-		
 		$popcontent = $this->makeMarkerPopup($title, $description, $width, $height, $open);
 		
 		if ($this->markerclustering != 1) {
@@ -410,8 +388,6 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 	}
 	
 	
-	
-	
 	public function setMarkerClusterer() {
 		
 		if ($this->markerclustering == 1) {
@@ -442,23 +418,6 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 	
 	}
 		
-//  	public function save2form($latField, $longField, $zoomField = '') {
-// 		$o = array();
-// 		$o[]= 'function xbmapsSaveForm() {';
-// 		$o[]= 'var fldLat = jQuery(\'#'.$latField.'\', window.parent.document);';
-// 		$o[] = 'fldLat.val(window.lat);';
-// 		$o[]= 'var fldLng = jQuery(\'#'.$longField.'\', window.parent.document);';
-// 		$o[] = 'fldLng.val(window.lng);';
-// 		if ($zoomField != '') {
-// 			$o[]= 'var fldZoom = jQuery(\'#'.$zoomField.'\', window.parent.document);';
-// 			$o[] = 'fldZoom.val(window.zoom);';				
-// 		}
-// 		$o[]= '}';		
-// 		$this->output[] = implode("\n", $o);
-// 		return true;
-		
-// 	}
-	
 	public function endZoom() {
 		$o 	= array();
 		$o[] = 'map'.$this->name.$this->id.'.on("zoomend", onZoomEnd);';
@@ -624,42 +583,6 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		
 	}
 			
-	/**
-	 * @name renderTrack()
-	 * @param $filename - string url of gpx/kml file to load
-	 * @param string $colour - optional hex colour value for track (default to blue)
-	 * @param boolean $fitbounds - if true adjust the map centre and zoom to fit the track
-	 * @return boolean
-	 * @desc adds a gpx  filename layer
-	 */
-	public function renderTrack($filename, $trkcolour = '', $fitbounds = false) {
-		
-		$mapname = 'map'.$this->name.$this->id;
-		$o 	= array();
-		//$file = Uri::root().'/xbmaps-tracks/'.$filename;
-		$o[] = 'var gpx = \''.$filename.'\''; 
-		$o[] = 'new L.GPX(gpx, { polyline_options: {color: \''.$trkcolour.'\'},';
-		$o[] = 'async: true, marker_options: ';
-		$o[] = '{ startIconUrl: \''.Uri::root().'/media/com_xbmaps/images/start.png\',';
-		$o[] = ' endIconUrl: \''.Uri::root().'/media/com_xbmaps/images/end.png\',';
-		$o[] = ' shadowUrl: \'\', iconSize: [24, 24],iconAnchor: [12, 24]}';
-		$o[] = '}).on(\'loaded\',function(e) {e.target.bindPopup(\'<b>'.addslashes($trk->title).'</b><br />\'';
-		$o[] = '+\'Distance: \'+parseInt(e.target.get_distance())/1000+\' km<br />\'';
-		$o[] = '+((e.target.get_moving_time() > 0) ? \'Speed: \'+e.target.get_moving_speed().toFixed(2)+\' km/hr<br />Time: \'+e.target.get_duration_string(e.target.get_moving_time())+\'<br />\' : \'\')';
-		$o[] = '+((e.target.get_elevation_gain() >5) ? \'Climbed: \'+Math.trunc(e.target.get_elevation_gain())+\' m\' : \'\'))});';
-//		$o[] = '}).on(\'loaded\',function(e) {e.target.bindPopup(\'<b>'.addslashes($trk->title).'</b><br />Distance: \'+parseInt(e.target.get_distance())/1000+\' km<br />
-//Speed: \'+e.target.get_moving_speed().toFixed(2)+\' km/hr<br />
-//Time: \'+e.target.get_duration_string(e.target.get_moving_time())+\'<br />
-//Climbed: \'+Math.trunc(e.target.get_elevation_gain())+\' m\')});';
-		if ($fitbounds) {
-			$o[] = '.on(\'loaded\', function(e) { '.$mapname.'.fitBounds(e.target.getBounds());})';
-		}		
-		$o[] = '.addTo('.$mapname.');';
-		$this->output[] = implode("\n", $o);		
-//add info on end icon popup		
-		return true;
-	}
-	
 	public function renderTracks( $tracks, $fitbounds = false, $info = true, $pop = true) {
 		$mapname = 'map'.$this->name.$this->id;
 		$aliaslist = '';

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.4.0.b 26th September 2021
+ * @version 0.4.0.c 27th September 2021
  * @filesource admin/views/trackview/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021

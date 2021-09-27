@@ -25,7 +25,7 @@ class XbmapsViewTrack extends JViewLegacy {
 		$this->state = $this->get('State');
 		$this->params = $this->item->params;
 		//$sparams is used to get menu options that are not global and may override item params
-		$sparams = $this->state->get('params');
+		//$sparams = $this->state->get('params');
 		
 		$gcat = $this->params->get('global_use_cats');
 		$mcat = $this->params->get('tracks_use_cats');
@@ -48,11 +48,11 @@ class XbmapsViewTrack extends JViewLegacy {
 		}
 		//TODO set default for all params
 		$this->show_title = $this->params->get('show_track_title');
-		$this->show_info = $this->params['show_track_info'];
-		$this->info_width = $this->params['track_info_width'];
+		$this->show_info = $this->params->get('show_track_info');
+		$this->info_width = $this->params->get('track_info_width');
 		$this->mainspan = 12 - $this->info_width;
-		$this->show_desc = $this->params['show_description'];
-		$this->show_popover = $this->params['show_track_popover'];
+		$this->show_desc = $this->params->get('show_description');
+		$this->show_popover = $this->params->get('show_track_popover');
 		
 //		$this->showtracktitle = $sparams['show_track_title']=='' ? $iparams['show_track_title'] : $sparams['show_track_title'];
 //		$this->showtrackdesc = $sparams['show_track_desc']=='' ? $iparams['show_track_desc'] : $sparams['show_track_desc'];
@@ -60,9 +60,15 @@ class XbmapsViewTrack extends JViewLegacy {
 		$this->centre_latitude = $this->params->get('centre_latitude');
 		$this->centre_longitude = $this->params->get('centre_longitude');
 		$this->default_zoom = $this->params->get('default_zoom');
-		$this->track_map_type = $sparams->get('track_map_type');
+		$this->track_map_type = $this->params->get('track_map_type');
 		$this->borderstyle = 'border:1px solid #3f3f3f;';
 		$this->mapstyle = 'margin:0;padding:0;width:100%;height:50vh;';
+		$this->show_device = $this->params->get('show_device');
+		$this->show_activity = $this->params->get('show_activity');
+		$this->show_stats = $this->params->get('show_stats');
+		$this->show_track_popover = $this->params->get('show_track_popover');
+		
+		
 		if (count($errors = $this->get('Errors'))) {
 			Factory::getApplication()->enqueueMessage(implode('<br />', $errors),'error');
 			return false;

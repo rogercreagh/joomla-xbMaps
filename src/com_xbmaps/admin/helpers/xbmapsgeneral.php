@@ -128,7 +128,7 @@ class XbmapsGeneral extends ContentHelper {
 		$db = Factory::getDBO();
 		$query = $db->getQuery(true);
 		
-		$query->select('a.track_colour AS track_colour, m.title, m.id, m.state AS mstate ')
+		$query->select('a.track_colour AS track_colour, m.title, m.id, m.state AS mstate, m.description AS description ')
 		->from('#__xbmaps_maptracks AS a')
 		->join('LEFT','#__xbmaps_maps AS m ON m.id=a.map_id')
 		->where('a.track_id = "'.$trkid.'"' )

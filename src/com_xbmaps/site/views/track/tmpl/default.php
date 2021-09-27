@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.4.0.b 26h September 2021
+ * @version 0.4.0.c 27h September 2021
  * @filesource site/views/track/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -48,12 +48,16 @@ $trackslink = 'index.php?option=com_xbmaps&view=tracklist';
 	<ul class="xbhlist">
 		<li><i>Recording start : </i><?php echo $item->rec_date; ?></li>
 		<li><i>Activity type: </i><?php echo $item->activity; ?></li> 
+		<?php if ($this->show_device) : ?>
 		<li><i>Record device: </i><?php echo $item->rec_device; ?></li>
+		<?php endif; ?>
 	</ul>
+	<?php if ($this->show_stats) : ?>
 	<ul class="xbhlist">
 			<div id="<?php echo str_replace('-','_',$item->alias); ?>">		
 			</div>
 	</ul>
+	<?php endif; ?>
 	</div>
 <?php endif; ?>
 <div class="row-fluid">
@@ -63,10 +67,16 @@ $trackslink = 'index.php?option=com_xbmaps&view=tracklist';
 			<ul style="list-style-type:none;">
 				<li><i>Recording start : </i><?php echo $item->rec_date; ?></li>
 				<li><i>Activity type: </i><?php echo $item->activity; ?></li> 
+				<?php if ($this->show_device) : ?>
 				<li><i>Record device: </i><?php echo $item->rec_device; ?></li>
-			<div id="<?php echo str_replace('-','_',$item->alias); ?>">		
-			</div>
+				<?php endif; ?>
 			</ul>
+			<?php if ($this->show_stats) : ?>
+			<ul class="xbhlist">
+					<div id="<?php echo str_replace('-','_',$item->alias); ?>">		
+					</div>
+			</ul>
+			<?php endif; ?>
 		</div>
 		<?php if ($this->show_desc) :?>
 	 		<?php echo $item->description; ?>
@@ -82,7 +92,7 @@ $trackslink = 'index.php?option=com_xbmaps&view=tracklist';
 			$map->setMapType($this->track_map_type);
 			$map->renderFullScreenControl();
 			//$map->renderEasyPrint();
-			$map->renderTracks(array($item),true);
+			$map->renderTracks(array($item),true,$this->show_stats,$this->show_track_popover);
 			$map->renderMap();
 			?>
 <div id="xbmaps" style="margin:0;padding:0;">
@@ -100,10 +110,16 @@ $trackslink = 'index.php?option=com_xbmaps&view=tracklist';
 		<ul style="list-style-type:none;">
 			<li><i>Recording start : </i><?php echo $item->rec_date; ?></li>
 			<li><i>Activity type: </i><?php echo $item->activity; ?></li> 
+			<?php if ($this->show_device): ?>
 			<li><i>Record device: </i><?php echo $item->rec_device; ?></li>
-			<div id="<?php echo str_replace('-','_',$item->alias); ?>">		
-			</div>
+			<?php endif; ?>
 		</ul>
+		<?php if ($this->show_stats) : ?>
+		<ul class="xbhlist">
+				<div id="<?php echo str_replace('-','_',$item->alias); ?>">		
+				</div>
+		</ul>
+		<?php endif; ?>
 		</div>
 	<?php if ($this->show_desc) :?>
 	 		<?php echo $item->description; ?>
@@ -117,12 +133,16 @@ $trackslink = 'index.php?option=com_xbmaps&view=tracklist';
 	<ul class="xbhlist">
 		<li><i>Recording start : </i><?php echo $item->rec_date; ?></li>
 		<li><i>Activity type: </i><?php echo $item->activity; ?></li> 
+		<?php if ($this->show_device) : ?>
 		<li><i>Record device: </i><?php echo $item->rec_device; ?></li>
+		<?php endif; ?>
 	</ul>
+	<?php if ($this->show_stats) : ?>
 	<ul class="xbhlist">
 			<div id="<?php echo str_replace('-','_',$item->alias); ?>">		
 			</div>
 	</ul>
+	<?php endif; ?>
 	</div>
 	<?php if ($this->show_desc) :?>
 	<div class="row-fluid">

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.1.1.j 26th August 2021
+ * @version 0.4.0.c 27th September 2021
  * @filesource admin/views/trackview/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -20,10 +20,10 @@ class XbmapsViewTrackview extends JViewLegacy {
 		
 	    $this->item = $this->get('Item');
 	    $this->params = $this->item->params;
-	    $this->centre_latitude = $this->params['centre_latitude'];
-	    $this->centre_longitude = $this->params['centre_longitude'];
-	    $this->default_zoom = $this->params['default_zoom'];
-	    $this->track_map_type = $this->params['track_map_type'];
+	    $this->centre_latitude = $this->params->get('centre_latitude');
+	    $this->centre_longitude = $this->params->get('centre_longitude');
+	    $this->default_zoom = $this->params->get('default_zoom');
+	    $this->track_map_type = $this->params->get('track_map_type');
 
 	    $this->borderstyle = 'border:1px solid #3f3f3f;';
 	    $this->mapstyle = 'margin:0;padding:0;width:100%;height:50vh;';

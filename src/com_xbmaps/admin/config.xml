@@ -427,10 +427,11 @@
 		>
 			<option value="0" >JNO</option>
 			<option value="1">JYES</option>
-		</field>	
+		</field>
+		
+			
 		<field name="track_map_type" type="list"
 			label="XBMAPS_TRACKMAP_TYPE_LABEL" description="XBMAPS_TRACKMAP_TYPE_DESC"
-			showon="enable_track_view:1"
 			default="osm" 	
 		>
 			<option value="osm">XBMAPS_OPENSTREETMAP</option>
@@ -446,15 +447,13 @@
 			<field name="show_track_title" type="radio"  
 				label="XBMAPS_TRACK_TITLE_LABEL" description="XBMAPS_TRACK_TITLE_DESC"
 				class="btn-group btn-group-yesno" 
-				showon="enable_track_view:1"
 				default="1"
 			>
 				<option value="1">JYES</option>
 				<option value="0">JNO</option>
 			</field>
 			<field name="show_track_info" type="list"  
-				label="Show Track Info Pane" description="This is separate to the popup when the track start/finish is clicked but has the same info. Show information about track on the single track view. If above selected it will appear in a full width box immediately above the map, if below it will appear immediately inder the map. Description will appear in same area."
-				showon="enable_track_view:1"
+				label="XBMAPS_TRACK_INFOPANE_LABEL" description="XBMAPS_TRACK_INFOPANE_DESC"
 				default=""
 			>
 				<option value="">JHIDE</option>
@@ -464,7 +463,7 @@
 				<option value="left">XBMAPS_LEFT</option>
 			</field>
 			<field name="track_info_width" type="list"  
-				label="Track Info Width" description="The width of the total map area allocated to the info pane on right/left."
+				label="XBMAPS_TRACK_INFOPANE_WIDTH_LABEL" description="XBMAPS_TRACK_INFOPANE_WIDTH_DESC"
 				showon="show_track_info:left[OR]show_track_info:right"
 				default="0"
 			>
@@ -474,42 +473,56 @@
 				<option value="8">67%</option>
 				<option value="10">83%</option>
 			</field>
-			
+			<field name="show_device" type="radio"  
+				label="XBMAPS_TRACK_DEVICE_LABEL" description="XBMAPS_TRACK_DEVICE_DESC"
+				class="btn-group btn-group-yesno" 
+				showon="show_track_info!:"
+				default="0"
+			>
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field name="show_activity" type="radio"  
+				label="XBMAPS_TRACK_ACTIVITY_LABEL" description="XBMAPS_TRACK_ACTIVITY_DESC"
+				class="btn-group btn-group-yesno" 
+				showon="show_track_info!:"
+				default="1"
+			>
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field name="show_stats" type="radio"  
+				label="XBMAPS_TRACK_STATS_LABEL" description="XBMAPS_TRACK_STATS_DESC"
+				class="btn-group btn-group-yesno" 
+				showon="show_track_info!:"
+				default="1"
+			>
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
 			<field name="show_track_desc" type="radio"  
 				label="XBMAPS_TRACK_DESC_LABEL" description="XBMAPS_TRACK_DESC_DESC"
 				class="btn-group btn-group-yesno" 
-				showon="enable_track_view:1"
 				default="1"
 			>
 				<option value="1">JYES</option>
 				<option value="0">JNO</option>
 			</field>
 			<field name="show_track_popover" type="list"  
-				label="Show popover track info" description="Popover will show track title, record date, distance, time, speed and climb and optionally description text when the track or the start/finish icons are clicked in both mapview and trackview."
+				label="XBMAPS_TRACK_POP_LABEL" description="XBMAPS_TRACK_POP_DESC"
 				class="btn-group btn-group-yesno" 
 				default="1"
 			>
 				<option value="0">JNO</option>
-				<option value="1">Yes, info only</option>
-				<option value="2">Yes, include description</option>
+				<option value="1">XBMAPS_TRACK_POP_TITLE</option>
+				<option value="2">XBMAPS_TRACK_POP_STATS</option>
+				<option value="3">XBMAPS_TRACK_POP_SUMMARY</option>
+				<option value="4">XBMAPS_TRACK_POP_STATSUM</option>
 			</field>
 
-	 		<field name="trk_info_note" type="note"
-				label="" description="NB distance, climb, time and speed are calculated from the track points data, and may give different results on different systems. In particular if your device elevation data compensates for barometric pressure or is not calibrated, you may get a nonsense figure for total climbed. If the recording includes periods of very slow movement, or when signal is poor (eg under tree cover) then there may be many poorly defined points which will throw errors into all the caluations. All will depend on your device settings (record mode and frequency). Some systems (like Strava) may compensate for some of these errors and show different results."
-			/>	
-
-<!-- 
-			<field name="track_desc_position" type="radio"  
-				label="XBMAPS_TRACK_DESCPOS_LABEL" description="XBMAPS_TRACK_DESCPOS_DESC"
-				class="btn-group btn-group-yesno" 
-				showon="enable_track_view:1[AND]show_track_desc:1"
-				default="below"
-			>
-				<option value="above">XBMAPS_ABOVE</option>
-				<option value="below">XBMAPS_BELOW</option>
-			</field>
- -->
-		
+	 		<field name="trk_info_note" type="note" class="alert" 
+	 			description="XBMAPS_STATUS_NOTE" />
+						
 	</fieldset>
 	
 <!-- REGISTRATION TAB -->				

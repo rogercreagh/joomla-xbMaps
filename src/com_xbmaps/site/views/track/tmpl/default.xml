@@ -60,15 +60,6 @@
 				<option value="1">JYES</option>
 				<option value="0">JNO</option>
 			</field>
-			<field name="track_desc_position" type="radio"  
-				label="XBMAPS_TRACK_DESCPOS_LABEL" description="XBMAPS_TRACK_DESCPOS_DESC"
-				class="btn-group btn-group-yesno" 
-				showon="show_map_desc!:0"
-				default="below"
-			>
-				<option value="below">XBMAPS_BELOW</option>
-				<option value="above">XBMAPS_ABOVE</option>
-			</field>
 <!-- 
 			<field name="map_zoom_control" type="radio"  
 				label="XBMAPS_MAP_SHOW_ZOOM_CONTROL_LABEL" description="XBMAPS_MAP_SHOW_ZOOM_CONTROL_DESC"

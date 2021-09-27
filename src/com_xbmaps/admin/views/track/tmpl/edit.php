@@ -59,26 +59,27 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 				<?php echo HTMLHelper::_('bootstrap.startTabSet', 'myTab', array('active' => 'details')); ?>
 	
 				<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'details', Text::_('Details')); ?>
-				<div class="row-fluid">
-					<div class="span9">  
-						<div class="pull-left xbml20">
-		     	    		<?php echo $this->form->renderField('gpx_folder'); ?> 
-						</div>	
-						<div class="pull-left">
-		    				<i><?php echo Text::_('XBMAPS_GPXFOLDER_NOTE'); ?>  
-		    				<a href="index.php?option=com_config&view=component&component=com_xbmaps#Tracks">
-		    					<?php echo Text::_('XBMAPS_GPX_FOLDER'); ?></a> 
-		    				<?php echo Text::_('XBMAPS_GPXFOLDER_NOTE2'); ?></i>
-		    			</div> 					
-	    				<div class="clearfix"></div> 	
-	    				<p><?php echo $this->form->renderField('select_gpxfile'); ?>
-	    				<div class="clearfix"></div> 					
+		<div class="row-fluid">
+			<div class="span9">  
+				<div class="pull-left xbml20">
+     	    		<?php echo $this->form->renderField('gpx_folder'); ?> 
+				</div>	
+				<div class="pull-left xbml20">
+    				<i><?php echo Text::_('XBMAPS_GPXFOLDER_NOTE'); ?>  
+    				<a href="index.php?option=com_config&view=component&component=com_xbmaps#Tracks">
+    					<?php echo Text::_('XBMAPS_GPX_FOLDER'); ?></a> 
+    				<?php echo Text::_('XBMAPS_GPXFOLDER_NOTE2'); ?></i>
+	    		</div> 					
+    			<div class="clearfix"></div> 	
+    			<p><?php echo $this->form->renderField('select_gpxfile'); ?>
+    			<div class="clearfix"></div> 					
 
 				<div class="row-fluid">
 					<div class="span9">
 			        	<?php echo HTMLHelper::_('bootstrap.startAccordion', 'slide-cpanel', array('active' => '')); ?>
 		        		<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-cpanel', Text::_('Click to upload new GPX file'), 'upload','xbaccordion'); ?>
 		    				<div class="pull-left">
+		    					<p class="xbnit"><?php echo JText::_('XBMAPS_UPLOAD_SAVE_CHANGES'); ?></p>
 			    				<?php echo $this->form->renderField('upload_gpxfile'); ?>   					
 		    				</div> 					
 		    				<div class="pull-right xbmr20">
@@ -93,17 +94,15 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 					</div>
 	        	</div>
 	        	<div class="row-fluid">
-	        		<div class"span6">
+	        		<div class="span6">
 	    				<p> </p>				
             	    	<?php echo $this->form->renderField('rec_date'); ?>  					
             	    	<?php echo $this->form->renderField('rec_device'); ?>  					
             	    	<?php echo $this->form->renderField('activity'); ?>  					
             	    	<?php echo $this->form->renderField('track_colour'); ?> 
-            	    	<?php echo $this->form->renderField('maplist'); ?>            	    	 					
-            	    	<?php echo $this->form->renderField('description'); ?>   					
           
 	        		</div>
-	        		<div class"span6">
+	        		<div class="span6">
 			        	<?php if(!empty($this->gpxinfo)) : ?>
 			        	<div class="xbbox xbboxmag">
 			        		<h4>Metadata from GPX file</h4>
@@ -118,6 +117,8 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 			        	<?php endif;?>
 	        		</div>
 	        	</div>
+            	    	<?php echo $this->form->renderField('maplist'); ?>            	    	 					
+            	    	<?php echo $this->form->renderField('description'); ?>   					
 	    			</div>
         			<div class="span3">
         				<?php echo LayoutHelper::render('joomla.edit.global', $this); ?>

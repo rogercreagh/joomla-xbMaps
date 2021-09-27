@@ -206,7 +206,7 @@
 			</field>
 			<field name="track_info_width" type="list"  
 				label="XBMAPS_TRACK_INFOPANE_WIDTH_LABEL" description="XBMAPS_TRACK_INFOPANE_WIDTH_DESC"
-				showon="show_track_info:'left'[OR]show_track_info:'right'"
+				showon="show_track_info:left[OR]show_track_info:right"
 				default="" useglobal="true"
 			>
 				<option value="2">17%</option>

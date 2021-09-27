@@ -51,7 +51,7 @@ class XbmapsViewTrack extends JViewLegacy {
 		$this->show_info = $this->params->get('show_track_info');
 		$this->info_width = $this->params->get('track_info_width');
 		$this->mainspan = 12 - $this->info_width;
-		$this->show_desc = $this->params->get('show_description');
+		$this->show_desc = $this->params->get('show_track_desc');
 		$this->show_popover = $this->params->get('show_track_popover');
 		
 //		$this->showtracktitle = $sparams['show_track_title']=='' ? $iparams['show_track_title'] : $sparams['show_track_title'];

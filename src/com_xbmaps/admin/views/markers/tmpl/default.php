@@ -41,6 +41,10 @@ $tvlink = 'index.php?option=com_tags&id=';
 
 $catclass = $this->show_cats? 'label-success' : 'label-grey';
 $tagclass = $this->show_tags? 'label-info' : 'label-grey';
+
+$map->loadAPI(false);
+$map->loadXbmapsJS();
+
 ?>
 <div class="row-fluid">
 <form action="<?php echo JRoute::_('index.php?option=com_xbmaps&view=markers'); ?>" method="post" name="adminForm" id="adminForm">
@@ -209,7 +213,8 @@ $tagclass = $this->show_tags? 'label-info' : 'label-grey';
 				</td>
 				<td style="text-align:center;">
 					<div class="hasTooltip" title="" data-original-title="Latitude: <?php echo $item->latitude; ?><br />Longitude: <?php echo $item->longitude; ?>" >
-					   <?php echo $pv; ?>
+					   <span data-remote="index.php?option=com_xbmaps&view=marker&layout=preview&id=1&tmpl=component" data-toggle="modal" data-target="#modal-pvmarker" ><?php echo $pv; ?></span>                       					  
+					   <?php //echo $pv; ?>
 					</div>
 				</td>
 				<td>
@@ -275,6 +280,20 @@ $tagclass = $this->show_tags? 'label-info' : 'label-grey';
             	$this->loadTemplate('batch_body')
         	); 
         ?>
+    <?php endif; ?>
+<div class="modal hide fade" id="modal-pvmarker">
+  <div class="modal-header">
+    <button type="button" role="presentation" class="close" data-dismiss="modal">x</button>
+    <h4>Marker preview</h4>
+  </div>
+  <div class="modal-body">
+
+  </div>
+  <div class="modal-footer">
+    <button class="btn" type="button" data-dismiss="modal">
+    </button>
+  </div>
+</div>
     <?php endif; ?>
 	<?php echo $this->pagination->getListFooter(); ?>
 	<input type="hidden" name="task" value="" />

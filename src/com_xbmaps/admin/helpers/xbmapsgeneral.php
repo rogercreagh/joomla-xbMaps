@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.2.1 13th September 2021
+ * @version 0.5.0.a 28th September 2021
  * @filesource admin/helpers/xbmapsgeneral.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -172,7 +172,7 @@ class XbmapsGeneral extends ContentHelper {
 		$db = Factory::getDBO();
 		$query = $db->getQuery(true);
 		
-		$query->select('a.track_colour AS track_colour, t.title, t.id, t.alias, t.state AS tstate, t.track_colour AS defcol,
+		$query->select('a.track_colour AS track_colour, t.title, t.id, t.alias, t.description, t.state AS tstate, t.track_colour AS defcol,
 			t.gpx_filename AS gpx_filename')
 		->from('#__xbmaps_maptracks AS a')
 		->join('LEFT','#__xbmaps_tracks AS t ON t.id=a.track_id')
@@ -272,6 +272,9 @@ class XbmapsGeneral extends ContentHelper {
 			$db->setQuery($query);
 			$list = $db->loadObjectList();
 			foreach ($list as $i=>$item){
+				$params = json_decode($item->mkparams, TRUE);
+				$item->mkshowdesc = $params['marker_popdesc'];
+				$item->mkshowcoords = $params['marker_popcoords'];
 				$ilink = Route::_($link . $item->mkid);
 				$item->display = '';
 				//if not published highlight in yellow if editable or grey if view

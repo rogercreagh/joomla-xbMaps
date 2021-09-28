@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.4.0 24th September 2021
+ * @version 0.5.0.a 28th September 2021
  * @filesource admin/views/mapview/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -47,12 +47,18 @@ if (!empty($item->markers)) {
     	$popupdesc = '';
     	if ($mrk->show_popup!='') {
     		$popuptitle = ($mrk->mktitle=='') ? '' : $mrk->mktitle;
-    		$popupdesc = ($mrk->mkdesc=='') ? '' :$mrk->mkdesc;
+    		if ($mrk->mkshowdesc==1) {
+    			$popupdesc = ($mrk->mkdesc =='') ? '' : $mrk->mkdesc.'<br />';
+    		}
+    		if ($mrk->mkshowcoords==1) {
+    			$popupdesc .= '<hr />'.XbmapsGeneral::Deg2DMS($mrk->mklat).'<br />'.XbmapsGeneral::Deg2DMS($mrk->mklong,false);
+    		}    		
     	}
+    	$popopen = ($mrk->show_popup == 2) ? 1 : 0;
         switch ($mrk->markertype) {
             case 1:
                 $image = $this->marker_image_path.'/'.$mrk->mkparams['marker_image'];
-                $map->setImageMarker($uid, $mrk->mklat, $mrk->mklong, $image, $popuptitle, $popupdesc);
+                $map->setImageMarker($uid, $mrk->mklat, $mrk->mklong, $image, $popuptitle, $popupdesc,'','',$popopen);
                 break;
             case 2:
                 $outer = $mrk->mkparams['marker_outer_icon'];
@@ -69,10 +75,10 @@ if (!empty($item->markers)) {
                 
                 $div .= '<i class="'.$inner.' fa-stack-1x fa-inverse" style="color:'.$incol.';'.$insize.'"></i>';
                 $div .= '</span></div>';
-                $map->setDivMarker($uid, $mrk->mklat,$mrk->mklong,$div, $popuptitle,$popupdesc,'','',1);
+                $map->setDivMarker($uid, $mrk->mklat,$mrk->mklong,$div, $popuptitle,$popupdesc,'','',$popopen);
                 break;
             default:
-            	$map->setMarker($uid, $popuptitle, $popupdesc, $mrk->mklat, $mrk->mklong,'','','',1);
+            	$map->setMarker($uid, $popuptitle, $popupdesc, $mrk->mklat, $mrk->mklong,'','','',$popopen);
                 
                 break;
        }
@@ -112,10 +118,10 @@ $map->renderMap();
        						<?php foreach ($item->markers as $mrk) : ?>
        						
        							<li><span <?php echo $mrk->mkstate!=1 ? ' class="xbhlt"' : ''; ?>>
-           							<?php $pv = '<img src="/media/com_xbmaps/images/marker-icon.png" />';
+           							<?php $pv = '<img src="'.Juri::root().'media/com_xbmaps/images/marker-icon.png"  style="height:24px;"/>';
            							switch ($mrk->markertype) {
            							    case 1:
-           							        $pv = '<img src="'.$this->marker_image_path.'/'.$mrk->mkparams['marker_image'].'" style="height:20px;" />';
+           							        $pv = '<img src="'.Juri::root().$this->marker_image_path.'/'.$mrk->mkparams['marker_image'].'" style="height:20px;" />';
            							        break;
            							    case 2:
            							        $pv = '<span class="fa-stack fa-2x" style="font-size:8pt;">';
@@ -147,7 +153,7 @@ $map->renderMap();
        						<?php foreach ($item->tracks as $trk) : ?>
        							<li><span <?php echo $trk->tstate!=1 ? ' class="xbhlt"' : ''; ?>>
        							<i class="fas fa-project-diagram" style="color:<?php echo $trk->track_colour; ?>"></i>&nbsp;
-       							<b><?php echo $trk->linkedtitle; ?></b> - <?php echo $trk->description; ?>
+       							<b><?php echo $trk->linkedtitle; ?></b> - <?php echo XbmapsGeneral::makeSummaryText($trk->description); ?>
        							</span></li>
         		 			<?php  endforeach; ?>
         		 		</ul>

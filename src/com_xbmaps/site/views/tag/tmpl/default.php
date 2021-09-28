@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.3.0.h 22nd September 2021
+ * @version 0.4.0.1 28th September 2021
  * @filesource site/views/tag/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -43,7 +43,7 @@ $tclink = $xblink.'tags' . $itemid;
 	<div class="span9">
 		<div class="badge badge-info pull-left"><h3><?php echo $item->title; ?></h3></div>
 		
-		<?php if ((!$this->hide_empty) && (strpos($item->path,'/')!==false)) : ?>
+		<?php if (($this->show_empty) && (strpos($item->path,'/')!==false)) : ?>
 			<div class="xb11 pull-left" style="padding-top:20px;margin-left:40px;">
 				<i><?php echo Text::_('XBMAPS_TAGPARENTS'); ?>:</i> 
 				<?php  $path = substr($item->path, 0, strrpos($item->path, '/'));

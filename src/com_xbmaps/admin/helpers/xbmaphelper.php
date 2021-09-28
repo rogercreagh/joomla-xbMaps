@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.4.0.c 27th September 2021
+ * @version 0.5.0.a 28th September 2021
  * @filesource admin/helpers/xbmaphelper.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -295,7 +295,7 @@ class XbMapHelper {
 L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 
  */		
-		$o[] = 'var imgIcon = L.icon({iconUrl: \''.Uri::root().$image.'\',iconSize:[33,45],iconAnchor:[16,45] });';
+		$o[] = 'var imgIcon = L.icon({iconUrl: \''.Uri::root().$image.'\',iconSize:[33,45],iconAnchor:[16,45], popupAnchor:[0,-40] });';
 		$o[]= 'var marker'.$markerId.' = L.marker(['.$lat.', '.$lng.'],{icon: imgIcon})';
 		
 		$popcontent = $this->makeMarkerPopup($title, $description, $width, $height, $open);
@@ -331,7 +331,7 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		
 		//L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		
-		$o[]= 'var div'.$markerId.' = L.divIcon({className: \'my-div-icon\', html:\''.$divcontent.'\'})';
+		$o[]= 'var div'.$markerId.' = L.divIcon({className: \'my-div-icon\', html:\''.$divcontent.'\', popupAnchor:[0,-20]})';
 		$o[]= 'var marker'.$markerId.' = L.marker(['.$lat.', '.$lng.'],{icon: div'.$markerId.'})';
 		if ($this->markerclustering == 1) {
 			// marker will be added to layer with cluster function
@@ -372,7 +372,7 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		}
 		$text='';
 		if ($title != ''){
-			$text .= '<b>' . addslashes($title) . '</b><br />';
+			$text .= '<b>' . addslashes($title) . '</b>';
 		}
 		if (($title != '') && ($description != '')) {
 			$text .= '<br />';

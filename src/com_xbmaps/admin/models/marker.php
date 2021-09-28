@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.3.0.e 19th September 2021
+ * @version 0.5.0.a 28th September 2021
  * @filesource admin/models/marker.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -239,8 +239,8 @@ class XbmapsModelMarker extends JModelAdmin {
 	            //$listorder ++;
 	            $query = $db->getQuery(true);
 	            $query->insert($db->quoteName('#__xbmaps_mapmarkers'));
-	            $query->columns('map_id,marker_id,listorder');
-	            $query->values('"'.$map['map_id'].'","'.$marker_id.'","'.$map['maplistorder'].'"');
+	            $query->columns('map_id,marker_id,show_popup,listorder');
+	            $query->values('"'.$map['map_id'].'","'.$marker_id.'","'.$map['show_popup'].'","'.$map['maplistorder'].'"');
 	            //try
 	            $db->setQuery($query);
 	            $db->execute();

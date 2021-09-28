@@ -1,7 +1,7 @@
 <?php 
 /*******
  * @package xbMaps
- * @version 0.3.0.h 22nd September 2021
+ * @version 0.4.0.1 28th September 2021
  * @filesource site/views/category/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -34,7 +34,7 @@ class XbmapsViewCategory extends JViewLegacy {
 			return false;
 		}
 		
-		$this->hide_empty = $this->params->get('hide_empty','','int');
+		$this->show_empty = $this->params->get('show_empty','','int');
 		
 		$document = $this->document; //Factory::getDocument();
 		$document->setTitle('Category view: '.$this->item->title);

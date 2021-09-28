@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.1.2.c 9th September 2021
+ * @version 0.5.0.a 28th September 2021
  * @filesource admin/views/marker/tmpl/edit.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -21,19 +21,27 @@ HTMLHelper::_('formbehavior.chosen', '#jform_tags', null, array('placeholder_tex
 HTMLHelper::_('formbehavior.chosen', 'select');
 
 $popuptitle = ($this->form->getValue('title')=='') ? 'Marker Title' : $this->form->getValue('title');
-$popupdesc = ($this->form->getValue('description')!='') ? $this->form->getValue('description').'<br />':'';
-$popupdesc .= '<i>Click to map to move marker to new position</i>';
+$popupdesc = '';
+if ($this->form->getValue('marker_popdesc','params')==1) {
+	$popupdesc .= ($this->form->getValue('description')!='') ? $this->form->getValue('description').'<br />':'';
+}
+if ($this->form->getValue('marker_popcoords','params')==1) {
+	$popupdesc .= '<hr />'.$this->form->getValue('dmslatitude').' '.$this->form->getValue('dmslongitude'); 	
+}
+$popupdesc .= '<hr /><i>Click to map to move marker to new position</i>';
+$lat = $this->form->getValue('latitude');
+$long = $this->form->getValue('longitude');
 $uid = uniqid();
 $map = new XbMapHelper($uid, null, true);
 $map->loadAPI(false);
 $map->loadXbmapsJS();
-$zoom = ($this->item->id > 0) ? 14 : $this->default_zoom;
-$map->createMap($this->form->getValue('latitude'), $this->form->getValue('longitude'), $zoom );
+$zoom = ($this->item->id > 0) ? 13 : $this->default_zoom;
+$map->createMap($lat, $long, $zoom );
 $map->setMapType($this->map_type);
 switch ($this->form->getValue('marker_type')) {
 	case 1:
 		$image = $this->marker_image_path.'/'.$this->form->getValue('marker_image','params');
-		$map->setImageMarker($uid, $this->form->getValue('latitude'), $this->form->getValue('longitude'),$image,$popuptitle,$popupdesc);
+		$map->setImageMarker($uid, $lat, $long, $image, $popuptitle, $popupdesc,'','',1);
 		break;
 	case 2:
 		$outer = $this->form->getValue('marker_outer_icon','params','fas fa-map-marker');
@@ -50,13 +58,12 @@ switch ($this->form->getValue('marker_type')) {
 		
 		$div .= '<i class="'.$inner.' fa-stack-1x fa-inverse" style="color:'.$incol.';'.$insize.'"></i>';
 		$div .= '</span></div>';
-		$map->setDivMarker($uid, $this->form->getValue('latitude'),$this->form->getValue('longitude'),$div, $popuptitle,$popupdesc,'','',1);
+		$map->setDivMarker($uid, $lat, $long, $div, $popuptitle,$popupdesc,'','',1);
+		break;
 	default:
-		$map->setMarker($uid, $popuptitle, $popupdesc, $this->form->getValue('latitude'), $this->form->getValue('longitude'),'','','',1);
-		
+		$map->setMarker($uid, $popuptitle, $popupdesc, $lat, $long,'','','',1);		
 	break;
 }
-//$map->setDivMarker($uid,$this->form->getValue('title'),$popupdesc, $this->form->getValue('latitude'), $this->form->getValue('longitude'),'<div><span class="fa-stack fa-2x" style="margin-left:-1em;margin-top:-2em;"><i class="fas fa-map-pin fa-stack-2x" style="color:#00f;"></i><i class="fas fa-flag-checkered fa-stack-1x fa-inverse" style="color:#ff0;line-height:1.5em;font-size:0.7em;"></i></span></div>');
 $map->endZoom();
 $map->markerPosClick($uid);
 $map->renderSearch($uid);
@@ -100,6 +107,11 @@ $map->renderMap();
             	    	<?php echo $this->form->renderField('marker_outer_colour','params'); ?> 
             	    	<?php echo $this->form->renderField('marker_inner_icon','params'); ?> 
             	    	<?php echo $this->form->renderField('marker_inner_colour','params'); ?> 
+            	    	<hr />
+            	    	<div class="form-verticla">
+	            	    	<?php echo $this->form->renderField('marker_popdesc','params'); ?> 
+	            	    	<?php echo $this->form->renderField('marker_popcoords','params'); ?> 
+            	    	</div>
 		    		</div>
 					<div class="span5 form-vertical">  	
 						<div id="xbmaps" style="margin:0;padding:0;">

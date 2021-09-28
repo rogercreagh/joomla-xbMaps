@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbMaps config.xml v0.1.2.b 4th September 2021 -->
+<!-- xbMaps config.xml v0.5.0.a 28th September 2021 -->
 <config>
 <!-- GENERAL TAB -->				
 	<fieldset name="general"
@@ -48,14 +48,14 @@
 			class="inputbox" size="40" 
 			default="8"
 		/>
- 		<field name="hide_empty" type="radio"
-			label="Hide empty fields"
+ 		<field name="show_empty" type="radio"
+			label="Show empty fields"
 			description="Hide empty fields in site views or show labels/placeholders for them. Showing empty fields will make the display consistent between items, but wastes space if you are not using some fields"
  			class="btn-group btn-group-yesno"
 			default="0"
 			>
-				<option value="0" >JSHOW</option>
-				<option value="1">JHIDE</option>
+				<option value="1" >JSHOW</option>
+				<option value="0">JHIDE</option>
 		</field>	
 
 	</fieldset>
@@ -70,7 +70,8 @@
 			showon="global_use_cats:1"
 		/>	
  		<field name="mapnocat_note" type="note"
-			label="" description="Categories for maps are disabled on global tab"
+			description="XBMAPS_NOCATS_DESC"
+			class="alert"
 			showon="global_use_cats:0"
 		/>	
  		<field name="maps_use_cats" type="radio"
@@ -113,7 +114,8 @@
   			showon="global_use_tags:1"
 		/>	
  		<field name="mapnotags_note" type="note"
-			label="" description="XBMAPS_NOTAGS_DESC"
+			description="XBMAPS_NOTAGS_DESC"
+			class="alert"
 			showon="global_use_tags:0"
 		/>	
  		<field name="maps_use_tags" type="radio"
@@ -123,7 +125,8 @@
 			default="1"
 		>
 			<option value="0" >JNO</option>
-			<option value="1">JYES</option>
+			<option value="1">XBMAPS_YES_UNLINKED</option>
+			<option value="2">XBMAPS_YES_LINKED</option>
 		</field>	
  		
  		<field name="maps_note" type="note"
@@ -246,11 +249,12 @@
 		>	
 		
  		<field name="markercat_note" type="note"
-			label="XBMAPS_MARKERCAT_NOTE_LABEL" description="XBMAPS_MARKERCAT_NOTE_DESC"
+			label="XBMAPS_MARKERCAT_NOTE_LABEL"
 			showon="global_use_cats:1"
 		/>	
  		<field name="markernocat_note" type="note"
-			label="" description="XBMAPS_MARKERNOCAT_NOTE_DESC"
+			description="XBMAPS_NOCATS_DESC"
+			class="alert"
 			showon="global_use_cats:0"
 		/>	
  		<field name="markers_use_cats" type="radio"
@@ -262,18 +266,24 @@
 			<option value="0" >JNO</option>
 			<option value="1">XBMAPS_YES_UNLINKED</option>
 			<option value="2">XBMAPS_YES_LINKED</option>
-		</field>			
+		</field>
+		
+ 		<field name="markercathidden_note" type="note"
+			description="XBMAPS_MARKERCAT_NOTE_DESC"
+			showon="global_use_cats:1[AND]markers_use_cats:0"
+		/>	
+					
 		<field name="def_new_markercat" type="category"
 			extension="com_xbmaps"
 			label="XBMAPS_MARKER_DEFCAT_LABEL" description="XBMAPS_DEFCAT_DESC"
-			showon="global_use_cats:1[AND]markers_use_cats!:0"
+			showon="global_use_cats:1"
 		>			
 			<option value="" >XBMAPS_SELECT_DEFAULT</option>
 		</field>
 		<field name="rootcat_marker" type="category"
 			extension="com_xbmaps"
 			label="XBMAPS_MARKER_CAT_ROOT_LABEL" description="XBMAPS_CAT_ROOT_DESC"
-			showon="global_use_cats:1[AND]markers_use_cats!:0"
+			showon="global_use_cats:1"
 			default=""
 		>
 			<option value="">JOPTION_SELECT_CATEGORY</option>
@@ -281,7 +291,7 @@
 		<field name="incroot_marker" type="radio"
 			label="XBMAPS_INC_ROOT_LABEL" description="XBMAPS_INC_ROOT_DESC"
 			class="btn-group btn-group-yesno"
-			showon="global_use_cats:1[AND]markers_use_cats!:0[AND]rootcat_marker!:"
+			showon="global_use_cats:1[AND]rootcat_marker!:"
 			default="1"
 		>
 			<option value="0" >JNO</option>
@@ -293,7 +303,8 @@
   			showon="global_use_tags:1"
 		/>	
  		<field name="markernotags_note" type="note"
-			label="" description="XBMAPS_NOTAGS_DESC"
+			description="XBMAPS_NOTAGS_DESC"
+			class="alert"
 			showon="global_use_tags:0"
 		/>	
  		<field name="markers_use_tags" type="radio"
@@ -303,8 +314,12 @@
 			default="0"
 		>
 			<option value="0" >JNO</option>
-			<option value="1">JYES</option>
+			<option value="1">XBMAPS_YES_UNLINKED</option>
+			<option value="2">XBMAPS_YES_LINKED</option>
 		</field>	
+ 		<field name="markerlayout_note" type="note"
+			label="XBMAPS_MARKERLAYOUT_NOTE_LABEL" description="XBMAPS_MARKERLAYOUT_NOTE_DESC"
+ 		/>	
 		<field name="marker_clustering" type="radio" 
 			label="XBMAPS_MARKER_CLUSTERING_LABEL" description="XBMAPS_MARKER_CLUSTERING_DESC"
 			class="btn-group btn-group-yesno" 
@@ -321,14 +336,33 @@
   			default="xbmaps/markers"
   		>
 		</field>
-		<!-- 
-		<field name="def_marker_colour" type="color" 
-			label="XBMAPS_MARKER_DEFCOL_LABEL"
-			description="XBMAPS_MARKER_DEFCOL_DESC" 
-			default="#808" format="hex"
-		/>	
-		 -->
-					
+		<field name="marker_popover" type="radio" 
+			label="XBMAPS_MARKER_POPOVER_LABEL" description="XBMAPS_MARKER_POPOVER_DESC"
+			class="btn-group btn-group-yesno" 
+			default="1" 
+		>
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>	
+
+		<field name="marker_popdesc" type="radio" 
+			label="XBMAPS_MARKER_POPDESC_LABEL" description="XBMAPS_MARKER_POPDESC_DESC"
+			class="btn-group btn-group-yesno" 
+			default="1" 
+		>
+			<option value="1">JSHOW</option>
+			<option value="0">JHIDE</option>
+		</field>	
+
+		<field name="marker_popcoords" type="radio" 
+			label="XBMAPS_MARKER_POPCOORDS_LABEL" description="XBMAPS_MARKER_POPCOORDS_DESC"
+			class="btn-group btn-group-yesno" 
+			default="1" 
+		>
+			<option value="1">JSHOW</option>
+			<option value="0">JHIDE</option>
+		</field>	
+
 	</fieldset>
 	
 <!-- TRACKS TAB -->				
@@ -342,7 +376,8 @@
 			showon="global_use_cats:1"
 		/>	
  		<field name="tracknocat_note" type="note"
-			label="XBMAPS_TRACKCAT_NOTE_LABEL" description=""
+			description="XBMAPS_NOCATS_DESC"
+			class="alert"
 			showon="global_use_cats:0"
 		/>	
  		<field name="tracks_use_cats" type="radio"
@@ -385,7 +420,8 @@
   			showon="global_use_tags:1"
 		/>	
  		<field name="tracknotags_note" type="note"
-			label="XBMAPS_TRACKTAG_NOTE_LABEL" description="XBMAPS_TRACKNOTAG_NOTE_DESC"
+			description="XBMAPS_NOTAGS_DESC"
+			class="alert"
 			showon="global_use_tags:0"
 		/>	
  		<field name="tracks_use_tags" type="radio"
@@ -395,7 +431,8 @@
 			default="1"
 		>
 			<option value="0" >JNO</option>
-			<option value="1">JYES</option>
+			<option value="1">XBMAPS_YES_UNLINKED</option>
+			<option value="2">XBMAPS_YES_LINKED</option>
 		</field>	
  		
  		<field name="gpx_note" type="note"
@@ -449,8 +486,8 @@
 				class="btn-group btn-group-yesno" 
 				default="1"
 			>
-				<option value="1">JYES</option>
-				<option value="0">JNO</option>
+				<option value="1">JSHOW</option>
+				<option value="0">JHIDE</option>
 			</field>
 			<field name="show_track_info" type="list"  
 				label="XBMAPS_TRACK_INFOPANE_LABEL" description="XBMAPS_TRACK_INFOPANE_DESC"
@@ -479,8 +516,8 @@
 				showon="show_track_info!:"
 				default="0"
 			>
-				<option value="1">JYES</option>
-				<option value="0">JNO</option>
+				<option value="1">JSHOW</option>
+				<option value="0">JHIDE</option>
 			</field>
 			<field name="show_activity" type="radio"  
 				label="XBMAPS_TRACK_ACTIVITY_LABEL" description="XBMAPS_TRACK_ACTIVITY_DESC"
@@ -488,8 +525,8 @@
 				showon="show_track_info!:"
 				default="1"
 			>
-				<option value="1">JYES</option>
-				<option value="0">JNO</option>
+				<option value="1">JSHOW</option>
+				<option value="0">JHIDE</option>
 			</field>
 			<field name="show_stats" type="radio"  
 				label="XBMAPS_TRACK_STATS_LABEL" description="XBMAPS_TRACK_STATS_DESC"
@@ -497,16 +534,16 @@
 				showon="show_track_info!:"
 				default="1"
 			>
-				<option value="1">JYES</option>
-				<option value="0">JNO</option>
+				<option value="1">JSHOW</option>
+				<option value="0">JHIDE</option>
 			</field>
 			<field name="show_track_desc" type="radio"  
 				label="XBMAPS_TRACK_DESC_LABEL" description="XBMAPS_TRACK_DESC_DESC"
 				class="btn-group btn-group-yesno" 
 				default="1"
 			>
-				<option value="1">JYES</option>
-				<option value="0">JNO</option>
+				<option value="1">JSHOW</option>
+				<option value="0">JHIDE</option>
 			</field>
 			<field name="show_track_popover" type="list"  
 				label="XBMAPS_TRACK_POP_LABEL" description="XBMAPS_TRACK_POP_DESC"

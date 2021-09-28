@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbMaps admin/models/forms/marker.xml v0.1.2.b 4th September 2021 -->
+<!-- xbMaps admin/models/forms/marker.xml v0.5.0.a 28th September 2021 -->
 <form>
 
 	<fieldset name="markerset" addfieldpath="/administrator/components/com_xbmaps/models/fields">
@@ -24,8 +24,7 @@
 
 		<field name="description" type="textarea"
 			class="inputbox" label="XBMAPS_DESCRIPTION" description="XBMAPS_DESCRIPTION_DESC"
-			rows="5" 
-			filter="raw"   
+			rows="5"  filter="safehtml"
 		/>
 
 		<field name="latitude" type="xbselectmarkerpos" 
@@ -156,7 +155,7 @@
 			showon="hidmarker_type:1"
 		/>
 
-		<field name="marker_outer_icon" type="textarea"
+		<field name="marker_outer_icon" type="text"
 			label="XBMAPS_MRKOUTICON_LABEL" description="XBMAPS_MRKOUTICON_DESC"
 			hint="XBMAPS_MRKOUTICON_HINT"
 			class="inputbox" size="45" 
@@ -183,6 +182,28 @@
 			default="#ffffff" format="hex"
 			showon="hidmarker_type:2[AND]marker_inner_icon!:"
 		/>
+		<field name="marker_popnote" type="note" 
+			label="XBMAPS_MARKER_POPNOTE_LABEL" description="XBMAPS_MARKER_POPNOTE_DESC"
+		/>
+
+		<field name="marker_popdesc" type="radio" 
+			label="XBMAPS_MARKER_POPDESC_LABEL" description="XBMAPS_MARKER_POPDESC_DESC"
+			class="btn-group btn-group-yesno" 
+			useglobal="true" 
+		>
+			<option value="1">JSHOW</option>
+			<option value="0">JHIDE</option>
+		</field>	
+
+		<field name="marker_popcoords" type="radio" 
+			label="XBMAPS_MARKER_POPCOORDS_LABEL" description="XBMAPS_MARKER_POPCOORDS_DESC"
+			class="btn-group btn-group-yesno" 
+			useglobal="true" 
+		>
+			<option value="1">JSHOW</option>
+			<option value="0">JHIDE</option>
+		</field>	
+
 				
 		</fieldset>
 	</fields>

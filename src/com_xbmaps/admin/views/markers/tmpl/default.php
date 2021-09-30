@@ -42,6 +42,8 @@ $tvlink = 'index.php?option=com_tags&id=';
 $catclass = $this->show_cats? 'label-success' : 'label-grey';
 $tagclass = $this->show_tags? 'label-info' : 'label-grey';
 
+$uid = uniqid();
+$map = new XbMapHelper($uid, null, true);
 $map->loadAPI(false);
 $map->loadXbmapsJS();
 
@@ -213,7 +215,15 @@ $map->loadXbmapsJS();
 				</td>
 				<td style="text-align:center;">
 					<div class="hasTooltip" title="" data-original-title="Latitude: <?php echo $item->latitude; ?><br />Longitude: <?php echo $item->longitude; ?>" >
-					   <span data-remote="index.php?option=com_xbmaps&view=marker&layout=preview&id=1&tmpl=component" data-toggle="modal" data-target="#modal-pvmarker" ><?php echo $pv; ?></span>                       					  
+
+					   <a data-toggle="modal" data-target="#pvModal" href="#pvModal"
+                           data-remote="index.php?option=com_xbmaps&view=marker&layout=preview&id=<?php echo $item->id;?>&tmpl=component" 
+                          onclick="jQuery('#mrktit').html('<?php echo $item->title; ?>');"><?php echo $pv; ?></a>   
+
+<!-- 
+					   <span data-remote="index.php?option=com_xbmaps&view=marker&layout=preview&id=<?php //echo $item->id;?>&tmpl=component" 
+					   data-toggle="modal" data-target="#modal-pvmarker" ><?php //echo $pv; ?></span>                       					  
+ -->
 					   <?php //echo $pv; ?>
 					</div>
 				</td>
@@ -271,29 +281,6 @@ $map->loadXbmapsJS();
 			</tbody>
 		
 		</table>
-        <?php // load the modal for displaying the batch options
-			echo HTMLHelper::_( 'bootstrap.renderModal', 'collapseModal',
-            	array(
-                	'title' => JText::_('XBMAPS_BATCH_TITLE'),
-                	'footer' => $this->loadTemplate('batch_footer')
-            	),
-            	$this->loadTemplate('batch_body')
-        	); 
-        ?>
-    <?php endif; ?>
-<div class="modal hide fade" id="modal-pvmarker">
-  <div class="modal-header">
-    <button type="button" role="presentation" class="close" data-dismiss="modal">x</button>
-    <h4>Marker preview</h4>
-  </div>
-  <div class="modal-body">
-
-  </div>
-  <div class="modal-footer">
-    <button class="btn" type="button" data-dismiss="modal">
-    </button>
-  </div>
-</div>
     <?php endif; ?>
 	<?php echo $this->pagination->getListFooter(); ?>
 	<input type="hidden" name="task" value="" />
@@ -302,3 +289,26 @@ $map->loadXbmapsJS();
 	</div>
 </form>
 </div>
+<?php // load the modal for displaying the batch options
+	echo HTMLHelper::_( 'bootstrap.renderModal', 'collapseModal',
+		array(
+			'title' => JText::_('XBMAPS_BATCH_TITLE'),
+			'footer' => $this->loadTemplate('batch_footer')
+		),
+		$this->loadTemplate('batch_body')
+	); 
+?>
+<div class="modal hide fade" id="pvModal" tabindex="-1" style="width:600px;top:150px;" role="dialog">
+	<div class="modal-header">
+	    <button type="button" role="presentation" class="close" data-dismiss="modal"
+	     style="opacity:0.5;font-size:1.5em; line-height:1em;">x</button>
+	    <h4 id="mrktit">Marker preview</h4>
+	</div>
+	<div class="modal-body">
+	</div>
+	<div class="modal-footer">
+	    <button class="btn" type="button" data-dismiss="modal">
+	    </button>
+	</div>
+</div>
+

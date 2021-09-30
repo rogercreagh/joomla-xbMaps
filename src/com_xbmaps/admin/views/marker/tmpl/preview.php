@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.5.0.a 28th September 2021
+ * @version 0.5.0.b 29th September 2021
  * @filesource admin/views/marker/tmpl/preview.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -12,26 +12,26 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 $popuptitle = $this->item->title;
 $popupdesc = '';
 $popupdesc .= $this->item->description;
-$popupdesc .= '<hr />'.$this->item->dmslatitude.' '.$this->item->dmslongitude;
 $lat = $this->item->latitude;
 $long = $this->item->longitude;
+$popupdesc .= '<hr />'.XbmapsGeneral::Deg2DMS($lat).' '.XbmapsGeneral::Deg2DMS($long,false);
 $uid = uniqid();
 $map = new XbMapHelper($uid, null, true);
 $map->loadAPI(false);
 $map->loadXbmapsJS();
-$zoom = 13;
+$zoom = 11;
 $map->createMap($lat, $long, $zoom );
 $map->setMapType($this->map_type);
 switch ($this->item->marker_type) {
     case 1:
-        $image = $this->marker_image_path.'/'.$this->params->get('marker_image');
+    	$image = $this->marker_image_path.'/'.$this->item->params['marker_image'];
         $map->setImageMarker($uid, $lat, $long, $image, $popuptitle, $popupdesc,'','',1);
         break;
     case 2:
-        $outer = $this->params->get('marker_outer_icon');
-        $inner = $this->params->get('marker_inner_icon');
-        $outcol = $this->params->get('marker_outer_colour');
-        $incol = $this->params->get('marker_inner_colour');
+    	$outer = $this->item->params['marker_outer_icon'];
+    	$inner = $this->item->params['marker_inner_icon'];
+    	$outcol = $this->item->params['marker_outer_colour'];
+    	$incol = $this->item->params['marker_inner_colour'];
         $insize = '';
         if ($outer=='fas fa-map-marker') {
             $insize = 'line-height:1.75em;font-size:0.8em;';
@@ -48,17 +48,13 @@ switch ($this->item->marker_type) {
         $map->setMarker($uid, $popuptitle, $popupdesc, $lat, $long,'','','',1);
         break;
 }
-//$map->endZoom();
-//$map->markerPosClick($uid);
-//$map->renderSearch($uid);
-//$map->renderFullScreenControl();
 
 $map->renderMap();
 
 ?>
-		<div id="xbmaps" style="margin:0;padding:0;width:400px;height:400px;">
+		<div id="xbmaps" style="margin:0;padding:0;">
 			<div align="center" style="margin:0;padding:0">
-				<div id="xbMap<?php echo $uid; ?>" style="margin:0;padding:0;width:100%;height:300px">
+				<div id="xbMap<?php echo $uid; ?>" style="margin:0;padding:0;width:100%;height:400px;">
 				</div>
 				<div id="coordInfo" class="pull-left"></div>
 				<div class="clearfix"></div>

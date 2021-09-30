@@ -7,6 +7,9 @@
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
 
+/* reduce bootstrap modal opacity */
+.modal-backdrop.in {opacity:0.6 !important;}
+
 /* provide space for hint when selecting trackcolour in subform */
 .trkcol  {width:150px !important;}
 

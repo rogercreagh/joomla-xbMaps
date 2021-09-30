@@ -38,7 +38,10 @@ class XbmapsViewMarker extends JViewLegacy {
 			throw new Exception(implode("\n", $errors), 500);
 		}
 		
-		$this->addToolbar();
+		if ($this->getLayout() !== 'preview')
+		{
+		    $this->addToolBar();
+		}
 		
 		parent::display($tpl);
 		

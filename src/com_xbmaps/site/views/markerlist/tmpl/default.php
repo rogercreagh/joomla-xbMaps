@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.5.0.d 30th September 2021
+ * @version 0.5.0.d 1st October 2021
  * @filesource site/views/markerlist/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -219,25 +219,25 @@ $map->loadXbmapsJS();
 	<?php echo HTMLHelper::_('form.token'); ?>
 	</div>
 </form>
+
 	<div class="clearfix"></div>
 	<?php echo XbmapsGeneral::credit();?>
 </div>
 <div class="modal hide" id="pvModal" style="width:600px;top:150px;" >
-	<div class="modal-dialog modal-lg modal-dialog-centered">
-		<div class="modal-content">
+	<div class="modal-content">
 	   <!-- Modal Header -->
 		<div class="modal-header">
 	    	<button type="button" role="presentation" class="close" data-dismiss="modal"
 	     		style="opacity:0.5;font-size:1.5em; line-height:1em;">x</button>
-	    	<h4 id="mrktit">Marker preview</h4>
+	    	<h4 id="mrktit" style="margin:5px 10px;">Marker preview</h4>
     	</div>
         <!-- Modal body -->
     	<div class="modal-body">
-      		<iframe src="" width="100%" height="450" frameborder="0" allowtransparency="true"></iframe>
+      		<iframe src="" width="100%" height="400" frameborder="0" allowtransparency="true"></iframe>
     	</div>
         <!-- Modal footer -->
-    	<div class="modal-footer">
-    		<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    	<div class="modal-footer" style="padding:10px 20px;">
+    		<button type="button" class="btn" data-dismiss="modal">Close</button>
 		</div>
 	</div>
 </div>

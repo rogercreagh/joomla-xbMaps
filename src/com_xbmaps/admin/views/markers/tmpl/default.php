@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.5.0.c 30th September 2021
+ * @version 0.5.0.d 1st October 2021
  * @filesource admin/views/markers/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -231,15 +231,6 @@ $map->loadXbmapsJS();
                          		<?php echo $pv; ?>
 						</a>
 
-<!-- 
-					   <a data-toggle="modal" data-target="#pvModal" href="#pvModal"
-                           data-remote="index.php?option=com_xbmaps&view=marker&layout=preview&id=<?php echo $item->id;?>&tmpl=component" 
-                          onclick="jQuery('#mrktit').html('<?php echo $item->title; ?>');"><?php echo $pv; ?></a>   
-
-					   <span data-remote="index.php?option=com_xbmaps&view=marker&layout=preview&id=<?php //echo $item->id;?>&tmpl=component" 
-					   data-toggle="modal" data-target="#modal-pvmarker" ><?php //echo $pv; ?></span>                       					  
- -->
-					   <?php //echo $pv; ?>
 					</div>
 				</td>
 				<td>
@@ -322,32 +313,17 @@ $map->loadXbmapsJS();
 		<div class="modal-header">
 	    	<button type="button" role="presentation" class="close" data-dismiss="modal"
 	     		style="opacity:0.5;font-size:1.5em; line-height:1em;">x</button>
-	    	<h4 id="mrktit">Marker preview</h4>
+	    	<h4 id="mrktit" style="margin:5px 10px;">Marker preview</h4>
     	</div>
         <!-- Modal body -->
     	<div class="modal-body">
-      		<iframe src="" width="100%" height="450" frameborder="0" allowtransparency="true"></iframe>
+      		<iframe src="" width="100%" height="400" frameborder="0" allowtransparency="true"></iframe>
     	</div>
         <!-- Modal footer -->
-    	<div class="modal-footer">
+    	<div class="modal-footer" style="padding:10px 20px;">
     		<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 		</div>
 	</div>
 </div>
 
-<!-- 
-<div class="modal hide fade" id="pvModal" tabindex="-1" style="width:600px;top:150px;" role="dialog">
-	<div class="modal-header">
-	    <button type="button" role="presentation" class="close" data-dismiss="modal"
-	     style="opacity:0.5;font-size:1.5em; line-height:1em;">x</button>
-	    <h4 id="mrktit">Marker preview</h4>
-	</div>
-	<div class="modal-body">
-	</div>
-	<div class="modal-footer">
-	    <button class="btn" type="button" data-dismiss="modal">
-	    </button>
-	</div>
-</div>
- -->
 

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.5.0.a 28th September 2021
+ * @version 0.6.0.a 2nd October 2021
  * @filesource admin/helpers/xbmaphelper.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -21,7 +21,6 @@ class XbMapHelper {
 	private	$output					= array();
 	
 	public $maptype				= '';
-	public $currentposition			= '';
 	public $fullscreen				= '';
 	public $search					= '';
 	public $zoomwheel				= '';
@@ -36,7 +35,6 @@ class XbMapHelper {
 		if (!is_null($controls)) {		
 			//we are being passed map specific parameters
 			$this->maptype			= $controls->get( 'map_type', '' );
-			$this->currentposition		= $controls->get( 'map_current_position', 0 );
 			$this->fullscreen			= $controls->get( 'map_full_screen',1 );
 			$this->search				= $controls->get( 'map_search', 1 );
 			$this->zoomwheel			= $controls->get( 'map_zoom_wheel', 1);
@@ -47,7 +45,6 @@ class XbMapHelper {
 			// use the global settings
 			$paramsC 					= ComponentHelper::getParams('com_xbmaps');
 			$this->maptype			= $paramsC->get( 'map_type', '' );
-			$this->currentposition		= $paramsC->get( 'map_current_position', 0 );
 			$this->fullscreen			= $paramsC->get( 'map_full_screen',1 );
 			$this->search				= $paramsC->get( 'map_search', 0 );
 			$this->zoomwheel			= $paramsC->get( 'map_zoom_wheel', 1);
@@ -535,7 +532,7 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		return true;
 		
 	}
-	
+/**	
 	public function renderCurrentPosition() {
 				
 		if ($this->currentposition == 0) {
@@ -559,7 +556,7 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		return true;
 		
 	}
-	
+**/	
 	public function renderEasyPrint() {
 				
 		if ($this->easyprint == 0) {

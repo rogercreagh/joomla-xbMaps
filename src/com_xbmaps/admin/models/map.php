@@ -61,7 +61,7 @@ class XbmapsModelMap extends JModelAdmin {
 			return false;
 		}
 		
-		$params = ComponentHelper::getParams('com_xbmaps');
+//		$params = ComponentHelper::getParams('com_xbmaps');
 		// set any field attributes according to params if needed
 // 		$tracks_path = $params->get('tracks_path','');
 // 		if ($tracks_path != '') {

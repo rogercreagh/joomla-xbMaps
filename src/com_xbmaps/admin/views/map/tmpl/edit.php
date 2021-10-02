@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.1.2.b 3rd September 2021
+ * @version 0.6.0.a 2nd October 2021
  * @filesource admin/views/map/tmpl/edit.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -56,8 +56,6 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 	        		<?php echo $this->form->renderField('centre_longitude'); ?>
 	        		<?php echo $this->form->renderField('dmslongitude'); ?>
 	        		<?php echo $this->form->renderField('default_zoom'); ?>
-	        		<?php echo $this->form->renderField('width'); ?>
-	        		<?php echo $this->form->renderField('height'); ?>
 	   			</div>
 				<div class="span3">
 					<?php echo LayoutHelper::render('joomla.edit.global', $this); ?>
@@ -81,7 +79,19 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 
 			<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'layout', Text::_('Map Layout')); ?>
 			<div class="row_fluid">
-				<div class="span7">
+				<div class="span7 form-horizontal-desktop">
+					<h4><?php echo Text::_('Layout Options'); ?></h4>
+					<?php echo $this->form->renderField('show_map_title','params'); ?>
+					<?php echo $this->form->renderField('show_map_info','params'); ?>
+					<?php echo $this->form->renderField('map_info_width','params'); ?>
+					<?php echo $this->form->renderField('show_map_desc','params'); ?>
+					<?php echo $this->form->renderField('map_desc_class','params'); ?>
+					<?php echo $this->form->renderField('show_map_key','params'); ?>
+					<?php echo $this->form->renderField('show_trk_dist','params'); ?>
+					<?php echo $this->form->renderField('show_trk_desc','params'); ?>
+					<?php echo $this->form->renderField('show_mrk_desc','params'); ?>
+				</div>
+				<div class="span5">
 					<h4><?php echo Text::_('Map Dimensions &amp; Border'); ?></h4>
 					<div class="row-fluid form-vertical">
 						<div class="span6">
@@ -112,13 +122,6 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 						</div>
 					</div>
 				</div>
-				<div class="span5 form-vertical">
-					<h4><?php echo Text::_('Other Layout Options'); ?></h4>
-					<?php echo $this->form->renderField('centre_marker','params'); ?>
-					<?php echo $this->form->renderField('show_map_title','params'); ?>
-					<?php echo $this->form->renderField('show_map_desc','params'); ?>
-					<?php echo $this->form->renderField('map_desc_position','params'); ?>
-				</div>
 			</div>
 			<?php echo HTMLHelper::_('bootstrap.endTab'); ?>			
 			<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'markers', JText::_('Markers &amp; Tracks')); ?>
@@ -130,7 +133,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 	          	</div>
 	    		<div class="span6">
 	          		<h4>Tracks</h4>
-	        		<?php echo $this->form->renderField('fit_bounds'); ?>
+	        		<?php echo $this->form->renderField('fit_bounds','params'); ?>
 	        		<?php echo $this->form->renderField('tracklist'); ?>
 	          	</div>
 	         </div> 		

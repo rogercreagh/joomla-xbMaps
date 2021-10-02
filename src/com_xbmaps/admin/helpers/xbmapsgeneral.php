@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.5.0.d 30th September 2021
+ * @version 0.6.0.a 2nd October 2021
  * @filesource admin/helpers/xbmapsgeneral.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -173,7 +173,7 @@ class XbmapsGeneral extends ContentHelper {
 		$query = $db->getQuery(true);
 		
 		$query->select('a.track_colour AS track_colour, t.title, t.id, t.alias, t.description, t.state AS tstate, t.track_colour AS defcol,
-			t.gpx_filename AS gpx_filename')
+			t.gpx_filename AS gpx_filename, t.params AS tparams, t.rec_date AS rec_date')
 		->from('#__xbmaps_maptracks AS a')
 		->join('LEFT','#__xbmaps_tracks AS t ON t.id=a.track_id')
 		->where('a.map_id = "'.$mapid.'"' )

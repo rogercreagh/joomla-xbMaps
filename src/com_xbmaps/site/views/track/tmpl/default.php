@@ -28,6 +28,10 @@ $trackslink = 'index.php?option=com_xbmaps&view=tracklist';
 ?>
 
 <div class="xbmaps">
+	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
+		echo XbmapsHelper::sitePageheader($this->header);
+	} ?>
+	
 <?php  if($this->show_title) :?>
 <div class="row-fluid">
 	<div class="span12">

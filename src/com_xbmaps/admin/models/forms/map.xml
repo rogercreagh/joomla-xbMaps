@@ -93,16 +93,6 @@
 			>
 		</field>
 
-		<field name="fit_bounds" type="radio"
- 			default="1"
-			label="XBMAPS_MAP_FIT_LABEL"
-			description="XBMAPS_MAP_FIT_DESC"
-			class="btn-group btn-group-yesno"
-			>
-			<option value="0" >JNO</option>
-			<option value="1">JYES</option>
-		</field>	
-		
 		<field name="catid" type="catsubtree" extension="com_xbmaps" 
 			label="JCATEGORY" description="JCATEGORY_DESC" 
 			itemtype="map"
@@ -212,115 +202,22 @@
 				name="params"
 				label="JGLOBAL_FIELDSET_DISPLAY_OPTIONS"
 		>
-			<field name="mapcontrols_note" type="note"
-				label="XBMAPS_DEFAULT_MAP_CONTROLS_LABEL" description="XBMAPS_DEFAULT_MAP_CONTROLS_DESC"
+			<field name="maplayout_note" type="note"
+				label="XBMAPS_DEFAULT_MAP_LAYOUT_LABEL"
 			/>
-			<field name="map_zoom_control" type="radio"  
-				label="XBMAPS_MAP_SHOW_ZOOM_CONTROL_LABEL" description="XBMAPS_MAP_SHOW_ZOOM_CONTROL_DESC"
-				class="btn-group btn-group-yesno" 
-				default="" useglobal="true"
-			>
-				<option value="1">JYES</option>
-				<option value="0">JNO</option>
-			</field>		
-			<field name="map_home_button" type="radio"  
-				label="XBMAPS_MAP_SHOW_HOME_BUTTON_LABEL" description="XBMAPS_MAP_SHOW_HOME_BUTTON_DESC"
-				class="btn-group btn-group-yesno" 
-				showon="map_zoom_control:1"
-				default="" useglobal="true"
-			>
-				<option value="0">JNO</option>
-				<option value="1">JYES</option>
-			</field>		
-			<field name="map_zoom_wheel" type="radio" 
-				label="XBMAPS_MAP_MOUSE_WHEEL_ZOOM_LABEL" description="XBMAPS_MAP_MOUSE_WHEEL_ZOOM_DESC"
-				class="btn-group btn-group-yesno" 
-				default="" useglobal="true"
-			>
-				<option value="1">JYES</option>
-				<option value="0">JNO</option>
-			</field>
-			<field name="map_current_position" type="radio"  
-				label="XBMAPS_MAP_SHOW_CURRENT_POSITION_LABEL" description="XBMAPS_MAP_SHOW_CURRENT_POSITION_DESC"
-				class="btn-group btn-group-yesno" 
-				default="" useglobal="true"
-			>
-				<option value="1">JYES</option>
-				<option value="0">JNO</option>
-			</field>
-			
-			<field name="map_full_screen" type="radio"  
-				label="XBMAPS_MAP_SHOW_FULL_SCREEN_BUTTON_LABEL" description="XBMAPS_MAP_SHOW_FULL_SCREEN_BUTTON_DESC"
-				class="btn-group btn-group-yesno" 
-				default="" useglobal="true"
-			>
-				<option value="1">JYES</option>
-				<option value="0">JNO</option>
-			</field>		
-			<field name="map_search" type="radio"  
-				label="XBMAPS_MAP_SHOW_SEARCH_BUTTON_LABEL" description="XBMAPS_MAP_SHOW_SEARCH_BUTTON_DESC"
-				class="btn-group btn-group-yesno" 
-				default="" useglobal="true"
-			>
-				<option value="1">JYES</option>
-				<option value="0">JNO</option>
-			</field>		
-			<field name="map_easyprint" type="radio"  
-				label="XBMAPS_MAP_SHOW_PRINT_BUTTON_LABEL" description="XBMAPS_MAP_SHOW_PRINT_BUTTON_DESC"
-				class="btn-group btn-group-yesno" 
-				default="" useglobal="true"
-			>
-				<option value="1">JYES</option>
-				<option value="0">JNO</option>
-			</field>
-			<field name="marker_clustering" type="radio" 
-				label="XBMAPS_MARKER_CLUSTERING_LABEL" description="XBMAPS_MARKER_CLUSTERING_DESC"
-				class="btn-group btn-group-yesno" 
-				default="" useglobal="true"
-			>
-				<option value="1">JYES</option>
-				<option value="0">JNO</option>
-			</field>	
-			<field name="centre_marker" type="radio"  
-				label="XBMAPS_MAP_SHOW_CENTRE_MARKER_LABEL" description="XBMAPS_MAP_SHOW_CENTRE_MARKER_DESC"
-				class="btn-group btn-group-yesno" 
-				default="1"
-			>
-				<option value="1">JYES</option>
-				<option value="0">JNO</option>
-			</field>
-			
 			<field name="show_map_title" type="radio"  
 				label="XBMAPS_MAP_TITLE_LABEL" description="XBMAPS_MAP_TITLE_DESC"
 				class="btn-group btn-group-yesno" 
-				default="1"
+				useglobal="true"
 			>
 				<option value="1">JYES</option>
 				<option value="0">JNO</option>
 			</field>
-			<field name="show_map_desc" type="radio"  
-				label="XBMAPS_MAP_DESC_LABEL" description="XBMAPS_MAP_DESC_DESC"
-				class="btn-group btn-group-yesno" 
-				default="1"
-			>
-				<option value="1">JYES</option>
-				<option value="0">JNO</option>
-			</field>
-			<field name="map_desc_position" type="radio"  
-				label="XBMAPS_MAP_DESCPOS_LABEL" description="XBMAPS_MAP_DESCPOS_DESC"
-				class="btn-group btn-group-yesno" 
-				showon="show_map_desc:1"
-				default="below"
-			>
-				<option value="below">XBMAPS_BELOW</option>
-				<option value="above">XBMAPS_ABOVE</option>
-			</field>
-
 			<field name="map_border" type="radio"
-	 			default="1"
 				label="XBMAPS_MAP_BORDER_LABEL"
 				description="XBMAPS_MAP_BORDER_DESC"
 				class="btn-group btn-group-yesno"
+				useglobal="true"
 				>
 				<option value="0" >JNO</option>
 				<option value="1">JYES</option>
@@ -339,6 +236,162 @@
 				showon="map_border:1"
 			/>		
 		
+			<field name="show_map_info" type="list"  
+				label="XBMAPS_MAP_INFOPANE_LABEL" description="XBMAPS_MAP_INFOPANE_DESC"
+				useglobal="true"
+			>
+				<option value="0">JHIDE</option>
+				<option value="above">XBMAPS_ABOVE</option>
+				<option value="right">XBMAPS_RIGHT</option>
+				<option value="below">XBMAPS_BELOW</option>
+				<option value="left">XBMAPS_LEFT</option>
+			</field>
+			
+			<field name="map_info_width" type="list"  
+				label="XBMAPS_MAP_INFOPANE_WIDTH_LABEL" description="XBMAPS_MAP_INFOPANE_WIDTH_DESC"
+				showon="show_map_info:left[OR]show_map_info:right"
+				useglobal="true"
+			>
+				<option value="2">17%</option>
+				<option value="4">33%</option>
+				<option value="6">50%</option>
+				<option value="8">67%</option>
+				<option value="10">83%</option>
+			</field>
+			<field name="show_map_desc" type="radio"  
+				label="XBMAPS_MAP_DESC_LABEL" description="XBMAPS_MAP_DESC_DESC"
+				class="btn-group btn-group-yesno" 
+				showon="show_map_info!:"
+				useglobal="true"
+			>
+				<option value="1">JSHOW</option>
+				<option value="0">JHIDE</option>
+			</field>
+			<field name="map_desc_class" type="text" 
+				label="XBMAPS_DESC_CLASS_LABEL" description="XBMAPS_DESC_CLASS_DESC" 
+				size="150" showon="show_map_info!:[AND]show_map_desc:1"
+				useglobal="true" 
+			/>	
+			<field name="show_map_key" type="radio"  
+				label="XBMAPS_MAP_KEY_LABEL" description="XBMAPS_MAP_KEY_DESC"
+				class="btn-group btn-group-yesno" 
+				showon="show_map_info!:"
+				useglobal="true"
+			>
+				<option value="1">JSHOW</option>
+				<option value="0">JHIDE</option>
+			</field>
+			<field name="show_trk_dist" type="radio"  
+				label="XBMAPS_TRK_DIST_LABEL" description="XBMAPS_TRK_DIST_DESC"
+				class="btn-group btn-group-yesno" 
+				showon="show_map_info!:[AND]show_map_key:1"
+				useglobal="true"
+			>
+				<option value="1">JSHOW</option>
+				<option value="0">JHIDE</option>
+			</field>
+			<field name="show_trk_desc" type="radio"  
+				label="XBMAPS_TRK_DESC_LABEL" description="XBMAPS_TRK_DESC_DESC"
+				class="btn-group btn-group-yesno" 
+				showon="show_map_info!:[AND]show_map_key:1"
+				useglobal="true"
+			>
+				<option value="1">JSHOW</option>
+				<option value="0">JHIDE</option>
+			</field>
+			<field name="show_mrk_desc" type="radio"  
+				label="XBMAPS_MRK_DESC_LABEL" description="XBMAPS_MRK_DESC_DESC"
+				class="btn-group btn-group-yesno" 
+				showon="show_map_info!:[AND]show_map_key:1"
+				useglobal="true"
+			>
+				<option value="1">JSHOW</option>
+				<option value="0">JHIDE</option>
+			</field>
+			<field name="marker_clustering" type="radio" 
+				label="XBMAPS_MARKER_CLUSTERING_LABEL" description="XBMAPS_MARKER_CLUSTERING_DESC"
+				class="btn-group btn-group-yesno" 
+				useglobal="true"
+			>
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			
+			<field name="mapcontrols_note" type="note"
+				label="XBMAPS_DEFAULT_MAP_CONTROLS_LABEL" description="XBMAPS_DEFAULT_MAP_CONTROLS_DESC"
+			/>
+			<field name="map_zoom_control" type="radio"  
+				label="XBMAPS_MAP_SHOW_ZOOM_CONTROL_LABEL" description="XBMAPS_MAP_SHOW_ZOOM_CONTROL_DESC"
+				class="btn-group btn-group-yesno" 
+				useglobal="true"
+			>
+			<option value="0">JHIDE</option>
+			<option value="1">JSHOW</option>
+			</field>		
+			<field name="map_home_button" type="radio"  
+				label="XBMAPS_MAP_SHOW_HOME_BUTTON_LABEL" description="XBMAPS_MAP_SHOW_HOME_BUTTON_DESC"
+				class="btn-group btn-group-yesno" 
+				showon="map_zoom_control:1"
+				useglobal="true"
+			>
+			<option value="0">JHIDE</option>
+			<option value="1">JSHOW</option>
+			</field>		
+			<field name="map_zoom_wheel" type="radio" 
+				label="XBMAPS_MAP_MOUSE_WHEEL_ZOOM_LABEL" description="XBMAPS_MAP_MOUSE_WHEEL_ZOOM_DESC"
+				class="btn-group btn-group-yesno" 
+				useglobal="true" 
+			>
+				<option value="0">JNO</option>
+				<option value="1">JYES</option>
+			</field>
+			
+			<field name="map_full_screen" type="radio"  
+				label="XBMAPS_MAP_SHOW_FULL_SCREEN_BUTTON_LABEL" description="XBMAPS_MAP_SHOW_FULL_SCREEN_BUTTON_DESC"
+				class="btn-group btn-group-yesno" 
+				useglobal="true"
+			>
+			<option value="0">JHIDE</option>
+			<option value="1">JSHOW</option>
+			</field>		
+			<field name="map_search" type="radio"  
+				label="XBMAPS_MAP_SHOW_SEARCH_BUTTON_LABEL" description="XBMAPS_MAP_SHOW_SEARCH_BUTTON_DESC"
+				class="btn-group btn-group-yesno" 
+				useglobal="true"
+			>
+			<option value="0">JHIDE</option>
+			<option value="1">JSHOW</option>
+			</field>		
+			<field name="map_easyprint" type="radio"  
+				label="XBMAPS_MAP_SHOW_PRINT_BUTTON_LABEL" description="XBMAPS_MAP_SHOW_PRINT_BUTTON_DESC"
+				class="btn-group btn-group-yesno" 
+				useglobal="true"
+			>
+			<option value="0">JHIDE</option>
+			<option value="1">JSHOW</option>
+			</field>
+			
+			<field name="fit_bounds" type="radio"
+	 			default="1"
+				label="XBMAPS_MAP_FIT_LABEL"
+				description="XBMAPS_MAP_FIT_DESC"
+				class="btn-group btn-group-yesno"
+				>
+				<option value="0" >JNO</option>
+				<option value="1">JYES</option>
+			</field>	
+			
+			<!-- 
+			<field name="centre_marker" type="radio"  
+				label="XBMAPS_MAP_SHOW_CENTRE_MARKER_LABEL" description="XBMAPS_MAP_SHOW_CENTRE_MARKER_DESC"
+				class="btn-group btn-group-yesno" 
+				default="1"
+			>
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			 -->	
+			
 		</fieldset>
 	</fields>
 	

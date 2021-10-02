@@ -1,7 +1,7 @@
 <?php 
 /*******
  * @package xbMaps
- * @version 0.3.0.h 22nd September 2021
+ * @version 0.6.0.a 2nd October 2021
  * @filesource site/views/catlist/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -37,7 +37,7 @@ $prevext='';
 ?>
 <div class="xbmaps">
 	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
-		echo XbfilmsHelper::sitePageheader($this->header);
+		echo XbmapsHelper::sitePageheader($this->header);
 	} ?>
 	
 	<form action="<?php echo JRoute::_('index.php?option=com_xbmaps&view=catlist'); ?>" method="post" name="adminForm" id="adminForm">

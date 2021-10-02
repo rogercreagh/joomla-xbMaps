@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.5.0.a 28th September 2021
+ * @version 0.6.0.a 2nd October 2021
  * @filesource site/views/map/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -28,6 +28,10 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
 ?>
 
 <div class="xbmaps">
+	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
+		echo XbmapsHelper::sitePageheader($this->header);
+	} ?>
+
 <?php  if($this->showmaptitle) :?>
 <div class="row-fluid">
 	<div class="span12">
@@ -35,16 +39,27 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
  	</div>
 </div>
 <?php endif; ?>
-<?php if (($this->showmapdesc) && ($this->mapdescpos=='above')) :?>
-<div class="row-fluid">
-	<div class="span1"></div>
-	<div class="span10">
- 		<p><?php echo $item->description; ?></p>
+
+<?php if ($this->show_map_info=='above') :?>
+	<?php if ($this->show_map_desc) :?>
+	<div class="map_desc_class">
+	 		<?php echo $item->description; ?>
 	</div>
-</div>
-<?php endif; ?>
+	<?php endif; ?>
+	<?php echo $this->keybox;?>
+<?php endif; ?>	
 <div class="row-fluid">
-	<div class="span12">
+	<?php if (($this->show_map_info=='left') && (($this->show_map_key) || ($this->show_map_desc))): ?>
+    	<div class="span<?php echo $this->map_info_width; ?>">
+    		<?php echo $this->keybox;?>
+    		<?php if ($this->show_map_desc) :?>
+            	<div class="map_desc_class">
+            	 		<?php echo $item->description; ?>
+            	</div>
+    		<?php endif; ?>
+    	</div>
+	<?php endif; ?>
+	<div class="span<?php echo (($this->show_map_info == 'left') || ($this->show_map_info=='right')) ? $this->mainspan : '12'; ?>">
 		<?php $uid = uniqid();
 			$map = new XbMapHelper($uid,$item->params);
 			$map->loadAPI($this->clustering,$this->homebutton);
@@ -53,9 +68,6 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
 			$map->setMapType($item->map_type);
 			if ($this->clustering) {
 				$map->setMarkerClusterer();
-			}
-			if ($this->centremarker>0) {
-			    $map->setMarker($uid.'centre', $item->title, XbmapsGeneral::Deg2DMS($item->centre_latitude).'<br />'.XbmapsGeneral::Deg2DMS($item->centre_longitude,false), $item->centre_latitude, $item->centre_longitude,'','','',1);
 			}
 			if ($item->params->get('map_search',0)>0) {
 				$map->renderSearch();				
@@ -119,27 +131,38 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
 			//other controls to be added
 			$map->renderMap();
 			?>
-<div id="xbmaps" style="margin:0;padding:0;">
-	<div align="center" style="margin:0;padding:0 <?php echo $this->borderstyle; ?>">
-		<div id="xbMap<?php echo $uid; ?>" 
-			style="margin:0;padding:0;
-				width:<?php echo $item->map_width > 0 ? $item->map_width.$item->width_unit.';' : '100%;';?>
-				height:<?php echo $item->map_height > 0 ? $item->map_height.$item->height_unit.';' : '50vh;'; ?>">
-		</div>
-	</div>
-</div>
+            <div id="xbmaps" style="margin:0;padding:0;">
+            	<div align="center" style="margin:0;padding:0 <?php echo $this->borderstyle; ?>">
+            		<div id="xbMap<?php echo $uid; ?>" 
+            			style="margin:0;padding:0;
+            				width:<?php echo $item->map_width > 0 ? $item->map_width.$item->width_unit.';' : '100%;';?>
+            				height:<?php echo $item->map_height > 0 ? $item->map_height.$item->height_unit.';' : '50vh;'; ?>">
+            		</div>
+            	</div>
+            </div>
 			
 	</div>
+	<?php if (($this->show_map_info=='right') && (($this->show_map_key) || ($this->show_map_desc))): ?>
+    	<div class="span<?php echo $this->map_info_width; ?>">
+    		<?php echo $this->keybox;?>
+    		<?php if ($this->show_map_desc) :?>
+            	<div class="map_desc_class">
+            	 		<?php echo $item->description; ?>
+            	</div>
+    		<?php endif; ?>
+    	</div>
+	<?php endif; ?>
 </div>
-<?php if (($this->showmapdesc) && ($this->mapdescpos!='above')) :?>
-<div class="row-fluid">
-	<div class="span1"></div>
-	<div class="span10">
- 		<p><?php echo $item->description; ?></p>
-	</div>
-</div>
-<?php endif; ?>
-	<div class="row-fluid xbmt16">
+<?php if ($this->show_map_info=='below') :?>
+	<?php echo $this->keybox;?>
+	<?php if ($this->show_map_desc) :?>
+    	<div class="map_desc_class">
+    	 		<?php echo $item->description; ?>
+    	</div>
+	<?php endif; ?>
+<?php endif; ?>	
+
+<div class="row-fluid xbmt16">
 	<?php if ($this->show_cats >0) : ?>       
 		<div class="span4">
 			<div class="pull-left xbnit xbmr10"><?php echo JText::_('XBMAPS_CATEGORY'); ?></div>
@@ -162,30 +185,30 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
 				</div>
         	</div>
 		<?php endif; ?>
+</div>
+<div class="row-fluid xbbox xbboxgrey">
+	<div class="span2">
+		<?php if (($item->prev>0) || ($item->next>0)) : ?>
+		<span class="hasTooltip xbinfo" title 
+			data-original-title="<?php echo JText::_('XBMAPS_INFO_PREVNEXT'); ?>" >
+		</span>&nbsp;
+		<?php endif; ?>
+		<?php if($item->prev > 0) : ?>
+			<a href="<?php echo JRoute::_(XbmapsHelperRoute::getMapLink($item->prev)); ?>" class="btn btn-small">
+				<?php echo Text::_('XBMAPS_PREV'); ?></a>
+	    <?php endif; ?>
 	</div>
-	<div class="row-fluid xbbox xbboxgrey">
-		<div class="span2">
-			<?php if (($item->prev>0) || ($item->next>0)) : ?>
-			<span class="hasTooltip xbinfo" title 
-				data-original-title="<?php echo JText::_('XBMAPS_INFO_PREVNEXT'); ?>" >
-			</span>&nbsp;
-			<?php endif; ?>
-			<?php if($item->prev > 0) : ?>
-				<a href="<?php echo JRoute::_(XbmapsHelperRoute::getMapLink($item->prev)); ?>" class="btn btn-small">
-					<?php echo Text::_('XBMAPS_PREV'); ?></a>
-		    <?php endif; ?>
-		</div>
-		<div class="span8"><center>
-			<a href="<?php echo JRoute::_($mapslink); ?>" class="btn btn-small">
-				<?php echo JText::_('XBMAPS_MAPSLIST'); ?></a></center>
-		</div>
-		<div class="span2">
-			<?php if($item->next > 0) : ?>
-				<a href="<?php echo JRoute::_(XbmapsHelperRoute::getMapLink($item->next)); ?>" class="btn btn-small pull-right">
-					<?php echo JText::_('XBMAPS_NEXT'); ?></a>
-		    <?php endif; ?>
-		</div>
+	<div class="span8"><center>
+		<a href="<?php echo JRoute::_($mapslink); ?>" class="btn btn-small">
+			<?php echo JText::_('XBMAPS_MAPSLIST'); ?></a></center>
 	</div>
+	<div class="span2">
+		<?php if($item->next > 0) : ?>
+			<a href="<?php echo JRoute::_(XbmapsHelperRoute::getMapLink($item->next)); ?>" class="btn btn-small pull-right">
+				<?php echo JText::_('XBMAPS_NEXT'); ?></a>
+	    <?php endif; ?>
+	</div>
+</div>
 	<div class="clearfix"></div>
 	<?php echo XbmapsGeneral::credit();?>
 

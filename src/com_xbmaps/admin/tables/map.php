@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.1.1.b 8th August 2021
+ * @version 0.6.0.a 2nd October 2021
  * @filesource admin/tables/map.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -109,9 +109,9 @@ class XbmapsTableMap extends Table
 		
 		if (isset($array['params']) && is_array($array['params'])) {
 			// Convert the params field to a string.
-			$parameter = new Registry;
-			$parameter->loadArray($array['params']);
-			$array['params'] = (string)$parameter;
+			$parameters = new Registry;
+			$parameters->loadArray($array['params']);
+			$array['params'] = (string)$parameters;
 		}
 		
 		// 		if (isset($array['rules']) && is_array($array['rules'])) {

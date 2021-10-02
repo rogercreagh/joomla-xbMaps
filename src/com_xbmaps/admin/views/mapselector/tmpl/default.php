@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.1.1.j 25th August 2021
+ * @version 0.6.0.a 2nd October 2021
  * @filesource admin/views/mapselector/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -33,7 +33,6 @@ $map->mapClick($uid);
 	
 
 $map->renderFullScreenControl();
-//$map->renderCurrentPosition();
 
 $map->renderMap();
 

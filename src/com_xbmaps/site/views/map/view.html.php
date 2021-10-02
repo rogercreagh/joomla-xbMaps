@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.4.0.a 24th September 2021
+ * @version 0.6.0.a 2nd October 2021
  * @filesource site/views/map/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -23,43 +23,59 @@ class XbmapsViewMap extends JViewLegacy {
 		
 		$this->item = $this->get('Item');
 		$this->state = $this->get('State');
-		$iparams = $this->item->params;
-		$this->params = $iparams;
-		//$sparams is used to get menu options that are not global and may override item params
-		$sparams = $this->state->get('params');
+//		$this->sparams = $this->state->get('params');
+		$this->params = $this->item->params;
 		
 		$gcat = $this->params->get('global_use_cats');
 		$mcat = $this->params->get('maps_use_cats');
 		$this->show_cats = 0;
 		if ($gcat>0) {
 		    $this->show_cats = $mcat;
-		    if ($this->params['maps_use_cats']!=='') {
-		        $this->show_cats = $this->params['maps_use_cats'];
-		    }
+//		    if ($this->params['maps_use_cats']!=='') {
+//		        $this->show_cats = $this->params['maps_use_cats'];
+//		    }
 		}
+		
 		$this->fit_bounds = $this->params['fit_bounds'];
 		$gtags = $this->params->get('global_use_tags');
 		$mtags = $this->params->get('maps_use_tags');
 		$this->show_tags = false;
 		if ($gtags >0) {
 		    $this->show_tags = $mtags;
-		    if ($this->params['maps_use_tags']!=='') {
-		        $this->show_tags = $this->params['maps_use_tags'];
-		    }
+//		    if ($this->params['maps_use_tags']!=='') {
+//		        $this->show_tags = $this->params['maps_use_tags'];
+//		    }
 		}
 		
-		$this->clustering = $this->params['marker_clustering'];
-		$this->homebutton = $this->params['map_home_button'];
-		$this->centremarker = $sparams['centre_marker']=='' ? $iparams['centre_marker'] : $sparams['centre_marker'];
-		$this->showmaptitle = $sparams['show_map_title']=='' ? $iparams['show_map_title'] : $sparams['show_map_title'];
-		$this->showmapdesc = $sparams['show_map_desc']=='' ? $iparams['show_map_desc'] : $sparams['show_map_desc'];
-		$this->mapdescpos = $sparams['map_desc_position']=='' ? $iparams['map_desc_position'] : $sparams['map_desc_position'];
+		$this->clustering = $this->params->get('marker_clustering');
+		$this->homebutton = $this->params->get('map_home_button');
+		//$this->centremarker = $this->params->get('centre_marker');
+		$this->show_map_title = $this->params->get('show_map_title');
 		$this->marker_image_path = 'images/'.$this->params->get('def_markers_folder','');
-		$mapborder = $sparams['map_border']=='' ? $iparams['map_border'] : $sparams['map_border'];
+		$mapborder = $this->params->get('map_border');
 		$this->borderstyle = '';
 		if ($mapborder==1) {
 		    $this->borderstyle = 'border:'.$this->params->get('map_border_width').'px solid '.$this->params->get('map_border_colour').';';
 		}
+		$this->show_map_info = $this->params->get('show_map_info');
+		$this->map_info_width = $this->params->get('map_info_width');
+		$this->mainspan = 12 - $this->map_info_width;
+		$this->show_map_desc = $this->params->get('show_map_desc');
+		$this->map_desc_class = $this->params->get('map_desc_class','');
+		$this->show_map_key = $this->params->get('show_map_key');
+		$this->show_trk_dist = $this->params->get('show_trk_dist');
+		$this->show_trk_desc = $this->params->get('show_trk_desc');
+		$this->show_mrk_desc = $this->params->get('show_mrk_desc');
+		
+		$this->header = array();
+		$this->header['showheading'] = $this->params->get('show_page_heading',0,'int');
+		$this->header['heading'] = $this->params->get('page_heading','','text');
+		if ($this->header['heading'] =='') {
+		    $this->header['heading'] = $this->params->get('page_title','','text');
+		}
+		$this->header['title'] = $this->params->get('mappage_title','','text');
+		$this->header['subtitle'] = $this->params->get('mappage_subtitle','','text');
+		$this->header['text'] = $this->params->get('mappage_headtext','','text');
 		
 		if (count($errors = $this->get('Errors'))) {
 			Factory::getApplication()->enqueueMessage(implode('<br />', $errors),'error');
@@ -99,7 +115,82 @@ class XbmapsViewMap extends JViewLegacy {
 		if (!empty($metadata['robots'])) { $document->setMetaData('robots', $metadata['robots']);}
 		if (!empty($metadata['author'])) { $document->setMetaData('author', $metadata['author']);}
 		
+		$this->keybox = '';
+		if (($this->show_map_key) && ((count($this->item->tracks)>0) || (count($this->item->markers)>0))) {
+		    $this->keybox .= '<div class="xbbox xbboxgrn">';
+		    if (count($this->item->tracks)>0) {
+	           $this->keybox .= '<p>Tracks</p><ul';
+	           if (($this->show_map_info=='left') || ($this->show_map_info=='right')) {
+	               $this->keybox .= ' class="xbhlist"' ;
+	           }
+	           $this->keybox .= '>'.self::buildTrackList().'</ul>';    						
+    		}
+    		if ((count($this->item->tracks)>0) && (count($this->item->markers)>0)) {
+    		    $this->keybox .= '<hr />';
+    		}
+    		if (count($this->item->markers)>0) {
+    		     $this->keybox .= '<p>Markers</p><ul';
+    		     if (($this->show_map_info=='left') || ($this->show_map_info=='right')) {
+    		         $this->keybox .= ' class="xbhlist"' ;
+    		     }
+    		     $this->keybox .= '>'.self::buildMarkerList().'</ul>';
+    		 }
+    		$this->keybox .= '</div>';
+		}
+			
+//		$this->tracklist = ($this->show_map_key==1) ? self::buildTrackList() : '';
+//		$this->markerlist = ($this->show_map_key==1) ? self::buildMarkerList() : '';
+		
 		parent::display($tpl);
+	}
+	
+	function buildTrackList() {
+	    $trklist = '';
+	    foreach ($this->item->tracks as $trk) {
+	        $trklist .=	'<li><i class="fas fa-project-diagram" style="color:'.$trk->track_colour.'"></i>&nbsp<b>';
+	        $trklist .=	$trk->linkedtitle.'</b>&nbsp;'.$trk->rec_date.'&nbsp;';
+	        if (($this->show_trk_desc) && ($trk->description != '')) {
+	            $trklist .=	 XbmapsGeneral::makeSummaryText($trk->description);
+	        }
+            $trklist .=	 '</li>';
+	    } // endforeach;
+	    return $trklist;
+	}
+	
+	function buildMarkerList() {
+	    $mrklist = '';
+	    foreach ($this->item->markers as $mrk) {
+	        $mrklist .=	'<li>';
+	        $pv = '<img src="'.Juri::root().'media/com_xbmaps/images/marker-icon.png"  style="height:24px;"/>';
+	        switch ($mrk->markertype) {
+	            case 1:
+	                $pv = '<img src="'.Juri::root().$this->marker_image_path.'/'.$mrk->mkparams['marker_image'].'" style="height:20px;" />';
+	                break;
+	            case 2:
+	                $pv = '<span class="fa-stack fa-2x" style="font-size:8pt;">';
+	                $pv .='<i class="'.$mrk->mkparams['marker_outer_icon'].' fa-stack-2x" ';
+	                $pv .= 'style="color:'.$mrk->mkparams['marker_outer_colour'].';"></i>';
+	                if ($mrk->mkparams['marker_inner_icon']!=''){
+	                    $pv .= '<i class="'.$mrk->mkparams['marker_inner_icon'].' fa-stack-1x fa-inverse" ';
+	                    $pv .= 'style="color:'.$mrk->mkparams['marker_inner_colour'].';';
+	                    if ($mrk->mkparams['marker_outer_icon']=='fas fa-map-marker') {
+	                        $pv .= 'line-height:1.75em;font-size:0.8em;';
+	                    }
+	                    $pv .= '"></i>';
+	                }
+	                $pv .= '</span>';
+	                break;
+	            default:
+	                break;
+	        }
+	        $mrklist .=	$pv.'&nbsp;';
+	        $mrklist .=	'<b>'.$mrk->linkedtitle.'</b>&nbsp;';
+	        if (($this->show_mrk_desc) && ($mrk->description != '')) {
+	            $mrklist .=	 XbmapsGeneral::makeSummaryText($mrk->description);
+	        }
+            $mrklist .=	 '</li>';
+	    } // endforeach;
+	    return $mrklist;
 	}
 	
 }

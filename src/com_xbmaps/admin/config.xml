@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbMaps config.xml v0.5.0.a 28th September 2021 -->
+<!-- xbMaps config.xml v0.6.0.a 2nd October 2021 -->
 <config>
 <!-- GENERAL TAB -->				
 	<fieldset name="general"
@@ -147,6 +147,81 @@
 			<option value="osm_hot">XBMAPS_HUMANITARIAN_OPENSTREETMAP</option>
 		</field>
 		
+		<field name="maplayout_note" type="note"
+			label="XBMAPS_DEFAULT_MAP_LAYOUT_LABEL"
+		/>
+			<field name="show_map_info" type="list"  
+				label="XBMAPS_MAP_INFOPANE_LABEL" description="XBMAPS_MAP_INFOPANE_DESC"
+				default=""
+			>
+				<option value="">JHIDE</option>
+				<option value="above">XBMAPS_ABOVE</option>
+				<option value="right">XBMAPS_RIGHT</option>
+				<option value="below">XBMAPS_BELOW</option>
+				<option value="left">XBMAPS_LEFT</option>
+			</field>
+			
+			<field name="map_info_width" type="list"  
+				label="XBMAPS_MAP_INFOPANE_WIDTH_LABEL" description="XBMAPS_MAP_INFOPANE_WIDTH_DESC"
+				showon="show_track_info:left[OR]show_track_info:right"
+				default="0"
+			>
+				<option value="2">17%</option>
+				<option value="4">33%</option>
+				<option value="6">50%</option>
+				<option value="8">67%</option>
+				<option value="10">83%</option>
+			</field>
+			<field name="show_map_key" type="radio"  
+				label="XBMAPS_MAP_KEY_LABEL" description="XBMAPS_MAP_KEY_DESC"
+				class="btn-group btn-group-yesno" 
+				showon="show_map_info!:"
+				default="1"
+			>
+				<option value="1">JSHOW</option>
+				<option value="0">JHIDE</option>
+			</field>
+			<field name="show_trk_dist" type="radio"  
+				label="XBMAPS_TRK_DIST_LABEL" description="XBMAPS_TRK_DIST_DESC"
+				class="btn-group btn-group-yesno" 
+				showon="show_map_info!:[AND]show_map_key:1"
+				default="1"
+			>
+				<option value="1">JSHOW</option>
+				<option value="0">JHIDE</option>
+			</field>
+			<field name="show_trk_desc" type="radio"  
+				label="XBMAPS_TRK_DESC_LABEL" description="XBMAPS_TRK_DESC_DESC"
+				class="btn-group btn-group-yesno" 
+				showon="show_map_info!:[AND]show_map_key:1"
+				default="1"
+			>
+				<option value="1">JSHOW</option>
+				<option value="0">JHIDE</option>
+			</field>
+			<field name="show_mrk_desc" type="radio"  
+				label="XBMAPS_MRK_DESC_LABEL" description="XBMAPS_MRK_DESC_DESC"
+				class="btn-group btn-group-yesno" 
+				showon="show_map_info!:[AND]show_map_key:1"
+				default="1"
+			>
+				<option value="1">JSHOW</option>
+				<option value="0">JHIDE</option>
+			</field>
+			<field name="show_map_desc" type="radio"  
+				label="XBMAPS_MAP_DESC_LABEL" description="XBMAPS_MAP_DESC_DESC"
+				class="btn-group btn-group-yesno" 
+				showon="show_map_info!:"
+				default="1"
+			>
+				<option value="1">JSHOW</option>
+				<option value="0">JHIDE</option>
+			</field>
+		<field name="map_desc_class" type="text" 
+			label="XBMAPS_DESC_CLASS_LABEL" description="XBMAPS_DESC_CLASS_DESC" 
+			size="150" showon="show_map_info!:[AND]show_map_desc:1"
+			default="xbbox" 
+		/>	
 		<field name="mapcontrols_note" type="note"
 			label="XBMAPS_DEFAULT_MAP_CONTROLS_LABEL"
 		/>
@@ -500,7 +575,7 @@
 				<option value="left">XBMAPS_LEFT</option>
 			</field>
 			<field name="track_info_width" type="list"  
-				label="XBMAPS_TRACK_INFOPANE_WIDTH_LABEL" description="XBMAPS_TRACK_INFOPANE_WIDTH_DESC"
+				label="XBMAPS_INFOPANE_WIDTH_LABEL" description="XBMAPS_INFOPANE_WIDTH_DESC"
 				showon="show_track_info:left[OR]show_track_info:right"
 				default="0"
 			>
@@ -545,6 +620,11 @@
 				<option value="1">JSHOW</option>
 				<option value="0">JHIDE</option>
 			</field>
+		<field name="track_desc_class" type="text" 
+			label="XBMAPS_DESC_CLASS_LABEL" description="XBMAPS_DESC_CLASS_DESC" 
+			size="150" showon="show_track_info!:[AND]show_track_desc:1"
+			default="xbbox" 
+		/>	
 			<field name="show_track_popover" type="list"  
 				label="XBMAPS_TRACK_POP_LABEL" description="XBMAPS_TRACK_POP_DESC"
 				class="btn-group btn-group-yesno" 

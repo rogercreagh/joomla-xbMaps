@@ -200,12 +200,12 @@ $tagclass = $this->show_tags? 'label-info' : 'label-grey';
 					<?php endif; ?>
 				</td>
 				<td><?php if (count($item->markers)>0) : ?>
-					<p>
+					<ul class="xblist" style="margin:0;">
 						<?php foreach ($item->markers as $mrk) {
-						    $pv = '<img src="/media/com_xbmaps/images/marker-icon.png" />';
+						    $pv = '<img src="/media/com_xbmaps/images/marker-icon.png" style="height:24px;" />';
 						    switch ($mrk->markertype) {
 						        case 1:
-						            $pv = '<img src="'.$this->marker_image_path.'/'.$mrk->mkparams['marker_image'].'" style="height:20px;" />';
+						            $pv = '<img src="'.$this->marker_image_path.'/'.$mrk->mkparams['marker_image'].'" style="height:24px;" />';
 						            break;
 						        case 2:
 						            $pv = '<span class="fa-stack fa-2x" style="font-size:8pt;">';
@@ -224,9 +224,9 @@ $tagclass = $this->show_tags? 'label-info' : 'label-grey';
 						        default:
 						            break;
 						    }
-						    echo $pv.'&nbsp;';
+						    echo '<li>'.$pv.'&nbsp;';
  							echo $mrk->linkedtitle;
-							echo '<br />';
+							echo '</li>';
 						} ?>
 					</p>
 				<?php else: ?>
@@ -236,13 +236,13 @@ $tagclass = $this->show_tags? 'label-info' : 'label-grey';
 </td>
 				<td><?php 
 				if (count($item->tracks)>0) {
-					echo '<p>';
+					echo '<ul class="xblist" style="margin:0;">';
 						foreach ($item->tracks as $trk) {
-							echo '<i class="fas fa-project-diagram" style="color:'.$trk->track_colour.';"></i> ';
+							echo '<li><i class="fas fa-project-diagram" style="color:'.$trk->track_colour.';"></i> ';
  							echo $trk->linkedtitle;
-							echo '<br />';
+							echo '</li>';
 						}
-					echo '</p>';
+					echo '</ul>';
 				} else {
 					echo '<p class="xbnit">'.Text::_('XBMAPS_NO_TRACKS').'</p>';
 				}

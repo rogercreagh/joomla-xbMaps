@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.4.0 24th September 2021
+ * @version 0.6.0.c 3rd October 2021
  * @filesource admin/views/mapview/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -22,17 +22,62 @@ class XbmapsViewMapview extends JViewLegacy {
 		$this->item = $this->get('Item');
 		$this->params = $this->item->params;
 		
-		$this->clustering = $this->params['marker_clustering'];
-		$this->homebutton = $this->params['map_home_button'];
-		$this->centremarker = $this->params['centre_marker'];
+		$this->fit_bounds = $this->params->get('fit_bounds');
+		$this->clustering = $this->params->get('marker_clustering');
+		$this->homebutton = $this->params->get('map_home_button');
+		//$this->centremarker = $this->params->get('centre_marker');
+		$this->show_map_title = $this->params->get('show_map_title');
 		$this->marker_image_path = 'images/'.$this->params->get('def_markers_folder','');
+		$mapborder = $this->params->get('map_border');
 		$this->borderstyle = '';
-		if ($this->params['map_border']==1) {
-		    $this->borderstyle = 'border:'.$this->params['map_border_width'].'px solid '.$this->params['map_border_colour'].';';
-		}		
-		$this->fit_bounds = $this->params['fit_bounds'];
+		if ($mapborder==1) {
+			$this->borderstyle = 'border:'.$this->params->get('map_border_width').'px solid '.$this->params->get('map_border_colour').';';
+		}
+		$this->show_map_info = $this->params->get('show_map_info');
+		$this->map_info_width = $this->params->get('map_info_width');
+		$this->mainspan = 12 - $this->map_info_width;
+		$this->show_map_desc = $this->params->get('show_map_desc');
+		$this->map_desc_class = $this->params->get('map_desc_class','');
+		$this->show_map_key = $this->params->get('show_map_key');
+		$this->show_trk_dist = $this->params->get('show_trk_dist');
+		$this->show_trk_desc = $this->params->get('show_trk_desc');
+		$this->show_mrk_desc = $this->params->get('show_mrk_desc');
+		
 		if (count($errors = $this->get('Errors'))) {
 		    throw new Exception(implode("\n", $errors), 500);
+		}
+		
+		$this->infopos = 'topbot';
+		if (($this->show_map_info=='left') || ($this->show_map_info=='right')) {
+			$this->infopos = 'side';
+		}
+		
+		$this->descbox = '';
+		if ($this->show_map_desc) {
+			$this->descbox .= '<div class="'.$this->map_desc_class.'">';
+			$this->descbox .= '<p><b>Map Description</b></p>';
+			$this->descbox .= $this->item->description.'</div>';
+		}
+		
+		$this->keybox = '';
+		if (($this->show_map_key) && ((count($this->item->tracks)>0) || (count($this->item->markers)>0))) {
+			$this->keybox .= '<div class="xbbox xbboxgrn"><div class="row-fluid">';
+			if (count($this->item->tracks)>0) {
+				$this->keybox .= ($this->infopos == 'topbot') ? '<div class="span6">' : '';
+				$this->keybox .= '<p>Tracks</p><ul class="xblist" style="margin:0;">';
+				$this->keybox .= XbmapsGeneral::buildTrackList($this->item->tracks, $this->infopos).'</ul>';
+				$this->keybox .= ($this->infopos == 'topbot') ? '</div>' : '';
+			}
+			if ((count($this->item->tracks)>0) && (count($this->item->markers)>0)) {
+				$this->keybox .= ($this->infopos == 'topbot') ? '' : '<hr />';
+			}
+			if (count($this->item->markers)>0) {
+				$this->keybox .= ($this->infopos == 'topbot') ? '<div class="span6">' : '';
+				$this->keybox .= '<p>Markers</p><ul class="xblist" style="margin:0;">';
+				$this->keybox .= XbmapsGeneral::buildMarkerList($this->item->markers, $this->infopos, $this->marker_image_path).'</ul>';
+				$this->keybox .= ($this->infopos == 'topbot') ? '</div>' : '';
+			}
+			$this->keybox .= '</div></div>';
 		}
 		
 		$this->addToolbar();

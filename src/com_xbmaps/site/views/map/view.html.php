@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.6.0.b 3rd October 2021
+ * @version 0.6.0.c 3rd October 2021
  * @filesource site/views/map/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -36,7 +36,6 @@ class XbmapsViewMap extends JViewLegacy {
 //		    }
 		}
 		
-		$this->fit_bounds = $this->params['fit_bounds'];
 		$gtags = $this->params->get('global_use_tags');
 		$mtags = $this->params->get('maps_use_tags');
 		$this->show_tags = false;
@@ -47,6 +46,7 @@ class XbmapsViewMap extends JViewLegacy {
 //		    }
 		}
 		
+		$this->fit_bounds = $this->params->get('fit_bounds');
 		$this->clustering = $this->params->get('marker_clustering');
 		$this->homebutton = $this->params->get('map_home_button');
 		//$this->centremarker = $this->params->get('centre_marker');
@@ -132,8 +132,8 @@ class XbmapsViewMap extends JViewLegacy {
 		    $this->keybox .= '<div class="xbbox xbboxgrn"><div class="row-fluid">';
 		    if (count($this->item->tracks)>0) {
 		    	$this->keybox .= ($this->infopos == 'topbot') ? '<div class="span6">' : '';
-	        	$this->keybox .= '<p>Tracks</p><ul class="xblist">';
-	        	$this->keybox .= self::buildTrackList().'</ul>';    						
+	        	$this->keybox .= '<p>Tracks</p><ul class="xblist" style="margin:0;">';
+	        	$this->keybox .= XbmapsGeneral::buildTrackList($this->item->tracks, $this->infopos).'</ul>';    						
 	        	$this->keybox .= ($this->infopos == 'topbot') ? '</div>' : '';
 		    }
     		if ((count($this->item->tracks)>0) && (count($this->item->markers)>0)) {
@@ -141,8 +141,8 @@ class XbmapsViewMap extends JViewLegacy {
     		}
     		if (count($this->item->markers)>0) {
     			$this->keybox .= ($this->infopos == 'topbot') ? '<div class="span6">' : '';
-    			$this->keybox .= '<p>Markers</p><ul class="xblist">';
-    			$this->keybox .= self::buildMarkerList().'</ul>';
+    			$this->keybox .= '<p>Markers</p><ul class="xblist" style="margin:0;">';
+    			$this->keybox .= XbmapsGeneral::buildMarkerList($this->item->markers, $this->infopos, $this->marker_image_path).'</ul>';
     			$this->keybox .= ($this->infopos == 'topbot') ? '</div>' : '';
     		}
     		$this->keybox .= '</div></div>';
@@ -154,6 +154,7 @@ class XbmapsViewMap extends JViewLegacy {
 		parent::display($tpl);
 	}
 	
+/**
 	function buildTrackList() {
 	    $trklist = '';
 	    foreach ($this->item->tracks as $trk) {
@@ -205,5 +206,6 @@ class XbmapsViewMap extends JViewLegacy {
 	    } // endforeach;
 	    return $mrklist;
 	}
+**/	
 	
 }

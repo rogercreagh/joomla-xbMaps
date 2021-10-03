@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.6.0.b 3rd October 2021
+ * @version 0.6.0.c 3rd October 2021
  * @filesource site/views/map/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -40,15 +40,19 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
 </div>
 <?php endif; ?>
 
-<?php if ($this->show_map_info=='above') :?>
+<?php if (($this->show_map_desc=='2') || (($this->show_map_desc=='1') && ($this->show_map_info=='above'))) : ?>
 	<?php echo $this->descbox; ?>
+<?php endif; ?>
+<?php if ($this->show_map_info=='above') :?>
 	<?php echo $this->keybox;?>
 <?php endif; ?>	
 <div class="row-fluid">
-	<?php if (($this->show_map_info=='left') && (($this->show_map_key) || ($this->show_map_desc))): ?>
+	<?php if (($this->show_map_info=='left') && (($this->show_map_key) || ($this->show_map_desc==1))): ?>
     	<div class="span<?php echo $this->map_info_width; ?>">
     		<?php echo $this->keybox;?>
-			<?php echo $this->descbox; ?>
+    		<?php if ($this->show_map_desc==1) {
+    			echo $this->descbox;
+    		} ?>
     	</div>
 	<?php endif; ?>
 	<div class="span<?php echo (($this->show_map_info == 'left') || ($this->show_map_info=='right')) ? $this->mainspan : '12'; ?>">
@@ -124,7 +128,7 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
 			$map->renderMap();
 			?>
             <div id="xbmaps" style="margin:0;padding:0;">
-            	<div align="center" style="margin:0;padding:0 <?php echo $this->borderstyle; ?>">
+            	<div align="center" style="margin:0;padding:0; <?php echo $this->borderstyle; ?>">
             		<div id="xbMap<?php echo $uid; ?>" 
             			style="margin:0;padding:0;
             				width:<?php echo $item->map_width > 0 ? $item->map_width.$item->width_unit.';' : '100%;';?>
@@ -134,17 +138,21 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
             </div>
 			
 	</div>
-	<?php if (($this->show_map_info=='right') && (($this->show_map_key) || ($this->show_map_desc))): ?>
+	<?php if (($this->show_map_info=='right') && (($this->show_map_key) || ($this->show_map_desc==1))): ?>
     	<div class="span<?php echo $this->map_info_width; ?>">
     		<?php echo $this->keybox;?>
-			<?php echo $this->descbox; ?>
+    		<?php if ($this->show_map_desc==1) {
+    			echo $this->descbox;
+    		} ?>
     	</div>
 	<?php endif; ?>
 </div>
 <?php if ($this->show_map_info=='below') :?>
 	<?php echo $this->keybox;?>
-	<?php echo $this->descbox; ?>
 <?php endif; ?>	
+<?php if (($this->show_map_desc=='3') || (($this->show_map_desc=='1') && ($this->show_map_info=='below'))) : ?>
+	<?php echo $this->descbox; ?>
+<?php endif; ?>
 
 <div class="row-fluid xbmt16">
 	<?php if ($this->show_cats >0) : ?>       

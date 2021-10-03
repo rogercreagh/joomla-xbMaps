@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.5.0.a 28th September 2021
+ * @version 0.6.0.c 3rd October 2021
  * @filesource admin/views/mapview/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -22,9 +22,6 @@ $map->createMap($item->centre_latitude, $item->centre_longitude, $item->default_
 $map->setMapType($item->map_type);
 if ($this->clustering) {
     $map->setMarkerClusterer();
-}
-if ($this->centremarker>0) {
-    $map->setMarker($uid.'centre', $item->title, XbmapsGeneral::Deg2DMS($item->centre_latitude).'<br />'.XbmapsGeneral::Deg2DMS($item->centre_longitude,false), $item->centre_latitude, $item->centre_longitude,'','','',1);
 }
 if ($item->params->get('map_search',0)>0) {
     $map->renderSearch();
@@ -100,80 +97,57 @@ $map->renderMap();
 		<?php else : ?>
         	<div id="j-main-container" class="span12">
 		<?php endif;?>
-				<h1><?php echo $item->title; ?></h1>
-        		<div class="row-fluid">
-        			<div class="span9" style="margin:0;padding:0; <?php echo $this->borderstyle; ?>">
+			<?php  if($this->show_map_title) :?>
+			<div class="row-fluid">
+				<div class="span12">
+					<h1><?php echo $item->title; ?></h1>
+			 	</div>
+			</div>
+			<?php endif; ?>
+			<?php if (($this->show_map_desc=='2') || (($this->show_map_desc=='1') && ($this->show_map_info=='above'))) : ?>
+				<?php echo $this->descbox; ?>
+			<?php endif; ?>
+			<?php if ($this->show_map_info=='above') :?>
+				<?php echo $this->keybox;?>
+			<?php endif; ?>	
+        	<div class="row-fluid">
+				<?php if (($this->show_map_info=='left') && (($this->show_map_key) || ($this->show_map_desc==1))): ?>
+			    	<div class="span<?php echo $this->map_info_width; ?>">
+			    		<?php echo $this->keybox;?>
+			    		<?php if ($this->show_map_desc==1) {
+			    			echo $this->descbox;
+			    		} ?>
+			    	</div>
+				<?php endif; ?>
+				<div class="span<?php echo (($this->show_map_info == 'left') || ($this->show_map_info=='right')) ? $this->mainspan : '12'; ?>">
+        			<div style="<?php echo $this->borderstyle; ?>">
         				<div id="xbMap<?php echo $uid; ?>" 
         					style="margin:0;padding:0;
         					height:<?php echo $item->map_height > 0 ? $item->map_height.$item->height_unit.';' : '67vh;'; ?>
         					width:<?php echo $item->map_width > 0 ? $item->map_width.$item->width_unit.';' : '100%;'?>">
         				</div>
-        			</div>
-        		 	<div class="span3">
-        		 		<p><span class="xbnit">Map description: </span>
-        		 		<?php echo $item->description; ?>
-        		 		<hr />
-        		 		<p>Markers</p>
-        		 		<ul>
-       						<?php foreach ($item->markers as $mrk) : ?>
-       						
-       							<li><span <?php echo $mrk->mkstate!=1 ? ' class="xbhlt"' : ''; ?>>
-           							<?php $pv = '<img src="'.Juri::root().'media/com_xbmaps/images/marker-icon.png"  style="height:24px;"/>';
-           							switch ($mrk->markertype) {
-           							    case 1:
-           							        $pv = '<img src="'.Juri::root().$this->marker_image_path.'/'.$mrk->mkparams['marker_image'].'" style="height:20px;" />';
-           							        break;
-           							    case 2:
-           							        $pv = '<span class="fa-stack fa-2x" style="font-size:8pt;">';
-           							        $pv .='<i class="'.$mrk->mkparams['marker_outer_icon'].' fa-stack-2x" ';
-           							        $pv .= 'style="color:'.$mrk->mkparams['marker_outer_colour'].';"></i>';
-           							        if ($mrk->mkparams['marker_inner_icon']!=''){
-           							            $pv .= '<i class="'.$mrk->mkparams['marker_inner_icon'].' fa-stack-1x fa-inverse" ';
-           							            $pv .= 'style="color:'.$mrk->mkparams['marker_inner_colour'].';';
-           							            if ($mrk->mkparams['marker_outer_icon']=='fas fa-map-marker') {
-           							                $pv .= 'line-height:1.75em;font-size:0.8em;';
-           							            }
-           							            $pv .= '"></i>';
-           							        }
-           							        $pv .= '</span>';
-           							        break;
-           							    default:
-           							        break;
-           							}
-           							echo $pv.'&nbsp;';
-           							?>
-       								<b><?php echo $mrk->linkedtitle; ?></b> - <?php echo $mrk->mkdesc; ?>
-       								<br /><span class="xbnit">Lat:&nbsp;<?php echo $mrk->mklat; ?> Long:&nbsp;<?php echo $mrk->mklong; ?></span>
-       							</span></li>
-        		 			<?php  endforeach; ?>
-        		 		</ul>
-        		 		<hr />
-        		 		<p>Tracks</p>
-        		 		<ul>
-       						<?php foreach ($item->tracks as $trk) : ?>
-       							<li><span <?php echo $trk->tstate!=1 ? ' class="xbhlt"' : ''; ?>>
-       							<i class="fas fa-project-diagram" style="color:<?php echo $trk->track_colour; ?>"></i>&nbsp;
-       							<b><?php echo $trk->linkedtitle; ?></b> - <?php echo XbmapsGeneral::makeSummaryText($trk->description); ?>
-       							</span></li>
-        		 			<?php  endforeach; ?>
-        		 		</ul>
-            		</div>
-    		 	</div>
-			</div>
+        			</div>  	
+       			</div>
+		      	<?php if (($this->show_map_info=='right') && (($this->show_map_key) || ($this->show_map_desc==1))): ?>
+		    	<div class="span<?php echo $this->map_info_width; ?>">
+		    		<?php echo $this->keybox;?>
+		    		<?php if ($this->show_map_desc==1) {
+		    			echo $this->descbox;
+		    		} ?>		    	
+		    	</div>
+		    	<?php endif; ?>
+		    </div>
+			<?php if ($this->show_map_info=='below') :?>
+				<?php echo $this->keybox;?>
+			<?php endif; ?>	
+			<?php if (($this->show_map_desc=='3') || (($this->show_map_desc=='1') && ($this->show_map_info=='below'))) : ?>
+				<?php echo $this->descbox; ?>
+			<?php endif; ?>
+    		</div>
 		<input type="hidden" name="task" value="" />
 		<input type="hidden" name="boxchecked" value="0" />
 		<?php echo HTMLHelper::_('form.token'); ?>
 		</div>
 	</form>
-</div>
-
-<div id="xbmaps" style="margin:0;padding:0;">
-	<div align="center" style="margin:0;padding:0 <?php echo $this->borderstyle; ?>">
-		<div id="xbMap<?php echo $uid; ?>" 
-			style="margin:0;padding:0;
-				width:<?php echo $item->map_width > 0 ? $item->map_width.$item->width_unit.';' : '100%;';?>
-				height:<?php echo $item->map_height > 0 ? $item->map_height.$item->height_unit.';' : '50vh;'; ?>">
-		</div>
-	</div>
 </div>
 			

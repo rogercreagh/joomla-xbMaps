@@ -201,6 +201,7 @@ class XbmapsGeneral extends ContentHelper {
 				$item->linkedtitle = $item->display;
 			}
 			if ($item->track_colour=='') {$item->track_colour = $item->defcol; }
+			$item->rec_date = HtmlHelper::date($item->rec_date, Text::_('d M Y'));
 		}
 		return $list;
 	}
@@ -290,7 +291,8 @@ class XbmapsGeneral extends ContentHelper {
 				} else {
 					$item->linkedtitle = $item->display;
 				}
-				
+				$item->mklat = $item->mklat;
+				$item->mklong = $item->mklong;
 				$params = new Registry;
 				$params->loadString($item->mkparams, 'JSON');
 				$item->mkparams = $params;

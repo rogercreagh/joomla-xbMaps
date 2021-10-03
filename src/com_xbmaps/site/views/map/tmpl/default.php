@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.6.0.a 2nd October 2021
+ * @version 0.6.0.b 3rd October 2021
  * @filesource site/views/map/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -32,7 +32,7 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
 		echo XbmapsHelper::sitePageheader($this->header);
 	} ?>
 
-<?php  if($this->showmaptitle) :?>
+<?php  if($this->show_map_title) :?>
 <div class="row-fluid">
 	<div class="span12">
 		<h1><?php echo $item->title; ?></h1>
@@ -41,22 +41,14 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
 <?php endif; ?>
 
 <?php if ($this->show_map_info=='above') :?>
-	<?php if ($this->show_map_desc) :?>
-	<div class="map_desc_class">
-	 		<?php echo $item->description; ?>
-	</div>
-	<?php endif; ?>
+	<?php echo $this->descbox; ?>
 	<?php echo $this->keybox;?>
 <?php endif; ?>	
 <div class="row-fluid">
 	<?php if (($this->show_map_info=='left') && (($this->show_map_key) || ($this->show_map_desc))): ?>
     	<div class="span<?php echo $this->map_info_width; ?>">
     		<?php echo $this->keybox;?>
-    		<?php if ($this->show_map_desc) :?>
-            	<div class="map_desc_class">
-            	 		<?php echo $item->description; ?>
-            	</div>
-    		<?php endif; ?>
+			<?php echo $this->descbox; ?>
     	</div>
 	<?php endif; ?>
 	<div class="span<?php echo (($this->show_map_info == 'left') || ($this->show_map_info=='right')) ? $this->mainspan : '12'; ?>">
@@ -119,7 +111,7 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
 			                $map->setDivMarker($uid, $mrk->mklat,$mrk->mklong,$div, $popuptitle,$popupdesc,'','',$popopen);
 			                break;
 			            default:
-			            	$map->setMarker($uid, $popuptitle, $popupdesc, $mrk->mklat, $mrk->mklong,'','','',$popopen);
+			            	$map->setMarker($uid, $popuptitle, $popupdesc, $mrk->mklat, $mrk->mklong,'','',$popopen);
 			                
 			                break;
 			        }
@@ -145,21 +137,13 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
 	<?php if (($this->show_map_info=='right') && (($this->show_map_key) || ($this->show_map_desc))): ?>
     	<div class="span<?php echo $this->map_info_width; ?>">
     		<?php echo $this->keybox;?>
-    		<?php if ($this->show_map_desc) :?>
-            	<div class="map_desc_class">
-            	 		<?php echo $item->description; ?>
-            	</div>
-    		<?php endif; ?>
+			<?php echo $this->descbox; ?>
     	</div>
 	<?php endif; ?>
 </div>
 <?php if ($this->show_map_info=='below') :?>
 	<?php echo $this->keybox;?>
-	<?php if ($this->show_map_desc) :?>
-    	<div class="map_desc_class">
-    	 		<?php echo $item->description; ?>
-    	</div>
-	<?php endif; ?>
+	<?php echo $this->descbox; ?>
 <?php endif; ?>	
 
 <div class="row-fluid xbmt16">

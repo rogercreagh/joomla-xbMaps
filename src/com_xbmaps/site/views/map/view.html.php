@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.6.0.a 2nd October 2021
+ * @version 0.6.0.b 3rd October 2021
  * @filesource site/views/map/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -115,27 +115,37 @@ class XbmapsViewMap extends JViewLegacy {
 		if (!empty($metadata['robots'])) { $document->setMetaData('robots', $metadata['robots']);}
 		if (!empty($metadata['author'])) { $document->setMetaData('author', $metadata['author']);}
 		
+		$this->infopos = 'topbot';
+		if (($this->show_map_info=='left') || ($this->show_map_info=='right')) {
+			$this->infopos = 'side';
+		}
+
+		$this->descbox = '';
+		if ($this->show_map_desc) {
+			$this->descbox .= '<div class="'.$this->map_desc_class.'">';
+			$this->descbox .= '<p><b>Map Description</b></p>';
+			$this->descbox .= $this->item->description.'</div>';
+		}
+		
 		$this->keybox = '';
 		if (($this->show_map_key) && ((count($this->item->tracks)>0) || (count($this->item->markers)>0))) {
-		    $this->keybox .= '<div class="xbbox xbboxgrn">';
+		    $this->keybox .= '<div class="xbbox xbboxgrn"><div class="row-fluid">';
 		    if (count($this->item->tracks)>0) {
-	           $this->keybox .= '<p>Tracks</p><ul';
-	           if (($this->show_map_info=='left') || ($this->show_map_info=='right')) {
-	               $this->keybox .= ' class="xbhlist"' ;
-	           }
-	           $this->keybox .= '>'.self::buildTrackList().'</ul>';    						
-    		}
+		    	$this->keybox .= ($this->infopos == 'topbot') ? '<div class="span6">' : '';
+	        	$this->keybox .= '<p>Tracks</p><ul class="xblist">';
+	        	$this->keybox .= self::buildTrackList().'</ul>';    						
+	        	$this->keybox .= ($this->infopos == 'topbot') ? '</div>' : '';
+		    }
     		if ((count($this->item->tracks)>0) && (count($this->item->markers)>0)) {
-    		    $this->keybox .= '<hr />';
+    			$this->keybox .= ($this->infopos == 'topbot') ? '' : '<hr />';
     		}
     		if (count($this->item->markers)>0) {
-    		     $this->keybox .= '<p>Markers</p><ul';
-    		     if (($this->show_map_info=='left') || ($this->show_map_info=='right')) {
-    		         $this->keybox .= ' class="xbhlist"' ;
-    		     }
-    		     $this->keybox .= '>'.self::buildMarkerList().'</ul>';
-    		 }
-    		$this->keybox .= '</div>';
+    			$this->keybox .= ($this->infopos == 'topbot') ? '<div class="span6">' : '';
+    			$this->keybox .= '<p>Markers</p><ul class="xblist">';
+    			$this->keybox .= self::buildMarkerList().'</ul>';
+    			$this->keybox .= ($this->infopos == 'topbot') ? '</div>' : '';
+    		}
+    		$this->keybox .= '</div></div>';
 		}
 			
 //		$this->tracklist = ($this->show_map_key==1) ? self::buildTrackList() : '';
@@ -147,11 +157,13 @@ class XbmapsViewMap extends JViewLegacy {
 	function buildTrackList() {
 	    $trklist = '';
 	    foreach ($this->item->tracks as $trk) {
-	        $trklist .=	'<li><i class="fas fa-project-diagram" style="color:'.$trk->track_colour.'"></i>&nbsp<b>';
-	        $trklist .=	$trk->linkedtitle.'</b>&nbsp;'.$trk->rec_date.'&nbsp;';
-	        if (($this->show_trk_desc) && ($trk->description != '')) {
-	            $trklist .=	 XbmapsGeneral::makeSummaryText($trk->description);
-	        }
+	        $trklist .=	'<li><i class="fas fa-project-diagram" style="color:'.$trk->track_colour.'"></i>&nbsp; &nbsp;';
+	        $trklist .= '<span';
+	        $trksum = XbmapsGeneral::makeSummaryText($trk->description);
+	        if ($trksum!=''){$trklist .= ' class= "hasTooltip" title="" data-original-title="'.$trksum.'"';}
+	        $trklist .=	'><b>'.$trk->linkedtitle.'</b></span>&nbsp;';
+	        $trklist .= ($this->infopos == 'side') ? '<br >' : ' - ';
+			$trklist .= '<span class="xbnit">Recorded: '.$trk->rec_date.'</span>&nbsp;';
             $trklist .=	 '</li>';
 	    } // endforeach;
 	    return $trklist;
@@ -183,11 +195,12 @@ class XbmapsViewMap extends JViewLegacy {
 	            default:
 	                break;
 	        }
-	        $mrklist .=	$pv.'&nbsp;';
-	        $mrklist .=	'<b>'.$mrk->linkedtitle.'</b>&nbsp;';
-	        if (($this->show_mrk_desc) && ($mrk->description != '')) {
-	            $mrklist .=	 XbmapsGeneral::makeSummaryText($mrk->description);
-	        }
+	        $mrklist .=	$pv.'&nbsp; &nbsp;<span';
+	        $mrksum = strip_tags($mrk->mkdesc);
+	        if ($mrksum !='') {$mrklist .= ' class= "hasTooltip" title="" data-original-title="'.$mrksum.'"';}
+	        $mrklist .=	'><b>'.$mrk->display.'</b></span>&nbsp;';
+	        $mrklist .= ($this->infopos == 'side') ? '<br >' : ' - ';
+	        $mrklist .= '<span class="xbnit">Lat:&nbsp;'.XbmapsGeneral::Deg2DMS($mrk->mklat).' Long:&nbsp;'.XbmapsGeneral::Deg2DMS($mrk->mklong,false).'</span>';
             $mrklist .=	 '</li>';
 	    } // endforeach;
 	    return $mrklist;

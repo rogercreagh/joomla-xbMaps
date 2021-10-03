@@ -218,10 +218,9 @@ ul.nav-tabs {
 	background-color: #189735;
 	padding: 3px 5px;
 }
-ul.xbhlist li {
-	display: inline;
+ul.xblist li {
 	list-style-type: none;
-	margin: 5px;
+	margin: 0 10px;
 	padding: 2px;
 }
 

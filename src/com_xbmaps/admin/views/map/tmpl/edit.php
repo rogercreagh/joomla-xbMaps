@@ -87,9 +87,9 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 					<?php echo $this->form->renderField('show_map_desc','params'); ?>
 					<?php echo $this->form->renderField('map_desc_class','params'); ?>
 					<?php echo $this->form->renderField('show_map_key','params'); ?>
-					<?php echo $this->form->renderField('show_trk_dist','params'); ?>
-					<?php echo $this->form->renderField('show_trk_desc','params'); ?>
-					<?php echo $this->form->renderField('show_mrk_desc','params'); ?>
+					<?php //echo $this->form->renderField('show_trk_dist','params'); ?>
+					<?php //echo $this->form->renderField('show_trk_desc','params'); ?>
+					<?php //echo $this->form->renderField('show_mrk_desc','params'); ?>
 				</div>
 				<div class="span5">
 					<h4><?php echo Text::_('Map Dimensions &amp; Border'); ?></h4>

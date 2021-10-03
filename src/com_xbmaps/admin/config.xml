@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbMaps config.xml v0.6.0.a 2nd October 2021 -->
+<!-- xbMaps config.xml v0.6.0.b 3rd October 2021 -->
 <config>
 <!-- GENERAL TAB -->				
 	<fieldset name="general"
@@ -159,17 +159,9 @@
 				<option value="1">JSHOW</option>
 				<option value="0">JHIDE</option>
 			</field>
-			<field name="show_maplist_coords" type="radio"  
-				label="XBMAPS_MAPLIST_COORDS_LABEL" description="XBMAPS_MAPLIST_COORDS_DESC"
-				class="btn-group btn-group-yesno" 
-				showon="show_map_info!:"
-				default="1"
-			>
-				<option value="1">JSHOW</option>
-				<option value="0">JHIDE</option>
-			</field>
 			<field name="maplayout_note" type="note"
 				label="XBMAPS_DEFAULT_MAP_LAYOUT_LABEL"
+				description="XBMAPS_DEFAULT_MAP_LAYOUT_DESC"
 			/>
 			<field name="show_map_title" type="radio"  
 				label="XBMAPS_MAP_TITLE_LABEL" description="XBMAPS_MAP_TITLE_DESC"
@@ -179,6 +171,7 @@
 				<option value="1">JYES</option>
 				<option value="0">JNO</option>
 			</field>
+			<!-- 
 			<field name="map_border" type="radio"
 				label="XBMAPS_MAP_BORDER_LABEL"
 				description="XBMAPS_MAP_DEFBORDER_DESC"
@@ -222,7 +215,7 @@
 			<field name="map_desc_class" type="text" 
 				label="XBMAPS_DESC_CLASS_LABEL" description="XBMAPS_DESC_CLASS_DESC" 
 				size="150" showon="show_map_info!:[AND]show_map_desc:1"
-				default="xbbox" 
+				default="xbbox xbboxwht" 
 			/>	
 			<field name="show_map_key" type="radio"  
 				label="XBMAPS_MAP_KEY_LABEL" description="XBMAPS_MAP_KEY_DESC"
@@ -260,6 +253,7 @@
 				<option value="1">JSHOW</option>
 				<option value="0">JHIDE</option>
 			</field>
+			 -->
 		<field name="mapcontrols_note" type="note"
 			label="XBMAPS_DEFAULT_MAP_CONTROLS_LABEL"
 		/>

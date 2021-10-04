@@ -2,7 +2,7 @@
 <extension type="component" version="3.1" method="upgrade">
 	<name>xbmaps</name>
 	<creationDate>4th October 2021</creationDate>
-	<version>0.6.0.e</version>
+	<version>0.6.0</version>
 	<author>Roger C-O</author>
 	<authorEmail>roger@crosborne.uk</authorEmail>
 	<authorUrl>www.crosborne.uk</authorUrl>

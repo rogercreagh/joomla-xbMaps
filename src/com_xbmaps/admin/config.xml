@@ -587,6 +587,7 @@
 				<option value="1">JSHOW</option>
 				<option value="0">JHIDE</option>
 			</field>
+<!-- 
 			<field name="show_track_info" type="list"  
 				label="XBMAPS_TRACK_INFOPANE_LABEL" description="XBMAPS_TRACK_INFOPANE_DESC"
 				default=""
@@ -603,10 +604,9 @@
 				default="0"
 			>
 				<option value="2">17%</option>
+				<option value="3">25%</option>
 				<option value="4">33%</option>
 				<option value="6">50%</option>
-				<option value="8">67%</option>
-				<option value="10">83%</option>
 			</field>
 			<field name="show_device" type="radio"  
 				label="XBMAPS_TRACK_DEVICE_LABEL" description="XBMAPS_TRACK_DEVICE_DESC"
@@ -646,8 +646,9 @@
 		<field name="track_desc_class" type="text" 
 			label="XBMAPS_DESC_CLASS_LABEL" description="XBMAPS_DESC_CLASS_DESC" 
 			size="150" showon="show_track_info!:[AND]show_track_desc:1"
-			default="xbbox" 
+			default="xbbox xbboxwht" 
 		/>	
+ -->
 			<field name="show_track_popover" type="list"  
 				label="XBMAPS_TRACK_POP_LABEL" description="XBMAPS_TRACK_POP_DESC"
 				class="btn-group btn-group-yesno" 

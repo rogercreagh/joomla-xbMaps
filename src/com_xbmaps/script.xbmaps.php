@@ -110,7 +110,7 @@ class com_xbmapsInstallerScript
 	        echo '<h4>Next steps</h4>';
 		        echo '<p>IMPORTANT - <i>Review &amp; set the options</i>&nbsp;&nbsp;';
 		        echo '<a href="index.php?option=com_config&view=component&component=com_xbmaps" class="btn btn-small btn-info">xbMaps Options</a>';
-		        echo ' <i>It is recommended to have a look at the options, check the defaults match your expectations and save them. When you save the options you will return to the xbMaps Control Panel.</i></p>';
+		        echo ' <br /><i>check the defaults match your expectations and save them.</i></p>';
 		        echo '</div>';
     	}
 	}

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.6.0.d 4th October 2021
+ * @version 0.6.0.e 4th October 2021
  * @filesource admin/views/mapview/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -140,6 +140,32 @@ $map->renderMap();
 			<?php if (($this->show_map_desc=='3') || (($this->show_map_desc=='1') && ($this->show_map_info=='below'))) : ?>
 				<?php echo $this->descbox; ?>
 			<?php endif; ?>
+	<div class="row-fluid xbmt16">
+	<?php if ($this->show_cats >0) : ?>       
+		<div class="span4<?php echo ($this->show_cats ==0) ? ' xbdim' : ''; ?>">
+			<div class="pull-left xbnit xbmr10"><?php echo JText::_('XBMAPS_CATEGORY'); ?></div>
+			<div class="pull-left">
+				<?php if($this->show_cats==2) : ?>
+					<a class="label label-success" href="<?php echo JRoute::_($clink.$item->catid); ?>">
+						<?php echo $item->category_title; ?></a>
+				<?php else: ?>
+					<span class="label label-success"><?php echo $item->category_title; ?></span>
+				<?php endif; ?>		
+			</div>
+        </div>
+    <?php endif; ?>
+    <?php if (($this->show_tags) && (!empty($item->tags))) : ?>
+    	<div class="span<?php echo ($this->show_cats>0) ? '8' : '12'; ?> <?php echo ($this->show_tags ==0) ? ' xbdim' : ''; ?>">
+			<div class="pull-left xbnit xbmr10"><?php echo JText::_('XBMAPS_TAGS'); ?></div>
+			<div class="pull-left">
+				<?php  $tagLayout = new JLayoutFile('joomla.content.tags');
+    				echo $tagLayout->render($item->tags); ?>
+			</div>
+    	</div>
+	<?php endif; ?>
+	</div>
+
+			
     		</div>
 		<input type="hidden" name="task" value="" />
 		<input type="hidden" name="boxchecked" value="0" />

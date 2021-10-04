@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.3.0.g 20th September 2021
+ * @version 0.6.0.e 4th October 2021
  * @filesource admin/views/cpanel/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -67,7 +67,7 @@ class XbmapsViewCpanel extends JViewLegacy {
 		    if ($value['level']==1) {
 		        $this->catlist .= '&nbsp;&nbsp;&nbsp;';
 		    } else {
-		        $this->catlist .= str_repeat('-&nbsp;', $value['level']-1);
+		        $this->catlist .= ' └─'.substr($value['path'],0,strrpos($value['path'], '/')).'-'; //str_repeat('-&nbsp;', $value['level']-1);
 		    }
 		    $lbl = $value['published']==1 ? 'label-success' : '';
 		    $this->catlist .='<a class="label label-success" href="'.$clink.$value['id'].'">'.$value['title'].'</a>&nbsp;(<i>'.$value['mapcnt'].':'.$value['mrkcnt'].':'.$value['trkcnt'].'</i>) ';
@@ -78,8 +78,13 @@ class XbmapsViewCpanel extends JViewLegacy {
 		$tlink='index.php?option=com_xbmaps&view=taginfo&id=';
 		$this->taglist = '<ul class="inline">';
 		foreach ($this->tags['tags'] as $key=>$value) {
-		    //       	$result[$key] = $t->tagcnt;
-		    $this->taglist .= '<li><a class="label label-info" href="'.$tlink.$value['id'].'">'.$key.'</a>&nbsp;(<i>'.$value['mapcnt'].':'.$value['mrkcnt'].':'.$value['trkcnt'].')</i></li> ';
+		    $this->taglist .= '<li>';
+		    if ($value['level']==1) {
+		        $this->taglist .= '&nbsp;&nbsp;&nbsp;';
+		    } else {
+		        $this->taglist .= ' └─'.substr($value['path'],0,strrpos($value['path'], '/')).'-';
+		    }
+		    $this->taglist .= '<a class="label label-info" href="'.$tlink.$value['id'].'">'.$key.'</a>&nbsp;(<i>'.$value['mapcnt'].':'.$value['mrkcnt'].':'.$value['trkcnt'].')</i></li> ';
 		}
 		$this->taglist .= '</ul>';
 		//        $result['taglist'] = trim($result['taglist'],', ');

@@ -598,7 +598,7 @@
 				<option value="left">XBMAPS_LEFT</option>
 			</field>
 			<field name="track_info_width" type="list"  
-				label="XBMAPS_INFOPANE_WIDTH_LABEL" description="XBMAPS_INFOPANE_WIDTH_DESC"
+				label="XBMAPS_MAP_INFOPANE_WIDTH_LABEL" description="XBMAPS_MAP_INFOPANE_WIDTH_DESC"
 				showon="show_track_info:left[OR]show_track_info:right"
 				default="0"
 			>

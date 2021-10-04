@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.4.0.a 24th September 2021
+ * @version 0.6.0.e 4th October 2021
  * @filesource admin/views/cpanel/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -30,10 +30,10 @@ use Joomla\CMS\Language\Text;
             		<div class="row-fluid">
             			<div class="span12">
         					<div class="xbbox xbboxcyan">
-        						<h2 class="xbtitle">
+        						<h3 class="xbtitle">
         							<span class="badge badge-info pull-right"><?php echo Text::_('XBMAPS_TOTAL').' '. $this->mapStates['total']; ?></span> 
-        							<?php echo ucfirst(Text::_('XBMAPS_MAPS')); ?>
-        						</h2>
+        							<a href="index.php?option=com_xbmaps&view=maps"><?php echo ucfirst(Text::_('XBMAPS_MAPS')); ?></a>
+        						</h3>
         						<div class="row-striped">
         							<div class="row-fluid">
         								<div class="span6">
@@ -75,10 +75,10 @@ use Joomla\CMS\Language\Text;
             		<div class="row-fluid">
             			<div class="span12">
         					<div class="xbbox xbboxgrn">
-        						<h2 class="xbtitle">
+        						<h3 class="xbtitle">
         							<span class="badge badge-info pull-right"><?php echo Text::_('XBMAPS_TOTAL').' '. $this->trackStates['total']; ?></span> 
-        							<?php echo ucfirst(Text::_('XBMAPS_TRACKS')); ?>
-        						</h2>
+        							<a href="index.php?option=com_xbmaps&view=tracks"><?php echo ucfirst(Text::_('XBMAPS_TRACKS')); ?></a>
+        						</h3>
         						<div class="row-striped">
         							<div class="row-fluid">
         								<div class="span6">
@@ -114,10 +114,10 @@ use Joomla\CMS\Language\Text;
             		<div class="row-fluid">
             			<div class="span12">
         					<div class="xbbox xbboxblue">
-        						<h2 class="xbtitle">
+        						<h3 class="xbtitle">
         							<span class="badge badge-info pull-right"><?php echo Text::_('XBMAPS_TOTAL').' '. $this->markerStates['total']; ?></span> 
-        							<?php echo ucfirst(Text::_('XBMAPS_MARKERS')); ?>
-        						</h2>
+        							<a href="index.php?option=com_xbmaps&view=markers"><?php echo ucfirst(Text::_('XBMAPS_MARKERS')); ?>
+        						</h3>
         						<div class="row-striped">
         							<div class="row-fluid">
         								<div class="span6">
@@ -241,10 +241,10 @@ use Joomla\CMS\Language\Text;
 			<div class="row-fluid">
             	<div class="span6">
 					<div class="xbbox xbboxyell">
-						<h2 class="xbtitle">
+						<h3 class="xbtitle">
 							<span class="badge badge-info pull-right"><?php //echo Text::_('XBMAPS_TOTAL').' '. $this->trackStates['total']; ?></span> 
-							<?php echo Text::_('XBMAPS_CATEGORIES'); ?>
-						</h2>
+							<a href="index.php?option=com_xbmaps&view=catslist"><?php echo Text::_('XBMAPS_CATEGORIES'); ?></a>
+						</h3>
 				<div class="row-striped">
 					<div class="row-fluid">
 						<div class="span6">
@@ -276,11 +276,11 @@ use Joomla\CMS\Language\Text;
 					</div>            			
             	</div>
             	<div class="span6">
-			<div class="xbbox xbboxgrey">
-				<h2 class="xbtitle">
+			<div class="xbbox xbboxmag">
+				<h3 class="xbtitle">
 					<span class="badge badge-info pull-right"><?php echo ($this->tags['tagcnts']['mapcnt'] + $this->tags['tagcnts']['mrkcnt']  + $this->tags['tagcnts']['trkcnt']) ; ?></span> 
-					<?php echo Text::_('XBMAPS_TAGS'); ?>
-				</h2>
+					<a href="index.php?option=com_xbmaps&view=tagslist"><?php echo Text::_('XBMAPS_TAGS'); ?></a>
+				</h3>
 				<div class="row-striped">
 					<div class="row-fluid">
                       <?php echo 'Films: ';

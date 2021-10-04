@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.6.0.a 2nd October 2021
+ * @version 0.6.0.d 4th October 2021
  * @filesource admin/helpers/xbmaphelper.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -602,10 +602,24 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 			if ($info) {
 				$o[] = 'jQuery(\'#'.$cleanalias.'\', window.document).html(\'<li>\'+dist+\'</li><li>\'+speed+\'</li><li>\'+time+\'</li><li>\'+climb+\'</li>\');';				
 			}
-			if ($pop) {
-				$o[] = 'e.target.bindPopup(\'<b>'.addslashes($trk->title).'</b><br />\'+dist+\'<br />\'+speed+\'<br />Time: \'+time+\'<br />\'+climb';
-			}
-			$o[] = ')});';
+		    switch ($pop) {
+		        case 1:
+		            $o[] = 'e.target.bindPopup(\'<b>'.addslashes($trk->title).'</b>\')';
+		            break;
+		        case 2:
+		            $o[] = 'e.target.bindPopup(\'<b>'.addslashes($trk->title).'</b><br />\'+dist+\'<br />\'+speed+\'<br />Time: \'+time+\'<br />\'+climb)';
+		            break;
+		        case 3:
+		            $o[] = 'e.target.bindPopup(\'<b>'.addslashes($trk->title).'</b><br />'.$trk->description.'\')';
+		            break;
+		        case 4:
+		            $o[] = 'e.target.bindPopup(\'<b>'.addslashes($trk->title).'</b><br />'.$trk->description.'<br />\'+dist+\'<br />\'+speed+\'<br />Time: \'+time+\'<br />\'+climb)';
+		            break;
+		            
+		        default:
+		            break;
+		    }
+			$o[] = '});';
 			
 //			$o[] = '}).on(\'loaded\',function(e) {\'';
 //			$o[] = '+var dist = \'<i>Distance: </i>\'+parseInt(e.target.get_distance())/1000+\' km\';';

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.6.0.d 4th October 2021
+ * @version 0.6.0.e 4th October 2021
  * @filesource admin/views/mapview/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -22,10 +22,24 @@ class XbmapsViewMapview extends JViewLegacy {
 		$this->item = $this->get('Item');
 		$this->params = $this->item->params;
 		
+		$gcat = $this->params->get('global_use_cats');
+		$mcat = $this->params->get('tracks_use_cats');
+		$this->show_cats = 0;
+		if ($gcat>0) {
+		    $this->show_cats = $mcat;
+		}
+		
+		$gtags = $this->params->get('global_use_tags');
+		$mtags = $this->params->get('tracks_use_tags');
+		$this->show_tags = false;
+		if ($gtags >0) {
+		    $this->show_tags = $mtags;
+		}
+		
 		$this->fit_bounds = $this->params->get('fit_bounds');
 		$this->clustering = $this->params->get('marker_clustering');
 		$this->homebutton = $this->params->get('map_home_button');
-		//$this->centremarker = $this->params->get('centre_marker');
+		
 		$this->show_map_title = $this->params->get('show_map_title');
 		$this->marker_image_path = 'images/'.$this->params->get('def_markers_folder','');
 		$mapborder = $this->params->get('map_border');

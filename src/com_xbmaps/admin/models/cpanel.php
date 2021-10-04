@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.1.1.e 19th August 2021
+ * @version 0.6.0.e 4th October 2021
  * @filesource admin/models/cpanel.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -116,18 +116,19 @@ class XbmapsModelCpanel extends JModelList {
 		}
 		//now we get the number of each type of item assigned to each tag
 		$query->clear();
-		$query->select('type_alias,t.id, t.title AS tagname ,COUNT(*) AS tagcnt')
-		->from('#__contentitem_tag_map')
-		->join('LEFT', '#__tags AS t ON t.id = tag_id')
-		->where('type_alias LIKE '.$db->quote('%xbmaps%'))
-		->where('t.published = 1') //only published tags
-		->group('type_alias, tagname');
+		$query->select('type_alias,t.id, t.title AS tagname, t.level AS level, t.path AS path, COUNT(*) AS tagcnt')
+    		->from('#__contentitem_tag_map')
+    		->join('LEFT', '#__tags AS t ON t.id = tag_id')
+    		->where('type_alias LIKE '.$db->quote('%xbmaps%'))
+    		->where('t.published = 1') //only published tags
+    		->group('type_alias, tagname')
+    		->order('path');
 		$db->setQuery($query);
 		$db->execute();
 		$tags = $db->loadObjectList();
 		foreach ($tags as $k=>$t) {
 			if (!key_exists($t->tagname, $result['tags'])) {
-				$result['tags'][$t->tagname]=array('id' => $t->id, 'mapcnt' =>0, 'mrkcnt' => 0, 'trkcnt' => 0, 'tagcnt'=>0);
+				$result['tags'][$t->tagname]=array('id' => $t->id, 'mapcnt' =>0, 'mrkcnt' => 0, 'trkcnt' => 0, 'tagcnt'=>0, 'path' => $t->path, 'level' => $t->level);
 			}
 			$result['tags'][$t->tagname]['tagcnt'] += $t->tagcnt;
 			switch ($t->type_alias) {

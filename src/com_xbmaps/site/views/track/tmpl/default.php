@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.4.0.c 27h September 2021
+ * @version 0.6.0.d 4th October 2021
  * @filesource site/views/track/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -32,62 +32,32 @@ $trackslink = 'index.php?option=com_xbmaps&view=tracklist';
 		echo XbmapsHelper::sitePageheader($this->header);
 	} ?>
 	
-<?php  if($this->show_title) :?>
-<div class="row-fluid">
-	<div class="span12">
-		<h1><?php echo $item->title; ?></h1>
- 	</div>
-</div>
-<?php endif; ?>
-<?php if ($this->show_info=='above') :?>
-	<?php if ($this->show_desc) :?>
+<?php  if($this->show_track_title) :?>
 	<div class="row-fluid">
-		<div class="span1"></div>
-		<div class="span10">
-	 		<?php echo $item->description; ?>
-		</div>
-	</div>
-	<?php endif; ?>
-	<div class="xbbox xbboxmag">
-	<ul class="xbhlist">
-		<li><i>Recording start : </i><?php echo $item->rec_date; ?></li>
-		<li><i>Activity type: </i><?php echo $item->activity; ?></li> 
-		<?php if ($this->show_device) : ?>
-		<li><i>Record device: </i><?php echo $item->rec_device; ?></li>
-		<?php endif; ?>
-	</ul>
-	<?php if ($this->show_stats) : ?>
-	<ul class="xbhlist">
-			<div id="<?php echo str_replace('-','_',$item->alias); ?>">		
-			</div>
-	</ul>
-	<?php endif; ?>
+		<div class="span12">
+			<h1><?php echo $item->title; ?></h1>
+	 	</div>
 	</div>
 <?php endif; ?>
+
+<?php if (($this->show_track_desc=='2') || (($this->show_track_desc=='1') && ($this->show_track_info=='above'))) : ?>
+	<?php echo $this->descbox; ?>
+<?php endif; ?>
+<?php if ($this->show_track_info=='above') :?>
+	<?php echo $this->infobox;?>
+<?php endif; ?>	
+
 <div class="row-fluid">
-	<?php if ($this->show_info=='left') : ?>
-	<div class="span<?php echo $this->info_width; ?>">
-		<div class="xbbox xbboxmag">
-			<ul style="list-style-type:none;">
-				<li><i>Recording start : </i><?php echo $item->rec_date; ?></li>
-				<li><i>Activity type: </i><?php echo $item->activity; ?></li> 
-				<?php if ($this->show_device) : ?>
-				<li><i>Record device: </i><?php echo $item->rec_device; ?></li>
-				<?php endif; ?>
-			</ul>
-			<?php if ($this->show_stats) : ?>
-			<ul style="list-style-type:none;">
-					<div id="<?php echo str_replace('-','_',$item->alias); ?>">		
-					</div>
-			</ul>
-			<?php endif; ?>
-		</div>
-		<?php if ($this->show_desc) :?>
-	 		<?php echo $item->description; ?>
-		<?php endif; ?>
-	</div>
+	<?php if (($this->show_track_info=='left')): ?>
+    	<div class="span<?php echo $this->track_info_width; ?>">
+			<?php echo $this->infobox;?>
+    		<?php if ($this->show_track_desc==1) {
+    			echo $this->descbox;
+    		} ?>
+    	</div>
 	<?php endif; ?>
-	<div class="span<?php echo (($this->show_info == 'left') || ($this->show_info=='right')) ? $this->mainspan : '12'; ?>">
+
+	<div class="span<?php echo (($this->show_track_info == 'left') || ($this->show_track_info=='right')) ? $this->mainspan : '12'; ?>">
 		<?php $uid = uniqid();
 			$map = new XbMapHelper($uid,$item->params);
 			$map->loadAPI(false,false);
@@ -98,65 +68,33 @@ $trackslink = 'index.php?option=com_xbmaps&view=tracklist';
 			//$map->renderEasyPrint();
 			$map->renderTracks(array($item),true,$this->show_stats,$this->show_track_popover);
 			$map->renderMap();
-			?>
-<div id="xbmaps" style="margin:0;padding:0;">
-	<div align="center" style="margin:0;padding:0; <?php echo $this->borderstyle; ?>">
-		<div id="xbMap<?php echo $uid; ?>" 
-			style="<?php echo $this->mapstyle; ?>">
-		</div>
-	</div>
-</div>
-			
-	</div>
-	<?php if ($this->show_info=='right') : ?>
-	<div class="span<?php echo $this->info_width; ?>">
-		<div class="xbbox xbboxmag">
-		<ul style="list-style-type:none;">
-			<li><i>Recording start : </i><?php echo $item->rec_date; ?></li>
-			<li><i>Activity type: </i><?php echo $item->activity; ?></li> 
-			<?php if ($this->show_device): ?>
-			<li><i>Record device: </i><?php echo $item->rec_device; ?></li>
-			<?php endif; ?>
-		</ul>
-		<?php if ($this->show_stats) : ?>
-		<ul style="list-style-type:none;">
-				<div id="<?php echo str_replace('-','_',$item->alias); ?>">		
+		?>
+		<div id="xbmaps" style="margin:0;padding:0;">
+			<div align="center" style="margin:0;padding:0; <?php echo $this->borderstyle; ?>">
+				<div id="xbMap<?php echo $uid; ?>" style="<?php echo $this->mapstyle; ?>">
+				
 				</div>
-		</ul>
-		<?php endif; ?>
-		</div>
-	<?php if ($this->show_desc) :?>
-	 		<?php echo $item->description; ?>
-	<?php endif; ?>
+			</div>
+		</div>			
 	</div>
+	<?php if (($this->show_track_info=='right')): ?>
+    	<div class="span<?php echo $this->track_info_width; ?>">
+			<?php echo $this->infobox;?>
+    		<?php if ($this->show_track_desc==1) {
+    			echo $this->descbox;
+    		} ?>
+    	</div>
 	<?php endif; ?>
 	
 </div>
-<?php if ($this->show_info=='below') :?>
-	<div class="xbbox xbboxmag">
-	<ul class="xbhlist">
-		<li><i>Recording start : </i><?php echo $item->rec_date; ?></li>
-		<li><i>Activity type: </i><?php echo $item->activity; ?></li> 
-		<?php if ($this->show_device) : ?>
-		<li><i>Record device: </i><?php echo $item->rec_device; ?></li>
-		<?php endif; ?>
-	</ul>
-	<?php if ($this->show_stats) : ?>
-	<ul class="xbhlist">
-			<div id="<?php echo str_replace('-','_',$item->alias); ?>">		
-			</div>
-	</ul>
-	<?php endif; ?>
-	</div>
-	<?php if ($this->show_desc) :?>
-	<div class="row-fluid">
-		<div class="span1"></div>
-		<div class="span10">
-	 		<?php echo $item->description; ?>
-		</div>
-	</div>
-	<?php endif; ?>
+
+<?php if ($this->show_track_info=='below') :?>
+	<?php echo $this->infobox;?>
+<?php endif; ?>	
+<?php if (($this->show_track_desc=='3') || (($this->show_track_desc=='1') && ($this->show_track_info=='below'))) : ?>
+	<?php echo $this->descbox; ?>
 <?php endif; ?>
+
 
 	<div class="row-fluid xbmt16">
 	<?php if ($this->show_cats >0) : ?>       

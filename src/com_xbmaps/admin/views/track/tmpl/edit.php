@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.4.0.c 27th September 2021
+ * @version 0.6.0.d 4th October 2021
  * @filesource admin/views/track/tmpl/edit.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -125,16 +125,45 @@ HTMLHelper::_('formbehavior.chosen', 'select');
         			</div>
         		</div>
     			<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
+ 
     			<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'params', JText::_('Layout Options')); ?>
+			<div class="row_fluid">
+				<div class="span7 form-horizontal-desktop">
+					<h4><?php echo Text::_('Layout Options'); ?></h4>
            	    	<?php echo $this->form->renderField('show_track_title','params'); ?>  					
            	    	<?php echo $this->form->renderField('show_track_info','params'); ?>  					
            	    	<?php echo $this->form->renderField('track_info_width','params'); ?>  					
            	    	<?php echo $this->form->renderField('show_activity','params'); ?>  					
            	    	<?php echo $this->form->renderField('show_stats','params'); ?>  					
            	    	<?php echo $this->form->renderField('show_track_desc','params'); ?>  					
-           	    	<?php echo $this->form->renderField('show_track_popover','params'); ?>  					
-    			
-   				<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
+					<?php echo $this->form->renderField('track_desc_class','params'); ?>
+           	    	<?php echo $this->form->renderField('show_track_popover','params'); ?> 
+				</div>
+				<div class="span5">
+					<h4><?php echo Text::_('Map Height &amp; Border'); ?></h4>
+					<div class="row-fluid form-vertical">
+						<div class="span6">
+							<div class="pull-left"><?php echo $this->form->renderField('map_height','params'); ?></div>
+							<div class="pull-left"><?php echo $this->form->renderField('height_unit','params'); ?></div>
+							<div class="clearfix"></div>
+						</div>
+						<div class="span6">
+						</div>
+					</div>
+					<div class="row-fluid form-vertical">
+						<div class="span12">
+							<div class="pull-left"><?php echo $this->form->renderField('map_border','params'); ?></div>
+							<div class="clearfix"></div>
+							<div class="pull-left xbmr20"><?php echo $this->form->renderField('map_border_width','params'); ?></div>
+							<div class="pull-left"><?php echo $this->form->renderField('map_border_colour','params'); ?></div>						
+							<div class="clearfix"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<?php echo HTMLHelper::_('bootstrap.endTab'); ?>			
+
     			<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'publishing', JText::_('Publishing')); ?>
     			<div class="row-fluid form-horizontal-desktop">
     				<div class="span6">

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.6.0.a 2nd October 2021
+ * @version 0.6.0.d 4th October 2021
  * @filesource admin/views/map/tmpl/edit.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -95,18 +95,8 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 					<h4><?php echo Text::_('Map Dimensions &amp; Border'); ?></h4>
 					<div class="row-fluid form-vertical">
 						<div class="span6">
-							
-							<div class="pull-left"><?php echo $this->form->renderField('map_width'); ?></div>
-							<div class="pull-left"><?php echo $this->form->renderField('width_unit'); ?></div>
-							<div class="clearfix"></div>
-						</div>
-						<div class="span6">
-						</div>
-					</div>
-					<div class="row-fluid form-vertical">
-						<div class="span6">
-							<div class="pull-left"><?php echo $this->form->renderField('map_height'); ?></div>
-							<div class="pull-left"><?php echo $this->form->renderField('height_unit'); ?></div>
+							<div class="pull-left"><?php echo $this->form->renderField('map_height','params'); ?></div>
+							<div class="pull-left"><?php echo $this->form->renderField('height_unit','params'); ?></div>
 							<div class="clearfix"></div>
 						</div>
 						<div class="span6">

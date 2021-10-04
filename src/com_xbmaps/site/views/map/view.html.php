@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.6.0.c 3rd October 2021
+ * @version 0.6.0.d 4th October 2021
  * @filesource site/views/map/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -52,6 +52,9 @@ class XbmapsViewMap extends JViewLegacy {
 		//$this->centremarker = $this->params->get('centre_marker');
 		$this->show_map_title = $this->params->get('show_map_title');
 		$this->marker_image_path = 'images/'.$this->params->get('def_markers_folder','');
+		$this->mapstyle = 'margin:0;padding:0;width:100%;height:';
+		$this->mapstyle .= ($this->params->get('map_height')>0) ? $this->params->get('map_height').$this->params->get('height_unit').';' : '500px;';
+		
 		$mapborder = $this->params->get('map_border');
 		$this->borderstyle = '';
 		if ($mapborder==1) {
@@ -153,59 +156,5 @@ class XbmapsViewMap extends JViewLegacy {
 		
 		parent::display($tpl);
 	}
-	
-/**
-	function buildTrackList() {
-	    $trklist = '';
-	    foreach ($this->item->tracks as $trk) {
-	        $trklist .=	'<li><i class="fas fa-project-diagram" style="color:'.$trk->track_colour.'"></i>&nbsp; &nbsp;';
-	        $trklist .= '<span';
-	        $trksum = XbmapsGeneral::makeSummaryText($trk->description);
-	        if ($trksum!=''){$trklist .= ' class= "hasTooltip" title="" data-original-title="'.$trksum.'"';}
-	        $trklist .=	'><b>'.$trk->linkedtitle.'</b></span>&nbsp;';
-	        $trklist .= ($this->infopos == 'side') ? '<br >' : ' - ';
-			$trklist .= '<span class="xbnit">Recorded: '.$trk->rec_date.'</span>&nbsp;';
-            $trklist .=	 '</li>';
-	    } // endforeach;
-	    return $trklist;
-	}
-	
-	function buildMarkerList() {
-	    $mrklist = '';
-	    foreach ($this->item->markers as $mrk) {
-	        $mrklist .=	'<li>';
-	        $pv = '<img src="'.Juri::root().'media/com_xbmaps/images/marker-icon.png"  style="height:24px;"/>';
-	        switch ($mrk->markertype) {
-	            case 1:
-	                $pv = '<img src="'.Juri::root().$this->marker_image_path.'/'.$mrk->mkparams['marker_image'].'" style="height:20px;" />';
-	                break;
-	            case 2:
-	                $pv = '<span class="fa-stack fa-2x" style="font-size:8pt;">';
-	                $pv .='<i class="'.$mrk->mkparams['marker_outer_icon'].' fa-stack-2x" ';
-	                $pv .= 'style="color:'.$mrk->mkparams['marker_outer_colour'].';"></i>';
-	                if ($mrk->mkparams['marker_inner_icon']!=''){
-	                    $pv .= '<i class="'.$mrk->mkparams['marker_inner_icon'].' fa-stack-1x fa-inverse" ';
-	                    $pv .= 'style="color:'.$mrk->mkparams['marker_inner_colour'].';';
-	                    if ($mrk->mkparams['marker_outer_icon']=='fas fa-map-marker') {
-	                        $pv .= 'line-height:1.75em;font-size:0.8em;';
-	                    }
-	                    $pv .= '"></i>';
-	                }
-	                $pv .= '</span>';
-	                break;
-	            default:
-	                break;
-	        }
-	        $mrklist .=	$pv.'&nbsp; &nbsp;<span';
-	        $mrksum = strip_tags($mrk->mkdesc);
-	        if ($mrksum !='') {$mrklist .= ' class= "hasTooltip" title="" data-original-title="'.$mrksum.'"';}
-	        $mrklist .=	'><b>'.$mrk->display.'</b></span>&nbsp;';
-	        $mrklist .= ($this->infopos == 'side') ? '<br >' : ' - ';
-	        $mrklist .= '<span class="xbnit">Lat:&nbsp;'.XbmapsGeneral::Deg2DMS($mrk->mklat).' Long:&nbsp;'.XbmapsGeneral::Deg2DMS($mrk->mklong,false).'</span>';
-            $mrklist .=	 '</li>';
-	    } // endforeach;
-	    return $mrklist;
-	}
-**/	
-	
+		
 }

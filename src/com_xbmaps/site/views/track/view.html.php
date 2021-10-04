@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.4.0.b 26th September 2021
+ * @version 0.6.0.d 4th October 2021
  * @filesource site/views/track/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -24,17 +24,12 @@ class XbmapsViewTrack extends JViewLegacy {
 		$this->item = $this->get('Item');
 		$this->state = $this->get('State');
 		$this->params = $this->item->params;
-		//$sparams is used to get menu options that are not global and may override item params
-		//$sparams = $this->state->get('params');
 		
 		$gcat = $this->params->get('global_use_cats');
 		$mcat = $this->params->get('tracks_use_cats');
 		$this->show_cats = 0;
 		if ($gcat>0) {
 		    $this->show_cats = $mcat;
-		    if ($this->params['tracks_use_cats']!=='') {
-		        $this->show_cats = $this->params['tracks_use_cats'];
-		    }
 		}
 		
 		$gtags = $this->params->get('global_use_tags');
@@ -42,36 +37,77 @@ class XbmapsViewTrack extends JViewLegacy {
 		$this->show_tags = false;
 		if ($gtags >0) {
 		    $this->show_tags = $mtags;
-		    if ($this->params['tracks_use_tags']!=='') {
-		        $this->show_tags = $this->params['tracks_use_tags'];
-		    }
 		}
 		//TODO set default for all params
-		$this->show_title = $this->params->get('show_track_title');
-		$this->show_info = $this->params->get('show_track_info');
-		$this->info_width = $this->params->get('track_info_width');
-		$this->mainspan = 12 - $this->info_width;
-		$this->show_desc = $this->params->get('show_track_desc');
-		$this->show_popover = $this->params->get('show_track_popover');
+		$this->show_track_title = $this->params->get('show_track_title');
+		$mapborder = $this->params->get('map_border');
+		$this->borderstyle = '';
+		if ($mapborder==1) {
+			$this->borderstyle = 'border:'.$this->params->get('map_border_width').'px solid '.$this->params->get('map_border_colour').';';
+		}
+		$this->show_track_info = $this->params->get('show_track_info');
+		$this->track_info_width = $this->params->get('track_info_width');
+		$this->mainspan = 12 - $this->track_info_width;
+		$this->show_track_desc = $this->params->get('show_track_desc');
+		$this->track_desc_class = $this->params->get('track_desc_class','');
+		$this->show_stats = $this->params->get('show_stats','1');
 		
-//		$this->showtracktitle = $sparams['show_track_title']=='' ? $iparams['show_track_title'] : $sparams['show_track_title'];
-//		$this->showtrackdesc = $sparams['show_track_desc']=='' ? $iparams['show_track_desc'] : $sparams['show_track_desc'];
-//		$this->trackdescpos = $sparams['track_desc_position']=='' ? $iparams['track_desc_position'] : $sparams['track_desc_position'];
 		$this->centre_latitude = $this->params->get('centre_latitude');
 		$this->centre_longitude = $this->params->get('centre_longitude');
-		$this->default_zoom = $this->params->get('default_zoom');
+		$this->default_zoom = $this->params->get('default_zoom','12');
 		$this->track_map_type = $this->params->get('track_map_type');
-		$this->borderstyle = 'border:1px solid #3f3f3f;';
-		$this->mapstyle = 'margin:0;padding:0;width:100%;height:50vh;';
-		$this->show_device = $this->params->get('show_device');
-		$this->show_activity = $this->params->get('show_activity');
-		$this->show_stats = $this->params->get('show_stats');
-		$this->show_track_popover = $this->params->get('show_track_popover');
 		
+		$this->mapstyle = 'margin:0;padding:0;width:100%;height:';
+		$this->mapstyle .= ($this->params->get('map_height')>0) ? $this->params->get('map_height').$this->params->get('height_unit').';' : '500px;';
+		
+		
+		$this->header = array();
+		$this->header['showheading'] = $this->params->get('show_page_heading',0,'int');
+		$this->header['heading'] = $this->params->get('page_heading','','text');
+		if ($this->header['heading'] =='') {
+			$this->header['heading'] = $this->params->get('page_title','','text');
+		}
+		$this->header['title'] = $this->params->get('mappage_title','','text');
+		$this->header['subtitle'] = $this->params->get('mappage_subtitle','','text');
+		$this->header['text'] = $this->params->get('mappage_headtext','','text');
 		
 		if (count($errors = $this->get('Errors'))) {
 			Factory::getApplication()->enqueueMessage(implode('<br />', $errors),'error');
 			return false;
+		}
+		
+		$this->descbox = '';
+		if ($this->show_track_desc) {
+			$this->descbox .= '<div class="'.$this->track_desc_class.'">';
+			$this->descbox .= '<p><b>Track Description</b></p>';
+			$this->descbox .= $this->item->description.'</div>';
+		}
+				
+		$this->infobox = '';
+		if ($this->show_track_info) {
+			$this->infobox .= '<div class="xbbox xbboxmag">';
+			if (($this->show_stats) && ($this->show_track_info == 'above') || ($this->show_track_info == 'below')) {
+				$this->infobox .= '<div class="row-fluid"><div class="span6">';
+			}
+			$this->infobox .= '<ul class="xbhlist">';
+			$this->infobox .= '<li><i>Recording start : </i>'.$this->item->rec_date.'</li>';
+			$this->infobox .= '<li><i>Activity type: </i>'.$this->item->activity.'</li>'; 
+			if ($this->show_device) {
+				$this->infobox .= '<li><i>Record device: </i>'.$this->item->rec_device.'</li>';
+			}
+			$this->infobox .= '</ul>';
+			if ($this->show_stats) {
+				if (($this->show_track_info == 'above') || ($this->show_track_info == 'below')) {
+					$this->infobox .= '</div><div class="span6">';
+				}
+				$this->infobox .= '<ul class="xbhlist">';
+				$this->infobox .= '<div id="'.str_replace('-','_',$this->item->alias).'">';
+				$this->infobox .= '</div>';
+				$this->infobox .= '</ul></div>';
+				if (($this->show_track_info == 'above') || ($this->show_track_info == 'below')) {
+					$this->infobox .= '</div></div>';
+				}
+			}
 		}
 		
 		//the userstate films.sortorder will be updated by whatever list (films or category) was last viewed

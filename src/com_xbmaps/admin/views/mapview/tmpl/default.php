@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.6.0.c 3rd October 2021
+ * @version 0.6.0.d 4th October 2021
  * @filesource admin/views/mapview/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -39,7 +39,6 @@ if (!empty($item->tracks)) {
 
 if (!empty($item->markers)) {
     foreach ($item->markers as $mrk) {
-//        Factory::getApplication()->enqueueMessage('<pre>'.print_r($mrk,true).'</pre>');
     	$popuptitle =  '';
     	$popupdesc = '';
     	if ($mrk->show_popup!='') {
@@ -122,9 +121,7 @@ $map->renderMap();
 				<div class="span<?php echo (($this->show_map_info == 'left') || ($this->show_map_info=='right')) ? $this->mainspan : '12'; ?>">
         			<div style="<?php echo $this->borderstyle; ?>">
         				<div id="xbMap<?php echo $uid; ?>" 
-        					style="margin:0;padding:0;
-        					height:<?php echo $item->map_height > 0 ? $item->map_height.$item->height_unit.';' : '67vh;'; ?>
-        					width:<?php echo $item->map_width > 0 ? $item->map_width.$item->width_unit.';' : '100%;'?>">
+        					style="<?php echo $this->mapstyle; ?>">
         				</div>
         			</div>  	
        			</div>

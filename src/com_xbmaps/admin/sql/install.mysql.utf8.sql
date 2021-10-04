@@ -6,16 +6,13 @@ CREATE TABLE IF NOT EXISTS `#__xbmaps_maps` (
   `title` varchar(190) NOT NULL DEFAULT '',
   `alias` varchar(190) NOT NULL DEFAULT '',
   `description` text,
+  `summary` varchar(190) NOT NULL DEFAULT '',
   
   `centre_latitude` varchar(20) NOT NULL DEFAULT '',
   `centre_longitude` varchar(20) NOT NULL DEFAULT '',
 #  `centre` point NOT NULL, 
   `default_zoom` tinyint unsigned NOT NULL DEFAULT '10',
   `map_type` varchar(20) NOT NULL DEFAULT 'osm',
-  `map_width` varchar(10) NOT NULL DEFAULT '0',
-  `width_unit` varchar(4) NOT NULL DEFAULT '',
-  `map_height` varchar(10) NOT NULL DEFAULT '500',
-  `height_unit` varchar(4) NOT NULL DEFAULT 'px',
   `fit_bounds`  tinyint  unsigned NOT NULL DEFAULT '0',  
   
   `catid` int NOT NULL  DEFAULT '0',
@@ -43,6 +40,7 @@ CREATE TABLE IF NOT EXISTS `#__xbmaps_tracks` (
   `title` varchar(190) NOT NULL DEFAULT '',
   `alias` varchar(190) NOT NULL DEFAULT '',
   `description` text,
+  `summary` varchar(190) NOT NULL DEFAULT '',
  
   `gpx_filename` varchar(190) NOT NULL DEFAULT '',
   `rec_date` datetime,

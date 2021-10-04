@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbMaps admin/models/forms/track.xml v0.1.1.h 22nd August 2021 -->
+<!-- xbMaps admin/models/forms/track.xml v0.6.0.d 4th October 2021 -->
 <form>
 
 	<fieldset name="trackset" addfieldpath="/administrator/components/com_xbmaps/models/fields">
@@ -194,11 +194,48 @@
 				<option value="1">JYES</option>
 				<option value="0">JNO</option>
 			</field>
+
+		<field name="map_height" type="number" 
+			class="inputbox" 
+			label="XBMAPS_HEIGHT" description="XBMAPS_MAP_HEIGHT_DESC" 
+			min="1" max="9999" step="1"
+			default="500"
+		/>
+		
+		<field name="height_unit" type="dimunits"
+			label="XBMAPS_UNITS" description="XBMAPS_UNITS_DESC"
+			default="px"
+			>
+		</field>
+
+			<field name="map_border" type="radio"
+				label="XBMAPS_MAP_BORDER_LABEL"
+				description="XBMAPS_MAP_BORDER_DESC"
+				class="btn-group btn-group-yesno"
+				default="1"
+				>
+				<option value="0" >JNO</option>
+				<option value="1">JYES</option>
+			</field>	
+			<field name="map_border_width" type="number"
+				class="inputbox" 
+				label="XBMAPS_WIDTH" description="XBMAPS_BORDER_WIDTH_DESC"
+				min="1" max="20" step="1"
+				default="1"
+				showon="map_border:1"
+			/>
+			<field name="map_border_colour" type="color" 
+				label="XBMAPS_MAP_BORDER_COL_LABEL"
+				description="XBMAPS_MAP_BORDER_COL_DESC" 
+				default="#eee" format="hex"
+				showon="map_border:1"
+			/>		
+			
 			<field name="show_track_info" type="list"  
 				label="XBMAPS_TRACK_INFOPANE_LABEL" description="XBMAPS_TRACK_INFOPANE_DESC"
-				useglobal="true"
+				default="right"
 			>
-				<option value="">JHIDE</option>
+				<option value="0">JHIDE</option>
 				<option value="above">XBMAPS_ABOVE</option>
 				<option value="right">XBMAPS_RIGHT</option>
 				<option value="below">XBMAPS_BELOW</option>
@@ -207,7 +244,7 @@
 			<field name="track_info_width" type="list"  
 				label="XBMAPS_TRACK_INFOPANE_WIDTH_LABEL" description="XBMAPS_TRACK_INFOPANE_WIDTH_DESC"
 				showon="show_track_info:left[OR]show_track_info:right"
-				default="" useglobal="true"
+				default="4" 
 			>
 				<option value="2">17%</option>
 				<option value="4">33%</option>
@@ -219,28 +256,34 @@
 				label="XBMAPS_TRACK_DEVICE_LABEL" description="XBMAPS_TRACK_DEVICE_DESC"
 				class="btn-group btn-group-yesno" 
 				showon="show_track_info!:"
-				useglobal="true"
+				default="1" 
 			>
-				<option value="1">JYES</option>
-				<option value="0">JNO</option>
+				<option value="1">JSHOW</option>
+				<option value="0">JHIDE</option>
 			</field>
 			<field name="show_stats" type="radio"  
 				label="XBMAPS_TRACK_STATS_LABEL" description="XBMAPS_TRACK_STATS_DESC"
 				class="btn-group btn-group-yesno" 
 				showon="show_track_info!:"
-				useglobal="true"
+				default="1" 
 			>
-				<option value="1">JYES</option>
-				<option value="0">JNO</option>
+				<option value="1">JSHOW</option>
+				<option value="0">JHIDE</option>
 			</field>			
-			<field name="show_track_desc" type="radio"  
+			<field name="show_track_desc" type="list"  
 				label="XBMAPS_TRACK_DESC_LABEL" description="XBMAPS_TRACK_DESC_DESC"
-				class="btn-group btn-group-yesno" 
-				useglobal="true"
+				default="1" 
 			>
-				<option value="1">JYES</option>
-				<option value="0">JNO</option>
+				<option value="0">JHIDE</option>
+				<option value="1" showon="show_track_info!:0">XBMAPS_WITH_TRACKINFO</option>
+				<option value="2">XBMAPS_ABOVE_MAP</option>
+				<option value="3">XBMAPS_BELOW_MAP</option>
 			</field>
+			<field name="track_desc_class" type="text" 
+				label="XBMAPS_DESC_CLASS_LABEL" description="XBMAPS_DESC_CLASS_DESC" 
+				size="150" showon="show_track_info!:[AND]show_track_desc!:0"
+				default="xbbox xbboxwht"
+			/>	
 			<field name="show_track_popover" type="list"  
 				label="XBMAPS_TRACK_POP_LABEL" description="XBMAPS_TRACK_POP_DESC"
 				class="btn-group btn-group-yesno" 
@@ -252,7 +295,6 @@
 				<option value="3">XBMAPS_TRACK_POP_SUMMARY</option>
 				<option value="4">XBMAPS_TRACK_POP_STATSUM</option>
 			</field>
-
 		
 		</fieldset>
 	</fields>

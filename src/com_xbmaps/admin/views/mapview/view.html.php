@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.6.0.c 3rd October 2021
+ * @version 0.6.0.d 4th October 2021
  * @filesource admin/views/mapview/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -42,6 +42,9 @@ class XbmapsViewMapview extends JViewLegacy {
 		$this->show_trk_dist = $this->params->get('show_trk_dist');
 		$this->show_trk_desc = $this->params->get('show_trk_desc');
 		$this->show_mrk_desc = $this->params->get('show_mrk_desc');
+		
+		$this->mapstyle = 'margin:0;padding:0;width:100%;height:';
+		$this->mapstyle .= ($this->params->get('map_height')>0) ? $this->params->get('map_height').$this->params->get('height_unit').';' : '500px;';
 		
 		if (count($errors = $this->get('Errors'))) {
 		    throw new Exception(implode("\n", $errors), 500);

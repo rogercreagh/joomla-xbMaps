@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.1.1.j 24th August 2021
+ * @version 0.7.0.a 5th October 2021
  * @filesource site/models/tracklist.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -54,7 +54,7 @@ class XbmapsModelTracklist extends JModelList {
 		$db    = Factory::getDbo();
 		$query = $db->getQuery(true);
 		$query->select('a.id AS id, a.title AS title, a.alias AS alias,
-            a.description AS description, a.catid AS catid,
+            a.description AS description, a.summary AS summary, a.catid AS catid,
             a.state AS published, a.access AS access,
 			a.created AS created, a.created_by AS created_by, a.created_by_alias AS created_by_alias,
 			a.modified AS modified, a.modified_by AS modified_by,

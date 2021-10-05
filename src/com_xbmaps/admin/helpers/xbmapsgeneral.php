@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.6.0.c 3rd October 2021
+ * @version 0.7.0.a 5th October 2021
  * @filesource admin/helpers/xbmapsgeneral.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -128,7 +128,7 @@ class XbmapsGeneral extends ContentHelper {
 		$db = Factory::getDBO();
 		$query = $db->getQuery(true);
 		
-		$query->select('a.track_colour AS track_colour, m.title, m.id, m.state AS mstate, m.description AS description ')
+		$query->select('a.track_colour AS track_colour, m.title, m.id, m.state AS mstate, m.description AS description, m.summary AS summary ')
 		->from('#__xbmaps_maptracks AS a')
 		->join('LEFT','#__xbmaps_maps AS m ON m.id=a.map_id')
 		->where('a.track_id = "'.$trkid.'"' )
@@ -172,7 +172,7 @@ class XbmapsGeneral extends ContentHelper {
 		$db = Factory::getDBO();
 		$query = $db->getQuery(true);
 		
-		$query->select('a.track_colour AS track_colour, t.title, t.id, t.alias, t.description, t.state AS tstate, t.track_colour AS defcol,
+		$query->select('a.track_colour AS track_colour, t.title, t.id, t.alias, t.description, t.summary, t.state AS tstate, t.track_colour AS defcol,
 			t.gpx_filename AS gpx_filename, t.params AS tparams, t.rec_date AS rec_date')
 		->from('#__xbmaps_maptracks AS a')
 		->join('LEFT','#__xbmaps_tracks AS t ON t.id=a.track_id')
@@ -306,7 +306,7 @@ class XbmapsGeneral extends ContentHelper {
 		foreach ($tracks as $trk) {
 			$trklist .=	'<li><i class="fas fa-project-diagram" style="color:'.$trk->track_colour.'"></i>&nbsp; &nbsp;';
 			$trklist .= '<span';
-			$trksum = XbmapsGeneral::makeSummaryText($trk->description);
+			$trksum = $trk->summary;
 			if ($trksum!=''){$trklist .= ' class= "hasTooltip" title="" data-original-title="'.$trksum.'"';}
 			$trklist .=	'><b>'.$trk->linkedtitle.'</b></span>&nbsp;';
 			$trklist .= ($infopos == 'side') ? '<br >' : ' - ';

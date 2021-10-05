@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.6.0.e 4th October 2021
+ * @version 0.7.0.a 5th October 2021
  * @filesource site/views/track/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -90,7 +90,15 @@ class XbmapsViewTrack extends JViewLegacy {
 			if (($this->show_stats) && ($this->show_track_info == 'above') || ($this->show_track_info == 'below')) {
 				$this->infobox .= '<div class="row-fluid"><div class="span6">';
 			}
-			$this->infobox .= '<ul class="xbhlist">';
+			$this->infobox .= '<h4>'.$this->item->title.'</h4>';
+			if (count($this->item->maps>0)) {
+			    $this->infobox .= '<p>Used on Maps:</p><ul class="xbhlist">';
+			    foreach ($this->item->maps as $map) {
+			        $this->infobox .= '<li>'.$map->linkedtitle.'</li>';
+			    }
+			    $this->infobox .= '</ul>';
+			}
+			$this->infobox .= '<ul class="xblist">';
 			$this->infobox .= '<li><i>Recording start : </i>'.$this->item->rec_date.'</li>';
 			$this->infobox .= '<li><i>Activity type: </i>'.$this->item->activity.'</li>'; 
 			if ($this->show_device) {

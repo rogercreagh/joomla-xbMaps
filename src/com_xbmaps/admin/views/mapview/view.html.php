@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.6.0.e 4th October 2021
+ * @version 0.7.0.a 5th October 2021
  * @filesource admin/views/mapview/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -54,7 +54,6 @@ class XbmapsViewMapview extends JViewLegacy {
 		$this->map_desc_class = $this->params->get('map_desc_class','');
 		$this->show_map_key = $this->params->get('show_map_key');
 		$this->show_trk_dist = $this->params->get('show_trk_dist');
-		$this->show_trk_desc = $this->params->get('show_trk_desc');
 		$this->show_mrk_desc = $this->params->get('show_mrk_desc');
 		
 		$this->mapstyle = 'margin:0;padding:0;width:100%;height:';

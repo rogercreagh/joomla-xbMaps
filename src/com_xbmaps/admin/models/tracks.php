@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.1.1.f 19th August 2021
+  * @version 0.7.0.a 5th October 2021
  * @filesource admin/models/tracks.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -41,7 +41,7 @@ class XbmapsModelTracks extends JModelList {
 		
 		$query->select('a.id AS id, a.title AS title, a.alias AS alias,
 			a.gpx_filename AS gpx_filename, a.rec_date AS rec_date, a.track_colour AS track_colour,
-            a.description AS description, a.catid AS catid,
+            a.description AS description, a.summary AS summary, a.catid AS catid,
             a.state AS published, a.access AS access,
 			a.created AS created, a.created_by AS created_by, a.created_by_alias AS created_by_alias,
 			a.modified AS modified, a.modified_by AS modified_by,
@@ -184,39 +184,4 @@ class XbmapsModelTracks extends JModelList {
 		return $items;
 	}
 
-/* 	private function getTrackMapsArray(int $trkid) {
-		$isAdmin = Factory::getApplication()->isClient('administrator');
-		$link = 'index.php?option=com_xbmaps';
-		$link .= $isAdmin ? '&task=map.edit&id=' : '&view=map&id=';
-		$db = Factory::getDBO();
-		$query = $db->getQuery(true);
-		
-		$query->select('a.track_colour AS track_colour, m.title, m.id, m.state AS mstate')
-			->from('#__xbmaps_maptracks AS a')
-			->join('LEFT','#__xbmaps_maps AS m ON m.id=a.map_id')
-			->where('a.track_id = "'.$trkid.'"' )
-			->order('m.title', 'ASC');
-		
-		$db->setQuery($query);
-		$list = $db->loadObjectList();
-		foreach ($list as $i=>$item){
-			$ilink = Route::_($link . $item->id);
-			$item->display = '';
-			//if not published highlight in yellow if admin or grey if view
-			if ($item->mstate != 1) {
-				$flag = $isAdmin ? 'xbhlt' : 'xbdim';
-				$item->display .= '<span class="'.$flag.'">'.$item->title.'</span>';
-			} else {
-				$item->display .= $item->title;
-			}
-			//link if isAdmin or isPublished
-			if (($isAdmin) || ($item->mstate == 1)) {
-				$item->linkedtitle = '<a href="'.$ilink.'">'.$item->display.'</a>';
-			} else {
-				$item->linkedtitle = $item->display;
-			}
-		}
-		return $list;
-	}
- */	
 }

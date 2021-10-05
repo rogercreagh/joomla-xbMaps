@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.6.0.d 4th October 2021
+ * @version 0.7.0.a 5th October 2021
  * @filesource admin/helpers/xbmaphelper.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -610,10 +610,10 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		            $o[] = 'e.target.bindPopup(\'<b>'.addslashes($trk->title).'</b><br />\'+dist+\'<br />\'+speed+\'<br />Time: \'+time+\'<br />\'+climb)';
 		            break;
 		        case 3:
-		            $o[] = 'e.target.bindPopup(\'<b>'.addslashes($trk->title).'</b><br />'.$trk->description.'\')';
+		            $o[] = 'e.target.bindPopup(\'<b>'.addslashes($trk->title).'</b><br />'.$trk->summary.'\')';
 		            break;
 		        case 4:
-		            $o[] = 'e.target.bindPopup(\'<b>'.addslashes($trk->title).'</b><br />'.$trk->description.'<br />\'+dist+\'<br />\'+speed+\'<br />Time: \'+time+\'<br />\'+climb)';
+		            $o[] = 'e.target.bindPopup(\'<b>'.addslashes($trk->title).'</b><br />'.$trk->summary.'<br />\'+dist+\'<br />\'+speed+\'<br />Time: \'+time+\'<br />\'+climb)';
 		            break;
 		            
 		        default:

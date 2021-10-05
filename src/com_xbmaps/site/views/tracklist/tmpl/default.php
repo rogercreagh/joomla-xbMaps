@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.1.1.j 24th August 2021
+ * @version 0.7.0.a 5th October 2021
  * @filesource site/views/tracklist/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -80,7 +80,7 @@ $tlink = 'index.php?option=com_xbmaps&view=track'.$itemid.'&id=';
 					<?php echo HTMLHelper::_('searchtools.sort','Title','title',$listDirn,$listOrder);?>
 				</th>					
 				<th class="hidden-phone">
-					<?php echo JText::_('XBMAPS_DESCRIPTION');?>
+					<?php echo JText::_('XBMAPS_SUMMARY');?>
 				</th>
 				<th class="hidden-phone">
 					<?php echo JText::_('XBMAPS_MAPS');?>
@@ -112,14 +112,10 @@ $tlink = 'index.php?option=com_xbmaps&view=track'.$itemid.'&id=';
 					</td>
 					<td class="hidden-phone">
 						<p class="xb095">
-	    					<?php if (!empty($item->description)) : ?>
-	    						<?php echo XbmapsGeneral::makeSummaryText($item->description,200,false); ?>
-	    					<?php else : ?><span class="xbnit">
-	    						<?php echo Text::_('XBMAPS_NO_DESCRIPTION'); ?></span>
-	    					<?php endif; ?>
+	    					<?php echo $item->summary; ?>
 						</p>
 	                    <?php $plaintext = strip_tags($item->description);
-	                    if (strlen($plaintext)>200) : ?>
+	                    if (strlen($plaintext)>180) : ?>
 	                    	<p class="xbnit xb09 hasTooltip" data-original-title="<?php echo $plaintext;?>">   
 	                        	<?php  echo Text::_('XBMAPS_FULL_DESCRIPTION').' '.str_word_count($plaintext).' '.Text::_('XBMAPS_WORDS'); ?>
 							</p>

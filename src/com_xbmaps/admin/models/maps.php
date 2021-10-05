@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.1.1.f 19th August 2021
+ * @version 0.7.0.a 5th October 2021
  * @filesource admin/models/maps.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -38,8 +38,8 @@ class XbmapsModelMaps extends JModelList {
 		$query = $db->getQuery(true);
 		
 		$query->select('a.id AS id, a.title AS title, a.alias AS alias,
-            a.description AS description, a.catid AS catid,
-            a.state AS published, a.access AS access,
+            a.description AS description, a.summary AS summary,
+            a.catid AS catid, a.state AS published, a.access AS access,
 			a.created AS created, a.created_by AS created_by, a.created_by_alias AS created_by_alias,
 			a.modified AS modified, a.modified_by AS modified_by,
             a.checked_out AS checked_out, a.checked_out_time AS checked_out_time,
@@ -178,40 +178,4 @@ class XbmapsModelMaps extends JModelList {
 		return $items;
 	}
 
-/* 	private function getMapTracksArray(int $mapid) {
-		$isAdmin = Factory::getApplication()->isClient('administrator');
-		$link = 'index.php?option=com_xbmaps';
-		$link .= $isAdmin ? '&task=track.edit&id=' : '&view=track&id=';
-		$db = Factory::getDBO();
-		$query = $db->getQuery(true);
-		
-		$query->select('a.track_colour AS track_colour, t.title, t.id, t.state AS tstate, t.track_colour AS defcol')
-			->from('#__xbmaps_maptracks AS a')
-			->join('LEFT','#__xbmaps_tracks AS t ON t.id=a.track_id')
-			->where('a.map_id = "'.$mapid.'"' )
-			->order('a.listorder', 'ASC');
-		
-		$db->setQuery($query);
-		$list = $db->loadObjectList();
-		foreach ($list as $i=>$item){
-			$ilink = Route::_($link . $item->id);
-			$item->display = '';
-			//if not published highlight in yellow if editable or grey if view
-			if ($item->tstate != 1) {
-				$flag = $isAdmin ? 'xbhlt' : 'xbdim';
-				$item->display .= '<span class="'.$flag.'">'.$item->title.'</span>';
-			} else {
-				$item->display .= $item->title;
-			}
-			//if item not published only link if isAdmin
-			if (($isAdmin) || ($item->tstate == 1)) {
-				$item->linkedtitle = '<a href="'.$ilink.'">'.$item->display.'</a>';
-			} else {
-				$item->linkedtitle = $item->display;
-			}
-			if ($item->track_colour=='') {$item->track_colour = $item->defcol; }
-		}
-		return $list;		
-	}
- */	
 }

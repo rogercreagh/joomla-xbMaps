@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.4.0.b 26th September 2021
+ * @version 0.7.0.a 5th October 2021
  * @filesource site/models/track.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -34,7 +34,7 @@ class XbmapsModelTrack extends JModelItem {
 			$query = $db->getQuery(true);
 			$query->select('a.id AS id, a.title AS title, a.description AS description,a.alias AS alias,
                 a.gpx_filename AS gpx_filename, a.rec_date AS rec_date, a.track_colour AS track_colour,
-				a.rec_device AS rec_device, a.activity AS activity,
+				a.rec_device AS rec_device, a.activity AS activity, a.summary AS summary,
 				a.state AS published, a.catid AS catid, a.params AS params ');
 			$query->from('#__xbmaps_tracks AS a');
 			$query->select('c.title AS category_title');
@@ -43,6 +43,8 @@ class XbmapsModelTrack extends JModelItem {
 			$db->setQuery($query);
 			if ($this->item = $db->loadObject()) {
 				
+			    //get the list of maps assigned
+			    $this->item->maps = XbmapsGeneral::trackMapsArray($this->item->id,1);
 				// Load the JSON string
 				$params = new Registry;
 				$params->loadString($this->item->params, 'JSON');

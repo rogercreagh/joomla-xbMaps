@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.6.0.d 4th October 2021
+ * @version 0.7.0.a 5th October 2021
  * @filesource site/models/map.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -34,7 +34,7 @@ class XbmapsModelMap extends JModelItem {
 			$query = $db->getQuery(true);
 			$query->select('a.id AS id, a.title AS title, a.description AS description,
 				a.centre_latitude AS centre_latitude, a.centre_longitude as centre_longitude,
-				a.default_zoom AS default_zoom, a.map_type AS map_type, 
+				a.default_zoom AS default_zoom, a.map_type AS map_type, a.summary AS summary,
 				a.state AS published, a.catid AS catid, a.params AS params, a.metadata AS metadata ');
 			$query->from('#__xbmaps_maps AS a');
 			$query->select('c.title AS category_title');

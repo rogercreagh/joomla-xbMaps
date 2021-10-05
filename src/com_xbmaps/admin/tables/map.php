@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.6.0.a 2nd October 2021
+ * @version 0.7.0.a 5th October 2021
  * @filesource admin/tables/map.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -47,6 +47,18 @@ class XbmapsTableMap extends Table
 			$this->alias = $title;
 		}
 		$this->alias = OutputFilter::stringURLSafe(strtolower($this->alias));
+		
+		//require either summary or description and if only one provided copy to other
+		if (($this->description=='') && ($this->summary='')) {
+		    $this->setError(Text::_('XBMAPS_SUM_OR_DESC_MISSING'));
+		    return false;
+		}
+		if ($this->summary == '') {
+		    $this->summary = XbmapsGeneral::makeSummaryText($this->description,180,true);
+		}
+		if ($this->description == '') {
+		    $this->description = $this->summary;
+		}
 		
 		//if cat not set then set default category 
 		if (!$this->catid>0) {

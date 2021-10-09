@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.7.0.a 5th October 2021
+ * @version 0.7.0.b 9th October 2021
  * @filesource admin/views/map/tmpl/edit.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -38,7 +38,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
         </div>
 	</div>
 	<div class="row-fluid">
-		<div class="span6">
+		<div class="span8 form-horizontal">
 			<?php echo $this->form->renderField('summary'); ?>            	    	 					
 		</div>		
 	</div>

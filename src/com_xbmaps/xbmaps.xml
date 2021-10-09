@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" version="3.1" method="upgrade">
 	<name>xbmaps</name>
-	<creationDate>5th October 2021</creationDate>
-	<version>0.7.0.a</version>
+	<creationDate>9th October 2021</creationDate>
+	<version>0.7.0.c</version>
 	<author>Roger C-O</author>
 	<authorEmail>roger@crosborne.uk</authorEmail>
 	<authorUrl>www.crosborne.uk</authorUrl>

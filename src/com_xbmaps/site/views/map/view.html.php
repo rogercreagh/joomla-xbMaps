@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.6.0.d 4th October 2021
+ * @version 0.7.0.b 9th October 2021
  * @filesource site/views/map/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -131,7 +131,7 @@ class XbmapsViewMap extends JViewLegacy {
 		}
 		
 		$this->keybox = '';
-		if (($this->show_map_key) && ((count($this->item->tracks)>0) || (count($this->item->markers)>0))) {
+		if (($this->show_map_key) && ((!empty($this->item->tracks)) || (!empty($this->item->markers)))) {
 		    $this->keybox .= '<div class="xbbox xbboxgrn"><div class="row-fluid">';
 		    if (count($this->item->tracks)>0) {
 		    	$this->keybox .= ($this->infopos == 'topbot') ? '<div class="span6">' : '';

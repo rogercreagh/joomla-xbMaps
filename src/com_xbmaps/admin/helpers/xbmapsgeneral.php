@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.7.0.a 5th October 2021
+ * @version 0.7.0.c 9th October 2021
  * @filesource admin/helpers/xbmapsgeneral.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -128,7 +128,7 @@ class XbmapsGeneral extends ContentHelper {
 		$db = Factory::getDBO();
 		$query = $db->getQuery(true);
 		
-		$query->select('a.track_colour AS track_colour, m.title, m.id, m.state AS mstate, m.description AS description, m.summary AS summary ')
+		$query->select('a.track_colour AS maptrack_colour, m.title, m.id, m.state AS mstate, m.description AS description, m.summary AS summary ')
 		->from('#__xbmaps_maptracks AS a')
 		->join('LEFT','#__xbmaps_maps AS m ON m.id=a.map_id')
 		->where('a.track_id = "'.$trkid.'"' )
@@ -320,10 +320,10 @@ class XbmapsGeneral extends ContentHelper {
 		$mrklist = '';
 		foreach ($markers as $mrk) {
 			$mrklist .=	'<li>';
-			$pv = '<img src="'.Juri::root().'media/com_xbmaps/images/marker-icon.png"  style="height:24px;"/>';
+			$pv = '<img src="'.Juri::root().'media/com_xbmaps/images/marker-icon.png"  style="height:20px;margin-left:4px;"/>';
 			switch ($mrk->markertype) {
 				case 1:
-					$pv = '<img src="'.Juri::root().$marker_image_path.'/'.$mrk->mkparams['marker_image'].'" style="height:20px;" />';
+					$pv = '<img src="'.Juri::root().$marker_image_path.'/'.$mrk->mkparams['marker_image'].'" style="height:20px;margin-left:4px;" />';
 					break;
 				case 2:
 					$pv = '<span class="fa-stack fa-2x" style="font-size:8pt;">';

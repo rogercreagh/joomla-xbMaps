@@ -55,7 +55,7 @@ class XbmapsModelTracklist extends JModelList {
 		$query = $db->getQuery(true);
 		$query->select('a.id AS id, a.title AS title, a.alias AS alias,
             a.description AS description, a.summary AS summary, a.catid AS catid,
-            a.state AS published, a.access AS access,
+            a.state AS published, a.access AS access, a.track_colour AS track_colour,
 			a.created AS created, a.created_by AS created_by, a.created_by_alias AS created_by_alias,
 			a.modified AS modified, a.modified_by AS modified_by,
             a.checked_out AS checked_out, a.checked_out_time AS checked_out_time,

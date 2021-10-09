@@ -43,10 +43,11 @@ HTMLHelper::_('formbehavior.chosen', 'select');
         </div>
 	</div>
 	<div class="row-fluid">
-		<div class="span6">
+		<div class="span3">
 			<?php echo $this->form->renderField('summary'); ?>            	    	 					
 		</div>		
-		<div class="span6">
+		<div class="span9">
+			<?php echo $this->form->renderField('maplist'); ?>            	    	 					
 	    	<?php echo $this->form->renderField('gpx_filename'); ?>   
 		</div>
 	</div>
@@ -64,7 +65,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 				<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'details', Text::_('Details')); ?>
 		<div class="row-fluid">
 			<div class="span9">  
-				<div class="pull-left xbml20">
+				<div class="pull-left">
      	    		<?php echo $this->form->renderField('gpx_folder'); ?> 
 				</div>	
 				<div class="pull-left xbml20">
@@ -73,10 +74,8 @@ HTMLHelper::_('formbehavior.chosen', 'select');
     					<?php echo Text::_('XBMAPS_GPX_FOLDER'); ?></a> 
     				<?php echo Text::_('XBMAPS_GPXFOLDER_NOTE2'); ?></i>
 	    		</div> 					
-    			<div class="clearfix"></div> 	
-    			<p><?php echo $this->form->renderField('select_gpxfile'); ?>
-    			<div class="clearfix"></div> 					
-
+    			<div class="clearfix"></div>
+    			 	
 				<div class="row-fluid">
 					<div class="span9">
 			        	<?php echo HTMLHelper::_('bootstrap.startAccordion', 'slide-cpanel', array('active' => '')); ?>
@@ -96,6 +95,10 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 	        			<?php echo HTMLHelper::_('bootstrap.endAccordion'); ?>
 					</div>
 	        	</div>
+	        	
+    			<p><?php echo $this->form->renderField('select_gpxfile'); ?>
+    			<div class="clearfix"></div> 					
+
 	        	<div class="row-fluid">
 	        		<div class="span6">
 	    				<p> </p>				
@@ -120,7 +123,6 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 			        	<?php endif;?>
 	        		</div>
 	        	</div>
-            	    	<?php echo $this->form->renderField('maplist'); ?>            	    	 					
             	    	<?php echo $this->form->renderField('description'); ?>   					
 	    			</div>
         			<div class="span3">

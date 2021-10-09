@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.6.0.e 4th October 2021
+ * @version 0.7.0.c 9th October 2021
  * @filesource admin/views/trackview/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -47,6 +47,7 @@ class XbmapsViewTrackview extends JViewLegacy {
 	    $this->show_track_desc = $this->params->get('show_track_desc');
 	    $this->track_desc_class = $this->params->get('track_desc_class','');
 	    $this->show_stats = $this->params->get('show_stats','1');
+	    $this->show_device = $this->params->get('show_device','1');
 	    $this->show_track_popover = $this->params->get('show_track_popover','1');
 	    
 	    $this->centre_latitude = $this->params->get('centre_latitude');

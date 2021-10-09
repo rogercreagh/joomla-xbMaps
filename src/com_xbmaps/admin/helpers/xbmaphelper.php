@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.7.0.a 5th October 2021
+ * @version 0.7.0.b 9th October 2021
  * @filesource admin/helpers/xbmaphelper.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -292,7 +292,7 @@ class XbMapHelper {
 L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 
  */		
-		$o[] = 'var imgIcon = L.icon({iconUrl: \''.Uri::root().$image.'\',iconSize:[33,45],iconAnchor:[16,45], popupAnchor:[0,-40] });';
+		$o[] = 'var imgIcon = L.icon({iconUrl: \''.Uri::root().$image.'\',iconAnchor:[15,35], popupAnchor:[0,-30] });';
 		$o[]= 'var marker'.$markerId.' = L.marker(['.$lat.', '.$lng.'],{icon: imgIcon})';
 		
 		$popcontent = $this->makeMarkerPopup($title, $description, $width, $height, $open);

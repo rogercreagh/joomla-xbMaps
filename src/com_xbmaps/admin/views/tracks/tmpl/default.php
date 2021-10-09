@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.7.0.a 5th October 2021
+ * @version 0.7.0.c 9th October 2021
  * @filesource admin/views/cpanel/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -209,7 +209,7 @@ $tagclass = $this->show_tags? 'label-info' : 'label-grey';
 				if (count($item->maps)>0) {
 					echo '<p>';
 						foreach ($item->maps as $map) {
-							$tcol = $map->track_colour=='' ? $item->track_colour : $map->track_colour;
+							$tcol = $map->maptrack_colour=='' ? $item->track_colour : $map->maptrack_colour;
 							echo '<i class="far fa-map" style="color:'.$tcol.';"></i> ';
 							echo $map->linkedtitle;
 							echo '<br />';

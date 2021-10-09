@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.1.2.c 10th September 2021
+ * @version 0.7.0.c 9th October 2021
  * @filesource admin/controllers/map.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -41,7 +41,7 @@ class XbmapsControllerMap extends FormController {
 		if ($task == 'savepreview') {
 			$tid = $validData['id'];
 			if ($tid>0) {
-				$this->setRedirect('index.php?option=com_xbmaps&view=mapview&id='.$tid, true);
+				$this->setRedirect('index.php?option=com_xbmaps&view=mapview&id='.$tid);
 			}
 		}
 	}

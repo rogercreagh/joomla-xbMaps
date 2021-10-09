@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbMaps admin/models/forms/map.xml v0.7.0.a 5th October 2021 -->
+<!-- xbMaps admin/models/forms/map.xml v0.7.0.b 9th October 2021 -->
 <form>
 
 	<fieldset addfieldpath="/administrator/components/com_xbmaps/models/fields">
@@ -28,8 +28,8 @@
 		/>
 			
 		<field name="summary" type="textarea"
-			class="inputbox" label="XBMAPS_Summary" description="XBMAPS_SUMMARY_DESC"
-			rows="5"  filter="safehtml"
+			class="inputbox xbwid100" label="XBMAPS_SUMMARY" description="XBMAPS_SUMMARY_DESC"
+			rows="3"  filter="safehtml"
 		/>
 
 		<field name="map_type" type="list"
@@ -246,6 +246,7 @@
 				default="4"
 			>
 				<option value="2">17%</option>
+				<option value="3">25%</option>
 				<option value="4">33%</option>
 				<option value="6">50%</option>
 				<option value="8">67%</option>

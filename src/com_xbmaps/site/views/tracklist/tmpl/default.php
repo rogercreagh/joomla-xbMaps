@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.7.0.a 5th October 2021
+ * @version 0.7.0.c 9th October 2021
  * @filesource site/views/tracklist/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -125,7 +125,7 @@ $tlink = 'index.php?option=com_xbmaps&view=track'.$itemid.'&id=';
 						<p class="xb095">
 							<?php if (!empty($item->maps)) : ?>
 								<?php foreach ($item->maps as $map) {
-									$tcol = $map->track_colour=='' ? $item->track_colour : $map->track_colour;
+									$tcol = is_null($map->maptrack_colour) ? $item->track_colour : $map->maptrack_colour;
 									echo '<i class="far fa-map" style="color:'.$tcol.';"></i> ';
 									echo $map->linkedtitle;
 									echo '<br />';

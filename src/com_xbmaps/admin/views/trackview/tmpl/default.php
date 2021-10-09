@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.6.0.e 4th October 2021
+ * @version 0.7.0.c 9th October 2021
  * @filesource admin/views/trackview/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -30,7 +30,7 @@ $map->renderMap();
 <?php  if($this->show_track_title) :?>
 	<div class="row-fluid">
 		<div class="span12">
-			<h1><?php echo $item->title; ?></h1>
+			<h1><?php echo $this->item->title; ?></h1>
 	 	</div>
 	</div>
 <?php endif; ?>
@@ -84,20 +84,20 @@ $map->renderMap();
 			<div class="pull-left xbnit xbmr10"><?php echo JText::_('XBMAPS_CATEGORY'); ?></div>
 			<div class="pull-left">
 				<?php if($this->show_cats==2) : ?>
-					<a class="label label-success" href="<?php echo JRoute::_($clink.$item->catid); ?>">
-						<?php echo $item->category_title; ?></a>
+					<a class="label label-success" href="<?php echo JRoute::_($clink.$this->item->catid); ?>">
+						<?php echo $this->item->category_title; ?></a>
 				<?php else: ?>
-					<span class="label label-success"><?php echo $item->category_title; ?></span>
+					<span class="label label-success"><?php echo $this->item->category_title; ?></span>
 				<?php endif; ?>		
 			</div>
         </div>
     <?php endif; ?>
-    <?php if (($this->show_tags) && (!empty($item->tags))) : ?>
+    <?php if (($this->show_tags) && (!empty($this->item->tags))) : ?>
     	<div class="span<?php echo ($this->show_cats>0) ? '8' : '12'; ?> <?php echo ($this->show_tags ==0) ? ' xbdim' : ''; ?>">
 			<div class="pull-left xbnit xbmr10"><?php echo JText::_('XBMAPS_TAGS'); ?></div>
 			<div class="pull-left">
 				<?php  $tagLayout = new JLayoutFile('joomla.content.tags');
-    				echo $tagLayout->render($item->tags); ?>
+    				echo $tagLayout->render($this->item->tags); ?>
 			</div>
     	</div>
 	<?php endif; ?>

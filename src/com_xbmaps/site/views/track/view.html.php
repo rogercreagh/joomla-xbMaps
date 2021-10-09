@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.7.0.a 5th October 2021
+ * @version 0.7.0.b 9th October 2021
  * @filesource site/views/track/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -52,6 +52,7 @@ class XbmapsViewTrack extends JViewLegacy {
 		$this->track_desc_class = $this->params->get('track_desc_class','');
 		$this->show_stats = $this->params->get('show_stats','1');
 		$this->show_track_popover = $this->params->get('show_track_popover','1');
+		$this->show_device = $this->params->get('show_device','1');
 		
 		$this->centre_latitude = $this->params->get('centre_latitude');
 		$this->centre_longitude = $this->params->get('centre_longitude');
@@ -91,8 +92,8 @@ class XbmapsViewTrack extends JViewLegacy {
 				$this->infobox .= '<div class="row-fluid"><div class="span6">';
 			}
 			$this->infobox .= '<h4>'.$this->item->title.'</h4>';
-			if (count($this->item->maps>0)) {
-			    $this->infobox .= '<p>Used on Maps:</p><ul class="xbhlist">';
+			if (!empty($this->item->maps)) {
+			    $this->infobox .= '<p>Used on Maps:</p><ul class="xblist">';
 			    foreach ($this->item->maps as $map) {
 			        $this->infobox .= '<li>'.$map->linkedtitle.'</li>';
 			    }

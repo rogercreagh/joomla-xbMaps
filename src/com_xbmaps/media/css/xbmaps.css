@@ -1,11 +1,20 @@
 /*******
  * @package xbMaps
- * @version 0.4.0.a 24th September 2021
+ * @version 0.7.0.c 9th October 2021
  * @filesource media/css/xbmaps.css
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
+
+/* replace the nasty default white on black tooltip style */
+.tooltip > .tooltip-inner {
+    background-color: #FFFFF0; 
+    color: #2f2f2f; 
+    border: 1px solid #3f3f3f;
+    padding: 5px 10px;
+    font-size: 1em;
+}
 
 /* reduce bootstrap modal opacity */
 .modal-backdrop.in {opacity:0.6 !important;}
@@ -187,6 +196,7 @@ ul.nav-tabs {
 .xbmh200 {max-height:200px; }
 .xbmh300 {max-height:300px; }
 .xbmh400 {max-height:400px; }
+.xbwid100 {width:100%; }
 .xbyscroll { overflow-y:scroll;}
 .xbhlt {
 	background-color: yellow;
@@ -218,10 +228,12 @@ ul.nav-tabs {
 	background-color: #189735;
 	padding: 3px 5px;
 }
+ul.xblist {
+	margin: 0 0 9px 10px;
+	border-bottom: gray solid 1px;
+}
 ul.xblist li {
 	list-style-type: none;
-	margin: 0 10px;
-	padding: 2px;
 }
 
  

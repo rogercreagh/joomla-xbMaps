@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.1.1.j 27th August 2021
+ * @version 0.7.0.d 11th October 2021
  * @filesource admin/controllers/track.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -38,7 +38,7 @@ class XbmapsControllerTrack extends FormController {
 	    if ($task == 'savepreview') {	    	
 	        $tid = $validData['id'];
 	        if ($tid>0) {
-	        	$this->setRedirect('index.php?option=com_xbmaps&view=trackview&id='.$tid, true);	   
+	        	$this->setRedirect('index.php?option=com_xbmaps&view=trackview&id='.$tid);	   
 	        }
 	    }
 	}

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.7.0.c 9th October 2021
+ * @version 0.7.0.d 11h October 2021
  * @filesource admin/views/trackview/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -20,7 +20,7 @@ $map->loadXbmapsJS();
 $map->createMap($this->centre_latitude, $this->centre_longitude, $this->default_zoom);
 $map->setMapType($this->track_map_type);
 $map->renderFullScreenControl();
-$map->renderTracks(array($this->item),true);
+$map->renderTracks(array($this->item),true,$this->show_stats,$this->show_track_popover);
 
 $map->renderMap();
 
@@ -37,9 +37,11 @@ $map->renderMap();
 
 <?php if (($this->show_track_desc=='2') || (($this->show_track_desc=='1') && ($this->show_track_info=='above'))) : ?>
 	<?php echo $this->descbox; ?>
+	<p> </p>
 <?php endif; ?>
 <?php if ($this->show_track_info=='above') :?>
 	<?php echo $this->infobox;?>
+	<p> </p>
 <?php endif; ?>	
 
 <div class="row-fluid">
@@ -47,7 +49,7 @@ $map->renderMap();
     	<div class="span<?php echo $this->track_info_width; ?>">
 			<?php echo $this->infobox;?>
     		<?php if ($this->show_track_desc==1) {
-    			echo $this->descbox;
+    			echo '<p> </p>'.$this->descbox;
     		} ?>
     	</div>
 	<?php endif; ?>
@@ -65,16 +67,18 @@ $map->renderMap();
     	<div class="span<?php echo $this->track_info_width; ?>">
 			<?php echo $this->infobox;?>
     		<?php if ($this->show_track_desc==1) {
-    			echo $this->descbox;
+    			echo '<p> </p>'.$this->descbox;
     		} ?>
     	</div>
 	<?php endif; ?>
 	
 </div>
 <?php if ($this->show_track_info=='below') :?>
+	<p> </p>
 	<?php echo $this->infobox;?>
 <?php endif; ?>	
 <?php if (($this->show_track_desc=='3') || (($this->show_track_desc=='1') && ($this->show_track_info=='below'))) : ?>
+	<p> </p>
 	<?php echo $this->descbox; ?>
 <?php endif; ?>
 

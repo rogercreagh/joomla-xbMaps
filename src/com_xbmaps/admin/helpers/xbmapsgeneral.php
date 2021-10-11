@@ -310,7 +310,7 @@ class XbmapsGeneral extends ContentHelper {
 			if ($trksum!=''){$trklist .= ' class= "hasTooltip" title="" data-original-title="'.$trksum.'"';}
 			$trklist .=	'><b>'.$trk->linkedtitle.'</b></span>&nbsp;';
 			$trklist .= ($infopos == 'side') ? '<br >' : ' - ';
-			$trklist .= '<span class="xbnit">Recorded: '.$trk->rec_date.'</span>&nbsp;';
+			$trklist .= '<span class="xbnit xbml20">Recorded: '.$trk->rec_date.'</span>&nbsp;';
 			$trklist .=	 '</li>';
 		} // endforeach;
 		return $trklist;
@@ -346,8 +346,8 @@ class XbmapsGeneral extends ContentHelper {
 			$mrksum = strip_tags($mrk->mkdesc);
 			if ($mrksum !='') {$mrklist .= ' class= "hasTooltip" title="" data-original-title="'.$mrksum.'"';}
 			$mrklist .=	'><b>'.$mrk->display.'</b></span>&nbsp;';
-			$mrklist .= ($infopos == 'side') ? '<br >' : ' - ';
-			$mrklist .= '<span class="xbnit">Lat:&nbsp;'.XbmapsGeneral::Deg2DMS($mrk->mklat).' Long:&nbsp;'.XbmapsGeneral::Deg2DMS($mrk->mklong,false).'</span>';
+			$mrklist .= ($infopos == 'side') ? '<br >' : '';
+			$mrklist .= '<span class="xbnit xbml20">Lat:&nbsp;'.XbmapsGeneral::Deg2DMS($mrk->mklat).' Long:&nbsp;'.XbmapsGeneral::Deg2DMS($mrk->mklong,false).'</span>';
 			$mrklist .=	 '</li>';
 		} // endforeach;
 		return $mrklist;

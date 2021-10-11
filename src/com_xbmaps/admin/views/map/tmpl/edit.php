@@ -87,10 +87,13 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 				<div class="span7 form-horizontal-desktop">
 					<h4><?php echo Text::_('Layout Options'); ?></h4>
 					<?php echo $this->form->renderField('show_map_title','params'); ?>
-					<?php echo $this->form->renderField('show_map_info','params'); ?>
-					<?php echo $this->form->renderField('map_info_width','params'); ?>
 					<?php echo $this->form->renderField('show_map_desc','params'); ?>
 					<?php echo $this->form->renderField('map_desc_class','params'); ?>
+					<?php echo $this->form->renderField('desc_title','params'); ?>
+					<hr />
+					<?php echo $this->form->renderField('show_map_info','params'); ?>
+					<?php echo $this->form->renderField('map_info_width','params'); ?>
+					<?php echo $this->form->renderField('show_info_summary','params'); ?>
 					<?php echo $this->form->renderField('show_map_key','params'); ?>
 					<?php //echo $this->form->renderField('show_trk_dist','params'); ?>
 					<?php //echo $this->form->renderField('show_trk_desc','params'); ?>

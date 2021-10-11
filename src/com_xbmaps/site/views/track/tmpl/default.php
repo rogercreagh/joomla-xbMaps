@@ -41,10 +41,10 @@ $trackslink = 'index.php?option=com_xbmaps&view=tracklist';
 <?php endif; ?>
 
 <?php if (($this->show_track_desc=='2') || (($this->show_track_desc=='1') && ($this->show_track_info=='above'))) : ?>
-	<?php echo $this->descbox; ?>
+	<?php echo $this->descbox.'<p> </p>'; ?>
 <?php endif; ?>
 <?php if ($this->show_track_info=='above') :?>
-	<?php echo $this->infobox;?>
+	<?php echo $this->infobox.'<p> </p>';?>
 <?php endif; ?>	
 
 <div class="row-fluid">
@@ -52,7 +52,7 @@ $trackslink = 'index.php?option=com_xbmaps&view=tracklist';
     	<div class="span<?php echo $this->track_info_width; ?>">
 			<?php echo $this->infobox;?>
     		<?php if ($this->show_track_desc==1) {
-    			echo $this->descbox;
+    			echo '<p> </p>'.$this->descbox;
     		} ?>
     	</div>
 	<?php endif; ?>
@@ -81,7 +81,7 @@ $trackslink = 'index.php?option=com_xbmaps&view=tracklist';
     	<div class="span<?php echo $this->track_info_width; ?>">
 			<?php echo $this->infobox;?>
     		<?php if ($this->show_track_desc==1) {
-    			echo $this->descbox;
+    			echo '<p> </p>'.$this->descbox;
     		} ?>
     	</div>
 	<?php endif; ?>
@@ -89,10 +89,10 @@ $trackslink = 'index.php?option=com_xbmaps&view=tracklist';
 </div>
 
 <?php if ($this->show_track_info=='below') :?>
-	<?php echo $this->infobox;?>
+	<?php echo '<p> </p>'.$this->infobox;?>
 <?php endif; ?>	
 <?php if (($this->show_track_desc=='3') || (($this->show_track_desc=='1') && ($this->show_track_info=='below'))) : ?>
-	<?php echo $this->descbox; ?>
+	<?php echo '<p> </p>'.$this->descbox; ?>
 <?php endif; ?>
 
 

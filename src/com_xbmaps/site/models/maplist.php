@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.7.0.a 5th October 2021
+ * @version 0.7.0.d 11th October 2021
  * @filesource site/models/maplist.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -194,7 +194,7 @@ class XbmapsModelMaplist extends JModelList {
 		
 		foreach ($items as $i=>$item) {
 			$item->tags = $tagsHelper->getItemTags('com_xbmaps.map' , $item->id);
-    		$item->markers = '';
+			$item->markers = XbmapsGeneral::mapMarkersArray($item->id,1);;
     		$item->tracks = XbmapsGeneral::mapTracksArray($item->id,1);
 		}
 		return $items;

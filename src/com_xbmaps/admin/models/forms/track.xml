@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbMaps admin/models/forms/track.xml v0.7.0.a 5th October 2021 -->
+<!-- xbMaps admin/models/forms/track.xml v0.7.0.d 11th October 2021 -->
 <form>
 
 	<fieldset name="trackset" addfieldpath="/administrator/components/com_xbmaps/models/fields">
@@ -256,10 +256,19 @@
 				<option value="4">33%</option>
 				<option value="6">50%</option>
 			</field>
+			<field name="show_info_summary" type="radio"  
+				label="XBMAPS_TRACK_SUM_INFO_LABEL" description="XBMAPS_TRACK_SUM_INFO_DESC"
+				class="btn-group btn-group-yesno" 
+				showon="show_track_info!:0"
+				default="1" 
+			>
+				<option value="1">JSHOW</option>
+				<option value="0">JHIDE</option>
+			</field>			
 			<field name="show_device" type="radio"  
 				label="XBMAPS_TRACK_DEVICE_LABEL" description="XBMAPS_TRACK_DEVICE_DESC"
 				class="btn-group btn-group-yesno" 
-				showon="show_track_info!:"
+				showon="show_track_info!:0"
 				default="1" 
 			>
 				<option value="1">JSHOW</option>
@@ -268,7 +277,7 @@
 			<field name="show_stats" type="radio"  
 				label="XBMAPS_TRACK_STATS_LABEL" description="XBMAPS_TRACK_STATS_DESC"
 				class="btn-group btn-group-yesno" 
-				showon="show_track_info!:"
+				showon="show_track_info!:0"
 				default="1" 
 			>
 				<option value="1">JSHOW</option>
@@ -283,6 +292,12 @@
 				<option value="2">XBMAPS_ABOVE_MAP</option>
 				<option value="3">XBMAPS_BELOW_MAP</option>
 			</field>
+			<field name="desc_title" type="text"
+				label="Title for Description" description=""
+				default="" hint="leave blank for no box title"
+				class="x-large"
+				showon="show_track_desc!:0"
+			/>
 			<field name="track_desc_class" type="text" 
 				label="XBMAPS_DESC_CLASS_LABEL" description="XBMAPS_DESC_CLASS_DESC" 
 				size="150" showon="show_track_info!:[AND]show_track_desc!:0"

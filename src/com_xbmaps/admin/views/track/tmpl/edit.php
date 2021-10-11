@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.7.0.a 5th October 2021
+ * @version 0.7.0.d 11th October 2021
  * @filesource admin/views/track/tmpl/edit.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -136,13 +136,16 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 				<div class="span7 form-horizontal-desktop">
 					<h4><?php echo Text::_('Layout Options'); ?></h4>
            	    	<?php echo $this->form->renderField('show_track_title','params'); ?>  					
-           	    	<?php echo $this->form->renderField('show_track_info','params'); ?>  					
-           	    	<?php echo $this->form->renderField('track_info_width','params'); ?>  					
-           	    	<?php echo $this->form->renderField('show_activity','params'); ?>  					
-           	    	<?php echo $this->form->renderField('show_stats','params'); ?>  					
+           	    	<?php echo $this->form->renderField('show_track_popover','params'); ?> 
            	    	<?php echo $this->form->renderField('show_track_desc','params'); ?>  					
 					<?php echo $this->form->renderField('track_desc_class','params'); ?>
-           	    	<?php echo $this->form->renderField('show_track_popover','params'); ?> 
+					<?php echo $this->form->renderField('desc_title','params'); ?>
+           	    	<hr />
+           	    	<?php echo $this->form->renderField('show_track_info','params'); ?>
+           	    	<?php echo $this->form->renderField('track_info_width','params'); ?>  					
+           	    	<?php echo $this->form->renderField('show_info_summary','params'); ?>  					
+           	    	<?php echo $this->form->renderField('show_activity','params'); ?>  					
+           	    	<?php echo $this->form->renderField('show_stats','params'); ?>  					
 				</div>
 				<div class="span5">
 					<h4><?php echo Text::_('Map Height &amp; Border'); ?></h4>

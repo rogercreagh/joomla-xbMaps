@@ -63,6 +63,8 @@ class XbmapsViewMaplist extends JViewLegacy {
 		$this->hide_catsch = $this->params->get('menu_category_id',0)>0 ? true : false;
 		$this->hide_tagsch = (!empty($this->params->get('menu_tag',''))) ? true : false;
 		
+		$this->marker_image_path = '/images/'.$this->params->get('def_markers_folder','');
+		
 		if (count($errors = $this->get('Errors'))) {
 			Factory::getApplication()->enqueueMessage(implode('<br />', $errors),'error');
 			return false;

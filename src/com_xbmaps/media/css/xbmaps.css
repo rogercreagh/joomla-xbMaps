@@ -1,6 +1,6 @@
 /*******
  * @package xbMaps
- * @version 0.7.0.c 9th October 2021
+ * @version 0.7.0.d 11th October 2021
  * @filesource media/css/xbmaps.css
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -228,12 +228,30 @@ ul.nav-tabs {
 	background-color: #189735;
 	padding: 3px 5px;
 }
+/* unordered list with no bullet and margins adjusted */
 ul.xblist {
 	margin: 0 0 9px 10px;
-	border-bottom: gray solid 1px;
 }
 ul.xblist li {
 	list-style-type: none;
+}
+/* definition list with term and definition on same line */
+dl.xbdl dt{
+  display: inline-block;
+  font-style:italic;
+  font-weight:normal;
+  min-width: 100px;
+}
+dl.xbdl dd:before{
+	content:' : ';
+}
+dl.xbdl dd {
+  display: inline;
+  margin: 0;
+}
+dl.xbdl dd:after{
+  display: block;
+  content: '';
 }
 
  

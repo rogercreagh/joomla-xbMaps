@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.7.0.c 9th October 2021
+ * @version 0.7.0.d 11th October 2021
  * @filesource admin/views/trackview/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -44,8 +44,10 @@ class XbmapsViewTrackview extends JViewLegacy {
 	    $this->show_track_info = $this->params->get('show_track_info');
 	    $this->track_info_width = $this->params->get('track_info_width');
 	    $this->mainspan = 12 - $this->track_info_width;
+	    $this->show_info_summary = $this->params->get('show_info_summary',1);
 	    $this->show_track_desc = $this->params->get('show_track_desc');
 	    $this->track_desc_class = $this->params->get('track_desc_class','');
+	    $this->desc_title = $this->params->get('desc_title','');
 	    $this->show_stats = $this->params->get('show_stats','1');
 	    $this->show_device = $this->params->get('show_device','1');
 	    $this->show_track_popover = $this->params->get('show_track_popover','1');
@@ -65,35 +67,48 @@ class XbmapsViewTrackview extends JViewLegacy {
 	    $this->descbox = '';
 	    if ($this->show_track_desc) {
 	        $this->descbox .= '<div class="'.$this->track_desc_class.'">';
-	        $this->descbox .= '<p><b>Track Description</b></p>';
+	        if ($this->desc_title) {
+	        	$this->descbox .= '<h4>'.$this->desc_title.'</h4>';
+	        }
 	        $this->descbox .= $this->item->description.'</div>';
 	    }
 	    
 	    $this->infobox = '';
 	    if ($this->show_track_info) {
 	        $this->infobox .= '<div class="xbbox xbboxmag">';
+	        $this->infobox .= '<h4>'.$this->item->title.'</h4>';
+	        if ($this->show_info_summary) {
+	        	$this->infobox .= '<p>'.$this->item->summary.'</p>';
+	        }	        
 	        if (($this->show_stats) && ($this->show_track_info == 'above') || ($this->show_track_info == 'below')) {
 	            $this->infobox .= '<div class="row-fluid"><div class="span6">';
 	        }
-	        $this->infobox .= '<ul class="xbhlist">';
-	        $this->infobox .= '<li><i>Recording start : </i>'.$this->item->rec_date.'</li>';
-	        $this->infobox .= '<li><i>Activity type: </i>'.$this->item->activity.'</li>';
+	        $this->infobox .= '<dl class="xbdl">';
+	        $this->infobox .= '<dt>Recording start</dt><dd>'.$this->item->rec_date.'</dd>';
+	        $this->infobox .= '<dt>Activity type: </dt><dd>'.$this->item->activity.'</dd>';
 	        if ($this->show_device) {
-	            $this->infobox .= '<li><i>Record device: </i>'.$this->item->rec_device.'</li>';
+	            $this->infobox .= '<dt>Record device: </dt><dd>'.$this->item->rec_device.'</dd>';
 	        }
-	        $this->infobox .= '</ul>';
+	        $this->infobox .= '</dl>';
 	        if ($this->show_stats) {
 	            if (($this->show_track_info == 'above') || ($this->show_track_info == 'below')) {
 	                $this->infobox .= '</div><div class="span6">';
 	            }
-	            $this->infobox .= '<ul class="xbhlist">';
+	            $this->infobox .= '<ul class="xblist">';
 	            $this->infobox .= '<div id="'.str_replace('-','_',$this->item->alias).'">';
 	            $this->infobox .= '</div>';
 	            $this->infobox .= '</ul></div>';
+	        }
+	        if (!empty($this->item->maps)) {
+	        	$this->infobox .= 'Used on Maps:<ul class="xblist">';
+	        	foreach ($this->item->maps as $map) {
+	        		$this->infobox .= '<li>'.$map->linkedtitle.'</li>';
+	        	}
+	        	$this->infobox .= '</ul>';
+	        }
 	            if (($this->show_track_info == 'above') || ($this->show_track_info == 'below')) {
 	                $this->infobox .= '</div></div>';
 	            }
-	        }
 	    }
 	    
 	    $this->addToolbar();

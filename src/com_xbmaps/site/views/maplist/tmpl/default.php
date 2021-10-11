@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.7.0.a 5th October 2021
+ * @version 0.7.0.d 11th October 2021
  * @filesource site/views/maplist/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -122,17 +122,40 @@ $mlink = 'index.php?option=com_xbmaps&view=map'.$itemid.'&id=';
 							</p>
 						<?php endif; ?>
 					</td>
-					<td class="hidden-phone">
-						<p class="xb095">
-							<?php if (!empty($item->markers)) : ?>
-								<?php echo $item->markers; ?>
-    						<?php else : ?>
-     							<span class="xbnit">
-    								<?php echo Text::_('XBMAPS_NO_MARKERS'); ?>
-    							</span>
-    						<?php endif; ?>
-                        </p>
-					</td>
+				<td class="hidden-phone"><?php if (count($item->markers)>0) : ?>
+					<ul class="xblist" style="margin:0;">
+						<?php foreach ($item->markers as $mrk) {
+						    $pv = '<img src="/media/com_xbmaps/images/marker-icon.png" style="height:24px;" />';
+						    switch ($mrk->markertype) {
+						        case 1:
+						            $pv = '<img src="'.$this->marker_image_path.'/'.$mrk->mkparams['marker_image'].'" style="height:24px;" />';
+						            break;
+						        case 2:
+						            $pv = '<span class="fa-stack fa-2x" style="font-size:8pt;">';
+						            $pv .='<i class="'.$mrk->mkparams['marker_outer_icon'].' fa-stack-2x" ';
+						            $pv .= 'style="color:'.$mrk->mkparams['marker_outer_colour'].';"></i>';
+						            if ($mrk->mkparams['marker_inner_icon']!=''){
+						                $pv .= '<i class="'.$mrk->mkparams['marker_inner_icon'].' fa-stack-1x fa-inverse" ';
+						                $pv .= 'style="color:'.$mrk->mkparams['marker_inner_colour'].';';
+						                if ($mrk->mkparams['marker_outer_icon']=='fas fa-map-marker') {
+						                    $pv .= 'line-height:1.75em;font-size:0.8em;';
+						                }
+						                $pv .= '"></i>';
+						            }
+						            $pv .= '</span>';
+						            break;
+						        default:
+						            break;
+						    }
+						    echo '<li>'.$pv.'&nbsp;';
+ 							echo '<span class="hasTooltip"  data-original-title="'.$mrk->mkdesc.'">'.$mrk->display.'</span>';
+							echo '</li>';
+						} ?>
+					</p>
+				<?php else: ?>
+					<p class="xbnit"><?php echo Text::_('XBMAPS_NO_MARKERS'); ?></p>
+				<?php endif; ?>
+				</td>
 					<td class="hidden-phone">
 						<p class="xb095">
 							<?php if (!empty($item->tracks)) : ?>

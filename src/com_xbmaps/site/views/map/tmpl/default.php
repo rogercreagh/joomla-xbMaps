@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.6.0.d 4th October 2021
+ * @version 0.7.0.d 11th October 2021
  * @filesource site/views/map/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -42,16 +42,17 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
 
 <?php if (($this->show_map_desc=='2') || (($this->show_map_desc=='1') && ($this->show_map_info=='above'))) : ?>
 	<?php echo $this->descbox; ?>
+	<p> </p>
 <?php endif; ?>
 <?php if ($this->show_map_info=='above') :?>
-	<?php echo $this->keybox;?>
+	<?php echo $this->keybox.'<p> </p>';?>
 <?php endif; ?>	
 <div class="row-fluid">
 	<?php if (($this->show_map_info=='left') && (($this->show_map_key) || ($this->show_map_desc==1))): ?>
     	<div class="span<?php echo $this->map_info_width; ?>">
     		<?php echo $this->keybox;?>
     		<?php if ($this->show_map_desc==1) {
-    			echo $this->descbox;
+    			echo '<p> </p>'.$this->descbox;
     		} ?>
     	</div>
 	<?php endif; ?>
@@ -139,16 +140,16 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
     	<div class="span<?php echo $this->map_info_width; ?>">
     		<?php echo $this->keybox;?>
     		<?php if ($this->show_map_desc==1) {
-    			echo $this->descbox;
+    			echo '<p> </p>'.$this->descbox;
     		} ?>
     	</div>
 	<?php endif; ?>
 </div>
 <?php if ($this->show_map_info=='below') :?>
-	<?php echo $this->keybox;?>
+	<?php echo '<p> </p>'.$this->keybox;?>
 <?php endif; ?>	
 <?php if (($this->show_map_desc=='3') || (($this->show_map_desc=='1') && ($this->show_map_info=='below'))) : ?>
-	<?php echo $this->descbox; ?>
+	<?php echo '<p> </p>'.$this->descbox; ?>
 <?php endif; ?>
 
 <div class="row-fluid xbmt16">

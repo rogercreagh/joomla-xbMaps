@@ -229,7 +229,7 @@ $tagclass = $this->show_tags? 'label-info' : 'label-grey';
 					<p class="xbnit"><?php echo Text::_('XBMAPS_NO_MARKERS'); ?></p>
 				<?php endif; ?>
 				
-</td>
+				</td>
 				<td><?php 
 				if (count($item->tracks)>0) {
 					echo '<ul class="xblist" style="margin:0;">';

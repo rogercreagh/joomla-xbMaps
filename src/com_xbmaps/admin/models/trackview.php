@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.7.0.a 5th October 2021
+ * @version 0.7.0.d 12th October 2021
  * @filesource admin/models/trackview.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -45,6 +45,8 @@ class XbmapsModelTrackview extends JModelItem {
 			$db->setQuery($query);
 			if ($this->item = $db->loadObject()) {
 				
+				//get the list of maps assigned
+				$this->item->maps = XbmapsGeneral::trackMapsArray($this->item->id,1);
 				// Load the JSON string
 				$params = new Registry;
 				$params->loadString($this->item->params, 'JSON');

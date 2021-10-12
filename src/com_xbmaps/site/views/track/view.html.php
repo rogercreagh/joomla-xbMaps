@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.7.0.d 11th October 2021
+ * @version 0.7.0.d 12th October 2021
  * @filesource site/views/track/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -97,10 +97,10 @@ class XbmapsViewTrack extends JViewLegacy {
 				$this->infobox .= $this->item->summary;
 			}
 			if (($this->show_stats) && ($this->show_track_info == 'above') || ($this->show_track_info == 'below')) {
-				$this->infobox .= '<div class="row-fluid"><div class="span6">';
+				$this->infobox .= '<div class="row-fluid"><div class="span4">';
 			}
 			$this->infobox .= '<dl class="xbdl">';
-			$this->infobox .= '<dt>Recording start : </dt<dd>'.$this->item->rec_date.'</dd>';
+			$this->infobox .= '<dt>Recording start : </dt><dd>'.$this->item->rec_date.'</dd>';
 			$this->infobox .= '<dt>Activity type: </dt><dd>'.$this->item->activity.'</dd>'; 
 			if ($this->show_device) {
 				$this->infobox .= '<dt>Record device: </dt><dd>'.$this->item->rec_device.'</dd>';
@@ -108,7 +108,7 @@ class XbmapsViewTrack extends JViewLegacy {
 			$this->infobox .= '</dl>';
 			if ($this->show_stats) {
 				if (($this->show_track_info == 'above') || ($this->show_track_info == 'below')) {
-					$this->infobox .= '</div><div class="span6">';
+					$this->infobox .= '</div><div class="span4">';
 				}
 				$this->infobox .= '<ul class="xblist">';
 				$this->infobox .= '<div id="'.str_replace('-','_',$this->item->alias).'">';
@@ -119,6 +119,9 @@ class XbmapsViewTrack extends JViewLegacy {
 				$this->infobox .= '</div></div>';
 			}
 			if (!empty($this->item->maps)) {
+				if (($this->show_track_info == 'above') || ($this->show_track_info == 'below')) {
+					$this->infobox .= '</div><div class="span4">';
+				}
 				$this->infobox .= '<p>Used on Maps:</p><ul class="xblist">';
 				foreach ($this->item->maps as $map) {
 					$this->infobox .= '<li>'.$map->linkedtitle.'</li>';

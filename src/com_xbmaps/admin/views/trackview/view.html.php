@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.7.0.d 11th October 2021
+ * @version 0.7.0.d 12th October 2021
  * @filesource admin/views/trackview/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -81,7 +81,7 @@ class XbmapsViewTrackview extends JViewLegacy {
 	        	$this->infobox .= '<p>'.$this->item->summary.'</p>';
 	        }	        
 	        if (($this->show_stats) && ($this->show_track_info == 'above') || ($this->show_track_info == 'below')) {
-	            $this->infobox .= '<div class="row-fluid"><div class="span6">';
+	            $this->infobox .= '<div class="row-fluid"><div class="span4">';
 	        }
 	        $this->infobox .= '<dl class="xbdl">';
 	        $this->infobox .= '<dt>Recording start</dt><dd>'.$this->item->rec_date.'</dd>';
@@ -92,7 +92,7 @@ class XbmapsViewTrackview extends JViewLegacy {
 	        $this->infobox .= '</dl>';
 	        if ($this->show_stats) {
 	            if (($this->show_track_info == 'above') || ($this->show_track_info == 'below')) {
-	                $this->infobox .= '</div><div class="span6">';
+	                $this->infobox .= '</div><div class="span4">';
 	            }
 	            $this->infobox .= '<ul class="xblist">';
 	            $this->infobox .= '<div id="'.str_replace('-','_',$this->item->alias).'">';
@@ -100,6 +100,9 @@ class XbmapsViewTrackview extends JViewLegacy {
 	            $this->infobox .= '</ul></div>';
 	        }
 	        if (!empty($this->item->maps)) {
+	        	if (($this->show_track_info == 'above') || ($this->show_track_info == 'below')) {
+	        		$this->infobox .= '</div><div class="span4">';
+	        	}
 	        	$this->infobox .= 'Used on Maps:<ul class="xblist">';
 	        	foreach ($this->item->maps as $map) {
 	        		$this->infobox .= '<li>'.$map->linkedtitle.'</li>';

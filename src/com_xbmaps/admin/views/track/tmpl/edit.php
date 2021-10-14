@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.7.0.d 11th October 2021
+ * @version 0.7.0.e 13th October 2021
  * @filesource admin/views/track/tmpl/edit.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -111,14 +111,15 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 	        		<div class="span6">
 			        	<?php if(!empty($this->gpxinfo)) : ?>
 			        	<div class="xbbox xbboxmag">
-			        		<h4>Metadata from GPX file</h4>
+			        		<h4>Metadata from file <?php echo pathinfo($this->item->gpx_filename,PATHINFO_BASENAME); ?></h4>
 			        		<ul>
 			        			<li>GPX Name  : <?php echo $this->gpxinfo['gpxname']; ?></li>
 			        			<li>Track Name : <?php echo $this->gpxinfo['trkname']; ?></li>
 			        			<li>Creator (rec_device) : <?php echo $this->gpxinfo['creator']; ?></li>
 			        			<li>Date/Time (rec_date) : <?php echo $this->gpxinfo['recdate']; ?></li>	        			
 			        		</ul>
-			        		<p><i>Copy/paste above info to title, rec_device and rec_date if required</i></p>
+			        		<p><i>Copy/paste above info to title, rec_device and rec_date if required
+			        			<br />NB data above will only refresh when track is saved</i></p>
 			        	</div>
 			        	<?php endif;?>
 	        		</div>

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.7.0.d 11th October 2021
+ * @version 0.7.0.e 13th October 2021
  * @filesource site/views/map/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -26,8 +26,10 @@ class XbmapsViewMap extends JViewLegacy {
 //		$this->sparams = $this->state->get('params');
 		$this->params = $this->item->params;
 		
-		$gcat = $this->params->get('global_use_cats');
-		$mcat = $this->params->get('maps_use_cats');
+		$this->show_empty = $this->params->get('show_empty',1);
+		
+		$gcat = $this->params->get('global_use_cats',1);
+		$mcat = $this->params->get('maps_use_cats',1);
 		$this->show_cats = 0;
 		if ($gcat>0) {
 		    $this->show_cats = $mcat;
@@ -36,8 +38,8 @@ class XbmapsViewMap extends JViewLegacy {
 //		    }
 		}
 		
-		$gtags = $this->params->get('global_use_tags');
-		$mtags = $this->params->get('maps_use_tags');
+		$gtags = $this->params->get('global_use_tags',1);
+		$mtags = $this->params->get('maps_use_tags',1);
 		$this->show_tags = false;
 		if ($gtags >0) {
 		    $this->show_tags = $mtags;
@@ -135,6 +137,11 @@ class XbmapsViewMap extends JViewLegacy {
 			$this->descbox .= $this->item->description.'</div>';
 		}
 		
+		$this->infopos = 'topbot';
+		if (($this->show_map_info=='left') || ($this->show_map_info=='right')) {
+			$this->infopos = 'side';
+		}
+		
 		$this->keybox = '';
 		if ($this->show_map_info) {
 		    $this->keybox .= '<div class="xbbox xbboxgrn">';
@@ -145,17 +152,21 @@ class XbmapsViewMap extends JViewLegacy {
 			if ($this->show_map_key && ((!empty($this->item->tracks)) || (!empty($this->item->markers)))) {
 		    	$this->keybox .= ($this->infopos == 'topbot') ? '<div class="row-fluid"><div class="span6">' : '';
 			    if (count($this->item->tracks)>0) {
-		        	$this->keybox .= '<p>Tracks</p><ul class="xblist" style="margin:0;">';
-		        	$this->keybox .= XbmapsGeneral::buildTrackList($this->item->tracks, $this->infopos).'</ul>';    						
+		        	$this->keybox .= '<p><b>Tracks</b></p><ul class="xblist" style="margin:0;">';
+		        	$this->keybox .= XbmapsGeneral::buildTrackList($this->item->tracks, $this->infopos).'</ul>'; 
+			    } elseif ($this->show_empty) {
+			    	$this->keybox .= '<p><i>No tracks assigned</i></p>';
 			    }
 	    		if ((count($this->item->tracks)>0) && (count($this->item->markers)>0)) {
 	    			$this->keybox .= ($this->infopos == 'topbot') ? '</div><div class="span6"' : '<hr style="margin:8px 0;" />';
 	    		}
 	    		if (count($this->item->markers)>0) {
 	    			$this->keybox .= ($this->infopos == 'topbot') ? '<div class="span6">' : '';
-	    			$this->keybox .= '<p>Markers</p><ul class="xblist" style="margin:0;">';
+	    			$this->keybox .= '<p><b>Markers</b></p><ul class="xblist" style="margin:0;">';
 	    			$this->keybox .= XbmapsGeneral::buildMarkerList($this->item->markers, $this->infopos, $this->marker_image_path).'</ul>';
 	    			$this->keybox .= ($this->infopos == 'topbot') ? '</div>' : '';
+	    		} elseif ($this->show_empty) {
+	    			$this->keybox .= '<p><i>No markers assigned</i></p>';
 	    		}
 	    		$this->keybox .= ($this->infopos == 'topbot') ? '</div></div>' : '';
 			}

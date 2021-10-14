@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbMaps config.xml v0.6.0.b 3rd October 2021 -->
+<!-- xbMaps config.xml v0.7.0 14th October 2021 -->
 <config>
 <!-- GENERAL TAB -->				
 	<fieldset name="general"
@@ -171,113 +171,10 @@
 				<option value="1">JYES</option>
 				<option value="0">JNO</option>
 			</field>
-			<!-- 
-			<field name="map_border" type="radio"
-				label="XBMAPS_MAP_BORDER_LABEL"
-				description="XBMAPS_MAP_DEFBORDER_DESC"
-				class="btn-group btn-group-yesno"
-				default="1"
-				>
-				<option value="0" >JNO</option>
-				<option value="1">JYES</option>
-			</field>	
-			<field name="show_map_info" type="list"  
-				label="XBMAPS_MAP_INFOPANE_LABEL" description="XBMAPS_MAP_INFOPANE_DESC"
-				default="0"
-			>
-				<option value="0">JHIDE</option>
-				<option value="above">XBMAPS_ABOVE</option>
-				<option value="right">XBMAPS_RIGHT</option>
-				<option value="below">XBMAPS_BELOW</option>
-				<option value="left">XBMAPS_LEFT</option>
-			</field>
-			
-			<field name="map_info_width" type="list"  
-				label="XBMAPS_MAP_INFOPANE_WIDTH_LABEL" description="XBMAPS_MAP_INFOPANE_WIDTH_DESC"
-				showon="show_track_info:left[OR]show_track_info:right"
-				default="0"
-			>
-				<option value="2">17%</option>
-				<option value="4">33%</option>
-				<option value="6">50%</option>
-				<option value="8">67%</option>
-				<option value="10">83%</option>
-			</field>
-			<field name="show_map_desc" type="radio"  
-				label="XBMAPS_MAP_DESC_LABEL" description="XBMAPS_MAP_DESC_DESC"
-				class="btn-group btn-group-yesno" 
-				showon="show_map_info!:"
-				default="1"
-			>
-				<option value="1">JSHOW</option>
-				<option value="0">JHIDE</option>
-			</field>
-			<field name="map_desc_class" type="text" 
-				label="XBMAPS_DESC_CLASS_LABEL" description="XBMAPS_DESC_CLASS_DESC" 
-				size="150" showon="show_map_info!:[AND]show_map_desc:1"
-				default="xbbox xbboxwht" 
-			/>	
-			<field name="show_map_key" type="radio"  
-				label="XBMAPS_MAP_KEY_LABEL" description="XBMAPS_MAP_KEY_DESC"
-				class="btn-group btn-group-yesno" 
-				showon="show_map_info!:"
-				default="1"
-			>
-				<option value="1">JSHOW</option>
-				<option value="0">JHIDE</option>
-			</field>
-			<field name="show_trk_dist" type="radio"  
-				label="XBMAPS_TRK_DIST_LABEL" description="XBMAPS_TRK_DIST_DESC"
-				class="btn-group btn-group-yesno" 
-				showon="show_map_info!:[AND]show_map_key:1"
-				default="1"
-			>
-				<option value="1">JSHOW</option>
-				<option value="0">JHIDE</option>
-			</field>
-			<field name="show_trk_desc" type="radio"  
-				label="XBMAPS_TRK_DESC_LABEL" description="XBMAPS_TRK_DESC_DESC"
-				class="btn-group btn-group-yesno" 
-				showon="show_map_info!:[AND]show_map_key:1"
-				default="1"
-			>
-				<option value="1">JSHOW</option>
-				<option value="0">JHIDE</option>
-			</field>
-			<field name="show_mrk_desc" type="radio"  
-				label="XBMAPS_MRK_DESC_LABEL" description="XBMAPS_MRK_DESC_DESC"
-				class="btn-group btn-group-yesno" 
-				showon="show_map_info!:[AND]show_map_key:1"
-				default="1"
-			>
-				<option value="1">JSHOW</option>
-				<option value="0">JHIDE</option>
-			</field>
-			 -->
+
 		<field name="mapcontrols_note" type="note"
 			label="XBMAPS_DEFAULT_MAP_CONTROLS_LABEL"
 		/>
-<!--
-		<field name="map_type_control" type="radio"  
-			label="XBMAPS_MAP_SHOW_TYPE_CONTROL_LABEL" description="XBMAPS_MAP_SHOW_TYPE_CONTROL_DESC"
-			class="btn-group btn-group-yesno" 
-			default="0" 
-		>
-			<option value="0">JHIDE</option>
-			<option value="1">JSHOW</option>
-		</field>
-		
-		<field name="map_type_position" type="radio"  
-			label="XBMAPS_MAP_TYPE_POSITION_CONTROL_LABEL" description="XBMAPS_MAP_TYPE_POSITION_CONTROL_DESC"
-			class="btn-group btn-group-yesno" 
-			default="0" 
-			showon="map_type_control:1"
-		>
-			<option value="0">Top Left</option>
-			<option value="1">Top Right</option>
-		</field>
-  -->
-  		
 		<field name="map_zoom_control" type="radio"  
 			label="XBMAPS_MAP_SHOW_ZOOM_CONTROL_LABEL" description="XBMAPS_MAP_SHOW_ZOOM_CONTROL_DESC"
 			class="btn-group btn-group-yesno" 
@@ -332,12 +229,27 @@
 			<option value="1">JSHOW</option>
 		</field>
 
-<!-- 
- 		<field name="mapui_note" type="note"
-			label="XBMAPS_MAP_UI_SETTINGS_LABEL" description="XBMAPS_MAP_UI_SETTINGS_DESC"
-		/>
- -->
+<!--
+		<field name="map_type_control" type="radio"  
+			label="XBMAPS_MAP_SHOW_TYPE_CONTROL_LABEL" description="XBMAPS_MAP_SHOW_TYPE_CONTROL_DESC"
+			class="btn-group btn-group-yesno" 
+			default="0" 
+		>
+			<option value="0">JHIDE</option>
+			<option value="1">JSHOW</option>
+		</field>
 		
+		<field name="map_type_position" type="radio"  
+			label="XBMAPS_MAP_TYPE_POSITION_CONTROL_LABEL" description="XBMAPS_MAP_TYPE_POSITION_CONTROL_DESC"
+			class="btn-group btn-group-yesno" 
+			default="0" 
+			showon="map_type_control:1"
+		>
+			<option value="0">Top Left</option>
+			<option value="1">Top Right</option>
+		</field>
+  -->
+  				
 	</fieldset>
 	
 <!-- MARKERS TAB -->				
@@ -587,68 +499,7 @@
 				<option value="1">JSHOW</option>
 				<option value="0">JHIDE</option>
 			</field>
-<!-- 
-			<field name="show_track_info" type="list"  
-				label="XBMAPS_TRACK_INFOPANE_LABEL" description="XBMAPS_TRACK_INFOPANE_DESC"
-				default=""
-			>
-				<option value="">JHIDE</option>
-				<option value="above">XBMAPS_ABOVE</option>
-				<option value="right">XBMAPS_RIGHT</option>
-				<option value="below">XBMAPS_BELOW</option>
-				<option value="left">XBMAPS_LEFT</option>
-			</field>
-			<field name="track_info_width" type="list"  
-				label="XBMAPS_MAP_INFOPANE_WIDTH_LABEL" description="XBMAPS_MAP_INFOPANE_WIDTH_DESC"
-				showon="show_track_info:left[OR]show_track_info:right"
-				default="0"
-			>
-				<option value="2">17%</option>
-				<option value="3">25%</option>
-				<option value="4">33%</option>
-				<option value="6">50%</option>
-			</field>
-			<field name="show_device" type="radio"  
-				label="XBMAPS_TRACK_DEVICE_LABEL" description="XBMAPS_TRACK_DEVICE_DESC"
-				class="btn-group btn-group-yesno" 
-				showon="show_track_info!:"
-				default="0"
-			>
-				<option value="1">JSHOW</option>
-				<option value="0">JHIDE</option>
-			</field>
-			<field name="show_activity" type="radio"  
-				label="XBMAPS_TRACK_ACTIVITY_LABEL" description="XBMAPS_TRACK_ACTIVITY_DESC"
-				class="btn-group btn-group-yesno" 
-				showon="show_track_info!:"
-				default="1"
-			>
-				<option value="1">JSHOW</option>
-				<option value="0">JHIDE</option>
-			</field>
-			<field name="show_stats" type="radio"  
-				label="XBMAPS_TRACK_STATS_LABEL" description="XBMAPS_TRACK_STATS_DESC"
-				class="btn-group btn-group-yesno" 
-				showon="show_track_info!:"
-				default="1"
-			>
-				<option value="1">JSHOW</option>
-				<option value="0">JHIDE</option>
-			</field>
-			<field name="show_track_desc" type="radio"  
-				label="XBMAPS_TRACK_DESC_LABEL" description="XBMAPS_TRACK_DESC_DESC"
-				class="btn-group btn-group-yesno" 
-				default="1"
-			>
-				<option value="1">JSHOW</option>
-				<option value="0">JHIDE</option>
-			</field>
-		<field name="track_desc_class" type="text" 
-			label="XBMAPS_DESC_CLASS_LABEL" description="XBMAPS_DESC_CLASS_DESC" 
-			size="150" showon="show_track_info!:[AND]show_track_desc:1"
-			default="xbbox xbboxwht" 
-		/>	
- -->
+
 			<field name="show_track_popover" type="list"  
 				label="XBMAPS_TRACK_POP_LABEL" description="XBMAPS_TRACK_POP_DESC"
 				class="btn-group btn-group-yesno" 
@@ -673,16 +524,24 @@
 	>
 	  	<field name="beernote" type="note"
 			label="XBMAPS_BEER_NOTE"
-			description="XBMAPS_BEER_LINK"
-			class="info"
+			description="XBMAPS_BEER_NOTE_DESC"
 		/>	
-		<field name="roger_beer" type="password"
+		<field name="map_beer" type="text"
 			label="XBMAPS_BEER_FIELD" description="XBMAPS_BEER_FIELD_DESC"
 			default=""
 		/>	
-		<field name="penpont" type="hidden"
-			default="$2y$10$DeCwB16giLjgL7HgM1RDSeHROFs7QQef2dBQ9jEKehiTGj05jbonK" 
-		/>		
+	  	<field name="apinote" type="note"
+			label="XBMAPS_API_NOTE"
+			description="XBMAPS_API_NOTE_DESC"
+		/>	
+		<field name="w3w_api" type="textarea"
+			label="XBMAPS_W3W_API_LABEL" description="XBMAPS_W3W_API_DESC"
+			default="" rows="3" cols="40"
+		/>	what3words.com/select-plan
+	  	<field name="w3wnote" type="note"
+			description="XBMAPS_W3W_LINK"
+		/>	
+				
 	</fieldset>		
 
 <!-- META TAB -->

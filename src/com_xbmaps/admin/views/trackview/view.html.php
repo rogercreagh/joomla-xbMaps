@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.7.0.d 12th October 2021
+ * @version 0.7.0.e 13th October 2021
  * @filesource admin/views/trackview/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -73,6 +73,11 @@ class XbmapsViewTrackview extends JViewLegacy {
 	        $this->descbox .= $this->item->description.'</div>';
 	    }
 	    
+	    $this->infopos = 'topbot';
+	    if (($this->show_track_info=='left') || ($this->show_track_info=='right')) {
+	    	$this->infopos = 'side';
+	    }
+	    
 	    $this->infobox = '';
 	    if ($this->show_track_info) {
 	        $this->infobox .= '<div class="xbbox xbboxmag">';
@@ -84,11 +89,9 @@ class XbmapsViewTrackview extends JViewLegacy {
 	            $this->infobox .= '<div class="row-fluid"><div class="span4">';
 	        }
 	        $this->infobox .= '<dl class="xbdl">';
-	        $this->infobox .= '<dt>Recording start</dt><dd>'.$this->item->rec_date.'</dd>';
-	        $this->infobox .= '<dt>Activity type: </dt><dd>'.$this->item->activity.'</dd>';
-	        if ($this->show_device) {
-	            $this->infobox .= '<dt>Record device: </dt><dd>'.$this->item->rec_device.'</dd>';
-	        }
+		        $this->infobox .= '<dt>Recording start</dt><dd>'.$this->item->rec_date.'</dd>';
+		        $this->infobox .= '<dt>Activity type: </dt><dd>'.$this->item->activity.'</dd>';
+		        $this->infobox .= '<dt>Record device: </dt><dd>'.$this->item->rec_device.'</dd>';
 	        $this->infobox .= '</dl>';
 	        if ($this->show_stats) {
 	            if (($this->show_track_info == 'above') || ($this->show_track_info == 'below')) {

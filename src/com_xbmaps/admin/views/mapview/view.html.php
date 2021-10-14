@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.7.0.d 11th October 2021
+ * @version 0.7.0.e 13th October 2021
  * @filesource admin/views/mapview/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -90,7 +90,7 @@ class XbmapsViewMapview extends JViewLegacy {
 			if ($this->show_map_key && ((!empty($this->item->tracks)) || (!empty($this->item->markers)))) {
 				$this->keybox .= ($this->infopos == 'topbot') ? '<div class="row-fluid"><div class="span6">' : '';
 				if (count($this->item->tracks)>0) {
-					$this->keybox .= '<p>Tracks</p><ul class="xblist" style="margin:0;">';
+					$this->keybox .= '<p><b>Tracks</b></p><ul class="xblist" style="margin:0;">';
 					$this->keybox .= XbmapsGeneral::buildTrackList($this->item->tracks, $this->infopos).'</ul>';
 				}
 				if ((count($this->item->tracks)>0) && (count($this->item->markers)>0)) {
@@ -98,7 +98,7 @@ class XbmapsViewMapview extends JViewLegacy {
 				}
 				if (count($this->item->markers)>0) {
 					$this->keybox .= ($this->infopos == 'topbot') ? '<div class="span6">' : '';
-					$this->keybox .= '<p>Markers</p><ul class="xblist" style="margin:0;">';
+					$this->keybox .= '<p><b>Markers</b></p><ul class="xblist" style="margin:0;">';
 					$this->keybox .= XbmapsGeneral::buildMarkerList($this->item->markers, $this->infopos, $this->marker_image_path).'</ul>';
 					$this->keybox .= ($this->infopos == 'topbot') ? '</div>' : '';
 				}

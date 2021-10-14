@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.7.0.c 9th October 2021
+ * @version 0.7.0.e 14th October 2021
  * @filesource admin/helpers/xbmapsgeneral.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -64,7 +64,7 @@ class XbmapsGeneral extends ContentHelper {
 	}
 	
 	public static function credit() {
-		if (self::penPont()) {
+		if (XbmapsGeneral::penPont()) {
 			return '';
 		}
 		$credit='<div class="xbcredit">';
@@ -109,11 +109,9 @@ class XbmapsGeneral extends ContentHelper {
 	
 	public static function penPont() {
 		$params = ComponentHelper::getParams('com_xbmaps');
-		$beer = trim($params->get('roger_beer'));
-		//        Factory::getApplication()->enqueueMessage(password_hash($beer.'PASSWORD_DEFAULT'));
-		$hashbeer = $params->get('penpont');
-		if (password_verify($beer,$hashbeer)) { return true; }
-		return false;
+		$beer = trim($params->get('map_beer'));
+		//        Factory::getApplication()->enqueueMessage(password_hash($beer, PASSWORD_BCRYPT));
+		return password_verify($beer,'$2y$10$WOBclRcbj8hksmSuI1Yi9.a0TwXe/ICYN2iWIignns0NMJ8UlJIda');
 	}
 	
 	public static function isJ4() {

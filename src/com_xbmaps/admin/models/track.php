@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.1.1.h 22nd August 2021
+ * @version 0.7.0.e 13th October 2021
  * @filesource admin/models/track.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -37,12 +37,12 @@ class XbmapsModelTrack extends JModelAdmin {
 			$item->created_by = Factory::getUser()->id;
 		}
 		if (empty($item->modified)) {
-			$item->modified = '0000-00-00 00:00:00'; //$date->toSql();
+			$item->modified = ''; //'0000-00-00 00:00:00'; //$date->toSql();
 		}
-		if (empty($item->rec_date)) {
-			$item->rec_date = '0000-00-00 00:00:00'; //$date->toSql();
-			//or read from gpx if set
-		}
+//		if (empty($item->rec_date)) {
+//			$item->rec_date = '0000-00-00 00:00:00'; //$date->toSql();
+//			//or read from gpx if set
+//		}
 		
 		if (!empty($item->gpx_filename)) {
 			//$item->gpx_folder = pathinfo($item->gpx_filename,PATHINFO_DIRNAME);
@@ -131,9 +131,9 @@ class XbmapsModelTrack extends JModelAdmin {
 	    if (empty($table->created_by)) {
 	        $table->created_by = Factory::getUser()->id;
 	    }
-	    if (empty($table->rec_date)) {
-	    	$table->rec_date = $date->toSql();
-	    }
+//	    if (empty($table->rec_date)) {
+//	    	$table->rec_date = $date->toSql();
+//	    }
 	    // 		if (empty($table->created_by_alias)) {
 	    // 			$table->created_by_alias = Factory::getUser()->username; //make it an option to use name instead of username
 	    // 		}

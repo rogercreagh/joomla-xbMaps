@@ -49,10 +49,10 @@ class XbmapsTableTrack extends Table
 	    $this->alias = OutputFilter::stringURLSafe(strtolower($this->alias));
 	    
 	    //require either summary or make summary from description 
-	    if ($this->summary == '') {
+	    if (trim($this->summary) =='') {
 	        $this->summary = XbmapsGeneral::makeSummaryText($this->description,180,true);
 	    }
-	    if ($this->summary='') {
+	    if (trim($this->summary) =='') {
 	        $this->setError(Text::_('XBMAPS_SUM_OR_DESC_MISSING'));
 	        return false;
 	    }

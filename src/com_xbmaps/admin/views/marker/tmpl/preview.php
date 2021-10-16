@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.5.0.d 1st October 2021
+ * @version 0.8.0.a 15th October 2021
  * @filesource admin/views/marker/tmpl/preview.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -45,7 +45,7 @@ switch ($this->item->marker_type) {
         $map->setDivMarker($uid, $lat, $long, $div, $popuptitle,$popupdesc,'','',1);
         break;
     default:
-        $map->setMarker($uid, $popuptitle, $popupdesc, $lat, $long,'','',1);
+    	$map->setMarker($uid, $lat, $long, $popuptitle, $popupdesc,'','',1);
         break;
 }
 

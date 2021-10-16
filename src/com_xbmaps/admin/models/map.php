@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.1.2.b 3rd September 2021
+ * @version 0.8.0.a 16th October 2021
  * @filesource admin/models/map.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -92,6 +92,7 @@ class XbmapsModelMap extends JModelAdmin {
  			//load subform data as required
  			$data->tracklist=$this->getTrackList();
  			$data->markerlist=$this->getMarkerList();
+ 			$data->params['hid_w3wapi'] = $params->get('w3w_api','');
 		}
 		
 		return $data;

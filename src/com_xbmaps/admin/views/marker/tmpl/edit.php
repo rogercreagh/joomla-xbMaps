@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.7.0.b 9th October 2021
+ * @version 0.8.0.a 16th October 2021
  * @filesource admin/views/marker/tmpl/edit.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -61,7 +61,7 @@ switch ($this->form->getValue('marker_type')) {
 		$map->setDivMarker($uid, $lat, $long, $div, $popuptitle,$popupdesc,'','',1);
 		break;
 	default:
-		$map->setMarker($uid, $popuptitle, $popupdesc, $lat, $long,'','','',1);		
+		$map->setMarker($uid, $lat, $long, $popuptitle, $popupdesc,'','','',1);		
 	break;
 }
 $map->endZoom();
@@ -108,8 +108,9 @@ $map->renderMap();
             	    	<?php echo $this->form->renderField('marker_inner_icon','params'); ?> 
             	    	<?php echo $this->form->renderField('marker_inner_colour','params'); ?> 
             	    	<hr />
-            	    	<div class="form-verticla">
+            	    	<div class="form-vertical">
 	            	    	<?php echo $this->form->renderField('marker_popdesc','params'); ?> 
+          	    	<?php echo $this->form->renderField('hid_w3wapi','params'); ?> 
 	            	    	<?php echo $this->form->renderField('marker_popcoords','params'); ?> 
             	    	</div>
 		    		</div>

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.7.0.b 9th October 2021
+ * @version 0.8.0.a 16th October 2021
  * @filesource admin/views/map/tmpl/edit.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -74,10 +74,14 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 					<?php echo $this->form->renderField('map_zoom_control','params'); ?>
 					<?php echo $this->form->renderField('map_home_button','params'); ?>
 					<?php echo $this->form->renderField('map_zoom_wheel','params'); ?>
+					<?php echo $this->form->renderField('map_scale','params'); ?>
+				</div>
+				<div class="span6">
 					<?php echo $this->form->renderField('map_full_screen','params'); ?>
 					<?php echo $this->form->renderField('map_search','params'); ?>
 					<?php echo $this->form->renderField('map_easyprint','params'); ?>
-					<?php //echo $this->form->renderField('map_current_position','params'); ?>
+          	    	<?php echo $this->form->renderField('hid_w3wapi','params'); ?> 
+					<?php echo $this->form->renderField('map_click_marker','params'); ?>
 				</div>
 			</div>
 			<?php echo HTMLHelper::_('bootstrap.endTab'); ?>

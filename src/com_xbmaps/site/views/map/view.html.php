@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.7.0.e 13th October 2021
+ * @version 0.8.0.a 16th October 2021
  * @filesource site/views/map/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -51,7 +51,8 @@ class XbmapsViewMap extends JViewLegacy {
 		$this->fit_bounds = $this->params->get('fit_bounds');
 		$this->clustering = $this->params->get('marker_clustering');
 		$this->homebutton = $this->params->get('map_home_button');
-
+		$this->show_scale = $this->params->get('show_scale');
+		
 		$this->show_map_title = $this->params->get('show_map_title');
 		$this->marker_image_path = 'images/'.$this->params->get('def_markers_folder','');
 
@@ -71,9 +72,11 @@ class XbmapsViewMap extends JViewLegacy {
 		$this->map_desc_class = $this->params->get('map_desc_class','');
 		$this->desc_title = $this->params->get('desc_title','');
 		$this->show_map_key = $this->params->get('show_map_key');
-//		$this->show_trk_dist = $this->params->get('show_trk_dist');
-//		$this->show_trk_desc = $this->params->get('show_trk_desc');
-//		$this->show_mrk_desc = $this->params->get('show_mrk_desc');
+		$this->track_infodetails = $this->params->get('track_infodetails','');
+		$this->marker_infocoords = $this->params->get('marker_infocoords','');
+		
+		$this->map_click_marker = $this->params->get('map_click_marker','0');
+		$this->w3w_api =  trim($this->params->get('w3w_api',''));
 		
 		$this->header = array();
 		$this->header['showheading'] = $this->params->get('show_page_heading',0,'int');

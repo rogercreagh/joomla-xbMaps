@@ -1,6 +1,6 @@
 /*****
  * @package xbMaps
- * @version 0.1.2.a 30th August 2021
+ * @version 0.8.0.a 16th October 2021
  * @filesource media/js/xbmaps.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -119,6 +119,24 @@ function xbMarkerCoordInfo() {
 	coordMsg += 'Lat: '+window.lat+' ('+window.dmslat+'),&nbsp;&nbsp;Long: '+window.lng+' ('+window.dmslng+')';
 	coordMsg += '</div>';  
 	jQuery('#coordInfo', window.parent.document).html(coordMsg);	    
+}
+
+function xbMarkerPopup(marker,display,w3wapi) {
+	var popupContent = '<b>Location</b><br />'
+	var deg = (display & 1)==1;
+	var dms = (display & 2)==2;
+	var w3w = ((display & 4)==4) & (w3wapi!='');
+	if (deg) {		
+		popupContent += '<span style="padding-right:20px"><i>Lat:</i> '+window.lat+'</span><i>Long:</i> '+window.lng+'<br />';
+	}
+	if (dms) {
+		popupContent += '<span style="padding-right:20px"><i>Lat:</i> '+window.dmslat+'</span><i>Long:</i> '+window.dmslng+'<br />';		
+	}
+	if (w3w) {
+    	what3words.api.convertTo3wa({lat:  window.lat, lng: window.lng}, 'en').then(function(response){ marker.bindPopup(popupContent+'<b>///</b> '+response.words).openPopup(); }); 
+	} else {
+		marker.bindPopup(popupContent).openPopup();
+    }
 }
 
 function xbSaveTrackStats(trkuid, dist, movetime, speed, climbed) {

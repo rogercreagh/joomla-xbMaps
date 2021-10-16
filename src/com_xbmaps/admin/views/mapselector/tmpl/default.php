@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.6.0.a 2nd October 2021
+ * @version 0.8.0.a 15th October 2021
  * @filesource admin/views/mapselector/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -16,7 +16,7 @@ $map->loadXbmapsJS();
 $map->createMap($this->latitude, $this->longitude, $this->zoom,);
 $map->setMapType($this->map_type);
 	//we're doing a modal with no item details
-$map->setMarker($uid, 'Map Centre Set', 'Zoom: '.$this->zoom, $this->latitude, $this->longitude,'','','',1);
+$map->setMarker($uid, $this->latitude, $this->longitude, 'Map Centre Set', 'Zoom: '.$this->zoom, '','','',1);
 	// Export, Move, Input, renderSearch are dependent
 //	$map->moveMarker();
 //	$map->save2form('jform_centre_latitude_id', 'jform_centre_longitude_id', 'jform_default_zoom_id');
@@ -27,8 +27,8 @@ $map->setMarker($uid, 'Map Centre Set', 'Zoom: '.$this->zoom, $this->latitude, $
 //	}
 //	$map->exportMarker($uid);
 $map->endZoom();
-$map->mapClick($uid);
-	$map->renderSearch($uid);
+$map->mapAreaClick($uid);
+$map->renderSearch($uid);
 //	$map->storeZoom($uid);
 	
 

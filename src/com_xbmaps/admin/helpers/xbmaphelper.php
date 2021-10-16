@@ -28,10 +28,13 @@ class XbMapHelper {
 	public $homebutton = '';
 	public $easyprint				= '';
 	public $markerclustering		= 0;
+	public $w3wapi = '';
 		
 	function __construct($id = '', $controls=null, $selectmaparea = false) {
 		
-		$app 						= Factory::getApplication();
+		//$app = Factory::getApplication();
+		$paramsC = ComponentHelper::getParams('com_xbmaps');
+		$this->w3wapi = $paramsC->get('w3w_api','');
 		if (!is_null($controls)) {		
 			//we are being passed map specific parameters
 			$this->maptype			= $controls->get( 'map_type', '' );
@@ -43,7 +46,6 @@ class XbMapHelper {
 			$this->markerclustering		= $controls->get( 'marker_clustering', 0 );
 		} else { 
 			// use the global settings
-			$paramsC 					= ComponentHelper::getParams('com_xbmaps');
 			$this->maptype			= $paramsC->get( 'map_type', '' );
 			$this->fullscreen			= $paramsC->get( 'map_full_screen',1 );
 			$this->search				= $paramsC->get( 'map_search', 0 );
@@ -110,7 +112,12 @@ class XbMapHelper {
 		//$document->addScript('https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.5.2/gpx.min.js');
 		$document->addScript(Uri::root() . '/media/com_xbmaps/js/leaflet/leaflet-gpx.min.js');
 		
-		/** other to consider
+		// what3words api script - only if API key is set
+		if ($this->w3wapi != '') {
+			$document->addScript('https://assets.what3words.com/sdk/v3/what3words.js?key='.$this->w3wapi);
+		}
+
+		/** others to consider
 		 * leaflet-providers https://github.com/leaflet-extras/leaflet-providers
 		 * 
 		 * leaflet elevation 
@@ -234,7 +241,7 @@ class XbMapHelper {
 		
 	}
 	
-	public function setMarker($markerId, $title, $description, $lat, $lng, $width = '', $height = '', $open = 0  ) {
+	public function setMarker($markerId, $lat, $lng, $title, $description, $width = '', $height = '', $open = 0  ) {
 		
 		$o = array();
 		
@@ -394,6 +401,7 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		}
 	}
 	
+/**** not used - AwesomeMarkers plugin 
 	public function setMarkerIcon($markerId, $icon = 'circle', $markerColor = 'blue', $iconColor = '#ffffff', $prefix = 'fa', $spin = 'false', $extraClasses = '' ) {
 		
 		$o = $o2 = array();
@@ -414,6 +422,7 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		return $o2;//return only options;
 	
 	}
+***/
 		
 	public function endZoom() {
 		$o 	= array();
@@ -430,7 +439,32 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		
 	}
 	
-	public function mapClick($markerUId) {
+	/*
+	 * we have three uses for map click
+	 * 1. select map area needs to show d.ddd dms zoom on 3 lines and save to form
+	 * 2. select marker pos needs to show d.ddd dms and w3w on 2 lines and save form
+	 * 3. simple click display needs to show d.ddd dms and w3w on 2 lines
+	 * 
+	 */
+	
+	public function mapClick($markerUId, $display) {
+		
+		$o 	= array();
+		$o[] = 'map'.$this->name.$this->id.'.on(\'click\', onMapClick);';
+		
+		//NB this function requires specific marker name so has to be created on fly after marker exists
+		$o[] = 'function onMapClick(e) {';
+		$o[] = ' window.lat = e.latlng.lat;';
+		$o[] = ' window.lng = e.latlng.lng;';
+		$o[] = ' xbMoveMarker(marker'.$markerUId.', e.latlng.lat, e.latlng.lng);';
+//		$o[] = ' xbModalCoordInfo();';
+		$o[] = 'xbMarkerPopup(marker'.$markerUId.',\''.$display.'\',\''.$this->w3wapi.'\');';
+		$o[] = '}';
+		$this->output[] = implode("\n", $o);
+		return true;
+	}
+	
+	public function mapAreaClick($markerUId) {
 		
 		$o 	= array();
 		$o[] = 'map'.$this->name.$this->id.'.on(\'click\', onMapClick);';
@@ -446,7 +480,7 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		$this->output[] = implode("\n", $o);
 		return true;
 	}
-		
+	
 	public function markerPosClick($markerUId) {
 		
 		$o 	= array();
@@ -532,7 +566,8 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		return true;
 		
 	}
-/**	
+
+		/**	
 	public function renderCurrentPosition() {
 				
 		if ($this->currentposition == 0) {
@@ -557,12 +592,12 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		
 	}
 **/	
+
 	public function renderEasyPrint() {
 				
 		if ($this->easyprint == 0) {
 			return false;
-		}
-		
+		}		
 		$o 	= array();
 		
 		$o[] = 'map'.$this->name.$this->id.'.addControl(';
@@ -576,8 +611,14 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		
 		
 		$this->output[] = implode("\n", $o);
-		return true;
-		
+		return true;		
+	}
+	
+	public function renderScale($wid) {
+		$o 	= array();	
+		$o[] = 'new L.control.scale({{maxWidth: '.$wid.'}}).addTo(map'.$this->name.$this->id.');';		
+		$this->output[] = implode("\n", $o);
+		return true;		
 	}
 			
 	public function renderTracks( $tracks, $fitbounds = false, $info = true, $pop = true) {

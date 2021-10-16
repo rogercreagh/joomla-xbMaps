@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.6.0.e 4th October 2021
+ * @version 0.8.0.a 16th October 2021
  * @filesource admin/views/mapview/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -39,6 +39,7 @@ if (!empty($item->tracks)) {
 
 if (!empty($item->markers)) {
     foreach ($item->markers as $mrk) {
+    	$mid = uniqid();
     	$popuptitle =  '';
     	$popupdesc = '';
     	if ($mrk->show_popup!='') {
@@ -54,7 +55,7 @@ if (!empty($item->markers)) {
         switch ($mrk->markertype) {
             case 1:
                 $image = $this->marker_image_path.'/'.$mrk->mkparams['marker_image'];
-                $map->setImageMarker($uid, $mrk->mklat, $mrk->mklong, $image, $popuptitle, $popupdesc,'','',$popopen);
+                $map->setImageMarker($mid, $mrk->mklat, $mrk->mklong, $image, $popuptitle, $popupdesc,'','',0);
                 break;
             case 2:
                 $outer = $mrk->mkparams['marker_outer_icon'];
@@ -71,15 +72,22 @@ if (!empty($item->markers)) {
                 
                 $div .= '<i class="'.$inner.' fa-stack-1x fa-inverse" style="color:'.$incol.';'.$insize.'"></i>';
                 $div .= '</span></div>';
-                $map->setDivMarker($uid, $mrk->mklat,$mrk->mklong,$div, $popuptitle,$popupdesc,'','',$popopen);
+                $map->setDivMarker($mid, $mrk->mklat,$mrk->mklong,$div, $popuptitle,$popupdesc,'','',0);
                 break;
             default:
-            	$map->setMarker($uid, $popuptitle, $popupdesc, $mrk->mklat, $mrk->mklong,'','','',$popopen);
+            	$map->setMarker($mid,  $mrk->mklat, $mrk->mklong, $popuptitle, $popupdesc,'','','',0);
                 
                 break;
        }
         
     }
+}
+if ($this->map_click_marker>0) {
+	$map->setMarker($uid,'52.507373', '-24.301758', '', '', '','','',0); //initial pos mid-Atlantic, prob off screen
+	$map->mapClick($uid,$this->map_click_marker);
+}
+if ($this->show_scale) {
+	$map->renderScale(250);
 }
 
 $map->renderMap();

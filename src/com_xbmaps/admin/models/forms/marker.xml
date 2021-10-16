@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbMaps admin/models/forms/marker.xml v0.7.0.a 5th October 2021 -->
+<!-- xbMaps admin/models/forms/marker.xml v0.8.0.a 16th October 2021 -->
 <form>
 
 	<fieldset name="markerset" addfieldpath="/administrator/components/com_xbmaps/models/fields">
@@ -146,6 +146,10 @@
 			label="XBMAPS_MRKTYPE_LABEL" 
 			default=""
 		/>
+		<field name="hid_w3wapi" type="hidden"
+			label="XBMAPS_MRKTYPE_LABEL" 
+			default=""
+		/>
 
 		<field name="marker_image" type="imagelist"
 			label="XBMAPS_MRKURL_LABEL" description="XBMAPS_MRKURL_DESC"
@@ -195,15 +199,18 @@
 			<option value="0">JHIDE</option>
 		</field>	
 
-		<field name="marker_popcoords" type="radio" 
+		<field name="marker_popcoords" type="list" 
 			label="XBMAPS_MARKER_POPCOORDS_LABEL" description="XBMAPS_MARKER_POPCOORDS_DESC"
-			class="btn-group btn-group-yesno" 
-			useglobal="true" 
 		>
-			<option value="1">JSHOW</option>
-			<option value="0">JHIDE</option>
+			<option value="0">Do not show</option>
+			<option value="1">GPS Degrees (ddd)</option>
+			<option value="2">Deg Min Secs (dms)</option>
+			<option value="3">ddd &amp; dms</option>
+			<option value="4" showon="hid_w3wapi!:" >What3Words (w3w)</option>
+			<option value="5" showon="hid_w3wapi!:" >ddd &amp; w3w</option>
+			<option value="6" showon="hid_w3wapi!:" >dms &amp; w3w</option>
+			<option value="7" showon="hid_w3wapi!:" >ddd, dms &amp; w3w</option>
 		</field>	
-
 				
 		</fieldset>
 	</fields>

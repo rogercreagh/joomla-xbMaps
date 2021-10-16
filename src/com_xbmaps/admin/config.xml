@@ -534,10 +534,10 @@
 			label="XBMAPS_API_NOTE"
 			description="XBMAPS_API_NOTE_DESC"
 		/>	
-		<field name="w3w_api" type="textarea"
+		<field name="w3w_api" type="text"
 			label="XBMAPS_W3W_API_LABEL" description="XBMAPS_W3W_API_DESC"
-			default="" rows="3" cols="40"
-		/>	what3words.com/select-plan
+			default=""
+		/>	
 	  	<field name="w3wnote" type="note"
 			description="XBMAPS_W3W_LINK"
 		/>	

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.7.0.d 11th October 2021
+ * @version 0.8.0.a 16th October 2021
  * @filesource site/views/map/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -116,13 +116,21 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
 			                $map->setDivMarker($uid, $mrk->mklat,$mrk->mklong,$div, $popuptitle,$popupdesc,'','',$popopen);
 			                break;
 			            default:
-			            	$map->setMarker($uid, $popuptitle, $popupdesc, $mrk->mklat, $mrk->mklong,'','',$popopen);
+			            	$map->setMarker($uid, $mrk->mklat, $mrk->mklong, $popuptitle, $popupdesc,'','',$popopen);
 			                
 			                break;
 			        }
 			        
 			    }
 			}
+			if ($this->map_click_marker>0) {
+				$map->setMarker($uid,'52.507373', '-24.301758', '', '', '','','',0); //initial pos mid-Atlantic, prob off screen
+				$map->mapClick($uid,$this->map_click_marker);
+			}
+			if ($this->show_scale) {
+				$map->renderScale(250);
+			}
+			
 			
 			//$map->renderCurrentPosition();
 			//other controls to be added

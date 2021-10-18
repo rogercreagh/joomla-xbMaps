@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.7.0.e 14th October 2021
+ * @version 0.8.0.b 17th October 2021
  * @filesource admin/helpers/xbmapsgeneral.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -256,7 +256,7 @@ class XbmapsGeneral extends ContentHelper {
 		$query = $db->getQuery(true);
 		
 		$query->select('a.show_popup AS show_popup, mk.title AS mktitle, mk.id AS mkid,
-                mk.description AS mkdesc, mk.latitude AS mklat, mk.longitude AS mklong,
+                mk.summary AS mkdesc, mk.latitude AS mklat, mk.longitude AS mklong,
                 mk.marker_type AS markertype, mk.params AS mkparams, mk.state AS mkstate ')
                 ->from('#__xbmaps_mapmarkers AS a')
                 ->join('LEFT','#__xbmaps_markers AS mk ON mk.id=a.marker_id')

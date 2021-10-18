@@ -56,7 +56,7 @@ class XbmapsModelMarkerlist extends JModelList {
         $query = $db->getQuery(true);
         
         $query->select('a.id AS id, a.title AS title, a.alias AS alias,
-            a.description AS description, a.marker_type AS marker_type,
+            a.summary AS summary, a.marker_type AS marker_type,
 			a.latitude AS latitude, a.longitude AS longitude,
 			a.catid AS catid, a.state AS published, a.access AS access,
 			a.created AS created, a.created_by AS created_by, a.created_by_alias AS created_by_alias,

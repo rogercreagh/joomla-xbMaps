@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.1.0 1st July 2021
+ * @version 0.8.0.b 17th October 2021
  * @filesource admin/models/markers.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -38,7 +38,7 @@ class XbmapsModelMarkers extends JModelList {
 		$query = $db->getQuery(true);
 		
 		$query->select('a.id AS id, a.title AS title, a.alias AS alias,
-            a.description AS description, a.marker_type AS marker_type, 
+            a.summary AS summary, a.marker_type AS marker_type, 
 			a.latitude AS latitude, a.longitude AS longitude,
 			a.catid AS catid, a.state AS published, a.access AS access,
 			a.created AS created, a.created_by AS created_by, a.created_by_alias AS created_by_alias,

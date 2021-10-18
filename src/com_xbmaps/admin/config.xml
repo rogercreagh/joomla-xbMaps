@@ -538,8 +538,13 @@
 			label="XBMAPS_W3W_API_LABEL" description="XBMAPS_W3W_API_DESC"
 			default=""
 		/>	
-	  	<field name="w3wnote" type="note"
+	  	<field name="w3wlinknote" type="note"
 			description="XBMAPS_W3W_LINK"
+		/>	
+ 		<field name="w3wusenote" type="note"
+			description="XBMAPS_W3W_USE_NOTE"
+			class="alert alert-info"
+			showon="w3w_api!:"
 		/>	
 				
 	</fieldset>		

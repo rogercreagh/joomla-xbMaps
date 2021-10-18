@@ -11,7 +11,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 $popuptitle = $this->item->title;
 $popupdesc = '';
-$popupdesc .= $this->item->description;
+$popupdesc .= $this->item->summary;
 $lat = $this->item->latitude;
 $long = $this->item->longitude;
 $popupdesc .= '<hr />'.XbmapsGeneral::Deg2DMS($lat).' '.XbmapsGeneral::Deg2DMS($long,false);

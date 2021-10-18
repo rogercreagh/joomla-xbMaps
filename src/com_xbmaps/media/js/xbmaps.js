@@ -1,6 +1,6 @@
 /*****
  * @package xbMaps
- * @version 0.8.0.a 16th October 2021
+ * @version 0.8.0.b 18th October 2021
  * @filesource media/js/xbmaps.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -79,7 +79,7 @@ function dmsstr2deg(dmsstr) {
 	return dms2deg(deg, min, sec, dir);
 }
 
-function xbmapsSaveForm() {
+function xbmapsSaveForm(w3w=true) {
 	//NB the field names are hard coded here, map form uses centre_lat... marker uses lat...
 	var fldLat = jQuery('#jform_centre_latitude_id', window.parent.document);
 	if (fldLat) fldLat.val(window.lat);
@@ -94,38 +94,48 @@ function xbmapsSaveForm() {
 	var fldDmsLat = jQuery('#jform_dmslatitude_id', window.parent.document);
 	if (fldDmsLat) fldDmsLat.val(window.dmslat);		
 	var fldDmsLng = jQuery('#jform_dmslongitude_id', window.parent.document);
-	if (fldDmsLng) fldDmsLng.val(window.dmslng);		
+	if (fldDmsLng) fldDmsLng.val(window.dmslng);	
+		var fldW3w = jQuery('#jform_params_marker_w3w_id', window.parent.document);
+	if ((w3w) && (fldW3w)) {
+      what3words.api.convertTo3wa({lat:  window.lat, lng: window.lng}, 'en').then(function(response){ 
+        var fld = window.parent.document.getElementById("jform_params_marker_w3w");
+     fld.value=response.words; }).catch(error => alert(error.message));
+    }
 }
 
-function xbMoveMarker(marker, lat, lng) {
+function xbMoveMarker(marker, lat, lng, disp=7) {
 	window.lat = lat.toFixed(6);
 	window.lng = lng.toFixed(6);
 	window.dmslat = deg2dms(lat,'latitude');
 	window.dmslng = deg2dms(lng,'longitude');
 	var newLatLng = new L.LatLng(lat, lng);
 	marker.setLatLng(newLatLng);
+	xbMarkerPopup(marker,disp);
 }
 
-function xbModalCoordInfo() {	    
+function xbModalCoordInfo(disp=1) {	    
 	var coordMsg = '<div class="xbmsgsuccess" style="text-align:left;">';
-	coordMsg += 'Lat: '+window.lat+' ('+window.dmslat+')<br />Long: '+window.lng+' ('+window.dmslng+')';
-	coordMsg += '<br />Zoom: '+ window.zoom +'</div>';		
-	coordMsg += '</div>';   
+	if ((display & 1)==1) coordMsg += 'Lat: '+window.lat+' Long: '+window.lng+'<br />';
+	if ((display & 2)==2) coordMsg += 'Lat: '+window.dmslat+' Long: '+window.dmslng+'<br />';
+	if ((display & 4)==4) coordMsg += '/// '+window.w3w+' ';
+	coordMsg += 'Zoom: '+ window.zoom +'</div>';		
 	jQuery('#coordInfo', window.parent.document).html(coordMsg);	    
 }
 
-function xbMarkerCoordInfo() {	    
+function xbMarkerCoordInfo(disp=7) {	    
 	var coordMsg = '<div class="xbmsgsuccess" style="text-align:left;">';
-	coordMsg += 'Lat: '+window.lat+' ('+window.dmslat+'),&nbsp;&nbsp;Long: '+window.lng+' ('+window.dmslng+')';
-	coordMsg += '</div>';  
+	if ((display & 1)==1) coordMsg += 'Lat: '+window.lat+' Long: '+window.lng+'<br />';
+	if ((display & 2)==2) coordMsg += 'Lat: '+window.dmslat+' Long: '+window.dmslng+'<br />';
+	if ((display & 4)==4) coordMsg += '/// '+window.w3w+' ';
+	coordMsg += '</div>';		
 	jQuery('#coordInfo', window.parent.document).html(coordMsg);	    
 }
 
-function xbMarkerPopup(marker,display,w3wapi) {
+function xbMarkerPopup(marker,display) {
 	var popupContent = '<b>Location</b><br />'
 	var deg = (display & 1)==1;
 	var dms = (display & 2)==2;
-	var w3w = ((display & 4)==4) & (w3wapi!='');
+	var w3w = (display & 4)==4;
 	if (deg) {		
 		popupContent += '<span style="padding-right:20px"><i>Lat:</i> '+window.lat+'</span><i>Long:</i> '+window.lng+'<br />';
 	}
@@ -147,3 +157,27 @@ function xbSetDirectory(srcCtrl,destCtrl) {
 	document.getElementById(destCtrl).value = document.getElementById(srcCtrl).value;
 }
 
+function xbMarkw3w (uid,w3wapi) {
+	//not currently used
+	what3words.api.convertToCoordinates(w3wapi)
+  .then(function(response) { var coords=response.coordinates; 
+//		window.lat = coords.lat;
+//		window.lng = coords.lng;
+		var mrk = "marker"+uid
+		xbMoveMarker(mrk, coords.lat, coords.lng);
+		xbMarkerCoordInfo();
+		xbmapsSaveForm();
+//     console.log("Lat: ", coords.lat," Long: ",coords.lng);
+  }).catch(error => alert(error.message));
+}
+
+function xbFormUpdatew3w(w3w) {
+	what3words.api.convertToCoordinates(w3w)
+  		.then(function(response) { var coords=response.coordinates; 
+		window.lat = coords.lat;
+		window.lng = coords.lng;
+		xbmapsSaveForm(false);
+         document.forms["adminForm"].submit();                         
+  }).catch(error => alert(error.message));
+	
+}

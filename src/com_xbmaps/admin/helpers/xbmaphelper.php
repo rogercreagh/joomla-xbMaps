@@ -497,7 +497,8 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		$this->output[] = implode("\n", $o);
 		return true;
 	}
-	
+
+/****
 	public function moveMarker() {
 		
 		$o = array();
@@ -508,6 +509,7 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		$this->output[] = implode("\n", $o);
 		return true;
 	}
+****/
 	
 	public function renderSearch($markerId = '', $position = '') {
 		

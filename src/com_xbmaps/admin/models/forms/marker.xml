@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbMaps admin/models/forms/marker.xml v0.8.0.a 16th October 2021 -->
+<!-- xbMaps admin/models/forms/marker.xml v0.8.0.b 17th October 2021 -->
 <form>
 
 	<fieldset name="markerset" addfieldpath="/administrator/components/com_xbmaps/models/fields">
@@ -22,7 +22,7 @@
 			class="inputbox" size="45" 
 		/>
 
-		<field name="description" type="textarea"
+		<field name="summary" type="textarea"
 			class="inputbox" label="XBMAPS_DESCRIPTION" description="XBMAPS_MARKER_DESCRIPTION_DESC"
 			rows="5"  filter="safehtml"
 		/>
@@ -190,7 +190,7 @@
 			label="XBMAPS_MARKER_POPNOTE_LABEL" description="XBMAPS_MARKER_POPNOTE_DESC"
 		/>
 
-		<field name="marker_popdesc" type="radio" 
+		<field name="marker_popdesc" type="list" 
 			label="XBMAPS_MARKER_POPDESC_LABEL" description="XBMAPS_MARKER_POPDESC_DESC"
 			class="btn-group btn-group-yesno" 
 			useglobal="true" 
@@ -211,6 +211,13 @@
 			<option value="6" showon="hid_w3wapi!:" >dms &amp; w3w</option>
 			<option value="7" showon="hid_w3wapi!:" >ddd, dms &amp; w3w</option>
 		</field>	
+		<field name="marker_w3w" type="text"
+			label="XBMAPS_MRKW3W_LABEL" description="XBMAPS_MRKW3W_DESC"
+			hint="XBMAPS_MRKW3W_HINT"
+			class="inputbox" size="45" 
+			default=""
+			showon="hid_w3wapi!:"
+		/>
 				
 		</fieldset>
 	</fields>

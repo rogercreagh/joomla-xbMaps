@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.8.0.a 16th October 2021
+ * @version 0.8.0.b 18th October 2021
  * @filesource admin/views/marker/tmpl/edit.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -23,7 +23,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 $popuptitle = ($this->form->getValue('title')=='') ? 'Marker Title' : $this->form->getValue('title');
 $popupdesc = '';
 if ($this->form->getValue('marker_popdesc','params')==1) {
-	$popupdesc .= ($this->form->getValue('description')!='') ? $this->form->getValue('description').'<br />':'';
+	$popupdesc .= ($this->form->getValue('summary')!='') ? $this->form->getValue('summary').'<br />':'';
 }
 if ($this->form->getValue('marker_popcoords','params')==1) {
 	$popupdesc .= '<hr />'.$this->form->getValue('dmslatitude').' '.$this->form->getValue('dmslongitude'); 	
@@ -85,7 +85,7 @@ $map->renderMap();
         	</div>
         	<div class="row-fluid">
         		<div class="span3">
-            	    <?php echo $this->form->renderField('description'); ?>            	    	 					
+            	    <?php echo $this->form->renderField('summary'); ?>            	    	 					
         		</div>
         		<div class="span9">
             	    <?php echo $this->form->renderField('maplist'); ?>            	    	 					
@@ -114,19 +114,30 @@ $map->renderMap();
 	            	    	<?php echo $this->form->renderField('marker_popcoords','params'); ?> 
             	    	</div>
 		    		</div>
-					<div class="span5 form-vertical">  	
-						<div id="xbmaps" style="margin:0;padding:0;">
-							<div align="center" style="margin:0;padding:0">
-								<div id="xbMap<?php echo $uid; ?>" style="margin:0;padding:0;width:100%;height:300px">
+					<div class="span5">
+						<div class="form-vertical">
+							<div id="xbmaps" style="margin:0;padding:0;">
+								<div align="center" style="margin:0;padding:0">
+									<div id="xbMap<?php echo $uid; ?>" style="margin:0;padding:0;width:100%;height:300px">
+									</div>
+									<div id="coordInfo" class="pull-left"></div>
+									<div class="clearfix"></div>
 								</div>
-								<div id="coordInfo" class="pull-left"></div>
-								<div class="clearfix"></div>
 							</div>
-						</div>
-            	    	<?php echo $this->form->renderField('latitude'); ?>   					
-	 	          		<?php echo $this->form->renderField('dmslatitude'); ?>   					
-		        		<?php echo $this->form->renderField('longitude'); ?>
-		        		<?php echo $this->form->renderField('dmslongitude'); ?>         
+	                  		<div class="row-fluid">
+		                  		<div class="span6"><?php echo $this->form->renderField('latitude'); ?> </div>
+		                  		<div class="span6"><?php echo $this->form->renderField('dmslatitude'); ?></div>
+	                  		</div>
+	                  		<div class="row-fluid">
+		                  		<div class="span6"><?php echo $this->form->renderField('longitude'); ?></div>
+		                  		<div class="span6"><?php echo $this->form->renderField('dmslongitude'); ?></div>
+	                  		</div>
+							</div> 
+							<?php if ($this->w3w_api!='') : ?>
+		                  		<div class="form-horizontal pull-left"><?php echo $this->form->renderField('marker_w3w','params'); ?></div>
+		                  		<div class="pull-left"><button type="button" onclick="xbFormUpdatew3w('<?php echo $uid; ?>',document.getElementById('jform_params_marker_w3w').value);">Update Map</button></div>
+								<div class="clearfix"></div>
+							<?php endif; ?>
 	    			</div>
         			<div class="span3">
         				<?php echo LayoutHelper::render('joomla.edit.global', $this); ?>

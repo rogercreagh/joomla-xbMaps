@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.8.0.a 15th October 2021
+ * @version 0.8.0.b 17th October 2021
  * @filesource admin/views/marker/tmpl/preview.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -11,7 +11,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 $popuptitle = $this->item->title;
 $popupdesc = '';
-$popupdesc .= $this->item->description;
+$popupdesc .= $this->item->summary;
 $lat = $this->item->latitude;
 $long = $this->item->longitude;
 $popupdesc .= '<hr />'.XbmapsGeneral::Deg2DMS($lat).' '.XbmapsGeneral::Deg2DMS($long,false);

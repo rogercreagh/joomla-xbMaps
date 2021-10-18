@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.1.2.c 9th September 2021
+ * @version 0.8.0.b 18th October 2021
  * @filesource admin/views/marker/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -32,6 +32,7 @@ class XbmapsViewMarker extends JViewLegacy {
 		$this->centre_longitude = $this->params->get('centre_longitude','');
 		$this->default_zoom = $this->params->get('default_zoom','');
 		$this->marker_image_path = 'images/'.$this->params->get('def_markers_folder','');
+		$this->w3w_api = $this->params->get('w3w_api','');
 		
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {

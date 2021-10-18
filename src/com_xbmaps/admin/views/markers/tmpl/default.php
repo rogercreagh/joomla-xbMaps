@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.5.0.d 1st October 2021
+ * @version 0.8.0.b 17th October 2021
  * @filesource admin/views/markers/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -235,18 +235,12 @@ $map->loadXbmapsJS();
 				</td>
 				<td>
 					<p class="xb095">
-    					<?php if (!empty($item->description)) : ?>
-    						<?php echo XbmapsGeneral::makeSummaryText($item->description,200,false); ?>
+    					<?php if (!empty($item->summary)) : ?>
+    						<?php echo $item->summary; ?>
     					<?php else : ?><span class="xbnit">
     						<?php echo Text::_('XBMAPS_NO_DESCRIPTION'); ?></span>
     					<?php endif; ?>
 					</p>
-                    <?php $plaintext = strip_tags($item->description);
-                    if (strlen($plaintext)>200) : ?>
-                    	<p class="xbnit xb09 hasTooltip" data-original-title="<?php echo $plaintext;?>">   
-                        	<?php  echo Text::_('XBMAPS_FULL_DESCRIPTION').' '.str_word_count($plaintext).' '.Text::_('XBMAPS_WORDS'); ?>
-						</p>
-					<?php endif; ?>
 				</td>
 				<td><?php 
 				if (count($item->maps)>0) {

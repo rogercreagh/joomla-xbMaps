@@ -32,7 +32,7 @@ class XbmapsModelMarker extends JModelItem {
 			$id    = is_null($id) ? $this->getState('marker.id') : $id;
 			$db = $this->getDbo();
 			$query = $db->getQuery(true);
-			$query->select('a.id AS id, a.title AS title, a.description AS description,a.alias AS alias,
+			$query->select('a.id AS id, a.title AS title, a.summary AS summary,a.alias AS alias,
                 a.latitude AS latitude, a.longitude AS longitude, a.marker_type AS marker_type,
 				a.state AS published, a.catid AS catid, a.params AS params ');
 			$query->from('#__xbmaps_markers AS a');

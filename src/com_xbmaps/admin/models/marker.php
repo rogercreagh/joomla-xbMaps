@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.8.0.a 15th October 2021
+ * @version 0.8.0.b 17th October 2021
  * @filesource admin/models/marker.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -94,7 +94,7 @@ class XbmapsModelMarker extends JModelAdmin {
             if ($data->id) {
                 $data->maplist=$this->getMaplist($data->id);
             }
-            $data->hid_w3wapi = $params->get('w3w_api','');
+            $data->params['hid_w3wapi'] = $params->get('w3w_api','');
         }
         
         return $data;

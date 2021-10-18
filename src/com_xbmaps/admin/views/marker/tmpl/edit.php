@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.8.0.b 18th October 2021
+ * @version 0.8.0.c 18th October 2021
  * @filesource admin/views/marker/tmpl/edit.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -9,10 +9,13 @@
  ******/
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
+require_once(JPATH_COMPONENT_ADMINISTRATOR.'/helpers/geocoder.php');
+
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
+use What3words\Geocoder\Geocoder;
 
 HTMLHelper::_('behavior.formvalidator');
 HTMLHelper::_('behavior.keepalive');
@@ -22,13 +25,32 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 
 $popuptitle = ($this->form->getValue('title')=='') ? 'Marker Title' : $this->form->getValue('title');
 $popupdesc = '';
-if ($this->form->getValue('marker_popdesc','params')==1) {
-	$popupdesc .= ($this->form->getValue('summary')!='') ? $this->form->getValue('summary').'<br />':'';
+if ($this->form->getValue('marker_popdesc','params')) {
+    $popupdesc .= $this->form->getValue('summary').'<br />';
 }
-if ($this->form->getValue('marker_popcoords','params')==1) {
-	$popupdesc .= '<hr />'.$this->form->getValue('dmslatitude').' '.$this->form->getValue('dmslongitude'); 	
+$disp = $this->form->getValue('marker_popcoords','params');
+if ($disp>0) $popupdesc .= '<hr /><b>Location</b></br>';
+$lat = $this->form->getValue('latitude');
+$long = $this->form->getValue('longitude');
+if (($disp & 1)==1) {
+    $popupdesc .= '<span style="padding-right:20px"><i>Lat:</i> '.$lat.'</span><i>Long:</i> '.$long.'<br />';
 }
-$popupdesc .= '<hr /><i>Click to map to move marker to new position</i>';
+if (($disp & 2)==2) {
+    $popupdesc .= '<span style="padding-right:20px"><i>Lat:</i> '.$this->form->getValue('dmslatitude').'</span><i>Long:</i> '.$this->form->getValue('dmslongitude').'<br />';
+}
+if (($disp & 4)==4) {
+    $w3w = $this->form->getValue('marker_w3w','params');
+    if ($w3w=='') {
+        $api = new Geocoder($this->params->get('w3w_api'));
+        $w3w = $api->convertTo3wa($lat,$long)['words'];
+        $this->form->setValue('marker_w3w','params',$w3w);
+    }
+    $popupdesc .= '<i>What 3 Words</i>: <b>/// '.$w3w.'</b>';
+}
+$popupdesc .= '<hr /><i>Click to map to move marker</i>';
+
+
+
 $lat = $this->form->getValue('latitude');
 $long = $this->form->getValue('longitude');
 $uid = uniqid();
@@ -65,7 +87,7 @@ switch ($this->form->getValue('marker_type')) {
 	break;
 }
 $map->endZoom();
-$map->markerPosClick($uid);
+$map->markerPosClick($uid,$disp);
 $map->renderSearch($uid);
 $map->renderFullScreenControl();
 

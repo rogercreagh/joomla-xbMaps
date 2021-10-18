@@ -79,8 +79,10 @@ function dmsstr2deg(dmsstr) {
 	return dms2deg(deg, min, sec, dir);
 }
 
-function xbmapsSaveForm(w3w=true) {
+function xbSaveForm(doW3w=true) {
+	//used by helper::endZoom, helper::mapAreaClick and 
 	//NB the field names are hard coded here, map form uses centre_lat... marker uses lat...
+	// marker_w3w field is omly present on marker form and when w3w_api is set
 	var fldLat = jQuery('#jform_centre_latitude_id', window.parent.document);
 	if (fldLat) fldLat.val(window.lat);
 	fldLat = jQuery('#jform_latitude_id', window.parent.document);
@@ -94,39 +96,55 @@ function xbmapsSaveForm(w3w=true) {
 	var fldDmsLat = jQuery('#jform_dmslatitude_id', window.parent.document);
 	if (fldDmsLat) fldDmsLat.val(window.dmslat);		
 	var fldDmsLng = jQuery('#jform_dmslongitude_id', window.parent.document);
-	if (fldDmsLng) fldDmsLng.val(window.dmslng);	
-		var fldW3w = jQuery('#jform_params_marker_w3w_id', window.parent.document);
-	if ((w3w) && (fldW3w)) {
-      what3words.api.convertTo3wa({lat:  window.lat, lng: window.lng}, 'en').then(function(response){ 
-        var fld = window.parent.document.getElementById("jform_params_marker_w3w");
-     fld.value=response.words; }).catch(error => alert(error.message));
-    }
+	if (fldDmsLng) fldDmsLng.val(window.dmslng);		
+	if (doW3w) {
+       var fld = window.parent.document.getElementById("jform_params_marker_w3w");
+		fld.value=window.w3w;
+	}
+//	var fldW3w = jQuery('#jform_params_marker_w3w_id', window.parent.document);
+//	if ((doW3w) && (fldW3w)) fldW3w.val(window.w3w);
+//	{ 
+ //     what3words.api.convertTo3wa({lat:  window.lat, lng: window.lng}, 'en').then(function(response){ 
+ //       var fld = window.parent.document.getElementById("jform_params_marker_w3w");
+ //    	fld.value=response.words; }).catch(error => alert(error.message));		
+//    }
+
 }
 
-function xbMoveMarker(marker, lat, lng, disp=7) {
+function xbMoveMarker(marker, lat, lng, display,  doCoordBox=false, doForm=false, doPop=true) {
 	window.lat = lat.toFixed(6);
 	window.lng = lng.toFixed(6);
 	window.dmslat = deg2dms(lat,'latitude');
 	window.dmslng = deg2dms(lng,'longitude');
 	var newLatLng = new L.LatLng(lat, lng);
 	marker.setLatLng(newLatLng);
-	xbMarkerPopup(marker,disp);
+	if (display>3) {
+    	what3words.api.convertTo3wa({lat:  window.lat, lng: window.lng}, 'en').then(function(response)
+			{ window.w3w = response.words;
+				if (doPop) xbMarkerPopup(marker,display);
+				if (doCoordBox) xbMarkerCoordInfo(display);
+				if (doForm) xbSaveForm();
+			 }).catch(error => alert(error.message));; 		
+	} else {
+		if (doPop) xbMarkerPopup(marker,display);
+		if (doCoordBox) xbMarkerCoordInfo(display);
+		if (doForm) xbSaveForm(false);
+	}
 }
 
-function xbModalCoordInfo(disp=1) {	    
+function xbMapCoordInfo() {	    
 	var coordMsg = '<div class="xbmsgsuccess" style="text-align:left;">';
-	if ((display & 1)==1) coordMsg += 'Lat: '+window.lat+' Long: '+window.lng+'<br />';
-	if ((display & 2)==2) coordMsg += 'Lat: '+window.dmslat+' Long: '+window.dmslng+'<br />';
-	if ((display & 4)==4) coordMsg += '/// '+window.w3w+' ';
+	coordMsg += '<span style="padding-right:20px"><i>Lat:</i> '+window.lat+'</span><i>Long:</i> '+window.lng+'<br />';
+	coordMsg += '<span style="padding-right:20px"><i>Lat:</i> '+window.dmslat+'</span><i>Long:</i> '+window.dmslng+'<br />';
 	coordMsg += 'Zoom: '+ window.zoom +'</div>';		
 	jQuery('#coordInfo', window.parent.document).html(coordMsg);	    
 }
 
-function xbMarkerCoordInfo(disp=7) {	    
+function xbMarkerCoordInfo(display=7) {	    
 	var coordMsg = '<div class="xbmsgsuccess" style="text-align:left;">';
-	if ((display & 1)==1) coordMsg += 'Lat: '+window.lat+' Long: '+window.lng+'<br />';
-	if ((display & 2)==2) coordMsg += 'Lat: '+window.dmslat+' Long: '+window.dmslng+'<br />';
-	if ((display & 4)==4) coordMsg += '/// '+window.w3w+' ';
+	if ((display & 1)==1) coordMsg += '<span style="padding-right:20px"><i>Lat:</i> '+window.lat+'</span><i>Long:</i> '+window.lng+'<br />';
+	if ((display & 2)==2) coordMsg += '<span style="padding-right:20px"><i>Lat:</i> '+window.dmslat+'</span><i>Long:</i> '+window.dmslng+'<br />';
+	if ((display & 4)==4) coordMsg += '<i>What 3 Words</i>: <b>/// '+window.w3w+'</b>';
 	coordMsg += '</div>';		
 	jQuery('#coordInfo', window.parent.document).html(coordMsg);	    
 }
@@ -135,7 +153,7 @@ function xbMarkerPopup(marker,display) {
 	var popupContent = '<b>Location</b><br />'
 	var deg = (display & 1)==1;
 	var dms = (display & 2)==2;
-	var w3w = (display & 4)==4;
+	var w3w = (display > 3);
 	if (deg) {		
 		popupContent += '<span style="padding-right:20px"><i>Lat:</i> '+window.lat+'</span><i>Long:</i> '+window.lng+'<br />';
 	}
@@ -143,41 +161,44 @@ function xbMarkerPopup(marker,display) {
 		popupContent += '<span style="padding-right:20px"><i>Lat:</i> '+window.dmslat+'</span><i>Long:</i> '+window.dmslng+'<br />';		
 	}
 	if (w3w) {
-    	what3words.api.convertTo3wa({lat:  window.lat, lng: window.lng}, 'en').then(function(response){ marker.bindPopup(popupContent+'<b>///</b> '+response.words).openPopup(); }); 
+    	what3words.api.convertTo3wa({lat:  window.lat, lng: window.lng}, 'en').then(function(response)
+			{ window.w3w = response.words;
+				marker.bindPopup(popupContent+'<i>What 3 Words</i>: <b>/// '+response.words+'</b>').openPopup();				
+			 }).catch(error => alert(error.message));; 
 	} else {
+		window.w3w = '';
 		marker.bindPopup(popupContent).openPopup();
     }
 }
 
-function xbSaveTrackStats(trkuid, dist, movetime, speed, climbed) {
-	
-}
-
-function xbSetDirectory(srcCtrl,destCtrl) {
-	document.getElementById(destCtrl).value = document.getElementById(srcCtrl).value;
-}
-
-function xbMarkw3w (uid,w3wapi) {
-	//not currently used
-	what3words.api.convertToCoordinates(w3wapi)
-  .then(function(response) { var coords=response.coordinates; 
-//		window.lat = coords.lat;
-//		window.lng = coords.lng;
-		var mrk = "marker"+uid
-		xbMoveMarker(mrk, coords.lat, coords.lng);
-		xbMarkerCoordInfo();
-		xbmapsSaveForm();
-//     console.log("Lat: ", coords.lat," Long: ",coords.lng);
-  }).catch(error => alert(error.message));
-}
-
 function xbFormUpdatew3w(w3w) {
-	what3words.api.convertToCoordinates(w3w)
-  		.then(function(response) { var coords=response.coordinates; 
-		window.lat = coords.lat;
-		window.lng = coords.lng;
-		xbmapsSaveForm(false);
-         document.forms["adminForm"].submit();                         
-  }).catch(error => alert(error.message));
-	
+	what3words.api.convertToCoordinates(w3w).then(function(response) 
+		{ var coords=response.coordinates; 
+			window.lat = coords.lat;
+			window.lng = coords.lng;
+			window.w3w = w3w;
+			xbSaveForm(false);
+         	document.forms["adminForm"].submit();                         
+  		}).catch(error => alert(error.message));
 }
+
+
+//function xbSetDirectory(srcCtrl,destCtrl) {
+//	document.getElementById(destCtrl).value = document.getElementById(srcCtrl).value;
+//}
+
+
+//function xbMarkw3w (uid,w3wapi) {
+//	//not currently used
+//	what3words.api.convertToCoordinates(w3wapi)
+//  .then(function(response) { var coords=response.coordinates; 
+////		window.lat = coords.lat;
+////		window.lng = coords.lng;
+//		var mrk = "marker"+uid
+//		xbMoveMarker(mrk, coords.lat, coords.lng);
+//		xbMarkerCoordInfo();
+//		xbmapsSaveForm();
+//     console.log("Lat: ", coords.lat," Long: ",coords.lng);
+////  }).catch(error => alert(error.message));
+
+

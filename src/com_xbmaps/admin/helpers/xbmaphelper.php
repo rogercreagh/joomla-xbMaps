@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.7.0.b 9th October 2021
+ * @version 0.8.0.c 18th October 2021
  * @filesource admin/helpers/xbmaphelper.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -431,22 +431,14 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		//NB this function requires specific map name so has to be created on fly after map
 		$o[] = 'function onZoomEnd(e) {';
 		$o[] = 'window.zoom = map'.$this->name.$this->id.'.getZoom();';
-		$o[] = 'xbModalCoordInfo();';
-		$o[] = 'xbmapsSaveForm();';
+		$o[] = 'xbMapCoordInfo();';
+		$o[] = 'xbSaveForm(false);';
 		$o[] = '}';
 		$this->output[] = implode("\n", $o);
 		return true;
 		
 	}
-	
-	/*
-	 * we have three uses for map click
-	 * 1. select map area needs to show d.ddd dms zoom on 3 lines and save to form
-	 * 2. select marker pos needs to show d.ddd dms and w3w on 2 lines and save form
-	 * 3. simple click display needs to show d.ddd dms and w3w on 2 lines
-	 * 
-	 */
-	
+		
 	public function mapClick($markerUId, $display) {
 		
 		$o 	= array();
@@ -456,9 +448,8 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		$o[] = 'function onMapClick(e) {';
 		$o[] = ' window.lat = e.latlng.lat;';
 		$o[] = ' window.lng = e.latlng.lng;';
-		$o[] = ' xbMoveMarker(marker'.$markerUId.', e.latlng.lat, e.latlng.lng);';
-//		$o[] = ' xbModalCoordInfo();';
-		$o[] = 'xbMarkerPopup(marker'.$markerUId.',\''.$display.'\',\''.$this->w3wapi.'\');';
+		$o[] = ' xbMoveMarker(marker'.$markerUId.', e.latlng.lat, e.latlng.lng,'. $display.');';
+//		$o[] = 'xbMarkerPopup(marker'.$markerUId.',\''.$display.'\',\''.$this->w3wapi.'\');';
 		$o[] = '}';
 		$this->output[] = implode("\n", $o);
 		return true;
@@ -474,14 +465,14 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		$o[] = ' window.lat = e.latlng.lat;';
 		$o[] = ' window.lng = e.latlng.lng;';
 		$o[] = ' xbMoveMarker(marker'.$markerUId.', e.latlng.lat, e.latlng.lng);';
-		$o[] = ' xbModalCoordInfo();';
-		$o[] = ' xbmapsSaveForm();';
+		$o[] = ' xbMapCoordInfo();';
+		$o[] = ' xbSaveForm();';
 		$o[] = '}';
 		$this->output[] = implode("\n", $o);
 		return true;
 	}
 	
-	public function markerPosClick($markerUId) {
+	public function markerPosClick($markerUId,$display) {
 		
 		$o 	= array();
 		$o[] = 'map'.$this->name.$this->id.'.on(\'click\', onMarkerPosClick);';
@@ -490,27 +481,12 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		$o[] = 'function onMarkerPosClick(e) {';
 		$o[] = ' window.lat = e.latlng.lat;';
 		$o[] = ' window.lng = e.latlng.lng;';
-		$o[] = ' xbMoveMarker(marker'.$markerUId.', e.latlng.lat, e.latlng.lng);';
-		$o[] = ' xbMarkerCoordInfo();';
-		$o[] = ' xbmapsSaveForm();';
+		$o[] = ' xbMoveMarker(marker'.$markerUId.', e.latlng.lat, e.latlng.lng,'. $display.', true, true);';
 		$o[] = '}';
 		$this->output[] = implode("\n", $o);
 		return true;
 	}
 
-/****
-	public function moveMarker() {
-		
-		$o = array();
-		$o[]= 'function xbMoveMarker(marker, lat, lng) {';
-		$o[]= '   var newLatLng = new L.LatLng(lat, lng);';
-		$o[]= '   marker.setLatLng(newLatLng);';
-		$o[]= '}';
-		$this->output[] = implode("\n", $o);
-		return true;
-	}
-****/
-	
 	public function renderSearch($markerId = '', $position = '') {
 		
 		$position = $position != '' ? $position : 'topleft';
@@ -568,32 +544,6 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		return true;
 		
 	}
-
-		/**	
-	public function renderCurrentPosition() {
-				
-		if ($this->currentposition == 0) {
-			return false;
-		}
-		
-		$o 	= array();
-		
-		$o[] = 'L.control.locate({';
-		$o[] = '	position: \'topright\',';
-		$o[] = '	strings: {';
-		$o[] = '		\'title\': \''.Text::_('XBMAPS_CURRENT_POSITION').'\'';
-		$o[] = '	},';
-		$o[] = '	locateOptions: {';
-		$o[] = '		enableHighAccuracy: true,';
-		$o[] = '		watch: true,';
-		$o[] = '	}';
-		$o[] = '}).addTo(map'.$this->name.$this->id.');';
-		
-		$this->output[] = implode("\n", $o);
-		return true;
-		
-	}
-**/	
 
 	public function renderEasyPrint() {
 				
@@ -700,4 +650,44 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 	}
 	
 }
+
+/****
+ public function moveMarker() {
+ 
+ $o = array();
+ $o[]= 'function xbMoveMarker(marker, lat, lng) {';
+ $o[]= '   var newLatLng = new L.LatLng(lat, lng);';
+ $o[]= '   marker.setLatLng(newLatLng);';
+ $o[]= '}';
+ $this->output[] = implode("\n", $o);
+ return true;
+ }
+ ****/
+
+/**
+ public function renderCurrentPosition() {
+ 
+ if ($this->currentposition == 0) {
+ return false;
+ }
+ 
+ $o 	= array();
+ 
+ $o[] = 'L.control.locate({';
+ $o[] = '	position: \'topright\',';
+ $o[] = '	strings: {';
+ $o[] = '		\'title\': \''.Text::_('XBMAPS_CURRENT_POSITION').'\'';
+ $o[] = '	},';
+ $o[] = '	locateOptions: {';
+ $o[] = '		enableHighAccuracy: true,';
+ $o[] = '		watch: true,';
+ $o[] = '	}';
+ $o[] = '}).addTo(map'.$this->name.$this->id.');';
+ 
+ $this->output[] = implode("\n", $o);
+ return true;
+ 
+ }
+ **/
+
 

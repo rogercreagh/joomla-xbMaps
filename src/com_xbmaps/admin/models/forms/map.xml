@@ -399,7 +399,7 @@
 			<field name="map_scale" type="radio"  
 				label="XBMAPS_MAP_SHOW_SCALE_LABEL" description="XBMAPS_MAP_SHOW_SCALE_DESC"
 				class="btn-group btn-group-yesno" 
-				default = "0"
+				useglobal="true"
 			>
 			<option value="0">JHIDE</option>
 			<option value="1">JSHOW</option>

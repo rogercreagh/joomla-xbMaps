@@ -449,20 +449,20 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 	}
 	
 	public function markerPosClick($markerUId,$display) {
-		
-		$o 	= array();
-		$o[] = 'map'.$this->name.$this->id.'.on(\'click\', onMarkerPosClick);';
-		
-		//NB this function requires specific marker name so has to be created on fly after marker exists
-		$o[] = 'function onMarkerPosClick(e) {';
-		$o[] = ' window.lat = e.latlng.lat;';
-		$o[] = ' window.lng = e.latlng.lng;';
-		$o[] = ' xbMoveMarker(marker'.$markerUId.', e.latlng.lat, e.latlng.lng,'. $display.', true, true);';
-		$o[] = '}';
-		$this->output[] = implode("\n", $o);
-		return true;
+	    
+	    $o 	= array();
+	    $o[] = 'map'.$this->name.$this->id.'.on(\'click\', onMarkerPosClick);';
+	    
+	    //NB this function requires specific marker name so has to be created on fly after marker exists
+	    $o[] = 'function onMarkerPosClick(e) {';
+	    $o[] = ' window.lat = e.latlng.lat;';
+	    $o[] = ' window.lng = e.latlng.lng;';
+	    $o[] = ' xbMoveMarker(marker'.$markerUId.', e.latlng.lat, e.latlng.lng,'. $display.', true, true);';
+	    $o[] = '}';
+	    $this->output[] = implode("\n", $o);
+	    return true;
 	}
-
+	
 	public function renderSearch($markerId = '', $position = '') {
 		
 		$position = $position != '' ? $position : 'topleft';
@@ -486,7 +486,6 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		if ($markerId != '') {
 			//NB this function requires specific map and marker names so has to be created on fly after map
 			$o[] = '	moveToLocation: function(latlng, title, map) {';
-//			$o[] = '		phmInputMarker(latlng.lat, latlng.lng);';
 			$o[] = '		xbMoveMarker(marker'.$markerId.', latlng.lat, latlng.lng);';
 			$o[] = '		map'.$this->name.$this->id.'.setView(latlng, 7);';// set the zoom
 			$o[] = '	}';

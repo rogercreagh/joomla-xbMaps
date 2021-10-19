@@ -228,6 +228,16 @@
 			<option value="1">JSHOW</option>
 		</field>
 
+			<field name="map_scale" type="radio"  
+				label="XBMAPS_MAP_SHOW_SCALE_LABEL" description="XBMAPS_MAP_SHOW_SCALE_DESC"
+				class="btn-group btn-group-yesno" 
+				default="0" 
+			>
+			<option value="0">JHIDE</option>
+			<option value="1">JSHOW</option>
+			</field>
+			
+
 <!--
 		<field name="map_type_control" type="radio"  
 			label="XBMAPS_MAP_SHOW_TYPE_CONTROL_LABEL" description="XBMAPS_MAP_SHOW_TYPE_CONTROL_DESC"
@@ -519,7 +529,7 @@
 			default=""
 		/>	
 	  	<field name="w3wlinknote" type="note"
-			description="XBMAPS_W3W_LINK"
+			label="" description="XBMAPS_W3W_LINK"
 		/>	
  		<field name="w3wusenote" type="note"
 			description="XBMAPS_W3W_USE_NOTE"

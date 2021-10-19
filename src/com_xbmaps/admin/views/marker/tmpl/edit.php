@@ -29,6 +29,7 @@ if ($this->form->getValue('marker_popdesc','params')) {
 	$popupdesc .= ($this->form->getValue('summary')=='') ? '<i>no summary yet</i><br />' : $this->form->getValue('summary').'<br />';
 }
 $disp = $this->form->getValue('marker_popcoords','params');
+if ($disp=='') $disp=0;
 if ($disp>0) $popupdesc .= '<hr /><b>Location</b></br>';
 $lat = $this->form->getValue('latitude');
 $long = $this->form->getValue('longitude');
@@ -88,6 +89,7 @@ switch ($this->form->getValue('marker_type')) {
 }
 $map->endZoom();
 $map->markerPosClick($uid,$disp);
+$map->markerW3wUpdate($uid,$disp);
 $map->renderSearch($uid);
 $map->renderFullScreenControl();
 
@@ -106,10 +108,10 @@ $map->renderMap();
         		<div class="span1"><?php echo $this->form->renderField('id'); ?></div>
         	</div>
         	<div class="row-fluid">
-        		<div class="span3">
+        		<div class="span5">
             	    <?php echo $this->form->renderField('summary'); ?>            	    	 					
         		</div>
-        		<div class="span9">
+        		<div class="span7">
             	    <?php echo $this->form->renderField('maplist'); ?>            	    	 					
         		</div>
         	</div>
@@ -157,7 +159,7 @@ $map->renderMap();
 							</div> 
 							<?php if ($this->w3w_api!='') : ?>
 		                  		<div class="form-horizontal pull-left"><?php echo $this->form->renderField('marker_w3w','params'); ?></div>
-		                  		<div class="pull-left"><button type="button" onclick="xbFormUpdatew3w(document.getElementById('jform_params_marker_w3w').value);">Update Map</button></div>
+		                  		<div class="pull-left"><button type="button" onclick="xbUpdateMarkerW3w(document.getElementById('jform_params_marker_w3w').value);">Update Map</button></div>
 								<div class="clearfix"></div>
 							<?php endif; ?>
 	    			</div>

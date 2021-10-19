@@ -82,7 +82,7 @@ function dmsstr2deg(dmsstr) {
 function xbSaveForm(doW3w=true) {
 	//used by helper::endZoom, helper::mapAreaClick and 
 	//NB the field names are hard coded here, map form uses centre_lat... marker uses lat...
-	// marker_w3w field is omly present on marker form and when w3w_api is set
+	// marker_w3w field is only present on marker form and when w3w_api is set
 	var fldLat = jQuery('#jform_centre_latitude_id', window.parent.document);
 	if (fldLat) fldLat.val(window.lat);
 	fldLat = jQuery('#jform_latitude_id', window.parent.document);
@@ -101,14 +101,6 @@ function xbSaveForm(doW3w=true) {
        var fld = window.parent.document.getElementById("jform_params_marker_w3w");
 		fld.value=window.w3w;
 	}
-//	var fldW3w = jQuery('#jform_params_marker_w3w_id', window.parent.document);
-//	if ((doW3w) && (fldW3w)) fldW3w.val(window.w3w);
-//	{ 
- //     what3words.api.convertTo3wa({lat:  window.lat, lng: window.lng}, 'en').then(function(response){ 
- //       var fld = window.parent.document.getElementById("jform_params_marker_w3w");
- //    	fld.value=response.words; }).catch(error => alert(error.message));		
-//    }
-
 }
 
 function xbMoveMarker(marker, lat, lng, display,  doCoordBox=false, doForm=false, doPop=true) {
@@ -171,17 +163,28 @@ function xbMarkerPopup(marker,display) {
     }
 }
 
-function xbFormUpdatew3w(w3w) {
+function xbUpdateMarkerW3w(w3w) {
 	what3words.api.convertToCoordinates(w3w).then(function(response) 
 		{ var coords=response.coordinates; 
 			window.lat = coords.lat;
 			window.lng = coords.lng;
 			window.w3w = w3w;
-			xbSaveForm(false);
-         	document.forms["adminForm"].submit();                         
-  		}).catch(error => alert(error.message));
+			xbSaveForm();
+			document.getElementById('task').value='marker.apply';
+  	}).catch(error => alert(error.message));
 }
 
+
+//function xbFormUpdatew3w(w3w) {
+//	what3words.api.convertToCoordinates(w3w).then(function(response) 
+//		{ var coords=response.coordinates; 
+//			window.lat = coords.lat;
+//			window.lng = coords.lng;
+//			window.w3w = w3w;
+//			xbSaveForm();
+//         	document.forms["adminForm"].submit();                         
+//  		}).catch(error => alert(error.message));
+//}
 
 //function xbSetDirectory(srcCtrl,destCtrl) {
 //	document.getElementById(destCtrl).value = document.getElementById(srcCtrl).value;

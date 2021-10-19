@@ -112,6 +112,7 @@
 			buttons= "add,remove"
 			layout="joomla.form.field.subform.repeatable-table"
 			groupByFieldset="false" 
+			class="xbmw400"
 		>
 			<form>
 				<field name="map_id" type="maps" 

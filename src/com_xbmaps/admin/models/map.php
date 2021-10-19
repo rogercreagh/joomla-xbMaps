@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.8.0.a 16th October 2021
+ * @version 0.8.0.d 19th October 2021
  * @filesource admin/models/map.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -274,7 +274,7 @@ class XbmapsModelMap extends JModelAdmin {
 	private function getMarkerList() {
 		$db = $this->getDbo();
 		$query = $db->getQuery(true);
-		$query->select('mt.marker_id as marker_id,  mt.show_popup AS show_popup');
+		$query->select('mt.marker_id as marker_id');
 		$query->from('#__xbmaps_mapmarkers AS mt');
 		//$query->innerjoin('#__xbmaps_tracks AS a ON mt.track_id = a.id');
 		$query->where('mt.map_id = '.(int) $this->getItem()->id);
@@ -299,8 +299,8 @@ class XbmapsModelMap extends JModelAdmin {
 				$listorder ++;
 				$query = $db->getQuery(true);
 				$query->insert($db->quoteName('#__xbmaps_mapmarkers'));
-				$query->columns('map_id,marker_id,show_popup,listorder');
-				$query->values('"'.$map_id.'","'.$mrk['marker_id'].'","'.$mrk['show_popup'].'","'.$listorder.'"');
+				$query->columns('map_id,marker_id,listorder');
+				$query->values('"'.$map_id.'","'.$mrk['marker_id'].'","'.$listorder.'"');
 				//try
 				$db->setQuery($query);
 				$db->execute();

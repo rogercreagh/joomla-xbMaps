@@ -118,12 +118,6 @@
 				label="XBMAPS_ADDMAP_LABEL" >
 					<option value="">JSELECT</option>	
 				</field>
-				<field name="show_popup" type="list"
-				label="XBMAPS_SHOW_POPUP" >
-					<option value="">XBMAPS_DISABLED</option>
-					<option value="0">XBMAPS_CLOSED</option>
-					<option value="1">XBMAPS_OPEN</option>
-				</field>
 			</form>
 		</field>			
 		
@@ -186,14 +180,11 @@
 			default="#ffffff" format="hex"
 			showon="hidmarker_type:2[AND]marker_inner_icon!:"
 		/>
-		<field name="marker_popnote" type="note" 
-			label="XBMAPS_MARKER_POPNOTE_LABEL" description="XBMAPS_MARKER_POPNOTE_DESC"
-		/>
 
 		<field name="marker_popdesc" type="list" 
 			label="XBMAPS_MARKER_POPDESC_LABEL" description="XBMAPS_MARKER_POPDESC_DESC"
 			class="btn-group btn-group-yesno" 
-			useglobal="true" 
+			default="1"
 		>
 			<option value="1">JSHOW</option>
 			<option value="0">JHIDE</option>
@@ -201,6 +192,7 @@
 
 		<field name="marker_popcoords" type="list" 
 			label="XBMAPS_MARKER_POPCOORDS_LABEL" description="XBMAPS_MARKER_POPCOORDS_DESC"
+			default="3"
 		>
 			<option value="0">Do not show</option>
 			<option value="1">GPS Degrees (ddd)</option>
@@ -211,6 +203,7 @@
 			<option value="6" showon="hid_w3wapi!:" >dms &amp; w3w</option>
 			<option value="7" showon="hid_w3wapi!:" >ddd, dms &amp; w3w</option>
 		</field>	
+		
 		<field name="marker_w3w" type="text"
 			label="XBMAPS_MRKW3W_LABEL" description="XBMAPS_MRKW3W_DESC"
 			hint="XBMAPS_MRKW3W_HINT"

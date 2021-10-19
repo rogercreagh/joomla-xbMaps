@@ -391,7 +391,6 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		return $text;
 	}
 	
-	
 	public function setMarkerClusterer() {
 		
 		if ($this->markerclustering == 1) {
@@ -401,29 +400,6 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		}
 	}
 	
-/**** not used - AwesomeMarkers plugin 
-	public function setMarkerIcon($markerId, $icon = 'circle', $markerColor = 'blue', $iconColor = '#ffffff', $prefix = 'fa', $spin = 'false', $extraClasses = '' ) {
-		
-		$o = $o2 = array();
-		
-		$o[]= 'var icon'.$markerId.' = new L.AwesomeMarkers.icon({';
-		
-		$o[]= $o2[] = '   icon: "'.$icon.'",';
-		$o[]= $o2[] = '   markerColor: "'.$markerColor.'",';
-		$o[]= $o2[] = '   iconColor: "'.$iconColor.'",';
-		$o[]= $o2[] = '   prefix: "'.$prefix.'",';
-		$o[]= $o2[] = '   spin: '.$spin.',';
-		$o[]= $o2[] = '   extraClasses: "'.$extraClasses.'",';
-		
-		$o[]= '})';
-		$o[]= ' marker'.$markerId.'.setIcon(icon'.$markerId.');';
-		
-		$this->output[] = implode("\n", $o);
-		return $o2;//return only options;
-	
-	}
-***/
-		
 	public function endZoom() {
 		$o 	= array();
 		$o[] = 'map'.$this->name.$this->id.'.on("zoomend", onZoomEnd);';
@@ -651,6 +627,29 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 	
 }
 
+/**** not used - AwesomeMarkers plugin 
+	public function setMarkerIcon($markerId, $icon = 'circle', $markerColor = 'blue', $iconColor = '#ffffff', $prefix = 'fa', $spin = 'false', $extraClasses = '' ) {
+		
+		$o = $o2 = array();
+		
+		$o[]= 'var icon'.$markerId.' = new L.AwesomeMarkers.icon({';
+		
+		$o[]= $o2[] = '   icon: "'.$icon.'",';
+		$o[]= $o2[] = '   markerColor: "'.$markerColor.'",';
+		$o[]= $o2[] = '   iconColor: "'.$iconColor.'",';
+		$o[]= $o2[] = '   prefix: "'.$prefix.'",';
+		$o[]= $o2[] = '   spin: '.$spin.',';
+		$o[]= $o2[] = '   extraClasses: "'.$extraClasses.'",';
+		
+		$o[]= '})';
+		$o[]= ' marker'.$markerId.'.setIcon(icon'.$markerId.');';
+		
+		$this->output[] = implode("\n", $o);
+		return $o2;//return only options;
+	
+	}
+***/
+		
 /****
  public function moveMarker() {
  

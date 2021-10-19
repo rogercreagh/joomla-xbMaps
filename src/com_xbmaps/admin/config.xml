@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbMaps config.xml v0.7.0 14th October 2021 -->
+<!-- xbMaps config.xml v0.8.0.d 19th October 2021 -->
 <config>
 <!-- GENERAL TAB -->				
 	<fieldset name="general"
@@ -186,7 +186,6 @@
 		<field name="map_home_button" type="radio"  
 			label="XBMAPS_MAP_SHOW_HOME_BUTTON_LABEL" description="XBMAPS_MAP_SHOW_HOME_BUTTON_DESC"
 			class="btn-group btn-group-yesno" 
-			showon="map_zoom_control!:0"
 			default="0"
 		>
 			<option value="0">JHIDE</option>
@@ -263,7 +262,7 @@
 			showon="global_use_cats:1"
 		/>	
  		<field name="markernocat_note" type="note"
-			description="XBMAPS_NOCATS_DESC"
+			label="" description="XBMAPS_NOCATS_DESC"
 			class="alert"
 			showon="global_use_cats:0"
 		/>	
@@ -313,7 +312,7 @@
   			showon="global_use_tags:1"
 		/>	
  		<field name="markernotags_note" type="note"
-			description="XBMAPS_NOTAGS_DESC"
+			label="" description="XBMAPS_NOTAGS_DESC"
 			class="alert"
 			showon="global_use_tags:0"
 		/>	
@@ -328,16 +327,8 @@
 			<option value="2">XBMAPS_YES_LINKED</option>
 		</field>	
  		<field name="markerlayout_note" type="note"
-			label="XBMAPS_MARKERLAYOUT_NOTE_LABEL" description="XBMAPS_MARKERLAYOUT_NOTE_DESC"
+			label="XBMAPS_MARKERLAYOUT_NOTE_LABEL" description=""
  		/>	
-		<field name="marker_clustering" type="radio" 
-			label="XBMAPS_MARKER_CLUSTERING_LABEL" description="XBMAPS_MARKER_CLUSTERING_DESC"
-			class="btn-group btn-group-yesno" 
-			default="1" 
-		>
-			<option value="0">JNO</option>
-			<option value="1">JYES</option>
-		</field>	
 		<field name="def_markers_folder" type="folderlist"
 			label="XBMAPS_MARKERS_DEFFOLDER_LABEL" description="XBMAPS_MARKERS_DEFFOLDER_DESC"
   			directory="images"
@@ -346,32 +337,21 @@
   			default="xbmaps/markers"
   		>
 		</field>
-		<field name="marker_popover" type="radio" 
-			label="XBMAPS_MARKER_POPOVER_LABEL" description="XBMAPS_MARKER_POPOVER_DESC"
+		<field name="marker_clustering" type="radio" 
+			label="XBMAPS_MARKER_CLUSTERING_LABEL" description="XBMAPS_MARKER_CLUSTERING_DESC"
 			class="btn-group btn-group-yesno" 
 			default="1" 
 		>
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>	
-
-		<field name="marker_popdesc" type="radio" 
-			label="XBMAPS_MARKER_POPDESC_LABEL" description="XBMAPS_MARKER_POPDESC_DESC"
-			class="btn-group btn-group-yesno" 
-			default="1" 
-		>
-			<option value="1">JSHOW</option>
-			<option value="0">JHIDE</option>
-		</field>	
-
-		<field name="marker_popcoords" type="radio" 
-			label="XBMAPS_MARKER_POPCOORDS_LABEL" description="XBMAPS_MARKER_POPCOORDS_DESC"
-			class="btn-group btn-group-yesno" 
-			default="1" 
-		>
-			<option value="1">JSHOW</option>
-			<option value="0">JHIDE</option>
-		</field>	
+ 		<field name="markerpopover_note" type="note"
+			label="XBMAPS_MARKERPOPOVER_NOTE_LABEL" description="XBMAPS_MARKERPOPOVER_NOTE_DESC"
+ 		/>	
+ 		<field name="markerw3w_note" type="note"
+			label="XBMAPS_MARKERW3W_NOTE_LABEL" description="XBMAPS_MARKERW3W_NOTE_DESC"	
+			showon="w3w_api:"		
+ 		/>	
 
 	</fieldset>
 	

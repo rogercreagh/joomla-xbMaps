@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.8.0.a 16th October 2021
+ * @version 0.8.0.d 19th October 2021
  * @filesource site/views/map/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -83,7 +83,6 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
 			    foreach ($item->markers as $mrk) {
 			        $popuptitle =  '';
 			        $popupdesc = '';
-			        if ($mrk->show_popup!='') {
 			        	$popuptitle = ($mrk->mktitle=='') ? '' : $mrk->mktitle;
 			        	if ($mrk->mkshowdesc==1) {
 			        		$popupdesc = ($mrk->mkdesc =='') ? '' : $mrk->mkdesc.'<br />';
@@ -91,12 +90,10 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
 			        	if ($mrk->mkshowcoords==1) {
 			        		$popupdesc .= '<hr />'.XbmapsGeneral::Deg2DMS($mrk->mklat).'<br />'.XbmapsGeneral::Deg2DMS($mrk->mklong,false);
 			        	}
-			        }
-			        $popopen = ($mrk->show_popup == 2) ? 1 : 0;
 			        switch ($mrk->markertype) {
 			            case 1:
 			                $image = $this->marker_image_path.'/'.$mrk->mkparams['marker_image'];
-			                $map->setImageMarker($uid, $mrk->mklat, $mrk->mklong, $image, $popuptitle, $popupdesc,'','',$popopen);
+			                $map->setImageMarker($uid, $mrk->mklat, $mrk->mklong, $image, $popuptitle, $popupdesc,'','',0);
 			                break;
 			            case 2:
 			                $outer = $mrk->mkparams['marker_outer_icon'];
@@ -113,10 +110,10 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
 			                
 			                $div .= '<i class="'.$inner.' fa-stack-1x fa-inverse" style="color:'.$incol.';'.$insize.'"></i>';
 			                $div .= '</span></div>';
-			                $map->setDivMarker($uid, $mrk->mklat,$mrk->mklong,$div, $popuptitle,$popupdesc,'','',$popopen);
+			                $map->setDivMarker($uid, $mrk->mklat,$mrk->mklong,$div, $popuptitle,$popupdesc,'','',0);
 			                break;
 			            default:
-			            	$map->setMarker($uid, $mrk->mklat, $mrk->mklong, $popuptitle, $popupdesc,'','',$popopen);
+			            	$map->setMarker($uid, $mrk->mklat, $mrk->mklong, $popuptitle, $popupdesc,'','',0);
 			                
 			                break;
 			        }

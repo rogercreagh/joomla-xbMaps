@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.8.0.a 16th October 2021
+ * @version 0.8.0.d 19th October 2021
  * @filesource admin/views/mapview/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -42,7 +42,6 @@ if (!empty($item->markers)) {
     	$mid = uniqid();
     	$popuptitle =  '';
     	$popupdesc = '';
-    	if ($mrk->show_popup!='') {
     		$popuptitle = ($mrk->mktitle=='') ? '' : $mrk->mktitle;
     		if ($mrk->mkshowdesc==1) {
     			$popupdesc = ($mrk->mkdesc =='') ? '' : $mrk->mkdesc.'<br />';
@@ -50,8 +49,6 @@ if (!empty($item->markers)) {
     		if ($mrk->mkshowcoords==1) {
     			$popupdesc .= '<hr />'.XbmapsGeneral::Deg2DMS($mrk->mklat).'<br />'.XbmapsGeneral::Deg2DMS($mrk->mklong,false);
     		}    		
-    	}
-    	$popopen = ($mrk->show_popup == 2) ? 1 : 0;
         switch ($mrk->markertype) {
             case 1:
                 $image = $this->marker_image_path.'/'.$mrk->mkparams['marker_image'];

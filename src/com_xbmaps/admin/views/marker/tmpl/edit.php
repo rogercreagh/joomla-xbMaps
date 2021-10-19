@@ -26,7 +26,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 $popuptitle = ($this->form->getValue('title')=='') ? 'Marker Title' : $this->form->getValue('title');
 $popupdesc = '';
 if ($this->form->getValue('marker_popdesc','params')) {
-    $popupdesc .= $this->form->getValue('summary').'<br />';
+	$popupdesc .= ($this->form->getValue('summary')=='') ? '<i>no summary yet</i><br />' : $this->form->getValue('summary').'<br />';
 }
 $disp = $this->form->getValue('marker_popcoords','params');
 if ($disp>0) $popupdesc .= '<hr /><b>Location</b></br>';
@@ -38,7 +38,7 @@ if (($disp & 1)==1) {
 if (($disp & 2)==2) {
     $popupdesc .= '<span style="padding-right:20px"><i>Lat:</i> '.$this->form->getValue('dmslatitude').'</span><i>Long:</i> '.$this->form->getValue('dmslongitude').'<br />';
 }
-if (($disp & 4)==4) {
+if ($disp > 3) {
     $w3w = $this->form->getValue('marker_w3w','params');
     if ($w3w=='') {
         $api = new Geocoder($this->params->get('w3w_api'));
@@ -83,7 +83,7 @@ switch ($this->form->getValue('marker_type')) {
 		$map->setDivMarker($uid, $lat, $long, $div, $popuptitle,$popupdesc,'','',1);
 		break;
 	default:
-		$map->setMarker($uid, $lat, $long, $popuptitle, $popupdesc,'','','',1);		
+		$map->setMarker($uid, $lat, $long, $popuptitle, $popupdesc,'','',1);		
 	break;
 }
 $map->endZoom();
@@ -157,7 +157,7 @@ $map->renderMap();
 							</div> 
 							<?php if ($this->w3w_api!='') : ?>
 		                  		<div class="form-horizontal pull-left"><?php echo $this->form->renderField('marker_w3w','params'); ?></div>
-		                  		<div class="pull-left"><button type="button" onclick="xbFormUpdatew3w('<?php echo $uid; ?>',document.getElementById('jform_params_marker_w3w').value);">Update Map</button></div>
+		                  		<div class="pull-left"><button type="button" onclick="xbFormUpdatew3w(document.getElementById('jform_params_marker_w3w').value);">Update Map</button></div>
 								<div class="clearfix"></div>
 							<?php endif; ?>
 	    			</div>

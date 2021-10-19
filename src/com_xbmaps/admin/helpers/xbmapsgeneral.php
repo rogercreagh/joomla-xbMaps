@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.8.0.b 17th October 2021
+ * @version 0.8.0.d 19th October 2021
  * @filesource admin/helpers/xbmapsgeneral.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -211,7 +211,7 @@ class XbmapsGeneral extends ContentHelper {
 		$db = Factory::getDBO();
 		$query = $db->getQuery(true);
 		
-		$query->select('a.show_popup AS show_popup, m.title, m.id, m.state AS mstate ')
+		$query->select('m.title, m.id, m.state AS mstate ')
 		->from('#__xbmaps_mapmarkers AS a')
 		->join('LEFT','#__xbmaps_maps AS m ON m.id=a.map_id')
 		->where('a.marker_id = "'.$mrkid.'"' )
@@ -255,7 +255,7 @@ class XbmapsGeneral extends ContentHelper {
 		$db = Factory::getDBO();
 		$query = $db->getQuery(true);
 		
-		$query->select('a.show_popup AS show_popup, mk.title AS mktitle, mk.id AS mkid,
+		$query->select('mk.title AS mktitle, mk.id AS mkid,
                 mk.summary AS mkdesc, mk.latitude AS mklat, mk.longitude AS mklong,
                 mk.marker_type AS markertype, mk.params AS mkparams, mk.state AS mkstate ')
                 ->from('#__xbmaps_mapmarkers AS a')

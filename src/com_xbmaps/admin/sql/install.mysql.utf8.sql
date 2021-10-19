@@ -1,4 +1,4 @@
-# sql installation file for component xbMaps v0.8.0.a 15th October 2021
+# sql installation file for component xbMaps v0.8.0.d 19th October 2021
 # NB no data is installed with this file, default categories are created by the installation script
 
 CREATE TABLE IF NOT EXISTS `#__xbmaps_maps` (
@@ -115,7 +115,6 @@ CREATE TABLE IF NOT EXISTS `#__xbmaps_mapmarkers` (
   `id` int NOT NULL AUTO_INCREMENT,
   `map_id` int NOT NULL,
   `marker_id` int NOT NULL,
-  `show_popup` tinyint NULL DEFAULT NULL,
   `listorder` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;

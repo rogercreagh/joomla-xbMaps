@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbMaps admin/models/forms/map.xml v0.8.0.a 16th October 2021 -->
+<!-- xbMaps admin/models/forms/map.xml v0.8.0.d 19th October 2021 -->
 <form>
 
 	<fieldset addfieldpath="/administrator/components/com_xbmaps/models/fields">
@@ -166,12 +166,6 @@
 				<field name="marker_id" type="markers" label="XBMAPS_ADDMARKER_LABEL" >
 					<option value="">JSELECT</option>	
 				</field>
-				<field name="show_popup" type="list"
-				label="XBMAPS_SHOW_POPUP" >
-					<option value="">Disable</option>
-					<option value="0">Closed</option>
-					<option value="1">Open</option>
-				</field>
 			</form>
 		</field>			
 			
@@ -291,11 +285,13 @@
 				<option value="0">Do not show</option>
 				<option value="1">GPS Degrees (ddd)</option>
 				<option value="2">Deg Min Secs (dms)</option>
-				<option value="3">ddd &amp; dms</option>
-				<option value="4" renderon="w3w_api!:" >What3Words (w3w)</option>
+				<option value="4" showon="hid_w3wapi!:" >What3Words (w3w)</option>
+				<!-- 
 				<option value="5" renderon="w3w_api!:" >ddd &amp; w3w</option>
 				<option value="6" renderon="w3w_api!:" >dms &amp; w3w</option>
 				<option value="7" renderon="w3w_api!:" >ddd, dms &amp; w3w</option>
+				<option value="3">ddd &amp; dms</option>
+				 -->
 			</field>	
 
 			<field name="show_map_desc" type="list"  
@@ -319,35 +315,6 @@
 				size="150" showon="show_map_desc!:0"
 				default="xbbox xbboxwht"
 			/>	
-<!-- 
-			<field name="show_trk_dist" type="radio"  
-				label="XBMAPS_TRK_DIST_LABEL" description="XBMAPS_TRK_DIST_DESC"
-				class="btn-group btn-group-yesno" 
-				showon="show_map_info!:[AND]show_map_key:1"
-				default="1"
-			>
-				<option value="1">JSHOW</option>
-				<option value="0">JHIDE</option>
-			</field>
-			<field name="show_trk_desc" type="radio"  
-				label="XBMAPS_TRK_DESC_LABEL" description="XBMAPS_TRK_DESC_DESC"
-				class="btn-group btn-group-yesno" 
-				showon="show_map_info!:[AND]show_map_key:1"
-				default="1"
-			>
-				<option value="1">JSHOW</option>
-				<option value="0">JHIDE</option>
-			</field>
-			<field name="show_mrk_desc" type="radio"  
-				label="XBMAPS_MRK_DESC_LABEL" description="XBMAPS_MRK_DESC_DESC"
-				class="btn-group btn-group-yesno" 
-				showon="show_map_info!:[AND]show_map_key:1"
-				default="1"
-			>
-				<option value="1">JSHOW</option>
-				<option value="0">JHIDE</option>
-			</field>
- -->
 			<field name="marker_clustering" type="radio" 
 				label="XBMAPS_MARKER_CLUSTERING_LABEL" description="XBMAPS_MARKER_CLUSTERING_DESC"
 				class="btn-group btn-group-yesno" 
@@ -371,7 +338,6 @@
 			<field name="map_home_button" type="radio"  
 				label="XBMAPS_MAP_SHOW_HOME_BUTTON_LABEL" description="XBMAPS_MAP_SHOW_HOME_BUTTON_DESC"
 				class="btn-group btn-group-yesno" 
-				showon="map_zoom_control!:0"
 				useglobal="true"
 			>
 			<option value="0">JHIDE</option>
@@ -449,17 +415,6 @@
 				<option value="1">JYES</option>
 			</field>	
 			
-			<!-- 
-			<field name="centre_marker" type="radio"  
-				label="XBMAPS_MAP_SHOW_CENTRE_MARKER_LABEL" description="XBMAPS_MAP_SHOW_CENTRE_MARKER_DESC"
-				class="btn-group btn-group-yesno" 
-				default="1"
-			>
-				<option value="1">JYES</option>
-				<option value="0">JNO</option>
-			</field>
-			 -->	
-			
 		</fieldset>
 	</fields>
 	
@@ -504,3 +459,44 @@
 		</fieldset>
 	</fields>
 </form>
+<!-- 
+			<field name="show_trk_dist" type="radio"  
+				label="XBMAPS_TRK_DIST_LABEL" description="XBMAPS_TRK_DIST_DESC"
+				class="btn-group btn-group-yesno" 
+				showon="show_map_info!:[AND]show_map_key:1"
+				default="1"
+			>
+				<option value="1">JSHOW</option>
+				<option value="0">JHIDE</option>
+			</field>
+			<field name="show_trk_desc" type="radio"  
+				label="XBMAPS_TRK_DESC_LABEL" description="XBMAPS_TRK_DESC_DESC"
+				class="btn-group btn-group-yesno" 
+				showon="show_map_info!:[AND]show_map_key:1"
+				default="1"
+			>
+				<option value="1">JSHOW</option>
+				<option value="0">JHIDE</option>
+			</field>
+			<field name="show_mrk_desc" type="radio"  
+				label="XBMAPS_MRK_DESC_LABEL" description="XBMAPS_MRK_DESC_DESC"
+				class="btn-group btn-group-yesno" 
+				showon="show_map_info!:[AND]show_map_key:1"
+				default="1"
+			>
+				<option value="1">JSHOW</option>
+				<option value="0">JHIDE</option>
+			</field>
+ -->
+			<!-- 
+			<field name="centre_marker" type="radio"  
+				label="XBMAPS_MAP_SHOW_CENTRE_MARKER_LABEL" description="XBMAPS_MAP_SHOW_CENTRE_MARKER_DESC"
+				class="btn-group btn-group-yesno" 
+				default="1"
+			>
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			 -->	
+			
+

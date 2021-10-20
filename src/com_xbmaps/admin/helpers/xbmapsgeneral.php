@@ -173,7 +173,7 @@ class XbmapsGeneral extends ContentHelper {
 		$query = $db->getQuery(true);
 		
 		$query->select('a.track_colour AS track_colour, t.title, t.id, t.alias, t.description, t.summary, t.state AS tstate, t.track_colour AS defcol,
-			t.gpx_filename AS gpx_filename, t.params AS tparams, t.rec_date AS rec_date')
+			t.gpx_filename AS gpx_filename, t.params AS tparams, t.rec_date AS rec_date, t.rec_device AS rec_device, t.activity AS activity')
 		->from('#__xbmaps_maptracks AS a')
 		->join('LEFT','#__xbmaps_tracks AS t ON t.id=a.track_id')
 		->where('a.map_id = "'.$mapid.'"' )
@@ -326,6 +326,8 @@ class XbmapsGeneral extends ContentHelper {
 	}
 	
 	public static function buildMarkerList($markers, $infopos, $marker_image_path, $locdisp = 2) {
+        $params = ComponentHelper::getParams('com_xbmaps');
+        $w3w_api = $params->get('w3w_api');
 		$mrklist = '<ul class="xblist" style="margin:0;">';
 		foreach ($markers as $mrk) {
 			$mrklist .=	'<li>';
@@ -364,10 +366,9 @@ class XbmapsGeneral extends ContentHelper {
 			        $mrklist .= '<span class="xbpr20""><i>Lat:</i> '.XbmapsGeneral::Deg2DMS($mrk->mklat).'</span><i>Long:</i>&nbsp;'.XbmapsGeneral::Deg2DMS($mrk->mklong,false).'</span>';
 			        break;
 			    case 4:
-			        $params = ComponentHelper::getParams('com_xbmaps');
-			        $api = new Geocoder($params->get('w3w_api'));
+			        $api = new Geocoder($w3w_api);
 			        $w3w = $api->convertTo3wa($lat,$long)['words'];
-			        $mrklist .= '<i>What 3 Words</i>: <b>/// '.$w3w.'</span>';
+			        $mrklist .= '<i>What 3 Words</i>: <b>///&nbsp;'.$w3w.'</b>';
 			        break;
 			        
 			    default:
@@ -376,7 +377,7 @@ class XbmapsGeneral extends ContentHelper {
 			}
 			$mrklist .=	 '</li>';
 		} // endforeach;
-		$mrklist = '</ul>';
+		$mrklist .= '</ul>';
 		return $mrklist;
 	}
 	

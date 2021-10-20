@@ -73,6 +73,9 @@ class XbmapsModelMapview extends JModelItem {
 					//get markers
 					$this->item->markers = XbmapsGeneral::mapMarkersArray($this->item->id);
 					
+					$tagsHelper = new TagsHelper;
+					$item->tags = $tagsHelper->getItemTags('com_xbmaps.map' , $item->id);
+					
 					return $this->item;		
 				} //end if loadobject
 			}

@@ -97,7 +97,10 @@ $map->renderMap();
 <div class="xbmaps">
 	<form action="<?php echo JRoute::_('index.php?option=com_xbmaps&view=mapview&id='.$item->id); ?>" method="post" name="adminForm" id="adminForm">
 		<div class="row-fluid">
-        	<div id="j-main-container" class="span12">
+			<div id="j-sidebar-container">
+				<?php echo $this->sidebar; ?>
+			</div>
+        	<div id="j-main-container" >
 			<?php  if($this->show_map_title) :?>
 			<div class="row-fluid">
 				<div class="span12">
@@ -137,9 +140,11 @@ $map->renderMap();
 		    	<?php endif; ?>
 		    </div>
 			<?php if ($this->show_map_info=='below') :?>
+				<p> </p>
 				<?php echo $this->keybox;?>
 			<?php endif; ?>	
 			<?php if (($this->show_map_desc=='3') || (($this->show_map_desc=='1') && ($this->show_map_info=='below'))) : ?>
+				<p> </p>
 				<?php echo $this->descbox; ?>
 			<?php endif; ?>
 	<div class="row-fluid xbmt16">

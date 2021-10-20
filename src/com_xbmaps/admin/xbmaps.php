@@ -27,7 +27,6 @@ $document->addStyleSheet($cssFile);
 JLoader::register('XbmapsHelper', JPATH_ADMINISTRATOR . '/components/com_xbmaps/helpers/xbmaps.php');
 JLoader::register('XbMapHelper', JPATH_ADMINISTRATOR . '/components/com_xbmaps/helpers/xbmaphelper.php');
 JLoader::register('XbmapsGeneral', JPATH_ADMINISTRATOR . '/components/com_xbmaps/helpers/xbmapsgeneral.php');
-JLoader::register('Geocoder', JPATH_ADMINISTRATOR . '/components/com_xbmaps/helpers/geocoder.php');
 
 // Get an instance of the controller prefixed
 $controller = JControllerLegacy::getInstance('Xbmaps');

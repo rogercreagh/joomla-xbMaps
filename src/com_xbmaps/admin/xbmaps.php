@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.1.0.m 24th July 2021
+ * @version 0.8.0.g 20th October 2021
  * @filesource admin/xbmaps.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -27,6 +27,7 @@ $document->addStyleSheet($cssFile);
 JLoader::register('XbmapsHelper', JPATH_ADMINISTRATOR . '/components/com_xbmaps/helpers/xbmaps.php');
 JLoader::register('XbMapHelper', JPATH_ADMINISTRATOR . '/components/com_xbmaps/helpers/xbmaphelper.php');
 JLoader::register('XbmapsGeneral', JPATH_ADMINISTRATOR . '/components/com_xbmaps/helpers/xbmapsgeneral.php');
+JLoader::register('Geocoder', JPATH_ADMINISTRATOR . '/components/com_xbmaps/helpers/geocoder.php');
 
 // Get an instance of the controller prefixed
 $controller = JControllerLegacy::getInstance('Xbmaps');

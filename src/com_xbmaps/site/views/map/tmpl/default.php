@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.8.0.d 19th October 2021
+ * @version 0.8.0.f 20th October 2021
  * @filesource site/views/map/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -182,6 +182,7 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
 					<?php  $tagLayout = new JLayoutFile('joomla.content.tags');
 	    				echo $tagLayout->render($item->tags); ?>
 				</div>
+				<div class="clearfix"></div>
         	</div>
         	</div>
 		<?php endif; ?>

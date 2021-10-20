@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.8.0.d 19th October 2021
+ * @version 0.8.0.g 20th October 2021
  * @filesource admin/helpers/xbmapsgeneral.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -17,8 +17,10 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Version;
+use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Router\Route;
 use Joomla\Registry\Registry;
+use What3words\Geocoder\Geocoder;
 
 class XbmapsGeneral extends ContentHelper {
 
@@ -299,29 +301,38 @@ class XbmapsGeneral extends ContentHelper {
 			return $list;
 	}
 	
-	public static function buildTrackList($tracks, $infopos) {
-		$trklist = '';
+	public static function buildTrackList($tracks, $infopos, $infodisp = 1) {
+		$trklist = '<ul class="xblist" style="margin:0;">';
 		foreach ($tracks as $trk) {
 			$trklist .=	'<li><i class="fas fa-project-diagram" style="color:'.$trk->track_colour.'"></i>&nbsp; &nbsp;';
 			$trklist .= '<span';
 			$trksum = $trk->summary;
 			if ($trksum!=''){$trklist .= ' class= "hasTooltip" title="" data-original-title="'.$trksum.'"';}
-			$trklist .=	'><b>'.$trk->linkedtitle.'</b></span>&nbsp;';
+			$trklist .=	'><b>'.$trk->linkedtitle.'</b></span> ';
+			if (($infodisp & 1)==1) {
+			    $trklist .= ' : '.$trk->activity;
+			}
 			$trklist .= ($infopos == 'side') ? '<br >' : ' - ';
-			$trklist .= '<span class="xbnit xbml20">Recorded: '.$trk->rec_date.'</span>&nbsp;';
+			if (($infodisp & 2)==2) {
+			    $trklist .= '<span class="xbnit xbml20">Recorded: '.$trk->rec_date.'</span><br />';
+			}
+			if (($infodisp > 3)) {
+			    $trklist .= '<span class="xbnit xbml20">Device: '.$trk->rec_device.'</span>';
+			}
 			$trklist .=	 '</li>';
 		} // endforeach;
+		$trklist .=	 '</ul>';
 		return $trklist;
 	}
 	
-	public static function buildMarkerList($markers, $infopos, $marker_image_path) {
-		$mrklist = '';
+	public static function buildMarkerList($markers, $infopos, $marker_image_path, $locdisp = 2) {
+		$mrklist = '<ul class="xblist" style="margin:0;">';
 		foreach ($markers as $mrk) {
 			$mrklist .=	'<li>';
-			$pv = '<img src="'.Juri::root().'media/com_xbmaps/images/marker-icon.png"  style="height:20px;margin-left:4px;"/>';
+			$pv = '<img src="'.Uri::root().'media/com_xbmaps/images/marker-icon.png"  style="height:20px;margin-left:4px;"/>';
 			switch ($mrk->markertype) {
 				case 1:
-					$pv = '<img src="'.Juri::root().$marker_image_path.'/'.$mrk->mkparams['marker_image'].'" style="height:20px;margin-left:4px;" />';
+					$pv = '<img src="'.Uri::root().$marker_image_path.'/'.$mrk->mkparams['marker_image'].'" style="height:20px;margin-left:4px;" />';
 					break;
 				case 2:
 					$pv = '<span class="fa-stack fa-2x" style="font-size:8pt;">';
@@ -345,9 +356,27 @@ class XbmapsGeneral extends ContentHelper {
 			if ($mrksum !='') {$mrklist .= ' class= "hasTooltip" title="" data-original-title="'.$mrksum.'"';}
 			$mrklist .=	'><b>'.$mrk->display.'</b></span>&nbsp;';
 			$mrklist .= ($infopos == 'side') ? '<br >' : '';
-			$mrklist .= '<span class="xbnit xbml20">Lat:&nbsp;'.XbmapsGeneral::Deg2DMS($mrk->mklat).' Long:&nbsp;'.XbmapsGeneral::Deg2DMS($mrk->mklong,false).'</span>';
+			switch ($locdisp) {
+			    case 1:
+        			$mrklist .= '<span class="xbpr20""><i>Lat:</i> '.$mrk->mklat.'</span><i>Long:</i>&nbsp;'.$mrk->mklong.'</span>';
+			        break;
+			    case 2:
+			        $mrklist .= '<span class="xbpr20""><i>Lat:</i> '.XbmapsGeneral::Deg2DMS($mrk->mklat).'</span><i>Long:</i>&nbsp;'.XbmapsGeneral::Deg2DMS($mrk->mklong,false).'</span>';
+			        break;
+			    case 4:
+			        $params = ComponentHelper::getParams('com_xbmaps');
+			        $api = new Geocoder($params->get('w3w_api'));
+			        $w3w = $api->convertTo3wa($lat,$long)['words'];
+			        $mrklist .= '<i>What 3 Words</i>: <b>/// '.$w3w.'</span>';
+			        break;
+			        
+			    default:
+			        ;
+			    break;
+			}
 			$mrklist .=	 '</li>';
 		} // endforeach;
+		$mrklist = '</ul>';
 		return $mrklist;
 	}
 	

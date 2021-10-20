@@ -192,7 +192,8 @@ ul.nav-tabs {
 .xbmt16 { margin-top:16px; }
 .xbmb8 { margin-bottom:8px; }
 .xbmb12 { margin-bottom:12px; }
-.xbbb1 {border-bottom:solid 1px gray;}
+.xbpr20 { padding-right:20px }
+.xbbb1 { border-bottom:solid 1px gray;}
 .xbmh200 {max-height:200px; }
 .xbmh300 {max-height:300px; }
 .xbmh400 {max-height:400px; }

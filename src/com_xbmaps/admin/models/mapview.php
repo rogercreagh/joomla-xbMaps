@@ -14,6 +14,7 @@ use Joomla\Registry\Registry;
 //use Joomla\CMS\Language\Text;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Helper\TagsHelper;
 //use Joomla\CMS\Application\ApplicationHelper;
 
 class XbmapsModelMapview extends JModelItem {

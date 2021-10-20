@@ -126,16 +126,16 @@ function xbMoveMarker(marker, lat, lng, display,  doCoordBox=false, doForm=false
 
 function xbMapCoordInfo() {	    
 	var coordMsg = '<div class="xbmsgsuccess" style="text-align:left;">';
-	coordMsg += '<span style="padding-right:20px"><i>Lat:</i> '+window.lat+'</span><i>Long:</i> '+window.lng+'<br />';
-	coordMsg += '<span style="padding-right:20px"><i>Lat:</i> '+window.dmslat+'</span><i>Long:</i> '+window.dmslng+'<br />';
+	coordMsg += '<span class="xbpr20"><i>Lat:</i> '+window.lat+'</span><i>Long:</i> '+window.lng+'<br />';
+	coordMsg += '<span class="xbpr20"><i>Lat:</i> '+window.dmslat+'</span><i>Long:</i> '+window.dmslng+'<br />';
 	coordMsg += 'Zoom: '+ window.zoom +'</div>';		
 	jQuery('#coordInfo', window.parent.document).html(coordMsg);	    
 }
 
 function xbMarkerCoordInfo(display=7) {	    
 	var coordMsg = '<div class="xbmsgsuccess" style="text-align:left;">';
-	if ((display & 1)==1) coordMsg += '<span style="padding-right:20px"><i>Lat:</i> '+window.lat+'</span><i>Long:</i> '+window.lng+'<br />';
-	if ((display & 2)==2) coordMsg += '<span style="padding-right:20px"><i>Lat:</i> '+window.dmslat+'</span><i>Long:</i> '+window.dmslng+'<br />';
+	if ((display & 1)==1) coordMsg += '<span class="xbpr20"><i>Lat:</i> '+window.lat+'</span><i>Long:</i> '+window.lng+'<br />';
+	if ((display & 2)==2) coordMsg += '<span class="xbpr20"><i>Lat:</i> '+window.dmslat+'</span><i>Long:</i> '+window.dmslng+'<br />';
 	if ((display & 4)==4) coordMsg += '<i>What 3 Words</i>: <b>/// '+window.w3w+'</b>';
 	coordMsg += '</div>';		
 	jQuery('#coordInfo', window.parent.document).html(coordMsg);	    
@@ -147,10 +147,10 @@ function xbMarkerPopup(marker,display) {
 	var dms = (display & 2)==2;
 	var w3w = (display > 3);
 	if (deg) {		
-		popupContent += '<span style="padding-right:20px"><i>Lat:</i> '+window.lat+'</span><i>Long:</i> '+window.lng+'<br />';
+		popupContent += '<span class="xbpr20"><i>Lat:</i> '+window.lat+'</span><i>Long:</i> '+window.lng+'<br />';
 	}
 	if (dms) {
-		popupContent += '<span style="padding-right:20px"><i>Lat:</i> '+window.dmslat+'</span><i>Long:</i> '+window.dmslng+'<br />';		
+		popupContent += '<span class="xbpr20"><i>Lat:</i> '+window.dmslat+'</span><i>Long:</i> '+window.dmslng+'<br />';		
 	}
 	if (w3w) {
     	what3words.api.convertTo3wa({lat:  window.lat, lng: window.lng}, 'en').then(function(response)

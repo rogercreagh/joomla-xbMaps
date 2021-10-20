@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.8.0.a 16th October 2021
+ * @version 0.8.0.g 20th October 2021
  * @filesource site/views/map/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -113,9 +113,6 @@ class XbmapsViewMap extends JViewLegacy {
 		}
 		//TODO now test pagination for next page
 		
-		$tagsHelper = new TagsHelper;
-		$this->item->tags = $tagsHelper->getItemTags('com_xbmaps.map' , $this->item->id);
-		
 		$document = $this->document; //Factory::getDocument();
 		$document->setTitle($this->item->title);
 		$document->setMetaData('title', Text::_('xbMaps Map').' '.$this->item->title);
@@ -155,8 +152,8 @@ class XbmapsViewMap extends JViewLegacy {
 			if ($this->show_map_key && ((!empty($this->item->tracks)) || (!empty($this->item->markers)))) {
 		    	$this->keybox .= ($this->infopos == 'topbot') ? '<div class="row-fluid"><div class="span6">' : '';
 			    if (count($this->item->tracks)>0) {
-		        	$this->keybox .= '<p><b>Tracks</b></p><ul class="xblist" style="margin:0;">';
-		        	$this->keybox .= XbmapsGeneral::buildTrackList($this->item->tracks, $this->infopos).'</ul>'; 
+		        	$this->keybox .= '<p><b>Tracks</b></p>';
+		        	$this->keybox .= XbmapsGeneral::buildTrackList($this->item->tracks, $this->infopos,$this->track_infodetails); 
 			    } elseif ($this->show_empty) {
 			    	$this->keybox .= '<p><i>No tracks assigned</i></p>';
 			    }
@@ -165,8 +162,8 @@ class XbmapsViewMap extends JViewLegacy {
 	    		}
 	    		if (count($this->item->markers)>0) {
 	    			$this->keybox .= ($this->infopos == 'topbot') ? '<div class="span6">' : '';
-	    			$this->keybox .= '<p><b>Markers</b></p><ul class="xblist" style="margin:0;">';
-	    			$this->keybox .= XbmapsGeneral::buildMarkerList($this->item->markers, $this->infopos, $this->marker_image_path).'</ul>';
+	    			$this->keybox .= '<p><b>Markers</b></p>';
+	    			$this->keybox .= XbmapsGeneral::buildMarkerList($this->item->markers, $this->infopos, $this->marker_image_path,$this->marker_infocoords );
 	    			$this->keybox .= ($this->infopos == 'topbot') ? '</div>' : '';
 	    		} elseif ($this->show_empty) {
 	    			$this->keybox .= '<p><i>No markers assigned</i></p>';
@@ -175,11 +172,7 @@ class XbmapsViewMap extends JViewLegacy {
 			}
     		$this->keybox .= '</div>';
 		}
-		
-			
-//		$this->tracklist = ($this->show_map_key==1) ? self::buildTrackList() : '';
-//		$this->markerlist = ($this->show_map_key==1) ? self::buildMarkerList() : '';
-		
+				
 		parent::display($tpl);
 	}
 		

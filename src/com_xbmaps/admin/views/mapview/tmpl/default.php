@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.8.0.d 19th October 2021
+ * @version 0.8.0.f 20th October 2021
  * @filesource admin/views/mapview/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -13,6 +13,10 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 
 $item = $this->item;
+
+$tvlink = 'index.php?option=com_xbmaps&view=taginfo&id=';
+$cvlink = 'index.php?option=com_xbmaps&view=catinfo&id=';
+
 $uid = uniqid();
 
 $map = new XbMapHelper($uid,$this->params);
@@ -144,7 +148,7 @@ $map->renderMap();
 			<div class="pull-left xbnit xbmr10"><?php echo JText::_('XBMAPS_CATEGORY'); ?></div>
 			<div class="pull-left"><ul class="inline"><li>
 				<?php if($this->show_cats==2) : ?>
-					<a class="label label-success" href="<?php echo JRoute::_($clink.$item->catid); ?>">
+					<a class="label label-success" href="<?php echo JRoute::_($cvlink.$item->catid); ?>">
 						<?php echo $item->category_title; ?></a>
 				<?php else: ?>
 					<span class="label label-success"><?php echo $item->category_title; ?></span>

@@ -9,7 +9,7 @@
  ******/
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-require_once(JPATH_COMPONENT_ADMINISTRATOR.'/helpers/geocoder.php');
+//require_once(JPATH_COMPONENT_ADMINISTRATOR.'/helpers/geocoder.php');
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;

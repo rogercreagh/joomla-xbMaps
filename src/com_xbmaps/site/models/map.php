@@ -11,6 +11,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\Registry\Registry;
+use Joomla\CMS\Helper\TagsHelper;
 
 class XbmapsModelMap extends JModelItem {
 		
@@ -66,6 +67,9 @@ class XbmapsModelMap extends JModelItem {
 				$this->item->tracks = XbmapsGeneral::mapTracksArray($this->item->id,1);
 				//get markers
 				$this->item->markers = XbmapsGeneral::mapMarkersArray($this->item->id,1);
+				
+				$tagsHelper = new TagsHelper;
+				$this->item->tags = $tagsHelper->getItemTags('com_xbmaps.map' , $this->item->id);
 				
 				return $this->item;			
 			}

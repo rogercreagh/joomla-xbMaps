@@ -93,14 +93,7 @@ $map->renderMap();
 <div class="xbmaps">
 	<form action="<?php echo JRoute::_('index.php?option=com_xbmaps&view=mapview&id='.$item->id); ?>" method="post" name="adminForm" id="adminForm">
 		<div class="row-fluid">
-		<?php if (!empty( $this->sidebar)) : ?>
-        	<div id="j-sidebar-container" class="span2">
-				<?php echo $this->sidebar; ?>
-        	</div>
-        	<div id="j-main-container" class="span10">
-		<?php else : ?>
         	<div id="j-main-container" class="span12">
-		<?php endif;?>
 			<?php  if($this->show_map_title) :?>
 			<div class="row-fluid">
 				<div class="span12">
@@ -147,26 +140,34 @@ $map->renderMap();
 			<?php endif; ?>
 	<div class="row-fluid xbmt16">
 	<?php if ($this->show_cats >0) : ?>       
-		<div class="span4<?php echo ($this->show_cats ==0) ? ' xbdim' : ''; ?>">
+		<div class="span4<?php echo ($this->show_cats ==0) ? ' xbdim' : ''; ?>"><div class="xbbox xbboxyell">
 			<div class="pull-left xbnit xbmr10"><?php echo JText::_('XBMAPS_CATEGORY'); ?></div>
-			<div class="pull-left">
+			<div class="pull-left"><ul class="inline"><li>
 				<?php if($this->show_cats==2) : ?>
 					<a class="label label-success" href="<?php echo JRoute::_($clink.$item->catid); ?>">
 						<?php echo $item->category_title; ?></a>
 				<?php else: ?>
 					<span class="label label-success"><?php echo $item->category_title; ?></span>
 				<?php endif; ?>		
-			</div>
-        </div>
+			</li></ul></div>
+			<div class="clearfix"></div>
+        </div></div>
     <?php endif; ?>
     <?php if (($this->show_tags) && (!empty($item->tags))) : ?>
     	<div class="span<?php echo ($this->show_cats>0) ? '8' : '12'; ?> <?php echo ($this->show_tags ==0) ? ' xbdim' : ''; ?>">
+    	<div class="xbbox xbboxmag">
 			<div class="pull-left xbnit xbmr10"><?php echo JText::_('XBMAPS_TAGS'); ?></div>
 			<div class="pull-left">
-				<?php  $tagLayout = new JLayoutFile('joomla.content.tags');
-    				echo $tagLayout->render($item->tags); ?>
+				<ul class="inline">
+				<?php foreach ($item->tags as $t) : ?>
+					<li><a href="<?php echo $tvlink.$t->id; ?>" class="label <?php echo $tagclass; ?>">
+						<?php echo $t->title; ?></a>
+					</li>												
+				<?php endforeach; ?>
+				</ul>						    											
 			</div>
-    	</div>
+			<div class="clearfix"></div>
+    	</div></div>
 	<?php endif; ?>
 	</div>
 

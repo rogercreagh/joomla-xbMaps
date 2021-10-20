@@ -23,7 +23,8 @@
 		/>
 
 		<field name="summary" type="textarea"
-			class="inputbox" label="XBMAPS_DESCRIPTION" description="XBMAPS_MARKER_DESCRIPTION_DESC"
+			label="XBMAPS_SUMMARY" description="XBMAPS_MARKER_DESCRIPTION_DESC"
+			class="inputbox xbwid100" 
 			rows="5"  filter="safehtml"
 		/>
 

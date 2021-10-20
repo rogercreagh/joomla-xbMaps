@@ -25,7 +25,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 
 $popuptitle = ($this->form->getValue('title')=='') ? 'Marker Title' : $this->form->getValue('title');
 $popupdesc = '';
-if ($this->form->getValue('marker_popdesc','params')) {
+if ($this->form->getValue('marker_popdesc','params')!=0) {
 	$popupdesc .= ($this->form->getValue('summary')=='') ? '<i>no summary yet</i><br />' : $this->form->getValue('summary').'<br />';
 }
 $disp = $this->form->getValue('marker_popcoords','params');
@@ -89,7 +89,7 @@ switch ($this->form->getValue('marker_type')) {
 }
 $map->endZoom();
 $map->markerPosClick($uid,$disp);
-$map->markerW3wUpdate($uid,$disp);
+//$map->markerW3wUpdate($uid,$disp);
 $map->renderSearch($uid);
 $map->renderFullScreenControl();
 

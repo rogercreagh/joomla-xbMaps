@@ -149,18 +149,19 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
     		} ?>
     	</div>
 	<?php endif; ?>
-</div>
-<?php if ($this->show_map_info=='below') :?>
-	<?php echo '<p> </p>'.$this->keybox;?>
-<?php endif; ?>	
-<?php if (($this->show_map_desc=='3') || (($this->show_map_desc=='1') && ($this->show_map_info=='below'))) : ?>
-	<?php echo '<p> </p>'.$this->descbox; ?>
-<?php endif; ?>
+	</div>
+	<?php if ($this->show_map_info=='below') :?>
+		<?php echo '<p> </p>'.$this->keybox;?>
+	<?php endif; ?>	
+	<?php if (($this->show_map_desc=='3') || (($this->show_map_desc=='1') && ($this->show_map_info=='below'))) : ?>
+		<?php echo '<p> </p>'.$this->descbox; ?>
+	<?php endif; ?>
 
 <div class="row-fluid xbmt16">
 	<?php if ($this->show_cats >0) : ?>       
 		<div class="span4">
-			<div class="pull-left xbnit xbmr10"><?php echo JText::_('XBMAPS_CATEGORY'); ?></div>
+			<div class="xbbox xbboxyell">
+				<div class="pull-left xbnit xbmr10"><?php echo JText::_('XBMAPS_CATEGORY'); ?></div>
 				<div class="pull-left">
 					<?php if($this->show_cats==2) : ?>
 						<a class="label label-success" href="<?php echo JRoute::_($clink.$item->catid); ?>">
@@ -169,15 +170,19 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
     					<span class="label label-success"><?php echo $item->category_title; ?></span>
     				<?php endif; ?>		
 				</div>
+				<div class="clearfix"></div>
 	        </div>
+	    </div>
         <?php endif; ?>
         <?php if (($this->show_tags) && (!empty($item->tags))) : ?>
         	<div class="span<?php echo ($this->show_tags>0) ? '8' : '12'; ?>">
+   			<div class="xbbox xbboxmag">
 				<div class="pull-left xbnit xbmr10"><?php echo JText::_('XBMAPS_TAGS'); ?></div>
 				<div class="pull-left">
 					<?php  $tagLayout = new JLayoutFile('joomla.content.tags');
 	    				echo $tagLayout->render($item->tags); ?>
 				</div>
+        	</div>
         	</div>
 		<?php endif; ?>
 </div>

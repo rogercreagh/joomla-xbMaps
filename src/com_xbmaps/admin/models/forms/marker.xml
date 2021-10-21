@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbMaps admin/models/forms/marker.xml v0.8.0.b 17th October 2021 -->
+<!-- xbMaps admin/models/forms/marker.xml v0.8.0.g 21st October 2021 -->
 <form>
 
 	<fieldset name="markerset" addfieldpath="/administrator/components/com_xbmaps/models/fields">
@@ -196,11 +196,11 @@
 			label="XBMAPS_MARKER_POPCOORDS_LABEL" description="XBMAPS_MARKER_POPCOORDS_DESC"
 			default="3"
 		>
-			<option value="0">Do not show</option>
-			<option value="1">GPS Degrees (ddd)</option>
-			<option value="2">Deg Min Secs (dms)</option>
+			<option value="0">XBMAPS_NOT_SHOW</option>
+			<option value="1">XBMAPS_GPS_DEGS</option>
+			<option value="2">XBMAPS_DMS</option>
 			<option value="3">ddd &amp; dms</option>
-			<option value="4" showon="hid_w3wapi!:" >What3Words (w3w)</option>
+			<option value="4" showon="hid_w3wapi!:" >XBMAPS_W3W</option>
 			<option value="5" showon="hid_w3wapi!:" >ddd &amp; w3w</option>
 			<option value="6" showon="hid_w3wapi!:" >dms &amp; w3w</option>
 			<option value="7" showon="hid_w3wapi!:" >ddd, dms &amp; w3w</option>

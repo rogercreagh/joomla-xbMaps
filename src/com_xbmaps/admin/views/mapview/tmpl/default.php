@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.8.0.f 20th October 2021
+ * @version 0.8.0.g 21st October 2021
  * @filesource admin/views/mapview/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -187,5 +187,8 @@ $map->renderMap();
 		<?php echo HTMLHelper::_('form.token'); ?>
 		</div>
 	</form>
+
+<p><?php echo XbmapsGeneral::credit();?></p>
+	
 </div>
 			

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.3.0.e 19th September 2021
+ * @version 0.8.0.g 21st October 2021
  * @filesource admin/views/catslist/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -30,14 +30,10 @@ $prevext ='';
 //TODO ----------
 ?>
 <form action="index.php?option=com_xbmaps&view=catslist" method="post" id="adminForm" name="adminForm">
-	<?php if (!empty( $this->sidebar)) : ?>
-        <div id="j-sidebar-container" class="span2">
-			<?php echo $this->sidebar; ?>
-        </div>
-        <div id="j-main-container" class="span10">
-	<?php else : ?>
-        <div id="j-main-container">
-	<?php endif;?>
+	<div id="j-sidebar-container">
+		<?php echo $this->sidebar; ?>
+	</div>
+	<div id="j-main-container" >
 	<?php if ($this->global_use_cats == 0) : ?>
 		<div class="j-toggle-main alert alert-error">
 	      <button type="button" class="close" data-dismiss="alert">×</button>

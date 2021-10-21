@@ -26,11 +26,12 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 $popuptitle = ($this->form->getValue('title')=='') ? 'Marker Title' : $this->form->getValue('title');
 $popupdesc = '';
 if ($this->form->getValue('marker_popdesc','params')!=0) {
-	$popupdesc .= ($this->form->getValue('summary')=='') ? '<i>no summary yet</i><br />' : $this->form->getValue('summary').'<br />';
+	$popupdesc .= ($this->form->getValue('summary')=='') ? '<i>'.Text::('XBMAPS_NO_SUM_YET').'</i><br />' : $this->form->getValue('summary').'<br />';
 }
 $disp = $this->form->getValue('marker_popcoords','params');
 if ($disp=='') $disp=0;
-if ($disp>0) $popupdesc .= '<hr /><b>Location</b></br>';
+if ($disp>0) $popupdesc .= '<hr /><b>'.Text::('XBMAPS_LOCATION').'</b></br>';
+
 $lat = $this->form->getValue('latitude');
 $long = $this->form->getValue('longitude');
 if (($disp & 1)==1) {
@@ -48,12 +49,8 @@ if ($disp > 3) {
     }
     $popupdesc .= '<i>What 3 Words</i>: <b>/// '.$w3w.'</b>';
 }
-$popupdesc .= '<hr /><i>Click to map to move marker</i>';
+$popupdesc .= '<hr /><i>'.Text::('XBMAPS_CLICK_MOVE_SAVE').'</i>';
 
-
-
-$lat = $this->form->getValue('latitude');
-$long = $this->form->getValue('longitude');
 $uid = uniqid();
 $map = new XbMapHelper($uid, null, true);
 $map->loadAPI(false);
@@ -89,7 +86,6 @@ switch ($this->form->getValue('marker_type')) {
 }
 $map->endZoom();
 $map->markerPosClick($uid,$disp);
-//$map->markerW3wUpdate($uid,$disp);
 $map->renderSearch($uid);
 $map->renderFullScreenControl();
 

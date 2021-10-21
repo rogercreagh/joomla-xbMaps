@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.7.0.d 11h October 2021
+ * @version 0.8.0.g 21st October 2021
  * @filesource admin/views/trackview/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -27,6 +27,11 @@ $map->renderMap();
 ?>
 <div class="xbmaps">
 	<form action="<?php echo JRoute::_('index.php?option=com_xbmaps&view=trackview&id='.$this->item->id); ?>" method="post" name="adminForm" id="adminForm">
+	<div id="j-sidebar-container">
+		<?php echo $this->sidebar; ?>
+	</div>
+	<div id="j-main-container" >
+
 <?php  if($this->show_track_title) :?>
 	<div class="row-fluid">
 		<div class="span12">
@@ -112,6 +117,7 @@ $map->renderMap();
 		<input type="hidden" name="task" value="" />
 		<input type="hidden" name="boxchecked" value="0" />
 		<?php echo HTMLHelper::_('form.token'); ?>
+		</div>
 	</form>
 </div>
 	<div class="clearfix"></div>

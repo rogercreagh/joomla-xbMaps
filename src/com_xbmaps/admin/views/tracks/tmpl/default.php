@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.7.0.c 9th October 2021
+ * @version 0.8.0.g 21st October 2021
  * @filesource admin/views/cpanel/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -47,14 +47,10 @@ $tagclass = $this->show_tags? 'label-info' : 'label-grey';
 ?>
 <div class="row-fluid">
 <form action="<?php echo JRoute::_('index.php?option=com_xbmaps&view=tracks'); ?>" method="post" name="adminForm" id="adminForm">
-	<?php if (!empty( $this->sidebar)) : ?>
-        <div id="j-sidebar-container" class="span2">
-			<?php echo $this->sidebar; ?>
-        </div>
-        <div id="j-main-container" class="span10">
-	<?php else : ?>
-        <div id="j-main-container" class="span12">
-	<?php endif;?>
+	<div id="j-sidebar-container">
+		<?php echo $this->sidebar; ?>
+	</div>
+	<div id="j-main-container" >
 	<div class="pull-right span2">
 		<p style="text-align:right;">
 			<?php $fnd = $this->pagination->total;

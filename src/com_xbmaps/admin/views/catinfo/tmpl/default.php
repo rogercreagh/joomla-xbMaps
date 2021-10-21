@@ -1,7 +1,7 @@
 <?php
 /*******
-  * @package xbMaps
- * @version 0.3.0.h 21st September 2021
+ * @package xbMaps
+ * @version 0.8.0.g 21st October 2021
  * @filesource admin/views/catinfo/tmpl/edit.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -18,14 +18,10 @@ $xblink = 'index.php?option=com_xbmaps';
 
 ?>
 <div class="row-fluid">
-<?php if (!empty( $this->sidebar)) : ?>
-	<div id="j-sidebar-container" class="span2">
+	<div id="j-sidebar-container">
 		<?php echo $this->sidebar; ?>
 	</div>
-	<div id="j-main-container" class="span10">
-<?php else : ?>
-	<div id="j-main-container" class="span12">
-<?php endif;?>
+	<div id="j-main-container" >
 	<?php if ($this->global_use_cats == 0) : ?>
 		<div class="j-toggle-main alert alert-error">
 	      <button type="button" class="close" data-dismiss="alert">×</button>

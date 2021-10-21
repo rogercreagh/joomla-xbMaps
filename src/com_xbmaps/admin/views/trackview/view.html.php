@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.7.0.e 13th October 2021
+ * @version 0.8.0.g 21st October 2021
  * @filesource admin/views/trackview/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -118,6 +118,9 @@ class XbmapsViewTrackview extends JViewLegacy {
 	    }
 	    
 	    $this->addToolbar();
+	    
+	    XbmapsHelper::addSubmenu('tracks');
+	    $this->sidebar = JHtmlSidebar::render();
 	    
 	    parent::display($tpl);
 		

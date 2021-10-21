@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.8.0.g 20th October 2021
+ * @version 0.8.0.g 21st October 2021
  * @filesource admin/helpers/xbmapsgeneral.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -314,10 +314,10 @@ class XbmapsGeneral extends ContentHelper {
 			}
 			$trklist .= ($infopos == 'side') ? '<br >' : ' - ';
 			if (($infodisp & 2)==2) {
-			    $trklist .= '<span class="xbnit xbml20">Recorded: '.$trk->rec_date.'</span><br />';
+			    $trklist .= '<span class="xbnit xbml20">Recorded: </span>'.$trk->rec_date.'<br />';
 			}
 			if (($infodisp > 3)) {
-			    $trklist .= '<span class="xbnit xbml20">Device: '.$trk->rec_device.'</span>';
+			    $trklist .= '<span class="xbnit xbml20">Device: </span>'.$trk->rec_device.'';
 			}
 			$trklist .=	 '</li>';
 		} // endforeach;

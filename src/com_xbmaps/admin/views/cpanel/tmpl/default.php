@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.6.0.e 4th October 2021
+ * @version 0.8.0.g 21st October 2021
  * @filesource admin/views/cpanel/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -16,14 +16,10 @@ use Joomla\CMS\Language\Text;
 ?>
 <form action="<?php echo JRoute::_('index.php?option=com_xbmaps&view=cpanel'); ?>" method="post" name="adminForm" id="adminForm">
 	<div class="row-fluid">
-		<?php if (!empty( $this->sidebar)) : ?>
-	        <div id="j-sidebar-container" class="span2">
-				<?php echo $this->sidebar; ?>
-	        </div>
-	    <div id="j-main-container" class="span10">
-		<?php else : ?>
-	        <?php echo '<div id="j-main-container" class="span12">'; ?>
-		<?php endif;?>
+		<div id="j-sidebar-container">
+			<?php echo $this->sidebar; ?>
+		</div>
+		<div id="j-main-container" >
 			<h3><?php echo Text::_('XBMAPS_STATUS_SUM'); ?></h3>
 			<div class="row-fluid">
             	<div class="span8">

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.3.0.h 21st September 2021
+ * @version 0.8.0.g 21st October 2021
  * @filesource admin/views/tagslist/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -27,14 +27,10 @@ $markerslink = 'index.php?option=com_xbmaps&view=markers&tagid=';
 $trackslink = 'index.php?option=com_xbmaps&view=tracks&tagid=';
 ?>
 <form action="index.php?option=com_xbmaps&view=tagslist" method="post" id="adminForm" name="adminForm">
-	<?php if (!empty( $this->sidebar)) : ?>
-        <div id="j-sidebar-container" class="span2">
-			<?php echo $this->sidebar; ?>
-        </div>
-        <div id="j-main-container" class="span10">
-	<?php else : ?>
-        <div id="j-main-container">
-	<?php endif;?>
+	<div id="j-sidebar-container">
+		<?php echo $this->sidebar; ?>
+	</div>
+	<div id="j-main-container" >
 	<?php if ($this->global_use_tags == 0) : ?>
 		<div class="j-toggle-main alert alert-error">
 	      <button type="button" class="close" data-dismiss="alert">×</button>

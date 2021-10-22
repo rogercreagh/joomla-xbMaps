@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbMaps admin/models/forms/map.xml v0.8.0.d 19th October 2021 -->
+<!-- xbMaps admin/models/forms/map.xml v0.8.0.h 22nd October 2021 -->
 <form>
 
 	<fieldset addfieldpath="/administrator/components/com_xbmaps/models/fields">
@@ -133,7 +133,7 @@
 			label= "XBMAPS_TRACKLIST_LABEL"
 			description="XBMAPS_TRACKLIST_DESC"
 			min= "0"
-			max= "10"
+			max= "20"
 			multiple= "true"
 			buttons= "add,remove,move"
 			layout="joomla.form.field.subform.repeatable-table"
@@ -156,7 +156,7 @@
 			label= "XBMAPS_MARKERLIST_LABEL"
 			description="XBMAPS_MARKERLIST_DESC"
 			min= "0"
-			max= "10"
+			max= "30"
 			multiple= "true"
 			buttons= "add,remove,move"
 			layout="joomla.form.field.subform.repeatable-table"

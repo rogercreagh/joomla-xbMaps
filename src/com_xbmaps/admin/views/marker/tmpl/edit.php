@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.8.0.c 18th October 2021
+ * @version 0.8.0.h 22nd October 2021
  * @filesource admin/views/marker/tmpl/edit.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -26,11 +26,11 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 $popuptitle = ($this->form->getValue('title')=='') ? 'Marker Title' : $this->form->getValue('title');
 $popupdesc = '';
 if ($this->form->getValue('marker_popdesc','params')!=0) {
-	$popupdesc .= ($this->form->getValue('summary')=='') ? '<i>'.Text::('XBMAPS_NO_SUM_YET').'</i><br />' : $this->form->getValue('summary').'<br />';
+	$popupdesc .= ($this->form->getValue('summary')=='') ? '<i>'.Text::_('XBMAPS_NO_SUM_YET').'</i><br />' : $this->form->getValue('summary').'<br />';
 }
 $disp = $this->form->getValue('marker_popcoords','params');
 if ($disp=='') $disp=0;
-if ($disp>0) $popupdesc .= '<hr /><b>'.Text::('XBMAPS_LOCATION').'</b></br>';
+if ($disp>0) $popupdesc .= '<hr /><b>'.Text::_('XBMAPS_LOCATION').'</b></br>';
 
 $lat = $this->form->getValue('latitude');
 $long = $this->form->getValue('longitude');
@@ -49,7 +49,7 @@ if ($disp > 3) {
     }
     $popupdesc .= '<i>What 3 Words</i>: <b>/// '.$w3w.'</b>';
 }
-$popupdesc .= '<hr /><i>'.Text::('XBMAPS_CLICK_MOVE_SAVE').'</i>';
+$popupdesc .= '<hr /><i>'.Text::_('XBMAPS_CLICK_MOVE_SAVE').'</i>';
 
 $uid = uniqid();
 $map = new XbMapHelper($uid, null, true);
@@ -155,7 +155,7 @@ $map->renderMap();
 							</div> 
 							<?php if ($this->w3w_api!='') : ?>
 		                  		<div class="form-horizontal pull-left"><?php echo $this->form->renderField('marker_w3w','params'); ?></div>
-		                  		<div class="pull-left"><button type="button" onclick="xbUpdateMarkerW3w(document.getElementById('jform_params_marker_w3w').value);">Update Map</button></div>
+		                  		<div class="pull-left"><button type="button" onclick="xbUpdateMarkerW3w(document.getElementById('jform_params_marker_w3w').value);">Update</button></div>
 								<div class="clearfix"></div>
 							<?php endif; ?>
 	    			</div>

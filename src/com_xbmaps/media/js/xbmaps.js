@@ -1,6 +1,6 @@
 /*****
  * @package xbMaps
- * @version 0.8.0.b 18th October 2021
+ * @version 0.8.0.h 22nd October 2021
  * @filesource media/js/xbmaps.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -171,6 +171,7 @@ function xbUpdateMarkerW3w(w3w) {
 			window.w3w = w3w;
 			xbSaveForm();
 			document.getElementById('task').value='marker.apply';
+			document.forms["adminForm"].submit();
   	}).catch(error => alert(error.message));
 }
 

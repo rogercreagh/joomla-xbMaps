@@ -1,6 +1,6 @@
 /*****
  * @package xbMaps
- * @version 0.8.0.h 22nd October 2021
+ * @version 0.8.0.h 25th October 2021
  * @filesource media/js/xbmaps.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -166,12 +166,13 @@ function xbMarkerPopup(marker,display) {
 function xbUpdateMarkerW3w(w3w) {
 	what3words.api.convertToCoordinates(w3w).then(function(response) 
 		{ var coords=response.coordinates; 
+         	w3w = w3w.replace(/^[\/\s]+|\s+$/g, '')
 			window.lat = coords.lat;
 			window.lng = coords.lng;
 			window.w3w = w3w;
 			xbSaveForm();
 			document.getElementById('task').value='marker.apply';
-			document.forms["adminForm"].submit();
+			document.adminForm.submit();
   	}).catch(error => alert(error.message));
 }
 

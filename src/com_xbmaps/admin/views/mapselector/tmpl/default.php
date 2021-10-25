@@ -28,7 +28,7 @@ $map->setMarker($uid, $this->latitude, $this->longitude, 'Map Centre Set', 'Zoom
 //	$map->exportMarker($uid);
 $map->endZoom();
 $map->mapAreaClick($uid);
-$map->renderSearch($uid);
+$map->renderSearch($uid,'',$this->searchdisplay);
 //	$map->storeZoom($uid);
 	
 

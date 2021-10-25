@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.8.0.d 19th October 2021
+ * @version 0.8.0.h 25th October 2021
  * @filesource admin/models/marker.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -66,6 +66,9 @@ class XbmapsModelMarker extends JModelAdmin {
         // set any field attributes according to params if needed
         $def_markers_folder = 'images/'.$params->get('def_markers_folder','');
         $form->setFieldAttribute('marker_image','directory',$def_markers_folder,'params');
+        if ($params->get('w3w_api')!='') {
+            $form->setFieldAttribute('marker_popcoords','default','4','params');
+        }
         //$def_marker_colour = $params->get('def_marker_colour','');
         //$form->setFieldAttribute('marker_colour','default',$def_marker_colour);
         

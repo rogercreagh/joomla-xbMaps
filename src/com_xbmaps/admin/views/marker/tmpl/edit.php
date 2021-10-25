@@ -43,8 +43,8 @@ if (($disp & 2)==2) {
 if ($disp > 3) {
     $w3w = $this->form->getValue('marker_w3w','params');
     if ($w3w=='') {
-        $api = new Geocoder($this->params->get('w3w_api'));
-        $w3w = $api->convertTo3wa($lat,$long)['words'];
+        $api = new Geocoder($this->w3w_api);
+        $w3w = $api->convertTo3wa($lat,$long,$this->w3w_lang)['words'];
         $this->form->setValue('marker_w3w','params',$w3w);
     }
     $popupdesc .= '<i>What 3 Words</i>: <b>/// '.$w3w.'</b>';

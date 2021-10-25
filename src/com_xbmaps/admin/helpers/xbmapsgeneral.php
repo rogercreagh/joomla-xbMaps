@@ -1,13 +1,15 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.8.0.g 21st October 2021
+ * @version 0.8.0.h 25th October 2021
  * @filesource admin/helpers/xbmapsgeneral.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
 defined( '_JEXEC' ) or die( 'Restricted access' );
+
+require_once(JPATH_COMPONENT_ADMINISTRATOR.'/helpers/geocoder.php');
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\ContentHelper;
@@ -367,7 +369,7 @@ class XbmapsGeneral extends ContentHelper {
 			        break;
 			    case 4:
 			        $api = new Geocoder($w3w_api);
-			        $w3w = $api->convertTo3wa($lat,$long)['words'];
+			        $w3w = $api->convertTo3wa($mrk->mklat,$mrk->mklong,$params->get('w3w_lang'))['words'];
 			        $mrklist .= '<i>What 3 Words</i>: <b>///&nbsp;'.$w3w.'</b>';
 			        break;
 			        

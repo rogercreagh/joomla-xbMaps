@@ -26,7 +26,7 @@ class XbmapsViewMapselector extends JViewLegacy {
 		$this->settype	= $app->input->get( 'type', 'map');
 		$this->homebutton = $params->get('map_home_button');
 		$this->clustering = $params->get('marker_clustering');
-		
+		$this->searchdisplay = 2 + ($params->get('w3w_api','')!='') ? 4 : 0;
 //		Factory::getApplication()->enqueueMessage('Lat:'.$this->latitude.' Long:'.$this->longitude.' Zoom:'.$this->zoom.' type:'.$this->type);
 		parent::display($tpl);
 		

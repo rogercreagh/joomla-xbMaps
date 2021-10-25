@@ -29,12 +29,14 @@ class XbMapHelper {
 	public $easyprint				= '';
 	public $markerclustering		= 0;
 	public $w3wapi = '';
+	public $w3wlang = 'en';
 		
 	function __construct($id = '', $controls=null, $selectmaparea = false) {
 		
 		//$app = Factory::getApplication();
 		$paramsC = ComponentHelper::getParams('com_xbmaps');
 		$this->w3wapi = $paramsC->get('w3w_api','');
+		$this->w3wlang = $paramsC->get('w3w_lang','');
 		if (!is_null($controls)) {		
 			//we are being passed map specific parameters
 			$this->maptype			= $controls->get( 'map_type', '' );
@@ -424,7 +426,7 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		$o[] = 'function onMapClick(e) {';
 		$o[] = ' window.lat = e.latlng.lat;';
 		$o[] = ' window.lng = e.latlng.lng;';
-		$o[] = ' xbMoveMarker(marker'.$markerUId.', e.latlng.lat, e.latlng.lng,'. $display.');';
+		$o[] = ' xbMoveMarker(marker'.$markerUId.', e.latlng.lat, e.latlng.lng,'. $display.','.$this->w3wlang.');';
 //		$o[] = 'xbMarkerPopup(marker'.$markerUId.',\''.$display.'\',\''.$this->w3wapi.'\');';
 		$o[] = '}';
 		$this->output[] = implode("\n", $o);
@@ -440,7 +442,7 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		$o[] = 'function onMapClick(e) {';
 		$o[] = ' window.lat = e.latlng.lat;';
 		$o[] = ' window.lng = e.latlng.lng;';
-		$o[] = ' xbMoveMarker(marker'.$markerUId.', e.latlng.lat, e.latlng.lng);';
+		$o[] = ' xbMoveMarker(marker'.$markerUId.', e.latlng.lat, e.latlng.lng,'. $display.','.$this->w3wlang.');';
 		$o[] = ' xbMapCoordInfo();';
 		$o[] = ' xbSaveForm();';
 		$o[] = '}';
@@ -457,13 +459,13 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 	    $o[] = 'function onMarkerPosClick(e) {';
 	    $o[] = ' window.lat = e.latlng.lat;';
 	    $o[] = ' window.lng = e.latlng.lng;';
-	    $o[] = ' xbMoveMarker(marker'.$markerUId.', e.latlng.lat, e.latlng.lng,'. $display.', true, true);';
+	    $o[] = ' xbMoveMarker(marker'.$markerUId.', e.latlng.lat, e.latlng.lng,'. $display.','.$this->w3wlang.', true, true);';
 	    $o[] = '}';
 	    $this->output[] = implode("\n", $o);
 	    return true;
 	}
 	
-	public function renderSearch($markerId = '', $position = '') {
+	public function renderSearch($markerId = '', $position = '', $display='1') {
 		
 		$position = $position != '' ? $position : 'topleft';
 		$o 	= array();
@@ -486,7 +488,7 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		if ($markerId != '') {
 			//NB this function requires specific map and marker names so has to be created on fly after map
 			$o[] = '	moveToLocation: function(latlng, title, map) {';
-			$o[] = '		xbMoveMarker(marker'.$markerId.', latlng.lat, latlng.lng);';
+			$o[] = '		xbMoveMarker(marker'.$markerId.', latlng.lat, latlng.lng,'. $display.','.$this->w3wlang.');';
 			$o[] = '		map'.$this->name.$this->id.'.setView(latlng, 7);';// set the zoom
 			$o[] = '	}';
 		}

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.7.0.e 13th October 2021
+ * @version 0.8.0.h 25th October 2021
  * @filesource site/views/track/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -83,7 +83,7 @@ class XbmapsViewTrack extends JViewLegacy {
 		}
 		
 		$this->descbox = '';
-		if ($this->show_track_desc) {
+		if (($this->show_track_desc)  && ($this->item->description !='')) {
 			$this->descbox .= '<div class="'.$this->track_desc_class.'">';
 			if ($this->desc_title) {
 				$this->descbox .= '<h4>'.$this->desc_title.'</h4>';

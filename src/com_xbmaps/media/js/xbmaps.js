@@ -103,7 +103,7 @@ function xbSaveForm(doW3w=true) {
 	}
 }
 
-function xbMoveMarker(marker, lat, lng, display,  doCoordBox=false, doForm=false, doPop=true) {
+function xbMoveMarker(marker, lat, lng, display,  lang='en', doCoordBox=false, doForm=false, doPop=true) {
 	window.lat = lat.toFixed(6);
 	window.lng = lng.toFixed(6);
 	window.dmslat = deg2dms(lat,'latitude');
@@ -111,7 +111,7 @@ function xbMoveMarker(marker, lat, lng, display,  doCoordBox=false, doForm=false
 	var newLatLng = new L.LatLng(lat, lng);
 	marker.setLatLng(newLatLng);
 	if (display>3) {
-    	what3words.api.convertTo3wa({lat:  window.lat, lng: window.lng}, 'en').then(function(response)
+    	what3words.api.convertTo3wa({lat:  window.lat, lng: window.lng}, lang).then(function(response)
 			{ window.w3w = response.words;
 				if (doPop) xbMarkerPopup(marker,display);
 				if (doCoordBox) xbMarkerCoordInfo(display);
@@ -141,7 +141,7 @@ function xbMarkerCoordInfo(display=7) {
 	jQuery('#coordInfo', window.parent.document).html(coordMsg);	    
 }
 
-function xbMarkerPopup(marker,display) {
+function xbMarkerPopup(marker,display, lang='en') {
 	var popupContent = '<b>Location</b><br />'
 	var deg = (display & 1)==1;
 	var dms = (display & 2)==2;
@@ -153,7 +153,7 @@ function xbMarkerPopup(marker,display) {
 		popupContent += '<span class="xbpr20"><i>Lat:</i> '+window.dmslat+'</span><i>Long:</i> '+window.dmslng+'<br />';		
 	}
 	if (w3w) {
-    	what3words.api.convertTo3wa({lat:  window.lat, lng: window.lng}, 'en').then(function(response)
+    	what3words.api.convertTo3wa({lat:  window.lat, lng: window.lng}, lang).then(function(response)
 			{ window.w3w = response.words;
 				marker.bindPopup(popupContent+'<i>What 3 Words</i>: <b>/// '+response.words+'</b>').openPopup();				
 			 }).catch(error => alert(error.message));; 

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.8.0.g 20th October 2021
+ * @version 0.8.0.h 25th October 2021
  * @filesource admin/views/mapview/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -76,7 +76,7 @@ class XbmapsViewMapview extends JViewLegacy {
 		}
 		
 		$this->descbox = '';
-		if ($this->show_map_desc) {
+		if (($this->show_map_desc) && ($this->item->description !='')){
 			if ($this->infopos == 'topbot') $this->descbox .= '<div class="row-fluid"><div class="span12">';
 				$this->descbox .= '<div class="'.$this->map_desc_class.'">';
 				if ($this->desc_title) {

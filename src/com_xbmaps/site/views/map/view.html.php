@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.8.0.g 20th October 2021
+ * @version 0.8.0.h 25th October 2021
  * @filesource site/views/map/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -129,12 +129,14 @@ class XbmapsViewMap extends JViewLegacy {
 		}
 
 		$this->descbox = '';
-		if ($this->show_map_desc) {
-			$this->descbox .= '<div class="'.$this->map_desc_class.'">';
-			if ($this->desc_title) {
-				$this->descbox .= '<h4>'.$this->desc_title.'</h4>';
-			}
-			$this->descbox .= $this->item->description.'</div>';
+		if (($this->show_map_desc)  && ($this->item->description !='')) {
+		    if ($this->infopos == 'topbot') $this->descbox .= '<div class="row-fluid"><div class="span12">';
+		    $this->descbox .= '<div class="'.$this->map_desc_class.'">';
+		    if ($this->desc_title) {
+		        $this->descbox .= '<h4>'.$this->desc_title.'</h4>';
+		    }
+		    $this->descbox .= $this->item->description.'</div>';
+		    if ($this->infopos == 'topbot') $this->descbox .= '</div></div>';
 		}
 		
 		$this->infopos = 'topbot';
@@ -144,35 +146,37 @@ class XbmapsViewMap extends JViewLegacy {
 		
 		$this->keybox = '';
 		if ($this->show_map_info) {
+		    if ($this->infopos == 'topbot') $this->keybox .= '<div class="row-fluid"><div class="span12">';
 		    $this->keybox .= '<div class="xbbox xbboxgrn">';
 		    $this->keybox .= '<h4>'.$this->item->title.'</h4>';
 		    if ($this->show_info_summary) {
-		    	$this->keybox .= '<p>'.$this->item->summary.'</p>';
+		        $this->keybox .= '<p>'.$this->item->summary.'</p>';
 		    }
-			if ($this->show_map_key && ((!empty($this->item->tracks)) || (!empty($this->item->markers)))) {
-		    	$this->keybox .= ($this->infopos == 'topbot') ? '<div class="row-fluid"><div class="span6">' : '';
-			    if (count($this->item->tracks)>0) {
-		        	$this->keybox .= '<p><b>Tracks</b></p>';
-		        	$this->keybox .= XbmapsGeneral::buildTrackList($this->item->tracks, $this->infopos,$this->track_infodetails); 
-			    } elseif ($this->show_empty) {
-			    	$this->keybox .= '<p><i>No tracks assigned</i></p>';
-			    }
-	    		if ((count($this->item->tracks)>0) && (count($this->item->markers)>0)) {
-	    			$this->keybox .= ($this->infopos == 'topbot') ? '</div><div class="span6"' : '<hr style="margin:8px 0;" />';
-	    		}
-	    		if (count($this->item->markers)>0) {
-	    			$this->keybox .= ($this->infopos == 'topbot') ? '<div class="span6">' : '';
-	    			$this->keybox .= '<p><b>Markers</b></p>';
-	    			$this->keybox .= XbmapsGeneral::buildMarkerList($this->item->markers, $this->infopos, $this->marker_image_path,$this->marker_infocoords );
-	    			$this->keybox .= ($this->infopos == 'topbot') ? '</div>' : '';
-	    		} elseif ($this->show_empty) {
-	    			$this->keybox .= '<p><i>No markers assigned</i></p>';
-	    		}
-	    		$this->keybox .= ($this->infopos == 'topbot') ? '</div></div>' : '';
-			}
-    		$this->keybox .= '</div>';
+		    if ($this->show_map_key) {
+		        if ((!empty($this->item->tracks)) || (!empty($this->item->markers))) {
+		            $this->keybox .= ($this->infopos == 'topbot')? '<div class="row-fluid">' : '';
+		            if (!empty($this->item->tracks)) {
+		                $this->keybox .= ($this->infopos == 'topbot')? '<div class="span6">' : '';
+		                $this->keybox .= '<p><b>Tracks</b></p>';
+		                $this->keybox .= XbmapsGeneral::buildTrackList($this->item->tracks, $this->infopos,$this->track_infodetails);
+		                $this->keybox .= ($this->infopos == 'topbot')? '</div>' : '';
+		            }
+		            if (($this->infopos != 'topbot') && ((!empty($this->item->tracks)) && (!empty($this->item->markers)))) {
+		                $this->keybox .=  '<hr style="margin:8px 0;" />';
+		            }
+		            if (!empty($this->item->markers)) {
+		                $this->keybox .= ($this->infopos == 'topbot')? '<div class="span6">' : '';
+		                $this->keybox .= '<p><b>Markers</b></p>';
+		                $this->keybox .= XbmapsGeneral::buildMarkerList($this->item->markers, $this->infopos, $this->marker_image_path,$this->marker_infocoords);
+		                $this->keybox .= ($this->infopos == 'topbot')? '</div>' : '';
+		            }
+		            $this->keybox .= ($this->infopos == 'topbot')? '</div>' : '';
+		        }
+		    }
+		    $this->keybox .= '</div>';
+		    if ($this->infopos == 'topbot') $this->keybox .= '</div></div>';
 		}
-				
+		
 		parent::display($tpl);
 	}
 		

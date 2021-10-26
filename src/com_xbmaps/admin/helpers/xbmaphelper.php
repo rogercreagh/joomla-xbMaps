@@ -433,7 +433,7 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		return true;
 	}
 	
-	public function mapAreaClick($markerUId) {
+	public function mapAreaClick($markerUId, $display=1) {
 		
 		$o 	= array();
 		$o[] = 'map'.$this->name.$this->id.'.on(\'click\', onMapClick);';
@@ -444,7 +444,7 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		$o[] = ' window.lng = e.latlng.lng;';
 		$o[] = ' xbMoveMarker(marker'.$markerUId.', e.latlng.lat, e.latlng.lng,'. $display.',\''.$this->w3wlang.'\');';
 		$o[] = ' xbMapCoordInfo();';
-		$o[] = ' xbSaveForm();';
+		$o[] = ' xbSaveForm(false);';
 		$o[] = '}';
 		$this->output[] = implode("\n", $o);
 		return true;
@@ -550,7 +550,7 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		return true;		
 	}
 			
-	public function renderTracks( $tracks, $fitbounds = false, $info = true, $pop = true) {
+	public function renderTracks( $tracks, $fitbounds = false, $info = true, $pop = 3) {
 		$mapname = 'map'.$this->name.$this->id;
 		$aliaslist = '';
 		$fitto = 400; 	//delay to allow tracks to render before fitting bounds
@@ -572,7 +572,8 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 			if ($info) {
 				$o[] = 'jQuery(\'#'.$cleanalias.'\', window.document).html(\'<li>\'+dist+\'</li><li>\'+speed+\'</li><li>\'+time+\'</li><li>\'+climb+\'</li>\');';				
 			}
-		    switch ($pop) {
+			$disp = $trk->params['show_track_popover'];
+		    switch ($disp) {
 		        case 1:
 		            $o[] = 'e.target.bindPopup(\'<b>'.addslashes($trk->title).'</b>\')';
 		            break;
@@ -583,7 +584,7 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		            $o[] = 'e.target.bindPopup(\'<b>'.addslashes($trk->title).'</b><br />'.$trk->summary.'\')';
 		            break;
 		        case 4:
-		            $o[] = 'e.target.bindPopup(\'<b>'.addslashes($trk->title).'</b><br />'.$trk->summary.'<br />\'+dist+\'<br />\'+speed+\'<br />Time: \'+time+\'<br />\'+climb)';
+		            $o[] = 'e.target.bindPopup(\'<b>'.addslashes($trk->title).'</b><br />'.$trk->summary.'<hr />\'+dist+\'<br />\'+speed+\'<br />Time: \'+time+\'<br />\'+climb)';
 		            break;
 		            
 		        default:

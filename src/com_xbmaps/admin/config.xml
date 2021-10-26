@@ -295,14 +295,14 @@
 		<field name="def_new_markercat" type="category"
 			extension="com_xbmaps"
 			label="XBMAPS_MARKER_DEFCAT_LABEL" description="XBMAPS_DEFCAT_DESC"
-			showon="global_use_cats:1"
+			showon="global_use_cats:1[AND]markers_use_cats!:0"
 		>			
 			<option value="" >XBMAPS_SELECT_DEFAULT</option>
 		</field>
 		<field name="rootcat_marker" type="category"
 			extension="com_xbmaps"
 			label="XBMAPS_MARKER_CAT_ROOT_LABEL" description="XBMAPS_CAT_ROOT_DESC"
-			showon="global_use_cats:1"
+			showon="global_use_cats:1[AND]markers_use_cats!:0"
 			default=""
 		>
 			<option value="">JOPTION_SELECT_CATEGORY</option>
@@ -310,7 +310,7 @@
 		<field name="incroot_marker" type="radio"
 			label="XBMAPS_INC_ROOT_LABEL" description="XBMAPS_INC_ROOT_DESC"
 			class="btn-group btn-group-yesno"
-			showon="global_use_cats:1[AND]rootcat_marker!:"
+			showon="global_use_cats:1[AND]markers_use_cats!:0[AND]rootcat_marker!:"
 			default="1"
 		>
 			<option value="0" >JNO</option>
@@ -539,6 +539,7 @@
 		<field name="w3w_lang" type="list"
 			label="W3W Langauge" description="Select langaugae for What3Words. Listed alphabetically by 2 letter code"
 			default="en"
+			showon="w3w_api!:"
 		>		          
          <option value="af">Afrikaans (Afrikaans)</option>
            <option value="ar">العربية (Arabic)</option>

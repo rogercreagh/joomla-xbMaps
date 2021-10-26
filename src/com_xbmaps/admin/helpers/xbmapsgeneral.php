@@ -186,8 +186,9 @@ class XbmapsGeneral extends ContentHelper {
 				
 		$db->setQuery($query);
 		$list = $db->loadObjectList();
+	    $params = new Registry;
 		foreach ($list as $i=>$item){
-			$ilink = Route::_($link . $item->id);
+		    $ilink = Route::_($link . $item->id);
 			$item->display = '';
 			//if not published highlight in yellow if editable or grey if view
 			if ($item->tstate != 1) {
@@ -204,6 +205,8 @@ class XbmapsGeneral extends ContentHelper {
 			}
 			if ($item->track_colour=='') {$item->track_colour = $item->defcol; }
 			$item->rec_date = HtmlHelper::date($item->rec_date, Text::_('d M Y'));
+			$params->loadString($item->tparams, 'JSON');
+			$item->params = $params;
 		}
 		return $list;
 	}

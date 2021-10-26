@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.8.0.h 22nd October 2021
+ * @version 0.8.0.i 26th October 2021
  * @filesource admin/views/marker/tmpl/edit.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -47,7 +47,7 @@ if ($disp > 3) {
         $w3w = $api->convertTo3wa($lat,$long,$this->w3w_lang)['words'];
         $this->form->setValue('marker_w3w','params',$w3w);
     }
-    $popupdesc .= '<i>What 3 Words</i>: <b>/// '.$w3w.'</b>';
+    $popupdesc .= '<i>w3w</i>: ///<b>'.$w3w.'</b>';
 }
 $popupdesc .= '<hr /><i>'.Text::_('XBMAPS_CLICK_MOVE_SAVE').'</i>';
 

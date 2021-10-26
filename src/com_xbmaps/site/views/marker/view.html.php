@@ -50,6 +50,8 @@ class XbmapsViewMarker extends JViewLegacy {
 		$this->centre_longitude = $this->params->get('centre_longitude','');
 		$this->default_zoom = $this->params->get('default_zoom','');
 		$this->marker_image_path = 'images/'.$this->params->get('def_markers_folder','');
+		$this->w3w_api = $this->params->get('w3w_api','');
+		$this->w3w_lang = $this->params->get('w3w_lang','');
 		
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {

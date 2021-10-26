@@ -1,4 +1,4 @@
-# sql installation file for component xbMaps v0.8.0.d 19th October 2021
+# sql installation file for component xbMaps v0.8.0.i 26th October 2021
 # NB no data is installed with this file, default categories are created by the installation script
 
 CREATE TABLE IF NOT EXISTS `#__xbmaps_maps` (
@@ -81,15 +81,10 @@ CREATE TABLE IF NOT EXISTS `#__xbmaps_markers` (
   `title` varchar(190) NOT NULL DEFAULT '',
   `alias` varchar(190) NOT NULL DEFAULT '',
   `summary` varchar(190) NOT NULL DEFAULT '',
-  `description` text,
  
   `latitude` varchar(20) NOT NULL DEFAULT '',
   `longitude` varchar(20) NOT NULL DEFAULT '',
   `marker_type` varchar(190) NOT NULL DEFAULT '',
-#  `marker_colour` varchar(10) NOT NULL DEFAULT '',
-#  `icon` varchar(190) NOT NULL DEFAULT '',
-#  `icon_colour` varchar(10) NOT NULL DEFAULT '#FFF',
-#  `geopos` point NOT NULL,
    
   `catid` int NOT NULL  DEFAULT '0',
   `access` int NOT NULL  DEFAULT '0',

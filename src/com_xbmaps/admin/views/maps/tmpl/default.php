@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.8.0.g 21st October 2021
+ * @version 0.8.0.i 26th October 2021
  * @filesource admin/views/maps/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -192,6 +192,12 @@ $tagclass = $this->show_tags? 'label-info' : 'label-grey';
 					<?php endif; ?>
 				</td>
 				<td><?php if (count($item->markers)>0) : ?>
+				
+				<?php if (count($item->markers)>2) {
+			        echo HTMLHelper::_('bootstrap.startAccordion', 'slide-cpanel', array('active' => ''));
+			        echo HTMLHelper::_('bootstrap.addSlide', 'slide-cpanel', Text::_(count($item->markers).' markers assigned'), 'show'.$item->id,'xbaccordion');
+				} ?>
+				
 					<ul class="xblist" style="margin:0;">
 						<?php foreach ($item->markers as $mrk) {
 						    $pv = '<img src="/media/com_xbmaps/images/marker-icon.png" style="height:24px;" />';
@@ -220,7 +226,13 @@ $tagclass = $this->show_tags? 'label-info' : 'label-grey';
  							echo $mrk->linkedtitle;
 							echo '</li>';
 						} ?>
-					</p>
+					</ul>
+					
+				<?php if (count($item->markers)>2) { 
+	        		echo HTMLHelper::_('bootstrap.endSlide');
+	        		echo HTMLHelper::_('bootstrap.endAccordion');
+				} ?>
+					
 				<?php else: ?>
 					<p class="xbnit"><?php echo Text::_('XBMAPS_NO_MARKERS'); ?></p>
 				<?php endif; ?>

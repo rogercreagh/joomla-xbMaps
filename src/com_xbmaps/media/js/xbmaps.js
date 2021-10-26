@@ -1,6 +1,6 @@
 /*****
  * @package xbMaps
- * @version 0.8.0.h 25th October 2021
+ * @version 0.8.0.i 26th October 2021
  * @filesource media/js/xbmaps.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -118,7 +118,7 @@ function xbMoveMarker(marker, lat, lng, display,  lang='en', doCoordBox=false, d
 				if (doForm) xbSaveForm();
 			 }).catch(error => alert(error.message));; 		
 	} else {
-		if (doPop) xbMarkerPopup(marker,display);
+		if (doPop) xbMarkerPopup(marker,display,lang);
 		if (doCoordBox) xbMarkerCoordInfo(display);
 		if (doForm) xbSaveForm(false);
 	}
@@ -136,7 +136,7 @@ function xbMarkerCoordInfo(display=7) {
 	var coordMsg = '<div class="xbmsgsuccess" style="text-align:left;">';
 	if ((display & 1)==1) coordMsg += '<span class="xbpr20"><i>Lat:</i> '+window.lat+'</span><i>Long:</i> '+window.lng+'<br />';
 	if ((display & 2)==2) coordMsg += '<span class="xbpr20"><i>Lat:</i> '+window.dmslat+'</span><i>Long:</i> '+window.dmslng+'<br />';
-	if ((display & 4)==4) coordMsg += '<i>What 3 Words</i>: <b>/// '+window.w3w+'</b>';
+	if ((display & 4)==4) coordMsg += '<i>What 3 Words</i>: ///<b>'+window.w3w+'</b>';
 	coordMsg += '</div>';		
 	jQuery('#coordInfo', window.parent.document).html(coordMsg);	    
 }
@@ -155,7 +155,7 @@ function xbMarkerPopup(marker,display, lang='en') {
 	if (w3w) {
     	what3words.api.convertTo3wa({lat:  window.lat, lng: window.lng}, lang).then(function(response)
 			{ window.w3w = response.words;
-				marker.bindPopup(popupContent+'<i>What 3 Words</i>: <b>/// '+response.words+'</b>').openPopup();				
+				marker.bindPopup(popupContent+'<i>w3w</i>: ///<b>'+response.words+'</b>').openPopup();				
 			 }).catch(error => alert(error.message));; 
 	} else {
 		window.w3w = '';

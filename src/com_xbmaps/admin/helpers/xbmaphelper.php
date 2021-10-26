@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.8.0.c 18th October 2021
+ * @version 0.8.0.i 26th October 2021
  * @filesource admin/helpers/xbmaphelper.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -426,7 +426,7 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		$o[] = 'function onMapClick(e) {';
 		$o[] = ' window.lat = e.latlng.lat;';
 		$o[] = ' window.lng = e.latlng.lng;';
-		$o[] = ' xbMoveMarker(marker'.$markerUId.', e.latlng.lat, e.latlng.lng,'. $display.','.$this->w3wlang.');';
+		$o[] = ' xbMoveMarker(marker'.$markerUId.', e.latlng.lat, e.latlng.lng,'. $display.',\''.$this->w3wlang.'\');';
 //		$o[] = 'xbMarkerPopup(marker'.$markerUId.',\''.$display.'\',\''.$this->w3wapi.'\');';
 		$o[] = '}';
 		$this->output[] = implode("\n", $o);
@@ -442,7 +442,7 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		$o[] = 'function onMapClick(e) {';
 		$o[] = ' window.lat = e.latlng.lat;';
 		$o[] = ' window.lng = e.latlng.lng;';
-		$o[] = ' xbMoveMarker(marker'.$markerUId.', e.latlng.lat, e.latlng.lng,'. $display.','.$this->w3wlang.');';
+		$o[] = ' xbMoveMarker(marker'.$markerUId.', e.latlng.lat, e.latlng.lng,'. $display.',\''.$this->w3wlang.'\');';
 		$o[] = ' xbMapCoordInfo();';
 		$o[] = ' xbSaveForm();';
 		$o[] = '}';
@@ -459,7 +459,7 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 	    $o[] = 'function onMarkerPosClick(e) {';
 	    $o[] = ' window.lat = e.latlng.lat;';
 	    $o[] = ' window.lng = e.latlng.lng;';
-	    $o[] = ' xbMoveMarker(marker'.$markerUId.', e.latlng.lat, e.latlng.lng,'. $display.','.$this->w3wlang.', true, true);';
+	    $o[] = ' xbMoveMarker(marker'.$markerUId.', e.latlng.lat, e.latlng.lng,'. $display.',\''.$this->w3wlang.'\', true, true);';
 	    $o[] = '}';
 	    $this->output[] = implode("\n", $o);
 	    return true;
@@ -488,7 +488,7 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		if ($markerId != '') {
 			//NB this function requires specific map and marker names so has to be created on fly after map
 			$o[] = '	moveToLocation: function(latlng, title, map) {';
-			$o[] = '		xbMoveMarker(marker'.$markerId.', latlng.lat, latlng.lng,'. $display.','.$this->w3wlang.');';
+			$o[] = '		xbMoveMarker(marker'.$markerId.', latlng.lat, latlng.lng,'. $display.',\''.$this->w3wlang.'\');';
 			$o[] = '		map'.$this->name.$this->id.'.setView(latlng, 7);';// set the zoom
 			$o[] = '	}';
 		}

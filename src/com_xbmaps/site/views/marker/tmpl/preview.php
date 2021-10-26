@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.8.0.a 15th October 2021
+ * @version 0.8.0.i 27th October 2021
  * @filesource site/views/marker/tmpl/preview.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -9,12 +9,34 @@
  ******/
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
+require_once(JPATH_COMPONENT_ADMINISTRATOR.'/helpers/geocoder.php');
+
+use What3words\Geocoder\Geocoder;
+use Joomla\CMS\Language\Text;
+
 $popuptitle = $this->item->title;
-$popupdesc = '';
-$popupdesc .= $this->item->summary;
 $lat = $this->item->latitude;
 $long = $this->item->longitude;
-$popupdesc .= '<hr />'.XbmapsGeneral::Deg2DMS($lat).' '.XbmapsGeneral::Deg2DMS($long,false);
+$popupdesc = '';
+if ($this->item->params['marker_popdesc']) {
+	$popupdesc .= ($this->item->summary).'<br />';
+}
+$disp = $this->item->params['marker_popcoords'];
+if ($disp=='') $disp=0;
+if ($disp>0) $popupdesc .= '<hr /><b>'.Text::_('XBMAPS_LOCATION').'</b></br>';
+
+if (($disp & 1)==1) {
+	$popupdesc .= '<span style="padding-right:20px"><i>Lat:</i> '.$lat.'</span><i>Long:</i> '.$long.'<br />';
+}
+if (($disp & 2)==2) {
+	$popupdesc .= '<span style="padding-right:20px"><i>Lat:</i> '.XbmapsGeneral::Deg2DMS($lat).'</span><i>Long:</i> '.XbmapsGeneral::Deg2DMS($long,false).'<br />';
+}
+if ($disp > 3) {
+	$api = new Geocoder($this->w3w_api);
+	$w3w = $api->convertTo3wa($lat,$long,$this->w3w_lang)['words'];
+	$popupdesc .= '<i>w3w</i>: ///<b>'.$w3w.'</b>';
+}
+
 $uid = uniqid();
 $map = new XbMapHelper($uid, null, true);
 $map->loadAPI(false);

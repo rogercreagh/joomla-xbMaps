@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.8.0.h 25th October 2021
+ * @version 0.8.0.i 26th October 2021
  * @filesource admin/models/map.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -61,10 +61,10 @@ class XbmapsModelMap extends JModelAdmin {
 			return false;
 		}
 		
+		$params = ComponentHelper::getParams('com_xbmaps');
 		if ($params->get('w3w_api')!='') {
 		    $form->setFieldAttribute('marker_infocoords','default','4','params');
 		}
-		//		$params = ComponentHelper::getParams('com_xbmaps');
 		// set any field attributes according to params if needed
 // 		$tracks_path = $params->get('tracks_path','');
 // 		if ($tracks_path != '') {

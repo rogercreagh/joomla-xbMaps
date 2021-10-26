@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.8.0.h 25th October 2021
+ * @version 0.8.0.i 26th October 2021
  * @filesource admin/views/marker/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -34,7 +34,6 @@ class XbmapsViewMarker extends JViewLegacy {
 		$this->marker_image_path = 'images/'.$this->params->get('def_markers_folder','');
 		$this->w3w_api = $this->params->get('w3w_api','');
 		$this->w3w_lang = $this->params->get('w3w_lang','');
-		$this->searchdisplay = 
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
 			throw new Exception(implode("\n", $errors), 500);

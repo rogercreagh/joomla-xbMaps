@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.7.0.d 11th October 2021
+ * @version 0.8.0.i 26th October 2021
  * @filesource site/views/maplist/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -123,6 +123,11 @@ $mlink = 'index.php?option=com_xbmaps&view=map'.$itemid.'&id=';
 						<?php endif; ?>
 					</td>
 				<td class="hidden-phone"><?php if (count($item->markers)>0) : ?>
+				<?php if (count($item->markers)>3) {
+			        echo HTMLHelper::_('bootstrap.startAccordion', 'slide-cpanel', array('active' => ''));
+			        echo HTMLHelper::_('bootstrap.addSlide', 'slide-cpanel', Text::_(count($item->markers).' markers assigned'), 'show'.$item->id,'xbaccordion');
+				} ?>
+				
 					<ul class="xblist" style="margin:0;">
 						<?php foreach ($item->markers as $mrk) {
 						    $pv = '<img src="/media/com_xbmaps/images/marker-icon.png" style="height:24px;" />';
@@ -151,7 +156,11 @@ $mlink = 'index.php?option=com_xbmaps&view=map'.$itemid.'&id=';
  							echo '<span class="hasTooltip"  data-original-title="'.$mrk->mkdesc.'">'.$mrk->display.'</span>';
 							echo '</li>';
 						} ?>
-					</p>
+					</ul>
+				<?php if (count($item->markers)>3) { 
+	        		echo HTMLHelper::_('bootstrap.endSlide');
+	        		echo HTMLHelper::_('bootstrap.endAccordion');
+				} ?>
 				<?php else: ?>
 					<p class="xbnit"><?php echo Text::_('XBMAPS_NO_MARKERS'); ?></p>
 				<?php endif; ?>

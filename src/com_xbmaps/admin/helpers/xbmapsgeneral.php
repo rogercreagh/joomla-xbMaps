@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.8.0.h 25th October 2021
+ * @version 0.8.0.i 26th October 2021
  * @filesource admin/helpers/xbmapsgeneral.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -370,7 +370,7 @@ class XbmapsGeneral extends ContentHelper {
 			    case 4:
 			        $api = new Geocoder($w3w_api);
 			        $w3w = $api->convertTo3wa($mrk->mklat,$mrk->mklong,$params->get('w3w_lang'))['words'];
-			        $mrklist .= '<i>What 3 Words</i>: <b>///&nbsp;'.$w3w.'</b>';
+			        $mrklist .= '<i>w3w</i>: ///<b>'.$w3w.'</b>';
 			        break;
 			        
 			    default:

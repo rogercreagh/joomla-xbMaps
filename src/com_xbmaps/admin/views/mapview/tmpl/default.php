@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.8.0.g 21st October 2021
+ * @version 0.8.0 30th October 2021
  * @filesource admin/views/mapview/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -54,10 +54,23 @@ if (!empty($item->markers)) {
     		if ($mrk->mkshowdesc==1) {
     			$popupdesc = ($mrk->mkdesc =='') ? '' : $mrk->mkdesc.'<br />';
     		}
-    		if ($mrk->mkshowcoords==1) {
-    			$popupdesc .= '<hr />'.XbmapsGeneral::Deg2DMS($mrk->mklat).'<br />'.XbmapsGeneral::Deg2DMS($mrk->mklong,false);
-    		}    		
-        switch ($mrk->markertype) {
+    		$disp = $mrk->mkshowcoords;
+//    		Factory::getApplication()->enqueueMessage($disp);
+    		if ($disp=='') $disp=0;
+    		if ($disp>0) $popupdesc .= '<hr /><b>'.Text::_('XBMAPS_LOCATION').'</b></br>';
+    		
+    		if (($disp & 1)==1) {
+    			$popupdesc .= '<span style="padding-right:20px"><i>Lat:</i> '.$mrk->mklat.'</span><i>Long:</i> '.$mrk->mklong.'<br />';
+    		}
+    		if (($disp & 2)==2) {
+    			$popupdesc .= '<span style="padding-right:20px"><i>Lat:</i> '.XbmapsGeneral::Deg2DMS($mrk->mklat).'</span><i>Long:</i> '.XbmapsGeneral::Deg2DMS($mrk->mklong,false).'<br />';
+    		}
+    		if ($disp > 3) {
+    			$api = new Geocoder($this->w3w_api);
+    			$w3w = $api->convertTo3wa($mrk->mklat,$mrk->mklong,$this->w3w_lang)['words'];
+    			$popupdesc .= '<i>w3w</i>: ///<b>'.$w3w.'</b>';
+    		}
+    		switch ($mrk->markertype) {
             case 1:
                 $image = $this->marker_image_path.'/'.$mrk->mkparams['marker_image'];
                 $map->setImageMarker($mid, $mrk->mklat, $mrk->mklong, $image, $popuptitle, $popupdesc,'','',0);
@@ -132,6 +145,10 @@ $map->renderMap();
         				<div id="xbMap<?php echo $uid; ?>" 
         					style="<?php echo $this->mapstyle; ?>">
         				</div>
+            		<?php if ($this->map_click_marker) : ?>
+            			<div class="pull-right"><button type="button" class="xb08" onclick="xbMoveMarker('marker<?php echo $uid; ?>', 52.5, -24.3,1);">Clear marker</button></div>
+            			<div class="xbnit xb08">Click on map to see coordinates of location</div>
+            		<?php endif; ?>
         			</div>  	
        			</div>
 		      	<?php if (($this->show_map_info=='right') && (($this->show_map_key) || ($this->show_map_desc==1))): ?>

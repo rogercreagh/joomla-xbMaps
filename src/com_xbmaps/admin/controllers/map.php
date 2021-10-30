@@ -14,6 +14,7 @@ use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Controller\FormController;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Language\Text;
 
 class XbmapsControllerMap extends FormController {
 		
@@ -41,7 +42,7 @@ class XbmapsControllerMap extends FormController {
 		if ($task == 'savepreview') {
 			$tid = $validData['id'];
 			if ($tid>0) {
-				$this->setRedirect('index.php?option=com_xbmaps&view=mapview&id='.$tid);
+				$this->setRedirect('index.php?option=com_xbmaps&view=mapview&id='.$tid,Text::_('XBMAPS_MAP_SAVED'));
 			}
 		}
 	}

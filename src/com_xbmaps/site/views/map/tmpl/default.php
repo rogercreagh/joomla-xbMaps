@@ -155,7 +155,6 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
             		<div id="xbMap<?php echo $uid; ?>" style="<?php echo $this->mapstyle; ?>">
             		</div>
             		<?php if ($this->map_click_marker) : ?>
-            			<div class="pull-right"><button type="button" class="xb08" onclick="xbMoveMarker('marker<?php echo $uid; ?>', 52.5, -24.3,1);">Clear marker</button></div>
             			<div class="xbnit xb08">Click on map to see coordinates of location clicked</div>
             		<?php endif; ?>
             	</div>

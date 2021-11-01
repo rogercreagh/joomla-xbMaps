@@ -29,10 +29,10 @@ class XbmapsHelper extends ContentHelper {
 				if ($displayData['subtitle']!='') {
 					$header .= '<h4>'.$displayData['subtitle'].'</h4>';
 				}
-				if ($displayData['text'] != '') {
-					$header .= '<p>'.$displayData['text'].'</p>';
-				}
 			}
+			if ($displayData['text'] != '') {
+				$header .= '<p>'.$displayData['text'].'</p>';
+		}
 		}
 		return $header;
 	}

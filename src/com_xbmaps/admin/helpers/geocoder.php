@@ -10,7 +10,10 @@
  * @license MIT
  * @version 3.3.0
  * @package What3words\Geocoder
- */
+ * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ * only when included in xbMaps Joomla extension
+*/
+defined( '_JEXEC' ) or die( 'Restricted access' );
 
 namespace What3words\Geocoder;
 

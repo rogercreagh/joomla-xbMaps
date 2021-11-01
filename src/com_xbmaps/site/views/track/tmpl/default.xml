@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbMaps map view default.xml v0.6.0.d 4th October 2021 -->
+<!-- xbMaps map view default.xml v0.9.0 1st November 2021 -->
 <metadata>
 	<layout title="Track View">
 		<message>Display a single map</message>
@@ -35,7 +35,7 @@
 				label="XBMAPS_PAGEHEADER_LABEL" description="XBMAPS_PAGEHEADER_DESC"
 				rows="6" cols="40"
 				default=""
-				filter="raw"
+				filter="safehtml"
               />       
 		</fieldset>
 	</fields>

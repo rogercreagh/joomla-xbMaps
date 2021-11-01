@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbMaps maps view default.xml v0.5.0.d 30th September 2021 -->
+<!-- xbMaps markerlist view default.xml v0.9.0 1st November 2021 -->
 <metadata>
 	<layout title="Markers List">
 		<message>Display a list of markers</message>
@@ -26,7 +26,8 @@
   				useglobal="false"
 			>
 				<option value="0" >JNO</option>
-				<option value="1">JYES</option>
+				<option value="1">XBMAPS_YES_UNLINKED</option>
+				<option value="2">XBMAPS_YES_LINKED</option>
 			</field>
 		</fieldset>
 			    
@@ -97,7 +98,7 @@
 				label="XBMAPS_PAGEHEADER_LABEL" description="XBMAPS_PAGEHEADER_DESC"
 				rows="6" cols="40"
 				default=""
-				filter="raw"
+				filter="safehtml"
               />       
 		</fieldset>
 	</fields>

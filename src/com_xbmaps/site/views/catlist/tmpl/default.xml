@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbMaps site/views/catlist/tmpl/default.xml v0.3.0.c 18th September 2021 -->
+<!-- xbMaps site/views/catlist/tmpl/default.xml v0.9.0 1st November 2021 -->
 <metadata>
 	<layout title="Category Counts">
 		<message>Displays counts of items assigned to each category. Links to list views filtered by category</message>
@@ -45,7 +45,7 @@
 				label="XBMAPS_PAGEHEADER_LABEL" description="XBMAPS_PAGEHEADER_DESC"
 				rows="6" cols="40"
 				default=""
-				filter="raw"
+				filter="safehtml"
               />       
 		</fieldset>
 

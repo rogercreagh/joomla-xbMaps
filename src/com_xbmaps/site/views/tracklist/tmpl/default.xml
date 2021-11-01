@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbMaps maps view default.xml v0.1.1.f 19th August 2021 -->
+<!-- xbMaps maps view default.xml v0.9.0 1st November 2021 -->
 <metadata>
 	<layout title="Tracks List">
 		<message>Display a list of maps</message>
@@ -26,13 +26,14 @@
   				useglobal="false"
 			>
 				<option value="0" >JNO</option>
-				<option value="1">JYES</option>
+				<option value="1">XBMAPS_YES_UNLINKED</option>
+				<option value="2">XBMAPS_YES_LINKED</option>
 			</field>
 			<field name="tracks_with_maps" type="radio"
 				label="XBMAPS_TRACKS_WITH_LABEL"
 				description="XBMAPS_TRACKS_WITH_DESC"
 				class="btn-group btn-group-yesno"
-  				default="1"
+  				default="0"
 			>
 				<option value="0" >JNO</option>
 				<option value="1">JYES</option>
@@ -106,7 +107,7 @@
 				label="XBMAPS_PAGEHEADER_LABEL" description="XBMAPS_PAGEHEADER_DESC"
 				rows="6" cols="40"
 				default=""
-				filter="raw"
+				filter="safehtml"
               />       
 		</fieldset>
 	</fields>

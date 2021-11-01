@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbMaps map view default.xml v0.6.0.a 2nd October 2021 -->
+<!-- xbMaps map view default.xml v0.9.0 1st November 2021 -->
 <metadata>
 	<layout title="Map View">
 		<message>Display a single map</message>

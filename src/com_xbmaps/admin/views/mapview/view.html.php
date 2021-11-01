@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.8.0.h 25th October 2021
+ * @version 0.8.0. 30th October 2021
  * @filesource admin/views/mapview/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -65,6 +65,7 @@ class XbmapsViewMapview extends JViewLegacy {
 		
 		$this->map_click_marker = $this->params->get('map_click_marker','0');
 		$this->w3w_api =  trim($this->params->get('w3w_api',''));
+		$this->w3w_lang = $this->params->get('w3w_lang');
 		
 		if (count($errors = $this->get('Errors'))) {
 		    throw new Exception(implode("\n", $errors), 500);

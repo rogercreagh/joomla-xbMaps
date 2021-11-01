@@ -102,7 +102,8 @@ $map->loadXbmapsJS();
     						'</span>';
 						?>
 					</th>	
-					<th>
+					<th style="text-align:center;"><span class="xb09">
+						<?php echo Text::_('XBMAPS_CLICK_PREVIEW'); ?></span>
 					</th>
 					<th>
 						<?php echo Text::_('XBMAPS_DESCRIPTION');?>

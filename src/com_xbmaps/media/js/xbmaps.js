@@ -113,12 +113,12 @@ function xbMoveMarker(marker, lat, lng, display,  lang='en', doCoordBox=false, d
 	if (display>3) {
     	what3words.api.convertTo3wa({lat:  window.lat, lng: window.lng}, lang).then(function(response)
 			{ window.w3w = response.words;
-				if (doPop) xbMarkerPopup(marker,display);
+				if (doPop) xbMarkerPopup(marker,display,lang);
 				if (doCoordBox) xbMarkerCoordInfo(display);
 				if (doForm) xbSaveForm();
 			 }).catch(error => alert(error.message));; 		
 	} else {
-		if (doPop) xbMarkerPopup(marker,display,lang);
+		if (doPop) xbMarkerPopup(marker,display);
 		if (doCoordBox) xbMarkerCoordInfo(display);
 		if (doForm) xbSaveForm(false);
 	}

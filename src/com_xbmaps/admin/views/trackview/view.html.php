@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.8.0.h 25th October 2021
+ * @version 0.8.0. 30th October 2021
  * @filesource admin/views/trackview/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -80,41 +80,54 @@ class XbmapsViewTrackview extends JViewLegacy {
 	    
 	    $this->infobox = '';
 	    if ($this->show_track_info) {
-	        $this->infobox .= '<div class="xbbox xbboxmag">';
-	        $this->infobox .= '<h4>'.$this->item->title.'</h4>';
-	        if ($this->show_info_summary) {
-	        	$this->infobox .= '<p>'.$this->item->summary.'</p>';
-	        }	        
-	        if (($this->show_stats) && ($this->show_track_info == 'above') || ($this->show_track_info == 'below')) {
-	            $this->infobox .= '<div class="row-fluid"><div class="span4">';
-	        }
-	        $this->infobox .= '<dl class="xbdl">';
-		        $this->infobox .= '<dt>Recording start</dt><dd>'.$this->item->rec_date.'</dd>';
-		        $this->infobox .= '<dt>Activity type: </dt><dd>'.$this->item->activity.'</dd>';
-		        $this->infobox .= '<dt>Record device: </dt><dd>'.$this->item->rec_device.'</dd>';
-	        $this->infobox .= '</dl>';
-	        if ($this->show_stats) {
-	            if (($this->show_track_info == 'above') || ($this->show_track_info == 'below')) {
-	                $this->infobox .= '</div><div class="span4">';
-	            }
-	            $this->infobox .= '<ul class="xblist">';
-	            $this->infobox .= '<div id="'.str_replace('-','_',$this->item->alias).'">';
-	            $this->infobox .= '</div>';
-	            $this->infobox .= '</ul></div>';
-	        }
-	        if (!empty($this->item->maps)) {
-	        	if (($this->show_track_info == 'above') || ($this->show_track_info == 'below')) {
-	        		$this->infobox .= '</div><div class="span4">';
-	        	}
-	        	$this->infobox .= 'Used on Maps:<ul class="xblist">';
-	        	foreach ($this->item->maps as $map) {
-	        		$this->infobox .= '<li>'.$map->linkedtitle.'</li>';
-	        	}
-	        	$this->infobox .= '</ul>';
-	        }
-	            if (($this->show_track_info == 'above') || ($this->show_track_info == 'below')) {
-	                $this->infobox .= '</div></div>';
-	            }
+	    	$this->infobox .= '<div class="xbbox xbboxmag">';
+	    	$this->infobox .= '<h4>'.$this->item->title.'</h4>';
+	    	if ($this->show_info_summary) {
+	    		$this->infobox .= $this->item->summary;
+	    	}
+	    	if ($this->infopos == 'topbot') {
+	    		$this->infobox .= '<div class="row-fluid"><div class="span4">';
+	    	}
+	    	$this->infobox .= '<p><b>Track Info.</b></p>';
+	    	$this->infobox .= '<dl class="xbdl">';
+	    	if ( ($this->item->rec_date!='')) {
+	    		$this->infobox .= '<dt>Recording start : </dt><dd>'.$this->item->rec_date.'</dd>';
+	    	}
+	    	if (($this->item->activity!='')) {
+	    		$this->infobox .= '<dt>Activity type: </dt><dd>'.$this->item->activity.'</dd>';
+	    	}
+	    	if (($this->item->rec_device!='')) {
+	    		$this->infobox .= '<dt>Record device: </dt><dd>'.$this->item->rec_device.'</dd>';
+	    	}
+	    	$this->infobox .= '</dl>';
+	    	if ($this->show_stats) {
+	    		if ($this->infopos == 'topbot') {
+	    			$this->infobox .= '</div><div class="span4">';
+	    		}
+	    		$this->infobox .= '<p><b>Track Stats.</b></p>';
+	    		$this->infobox .= '<ul class="xblist">';
+	    		$this->infobox .= '<div id="'.str_replace('-','_',$this->item->alias).'">';
+	    		$this->infobox .= '</div>';
+	    		$this->infobox .= '</ul>';
+	    	}
+	    	if ((!empty($this->item->maps))) {
+	    		if ($this->infopos == 'topbot') {
+	    			$this->infobox .= '</div><div class="span4">';
+	    		}
+	    		if (!empty($this->item->maps)) {
+	    			$this->infobox .= '<p><b>Used on Maps</b></p><ul class="xblist">';
+	    			foreach ($this->item->maps as $map) {
+	    				$this->infobox .= '<li>'.$map->linkedtitle.'</li>';
+	    			}
+	    			$this->infobox .= '</ul>';
+	    		} elseif ($this->show_empty) {
+	    			$this->infobox .= '<p><i>Not assigned to any map</i></p>';
+	    		}
+	    	}
+	    	if ($this->infopos == 'topbot') {
+	    		$this->infobox .= '</div></div>';
+	    	}
+	    	$this->infobox .= '</div>';
 	    }
 	    
 	    $this->addToolbar();

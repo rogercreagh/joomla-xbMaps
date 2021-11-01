@@ -76,7 +76,7 @@ $xblink = 'index.php?option=com_xbmaps';
 		</div>
 		<div class="row-fluid xbmb8">
 			<div class= "span2">
-				<p><i><?php echo Text::_('XBMAPS_TAG').' '.Text::_('XBMAPS_DESCRIPTION'); ?>:</i></p>
+				<p><i><?php echo Text::_('XBMAPS_CATEGORY').' '.Text::_('XBMAPS_DESCRIPTION'); ?>:</i></p>
 			</div>
    			<div class="span6">
 			<?php if ($item->description != '') : ?>

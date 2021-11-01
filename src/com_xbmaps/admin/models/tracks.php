@@ -13,8 +13,6 @@ use Joomla\CMS\Factory;
 use Joomla\Utilities\ArrayHelper;
 use Joomla\CMS\Helper\TagsHelper;
 use Joomla\Registry\Registry;
-use Joomla\CMS\Component\ComponentHelper;
-use Joomla\CMS\Router\Route;
 
 class XbmapsModelTracks extends JModelList {
 	

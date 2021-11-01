@@ -10,11 +10,6 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
 use Joomla\CMS\Factory;
-//use Joomla\CMS\Component\ComponentHelper;
-//use Joomla\CMS\Toolbar\Toolbar;
-//use Joomla\CMS\Toolbar\ToolbarHelper;
-//use Joomla\CMS\Language\Text;
-//use Joomla\CMS\Installer\Installer;
 
 class XbmapsModelCpanel extends JModelList {
 	
@@ -25,8 +20,6 @@ class XbmapsModelCpanel extends JModelList {
 	
 	public function getMapStates() {
 		$cnts = $this->stateCnts('#__xbmaps_maps');
-		// also get counts of maps with tracks and maps with markers
-		//$cnts = array_merge($cnts,$this->trackCnts(), $this->markerCnts() );
 		return $cnts;
 	}
 	
@@ -36,13 +29,10 @@ class XbmapsModelCpanel extends JModelList {
 		
 	public function getMarkerStates() {
 		return $this->stateCnts('#__xbmaps_markers');
-		//also get counts of markers assigned
 	}
 	
 	public function getTrackStates() {
 		$cnts = $this->stateCnts('#__xbmaps_tracks');
-		//also get counts of tracks assigned
-		//$cnts = array_merge($cnts,$this->trackCnts() );
 		return $cnts;
 	}
 	

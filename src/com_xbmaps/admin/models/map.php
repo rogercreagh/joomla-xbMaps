@@ -65,11 +65,6 @@ class XbmapsModelMap extends JModelAdmin {
 		if ($params->get('w3w_api')!='') {
 		    $form->setFieldAttribute('marker_infocoords','default','4','params');
 		}
-		// set any field attributes according to params if needed
-// 		$tracks_path = $params->get('tracks_path','');
-// 		if ($tracks_path != '') {
-// 			$form->setFieldAttribute('tracks','directory',$tracks_path);
-// 		}
 		
 		return $form;
 	}
@@ -119,9 +114,6 @@ class XbmapsModelMap extends JModelAdmin {
 		if (empty($table->created_by)) {
 			$table->created_by = Factory::getUser()->id;
 		}
-// 		if (empty($table->created_by_alias)) {
-// 			$table->created_by_alias = Factory::getUser()->username; //make it an option to use name instead of username
-// 		}
 		if (empty($table->id)) {
 			
 			// Set ordering to the last item if not set
@@ -266,10 +258,6 @@ class XbmapsModelMap extends JModelAdmin {
 	            //try
 	            $db->setQuery($query);
 	            $db->execute();
-	        } else {
-	            // Factory::getApplication()->enqueueMessage('<pre>'.print_r($pers,true).'</pre>');
-	            //create person
-	            //add filmperson with new id
 	        }
 	    }
 	}
@@ -279,7 +267,6 @@ class XbmapsModelMap extends JModelAdmin {
 		$query = $db->getQuery(true);
 		$query->select('mt.marker_id as marker_id');
 		$query->from('#__xbmaps_mapmarkers AS mt');
-		//$query->innerjoin('#__xbmaps_tracks AS a ON mt.track_id = a.id');
 		$query->where('mt.map_id = '.(int) $this->getItem()->id);
 		$query->order('mt.listorder ASC');
 		$db->setQuery($query);
@@ -307,10 +294,6 @@ class XbmapsModelMap extends JModelAdmin {
 				//try
 				$db->setQuery($query);
 				$db->execute();
-			} else {
-				// Factory::getApplication()->enqueueMessage('<pre>'.print_r($pers,true).'</pre>');
-				//create person
-				//add filmperson with new id
 			}
 		}
 	}

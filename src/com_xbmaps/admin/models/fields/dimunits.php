@@ -9,8 +9,6 @@
  ******/
 defined('_JEXEC') or die;
 
-use Joomla\CMS\Factory;
-
 JFormHelper::loadFieldClass('list');
 
 class JFormFieldDimunits extends JFormFieldList {

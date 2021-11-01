@@ -10,7 +10,6 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
-use Joomla\CMS\Helper\TagsHelper;
 
 class XbmapsModelTagslist extends JModelList {
 	

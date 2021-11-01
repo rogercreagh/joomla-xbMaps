@@ -9,7 +9,6 @@
  ******/
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-use Joomla\Registry\Registry;
 use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Factory;
@@ -29,7 +28,6 @@ class XbmapsModelTrack extends JModelAdmin {
 		    $item->tags = $tagsHelper->getTagIds($item->id, 'com_xbmaps.track');
 		}
 		//fix null dates for calendar controls
-		//$date = Factory::getDate();		
 		if (empty($item->created)) {
 			$item->created = Factory::getDate()->toSql();
 		}
@@ -39,11 +37,6 @@ class XbmapsModelTrack extends JModelAdmin {
 		if (empty($item->modified)) {
 			$item->modified = ''; //'0000-00-00 00:00:00'; //$date->toSql();
 		}
-//		if (empty($item->rec_date)) {
-//			$item->rec_date = '0000-00-00 00:00:00'; //$date->toSql();
-//			//or read from gpx if set
-//		}
-		
 		if (!empty($item->gpx_filename)) {
 			//$item->gpx_folder = pathinfo($item->gpx_filename,PATHINFO_DIRNAME);
 			$item->select_gpxfile = pathinfo($item->gpx_filename,PATHINFO_BASENAME);			
@@ -79,7 +72,6 @@ class XbmapsModelTrack extends JModelAdmin {
 	    } else {
 	    	$form->setFieldAttribute('select_gpxfile','directory','images/'.$def_tracks_folder);
 	    }
-//	    $form->setFieldAttribute('gpx_filename','directory',$def_tracks_folder);
     	$def_track_colour = $params->get('def_track_colour','');
     	$form->setFieldAttribute('track_colour','default',$def_track_colour);
     	
@@ -92,17 +84,8 @@ class XbmapsModelTrack extends JModelAdmin {
 	    $params = ComponentHelper::getParams('com_xbmaps');
 	    
 	    if (empty($data)) {
-//	    	$deffolder = $params->get('def_tracks_folder','xbmaps-tracks');
 	    	
  	        $data = $this->getItem();
-// 	        if ($data->centre_latitude=='') {
-// 	            $data->centre_latitude = $params->get('centre_latitude','');
-// 	        }
-// 	        $data->dmslatitude = XbmapsGeneral::Deg2DMS($data->centre_latitude,true,false);
-// 	        if ($data->centre_longitude=='') {
-// 	            $data->centre_longitude = $params->get('centre_longitude','');
-// 	        }
-// 	        $data->dmslongitude = XbmapsGeneral::Deg2DMS($data->centre_longitude,false,false);
 
 	    	//load subform data as required
  	        if ($data->id) {
@@ -218,17 +201,6 @@ class XbmapsModelTrack extends JModelAdmin {
             $data['state'] = 0;
         }
         
-        $params = ComponentHelper::getParams('com_xbmaps');
-//        if (!empty($data['select_gpxfile'])) {
-//        	$data['gpx_filename'] = '/'.$data['def_tracks_folder'].'/'.$data['select_gpxfile'];
-//        }
-//        if (empty($data['gpx_path'])) { $data['gpx_path'] = $params->get('def_tracks_folder','xbmaps-tracks'); }
-//        $data['gpx_filename'] = '/'.$data['gpx_path'].'/'.$data['gpx_filename'];
-        //set empty dates to null to stop j3 creating zero dates in mysql
-//         if ($data['created']=='') {$data['created'] = 'NULL';}
-//         if ($data['modified']=='') {$data['modified'] = 'NULL';}
-//         if ($data['checked_out_time']=='') {$data['checked_out_time'] = 'NULL';}
-        
         if (parent::save($data)) {
             //other stuff if req - eg saving subform data
         	$tid = $this->getState('track.id');
@@ -281,11 +253,7 @@ class XbmapsModelTrack extends JModelAdmin {
     			//try
     			$db->setQuery($query);
     			$db->execute();
-    		} else {
-    			// Factory::getApplication()->enqueueMessage('<pre>'.print_r($pers,true).'</pre>');
-    			//create person
-    			//add filmperson with new id
-    		}
+S    		}
     	}
     }
     

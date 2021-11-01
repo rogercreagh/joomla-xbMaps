@@ -12,7 +12,6 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Joomla\Utilities\ArrayHelper;
 use Joomla\CMS\Helper\TagsHelper;
-use Joomla\CMS\Router\Route;
 
 class XbmapsModelMaps extends JModelList {
 	
@@ -171,7 +170,6 @@ class XbmapsModelMaps extends JModelList {
 		
 		foreach ($items as $i=>$item) {
 			$item->tags = $tagsHelper->getItemTags('com_xbmaps.map' , $item->id);
-			//$item->tracks = $this->getMapTracksArray($item->id);
 			$item->tracks = XbmapsGeneral::mapTracksArray($item->id);
 			$item->markers = XbmapsGeneral::mapMarkersArray($item->id);
 		}

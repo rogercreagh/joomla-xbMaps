@@ -10,17 +10,12 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
 use Joomla\Registry\Registry;
-//use Joomla\CMS\Helper\TagsHelper;
-//use Joomla\CMS\Language\Text;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Helper\TagsHelper;
-//use Joomla\CMS\Application\ApplicationHelper;
 
 class XbmapsModelMapview extends JModelItem {
-	
-	//public $typeAlias = 'com_xbmaps.mapview';
-	
+		
 	protected function populateState() {
 		$app = Factory::getApplication('admin');
 		

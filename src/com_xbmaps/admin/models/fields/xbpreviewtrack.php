@@ -23,12 +23,7 @@ class JFormFieldXbPreviewTrack extends JFormField
 		// Initialize variables.
 		$html = array();
 		
-		
-//		$maptype	= ( (string)$this->element['maptype'] ? $this->element['maptype'] : 'track_map_type' );
-		$maptype	= (string)$this->track_map_type;
-		
-			
-			$link = 'index.php?option=com_xbmaps&amp;view=trackview&amp;tmpl=component&amp;field='.$this->id;
+		$link = 'index.php?option=com_xbmaps&amp;view=trackview&amp;tmpl=component&amp;field='.$this->id;
 		
 			// Load the modal behavior script.
 			HtmlHelper::_('behavior.modal', 'a.modal_'.$this->id);
@@ -53,8 +48,6 @@ class JFormFieldXbPreviewTrack extends JFormField
 		if ($this->id == 'jform_centre_latitude') {
 			
 			$html[] = '<div class="input-append">';
-//			$html[] = '<span class="input-append"><input type="number" id="' . $this->id . '_id" name="' . $this->name . '"'
-//					. ' value="' . $this->value . '" '.$class.$disabled.$readonly.$onchangeOutput.'  max="90.000000" min="-90.000000" step="0.000001" style="width:100px;" />';
 			$html[] = '<a href="#'.$idA.'" role="button" class="btn " data-toggle="modal" title="' . Text::_('Preview Track') . '">'
 							. '<span class="icon-list icon-white"></span> '
 									. JText::_('Preview Track') . '</a></span>';
@@ -72,7 +65,6 @@ class JFormFieldXbPreviewTrack extends JFormField
 									'footer' => '<button type="button" class="btn btn-success" data-dismiss="modal" aria-hidden="true" >'.Text::_('JCLOSE').'</button>'
 							)
 							);
-			//								<button type="button" class="btn" data-dismiss="modal" >'.Text::_('JCANCEL').'</button>
 			
 		}
 		

@@ -9,7 +9,6 @@
  ******/
 defined('JPATH_BASE') or die;
 
-use Joomla\CMS\Factory;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Form\FormHelper;
 

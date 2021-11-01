@@ -24,8 +24,6 @@ class JFormFieldXbSelectMapArea extends JFormField
 		$html = array();
 		
 		// Initialize some field attributes.
-//		$size		= $this->element['size'] ? ' size="'.(int) $this->element['size'].'"' : '';
-//		$maxLength	= $this->element['maxlength'] ? ' maxlength="'.(int) $this->element['maxlength'].'"' : '';
 		$class		= $this->element['class'] ? ' class="'.(string) $this->element['class'].'"' : '';
 		$readonly	= ((string) $this->element['readonly'] == 'true') ? ' readonly="readonly"' : '';
 		$disabled	= ((string) $this->element['disabled'] == 'true') ? ' disabled="disabled"' : '';
@@ -100,7 +98,6 @@ class JFormFieldXbSelectMapArea extends JFormField
 								<button type="button" class="btn btn-success" data-dismiss="modal" aria-hidden="true" >'.Text::_('JSAVE').'</button>'
 											)
 											);
-			//								<button type="button" class="btn" data-dismiss="modal" >'.Text::_('JCANCEL').'</button>
 			
 		} elseif ($this->id == 'jform_default_zoom') {
 			$html[] = '<div>';

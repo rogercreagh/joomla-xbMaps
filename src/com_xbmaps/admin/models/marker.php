@@ -9,7 +9,6 @@
  ******/
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-use Joomla\Registry\Registry;
 use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Factory;
@@ -29,7 +28,6 @@ class XbmapsModelMarker extends JModelAdmin {
             $item->tags = $tagsHelper->getTagIds($item->id, 'com_xbmaps.marker');
         }
         //fix null dates for calendar controls
-        //$date = Factory::getDate();
         if (empty($item->created)) {
             $item->created = Factory::getDate()->toSql();
         }
@@ -38,11 +36,7 @@ class XbmapsModelMarker extends JModelAdmin {
         }
         if (empty($item->modified)) {
             $item->modified = '0000-00-00 00:00:00'; //$date->toSql();
-        }
-        
-//        $params = ComponentHelper::getParams('com_xbmaps');
-//        $item->gpx_folder = $params->get('def_tracks_folder','');
-        
+        }        
         
         return $item;
     }
@@ -69,8 +63,6 @@ class XbmapsModelMarker extends JModelAdmin {
         if ($params->get('w3w_api')!='') {
             $form->setFieldAttribute('marker_popcoords','default','4','params');
         }
-        //$def_marker_colour = $params->get('def_marker_colour','');
-        //$form->setFieldAttribute('marker_colour','default',$def_marker_colour);
         
         return $form;
     }
@@ -81,7 +73,6 @@ class XbmapsModelMarker extends JModelAdmin {
         $params = ComponentHelper::getParams('com_xbmaps');
         
         if (empty($data)) {
-            //	    	$deffolder = $params->get('def_tracks_folder','xbmaps-tracks');
             
             $data = $this->getItem();
 	        if ($data->latitude=='') {
@@ -202,8 +193,6 @@ class XbmapsModelMarker extends JModelAdmin {
 	        $data['state'] = 0;
 	    }
 	    
-//	    $params = ComponentHelper::getParams('com_xbmaps');
-	    
 	    if (parent::save($data)) {
 	        //other stuff if req - eg saving subform data
 	        $tid = $this->getState('marker.id');
@@ -248,8 +237,6 @@ class XbmapsModelMarker extends JModelAdmin {
 	            //try
 	            $db->setQuery($query);
 	            $db->execute();
-	        } else {
-	            // Factory::getApplication()->enqueueMessage('<pre>'.print_r($pers,true).'</pre>');
 	        }
 	    }
 	}

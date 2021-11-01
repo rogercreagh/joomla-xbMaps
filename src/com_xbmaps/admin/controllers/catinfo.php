@@ -9,8 +9,6 @@
  ******/
 defined('_JEXEC') or die;
 
-use Joomla\CMS\Factory;
-
 class XbmapsControllerCatinfo extends JControllerAdmin {
     
     public function getModel($name = 'Category', $prefix = 'XbmapsModel', $config = array('ignore_request' => true)) {

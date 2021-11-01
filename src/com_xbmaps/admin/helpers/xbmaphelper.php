@@ -83,10 +83,6 @@ class XbMapHelper {
 		$document->addScript('https://unpkg.com/leaflet@1.7.1/dist/leaflet.js');
 		$document->addStyleSheet('https://unpkg.com/leaflet@1.7.1/dist/leaflet.css');
 
-		//need to add the images folder content before using this
-		//		$document->addScript(Uri::root() . '/media/com_xbmaps/js/leaflet/leaflet.awesome/leaflet.awesome-markers.min.js');
-		//		$document->addStyleSheet(Uri::root() . '/media/com_xbmaps/js/leaflet/leaflet.awesome/leaflet.awesome-markers.css');
-		
 		$document->addScript('https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js');
 		$document->addStyleSheet('https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css');		
 		
@@ -119,10 +115,9 @@ class XbMapHelper {
 			$document->addScript('https://assets.what3words.com/sdk/v3/what3words.js?key='.$this->w3wapi);
 		}
 
-		/** others to consider
-		 * leaflet-providers https://github.com/leaflet-extras/leaflet-providers
+		/** others to consider see leaflet-providers https://github.com/leaflet-extras/leaflet-providers
 		 * 
-		 * leaflet elevation 
+		 * leaflet elevation
 		 */
 		
 	}
@@ -192,8 +187,6 @@ class XbMapHelper {
 			$o[] = '}).addTo(map'.$this->name.$this->id.');';
 			
 		} else if ($type === "osm_bw") {
-			
-			//$o[] = 'L.tileLayer(\'http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png\', {';
 			$o[] = 'L.tileLayer(\'https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png\', {';			
 			$o[] = '	maxZoom: 18,';
 			$o[] = '	attribution: \'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>\'';
@@ -226,8 +219,7 @@ class XbMapHelper {
 			$o[] = '	attribution: \'&copy; <a href="https://hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> & <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>\'';
 			$o[] = '}).addTo(map'.$this->name.$this->id.');';
 			
-		} else {
-					
+		} else {					
 			$o[] = 'L.tileLayer(\'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\', {';
 			$o[] = '	maxZoom: 18,';
 			$o[] = '	attribution: \'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>\'';
@@ -264,15 +256,6 @@ class XbMapHelper {
 			}
 			$o[]= 'marker'.$markerId.'.bindPopup(\''.$popcontent.'\')'.$openO.';';
 		}
-		
-// 		if ($text != '') {
-// 			$text = '<div class="xbmarkerpop" '.$style.'>' . $text . '</div>';			
-//     		$openO = '';
-//     		if ($open == 1) {
-//     			$openO = '.openPopup()';
-//     		}
-//     		$o[]= 'marker'.$markerId.'.bindPopup(\''.$text.'\')'.$openO.';';
-// 		}
 		
 		if ($this->markerclustering == 1) {
 			$o[] = 'markers' . $this->name . $this->id . '.addLayer(marker' . $markerId . ');';
@@ -328,7 +311,7 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		return true;
 	}
 		
-	//setDivMarker
+	//setDivMarker - used for font-awesome icons
 	public function setDivMarker($markerId, $lat, $lng, $divcontent, $title = '', $description='', $width = '', $height = '', $open = 0  ) {
 		
 		$o = array();
@@ -427,7 +410,6 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		$o[] = ' window.lat = e.latlng.lat;';
 		$o[] = ' window.lng = e.latlng.lng;';
 		$o[] = ' xbMoveMarker(marker'.$markerUId.', e.latlng.lat, e.latlng.lng,'. $display.',\''.$this->w3wlang.'\');';
-//		$o[] = 'xbMarkerPopup(marker'.$markerUId.',\''.$display.'\',\''.$this->w3wapi.'\');';
 		$o[] = '}';
 		$this->output[] = implode("\n", $o);
 		return true;
@@ -592,21 +574,9 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		    }
 			$o[] = '});';
 			
-//			$o[] = '}).on(\'loaded\',function(e) {\'';
-//			$o[] = '+var dist = \'<i>Distance: </i>\'+parseInt(e.target.get_distance())/1000+\' km\';';
-//			$o[] = '+jQuery(\'#'.$cleanalias.'\', window.document).html(dist); e.target.bindPopup(\'<b>'.addslashes($trk->title).'</b><br />\'+dist+\'<br />\'';
-			
-//			$o[] = '}).on(\'loaded\',function(e) {e.target.bindPopup(\'<b>'.addslashes($trk->title).'</b><br />Distance: \'+parseInt(e.target.get_distance())/1000+\' km<br />\'';
-//			$o[] = '+((e.target.get_moving_time() > 0) ? \'Speed: \'+e.target.get_moving_speed().toFixed(2)+\' km/hr<br />Time: \'+e.target.get_duration_string(e.target.get_moving_time())+\'<br />\' : \'\')';
-//			$o[] = '+((e.target.get_elevation_gain() >5) ? \'Climbed: \'+Math.trunc(e.target.get_elevation_gain())+\' m\' : \'\'))});';
-			
-//			$o[] = '}).on(\'loaded\',function(e) {e.target.bindPopup(\'<b>'.addslashes($trk->title).'</b><br />Distance: \'+parseInt(e.target.get_distance())/1000+\' km<br />Speed: \'+e.target.get_moving_speed().toFixed(2)+\' km/hr<br />Time: \'+e.target.get_duration_string(e.target.get_moving_time())+\'<br />Climbed: \'+Math.trunc(e.target.get_elevation_gain())+\' m\')});';
 			$fitto += 300;
 			$aliaslist .= $cleanalias.',';
 			
-//			$o[] = 'dist=\'Distance: \'+parseInt('.$cleanalias.'.get_distance())/1000 +\' km\';';
-//			$o[] = 'jQuery(\'#'+$cleanalias+'\', window.document).html(dist);';
-//			$o[] = 'document.getElementById(\''+$cleanalias+'\').innerHtml = dist;';
 		}
 		$aliaslist = trim($aliaslist,',');
 		$o[] = 'var tracksLayer = L.featureGroup(['.$aliaslist.']);';
@@ -614,7 +584,6 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		if ($fitbounds) {
 			$o[] = 'setTimeout(function(){ '.$mapname.'.fitBounds(tracksLayer.getBounds()); }, '.$fitto.');';
 		}
-		//     $o[] = $mapname.'.on(\'load\', function() { '.$mapname.'.fitBounds(tracksLayer.getBounds());});';
 		$this->output[] = implode("\n", $o);
 		//			$o[] = '';
 	}
@@ -628,67 +597,4 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 	}
 	
 }
-
-/**** not used - AwesomeMarkers plugin 
-	public function setMarkerIcon($markerId, $icon = 'circle', $markerColor = 'blue', $iconColor = '#ffffff', $prefix = 'fa', $spin = 'false', $extraClasses = '' ) {
-		
-		$o = $o2 = array();
-		
-		$o[]= 'var icon'.$markerId.' = new L.AwesomeMarkers.icon({';
-		
-		$o[]= $o2[] = '   icon: "'.$icon.'",';
-		$o[]= $o2[] = '   markerColor: "'.$markerColor.'",';
-		$o[]= $o2[] = '   iconColor: "'.$iconColor.'",';
-		$o[]= $o2[] = '   prefix: "'.$prefix.'",';
-		$o[]= $o2[] = '   spin: '.$spin.',';
-		$o[]= $o2[] = '   extraClasses: "'.$extraClasses.'",';
-		
-		$o[]= '})';
-		$o[]= ' marker'.$markerId.'.setIcon(icon'.$markerId.');';
-		
-		$this->output[] = implode("\n", $o);
-		return $o2;//return only options;
-	
-	}
-***/
-		
-/****
- public function moveMarker() {
- 
- $o = array();
- $o[]= 'function xbMoveMarker(marker, lat, lng) {';
- $o[]= '   var newLatLng = new L.LatLng(lat, lng);';
- $o[]= '   marker.setLatLng(newLatLng);';
- $o[]= '}';
- $this->output[] = implode("\n", $o);
- return true;
- }
- ****/
-
-/**
- public function renderCurrentPosition() {
- 
- if ($this->currentposition == 0) {
- return false;
- }
- 
- $o 	= array();
- 
- $o[] = 'L.control.locate({';
- $o[] = '	position: \'topright\',';
- $o[] = '	strings: {';
- $o[] = '		\'title\': \''.Text::_('XBMAPS_CURRENT_POSITION').'\'';
- $o[] = '	},';
- $o[] = '	locateOptions: {';
- $o[] = '		enableHighAccuracy: true,';
- $o[] = '		watch: true,';
- $o[] = '	}';
- $o[] = '}).addTo(map'.$this->name.$this->id.');';
- 
- $this->output[] = implode("\n", $o);
- return true;
- 
- }
- **/
-
 

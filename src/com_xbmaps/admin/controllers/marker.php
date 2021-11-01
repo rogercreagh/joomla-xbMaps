@@ -13,14 +13,11 @@ use Joomla\Registry\Registry;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Controller\FormController;
-use Joomla\CMS\Component\ComponentHelper;
-use Joomla\CMS\Router\Route;
 
 class XbmapsControllerMarker extends FormController {
 		
 	public function __construct($config = array(), MVCFactoryInterface $factory = null) {
 		parent::__construct($config, $factory);
-//		$this->registerTask('savepreview', 'save');
 	}
 	
 	protected function postSaveHook(JModelLegacy $model, $validData = array()) {
@@ -32,11 +29,6 @@ class XbmapsControllerMarker extends FormController {
 			$registry = new Registry($item->params);
 			$item->params = (string) $registry;
 		}
-		
-//		if ($task == 'savepreview') {
-//			$tid = $validData['id'];
-//			$this->setRedirect('index.php?option=com_xbmaps&view=markerview&id='.$tid, true);
-//		}
 	}
 	
 	public function publish() {
@@ -93,8 +85,7 @@ class XbmapsControllerMarker extends FormController {
 		$this->setRedirect($redirectTo );
 	}
 	
-	public function batch($model = null)
-	{
+	public function batch($model = null) {
 		$model = $this->getModel('marker');
 		$this->setRedirect((string)Uri::getInstance());
 		return parent::batch($model);

@@ -9,8 +9,6 @@
  ******/
 defined('_JEXEC') or die;
 
-use Joomla\CMS\Factory;
-
 class XbmapsControllerCatslist extends JControllerAdmin {
  
 	protected $edcatlink = 'index.php?option=com_categories&task=category.edit&extension=com_xbmaps&id=';

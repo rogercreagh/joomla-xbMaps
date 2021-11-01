@@ -13,8 +13,6 @@ use Joomla\Registry\Registry;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Controller\FormController;
-use Joomla\CMS\Router\Route;
-use Joomla\CMS\Language\Text;
 
 class XbmapsControllerMap extends FormController {
 		
@@ -101,8 +99,7 @@ class XbmapsControllerMap extends FormController {
 		$this->setRedirect($redirectTo );
 	}
 	
-	public function batch($model = null)
-	{
+	public function batch($model = null) {
 		$model = $this->getModel('map');
 		$this->setRedirect((string)Uri::getInstance());
 		return parent::batch($model);

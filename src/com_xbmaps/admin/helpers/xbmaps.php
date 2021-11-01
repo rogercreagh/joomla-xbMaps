@@ -12,11 +12,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\Access\Access;
-use Joomla\CMS\Installer\Installer;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\Component\ComponentHelper;
-use Joomla\CMS\Version;
 
 
 class XbmapsHelper extends ContentHelper {
@@ -32,7 +28,6 @@ class XbmapsHelper extends ContentHelper {
 			$assetName = $component.'.category.'.(int) $categoryid;
 			$level = 'category';
 		}
-		//$actions = Access::getActions('com_xbmaps', $level);
 		$actions = Access::getActionsFromFile(JPATH_ADMINISTRATOR . '/components/com_xbmaps/access.xml');
 		foreach ($actions as $action) {
 			$result->set($action->name, $user->authorise($action->name, $assetName));
@@ -41,7 +36,6 @@ class XbmapsHelper extends ContentHelper {
 	}
 	
 	public static function addSubmenu($vName = 'cpanel') {
-//		if ($vName != 'categories') {
 			JHtmlSidebar::addEntry(
 					Text::_('XBMAPS_ICONMENU_CPANEL'),
 					'index.php?option=com_xbmaps&view=cpanel',
@@ -107,24 +101,6 @@ class XbmapsHelper extends ContentHelper {
 					'index.php?option=com_config&view=component&component=com_xbmaps',
 					$vName == 'options'
 					);
-// 		} else {
-// 			JHtmlSidebar::addEntry(
-// 					Text::_('xbBooks cPanel'),
-// 					'index.php?option=com_xbbooks&view=cpanel',
-// 					$vName == 'cpanel'
-// 					);
-			
-// 			JHtmlSidebar::addEntry(
-// 					Text::_('Books'),
-// 					'index.php?option=com_xbbooks&view=books',
-// 					$vName == 'films'
-// 					);
-// 			JHtmlSidebar::addEntry(
-// 					Text::_('Book Cat.Counts'),
-// 					'index.php?option=com_xbbooks&view=bcategories',
-// 					$vName == 'bcategories'
-// 					);
-// 		}
 	}
 	
 	/**

@@ -15,7 +15,6 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Controller\FormController;
 use Joomla\CMS\Filesystem\File;
 use Joomla\CMS\Component\ComponentHelper;
-use Joomla\CMS\Router\Route;
 
 class XbmapsControllerTrack extends FormController {
 			
@@ -135,8 +134,7 @@ class XbmapsControllerTrack extends FormController {
 	    $this->setRedirect($redirectTo );
 	}
 	
-	public function batch($model = null)
-	{
+	public function batch($model = null) {
 	    $model = $this->getModel('track');
 	    $this->setRedirect((string)Uri::getInstance());
 	    return parent::batch($model);

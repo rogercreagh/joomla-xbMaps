@@ -21,8 +21,8 @@ class XbmapsViewCatinfo extends JViewLegacy {
 		$this->item = $this->get('Item');
 		
 		$this->params = ComponentHelper::getParams('com_xbmaps');
-		//we are not bothered whether cats and tags are linked or not so a simple && will suffice
 		$this->global_use_cats = $this->params->get('global_use_cats');
+		//for admin we are not bothered whether cats and tags are linked or not so a simple && will suffice
 		$this->mapcats = $this->global_use_cats && $this->params->get('maps_use_cats');
 		$this->mrkcats = $this->global_use_cats && $this->params->get('markers_use_cats');
 		$this->trkcats = $this->global_use_cats && $this->params->get('tracks_use_cats');

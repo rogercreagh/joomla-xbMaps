@@ -9,7 +9,6 @@
  ******/
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
@@ -192,41 +191,3 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 </form>
 <div class="clearfix"></div>
 <p><?php echo XbmapsGeneral::credit();?></p>
-
-<script>
-//jQuery(document).ready(function(){
-//    jQuery('#modal-pvtrack').on('show', function () {
-        // Load view vith AJAX
-//        jQuery(this).find('.modal-content').load(jQuery('a[data-target="#index.php?option=com_xbmaps&view=trackview&id=1&tmpl=component'
-//        +'"]').attr('href'));
-//    })
-//        +jQuery(this).attr('id')
-//    jQuery('#ajax-modal').on('hidden', function () {
-//     document.location.reload(true);
-//    })
-//});
-</script>
-<!-- 
-<div class="modal hide fade" id="modal-pvtrack">
-  <div class="modal-header">
-    <button type="button" role="presentation" class="close" data-dismiss="modal">x</button>
-    <h3>Modal title</h3>
-  </div>
-  <div class="modal-body">
-    Modal content here
-  </div>
-  <div class="modal-footer">
-    <button class="btn" type="button" data-dismiss="modal">
-      <?php //echo JText::_('JCLOSE'); ?>
-    </button>
-  </div>
-</div>
-
-<div class="modal fade" id="ajax-modal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-             Ajax content will be loaded here 
-        </div>
-    </div>
-</div>
- -->

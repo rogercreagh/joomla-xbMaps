@@ -11,7 +11,6 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Component\ComponentHelper;
-use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Installer\Installer;
@@ -20,10 +19,6 @@ class XbmapsViewCpanel extends JViewLegacy {
 		
 	public function display($tpl = null) {
 		
-		// Check for errors.
-//		if (count($errors = $this->get('Errors'))) {
-//			throw new Exception(implode("\n", $errors), 500);
-//		}
 	    $this->params = ComponentHelper::getParams('com_xbmaps');
 	    $this->mapcats = $this->params->get('global_use_cats') && $this->params->get('maps_use_cats');
 	    $this->mrkcats = $this->params->get('global_use_cats') && $this->params->get('markers_use_cats');
@@ -87,7 +82,6 @@ class XbmapsViewCpanel extends JViewLegacy {
 		    $this->taglist .= '<a class="label label-info" href="'.$tlink.$value['id'].'">'.$key.'</a>&nbsp;(<i>'.$value['mapcnt'].':'.$value['mrkcnt'].':'.$value['trkcnt'].')</i></li> ';
 		}
 		$this->taglist .= '</ul>';
-		//        $result['taglist'] = trim($result['taglist'],', ');
 		
 	
 	   $this->addToolbar();

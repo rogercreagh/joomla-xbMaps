@@ -30,12 +30,6 @@ class XbmapsModelCatlist extends JModelList {
 		$this->setState('params', $params);
 		
 		parent::populateState($ordering, $direction);
-		//pagination limit
-		$limit = 0; //$this->getUserStateFromRequest($this->context.'.limit', 'limit', 25 );
-//		$this->setState('limit', $limit);
-//		$this->setState('list.limit', $limit);
-		$limitstart = 0; //$app->getUserStateFromRequest('limitstart', 'limitstart', $app->get('start'));
-//		$this->setState('list.start', $limitstart);		
 		
 	}
  	

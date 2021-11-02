@@ -104,6 +104,7 @@ function xbSaveForm(doW3w=true) {
 }
 
 function xbMoveMarker(marker, lat, lng, display,  lang='en', doCoordBox=false, doForm=false, doPop=true) {
+// calls xbMarkerPopup, xbMarkerCoordInfo and xbSaveForm as required
 	window.lat = lat.toFixed(6);
 	window.lng = lng.toFixed(6);
 	window.dmslat = deg2dms(lat,'latitude');
@@ -175,35 +176,3 @@ function xbUpdateMarkerW3w(w3w) {
 			document.adminForm.submit();
   	}).catch(error => alert(error.message));
 }
-
-
-//function xbFormUpdatew3w(w3w) {
-//	what3words.api.convertToCoordinates(w3w).then(function(response) 
-//		{ var coords=response.coordinates; 
-//			window.lat = coords.lat;
-//			window.lng = coords.lng;
-//			window.w3w = w3w;
-//			xbSaveForm();
-//         	document.forms["adminForm"].submit();                         
-//  		}).catch(error => alert(error.message));
-//}
-
-//function xbSetDirectory(srcCtrl,destCtrl) {
-//	document.getElementById(destCtrl).value = document.getElementById(srcCtrl).value;
-//}
-
-
-//function xbMarkw3w (uid,w3wapi) {
-//	//not currently used
-//	what3words.api.convertToCoordinates(w3wapi)
-//  .then(function(response) { var coords=response.coordinates; 
-////		window.lat = coords.lat;
-////		window.lng = coords.lng;
-//		var mrk = "marker"+uid
-//		xbMoveMarker(mrk, coords.lat, coords.lng);
-//		xbMarkerCoordInfo();
-//		xbmapsSaveForm();
-//     console.log("Lat: ", coords.lat," Long: ",coords.lng);
-////  }).catch(error => alert(error.message));
-
-

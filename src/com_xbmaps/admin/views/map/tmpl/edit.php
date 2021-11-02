@@ -9,7 +9,6 @@
  ******/
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
@@ -19,10 +18,6 @@ HTMLHelper::_('behavior.keepalive');
 HTMLHelper::_('formbehavior.chosen', '#jform_catid', null, array('disable_search_threshold' => 0 ));
 HTMLHelper::_('formbehavior.chosen', '#jform_tags', null, array('placeholder_text_multiple' => JText::_('JGLOBAL_TYPE_OR_SELECT_SOME_TAGS')));
 HTMLHelper::_('formbehavior.chosen', 'select');
-
-// $document = Factory::getDocument();
-// $style = '.controls .btn-group > .btn {min-width: unset; padding:3px 12px 4px;}';
-// $document->addStyleDeclaration($style);
 
 ?>
 <form action="<?php echo JRoute::_('index.php?option=com_xbmaps&layout=edit&id=' . (int) $this->item->id); ?>"

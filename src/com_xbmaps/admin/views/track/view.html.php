@@ -25,7 +25,6 @@ class XbmapsViewTrack extends JViewLegacy {
         $this->item = $this->get('Item');
         $this->canDo = XbmapsHelper::getActions('com_xbmaps', 'track', $this->item->id);
         
-        //$this->params      = $this->get('State')->get('params');
         $this->params = ComponentHelper::getParams('com_xbmaps');
         $this->track_map_type = $this->params->get('track_map_type','');
         

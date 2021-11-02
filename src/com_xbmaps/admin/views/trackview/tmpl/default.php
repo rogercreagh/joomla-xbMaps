@@ -9,7 +9,7 @@
  ******/
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
 
 $uid = uniqid();
@@ -90,7 +90,7 @@ $map->renderMap();
 	<div class="row-fluid xbmt16">
 	<?php if ($this->show_cats >0) : ?>       
 		<div class="span4<?php echo ($this->show_cats ==0) ? ' xbdim' : ''; ?>">
-			<div class="pull-left xbnit xbmr10"><?php echo JText::_('XBMAPS_CATEGORY'); ?></div>
+			<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBMAPS_CATEGORY'); ?></div>
 			<div class="pull-left">
 				<?php if($this->show_cats==2) : ?>
 					<a class="label label-success" href="<?php echo JRoute::_($clink.$this->item->catid); ?>">

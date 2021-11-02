@@ -16,18 +16,14 @@ use Joomla\CMS\Language\Text;
 HTMLHelper::_('formbehavior.chosen', 'select');
 
 $user = Factory::getUser();
-$userId         = $user->get('id');
 $listOrder     = $this->escape($this->state->get('list.ordering'));
 $listDirn      = $this->escape($this->state->get('list.direction'));
 
-$cateditlink = 'index.php?option=com_categories&task=category.edit&id=';
 $catlink = 'index.php?option=com_xbmaps&view=catinfo&id=';
 $maplink = 'index.php?option=com_xbmaps&view=maps&catid=';
 $mrklink = 'index.php?option=com_xbmaps&view=markers&catid=';
 $trklink = 'index.php?option=com_xbmaps&view=tracks&catid=';
 
-$prevext ='';
-//TODO ----------
 ?>
 <form action="index.php?option=com_xbmaps&view=catslist" method="post" id="adminForm" name="adminForm">
 	<div id="j-sidebar-container">
@@ -117,9 +113,7 @@ $prevext ='';
 			</tr>
 		</tfoot>
 		<tbody>
-			<?php foreach ($this->items as $i => $item) :
-				$canCheckin = $user->authorise('core.manage', 'com_checkin');
-			?>
+			<?php foreach ($this->items as $i => $item) : ?>
 			<tr class="row<?php echo $i % 2; ?>" >	
 					<td class="center hidden-phone">
 						<?php echo HTMLHelper::_('grid.id', $i, $item->id); ?>

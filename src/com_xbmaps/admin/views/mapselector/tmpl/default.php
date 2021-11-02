@@ -17,19 +17,9 @@ $map->createMap($this->latitude, $this->longitude, $this->zoom,);
 $map->setMapType($this->map_type);
 	//we're doing a modal with no item details
 $map->setMarker($uid, $this->latitude, $this->longitude, 'Map Centre Set', 'Zoom: '.$this->zoom, '','','',1);
-	// Export, Move, Input, renderSearch are dependent
-//	$map->moveMarker();
-//	$map->save2form('jform_centre_latitude_id', 'jform_centre_longitude_id', 'jform_default_zoom_id');
-//	if ($this->settype == 'marker') {
-//		$map->inputMarker('jform_latitude_id', 'jform_longitude_id', '', 1);
-//	} else {
-//		$map->inputMarker('jform_centre_latitude_id', 'jform_centre_longitude_id', 'jform_default_zoom_id');
-//	}
-//	$map->exportMarker($uid);
 $map->endZoom();
 $map->mapAreaClick($uid);
 $map->renderSearch($uid,'',$this->searchdisplay);
-//	$map->storeZoom($uid);
 	
 
 $map->renderFullScreenControl();

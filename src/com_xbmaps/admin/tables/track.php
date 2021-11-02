@@ -11,7 +11,6 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Table\Observer\Tags;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Filter\OutputFilter;
@@ -56,9 +55,6 @@ class XbmapsTableTrack extends Table
 	        $this->setError(Text::_('XBMAPS_SUM_OR_DESC_MISSING'));
 	        return false;
 	    }
-//	    if ($this->description == '') {
-//	        $this->description = $this->summary;
-//	    }
 	    
 	    //if cat not set then set default category
 	    if (!$this->catid>0) {
@@ -89,11 +85,6 @@ class XbmapsTableTrack extends Table
 	        $parameter->loadArray($array['params']);
 	        $array['params'] = (string)$parameter;
 	    }
-	    
-	    // 		if (isset($array['rules']) && is_array($array['rules'])) {
-	    //             $rules = new JAccessRules($array['rules']);
-	    //             $this->setRules($rules);
-	    //         }
 	    
 	    return parent::bind($array, $ignore);
 	    

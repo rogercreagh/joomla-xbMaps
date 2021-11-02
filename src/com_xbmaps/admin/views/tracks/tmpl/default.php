@@ -2,7 +2,7 @@
 /*******
  * @package xbMaps
  * @version 0.8.0.g 21st October 2021
- * @filesource admin/views/cpanel/tmpl/default.php
+ * @filesource admin/views/tracks/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -242,7 +242,7 @@ $tagclass = $this->show_tags? 'label-info' : 'label-grey';
         <?php // load the modal for displaying the batch options
 			echo HTMLHelper::_( 'bootstrap.renderModal', 'collapseModal',
             	array(
-                	'title' => JText::_('XBMAPS_BATCH_TITLE'),
+                	'title' => Text::_('XBMAPS_BATCH_TITLE'),
                 	'footer' => $this->loadTemplate('batch_footer')
             	),
             	$this->loadTemplate('batch_body')

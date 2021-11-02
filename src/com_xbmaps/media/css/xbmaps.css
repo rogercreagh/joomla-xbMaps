@@ -86,36 +86,30 @@ ul.nav-tabs {
 	background-color: #ffff5f !important;
 	color: #5f5f5f !important;
 }
-
 .badge-cyan, .badge-cyan {
 	background-color: #cfffff !important;
 	color: #5f5f5f !important;
 	border: 1px solid #31708F;
 }
-
 .badge-mag, .badge-mag {
 	background-color: #ffcfff !important;
 	color: #5f5f5f !important;
 	border: 1px solid #812c8F;
 }
-
-
 .badge-grey, .label-grey {
 	background-color: #aaa !important;
 	color: #fff !important;
 }
-
 .mapcnt, .mrkcnt, .trkcnt, .othcnt {
     border: solid 1px #31708f;
       color: #31708f !important;
 }
-
 .mapcnt { background-color: #deefef !important;  }           
 .mrkcnt { background-color: #deefde !important;  }      
 .trkcnt { background-color: #efdeef !important;  }      
 .othcnt { background-color: #efefef !important;  }    
 
-/* boxes with rounded corner bor,fder and gradient shading */
+/* boxes with rounded corner border and gradient shading */
 .xbbox {
 	padding: 8px 7px 7px 15px;
 	margin: 0 0 8px;
@@ -125,26 +119,25 @@ ul.nav-tabs {
 	border-radius: 4px;
 }
 
+/* box 200px high with internal scroll */
 .xbboxscroll200 {
 	max-height:200px; 
 	overflow-y:scroll;
 }
 
+/* colours for boxes */
 .xbboxwht {
 	background-color: #fefefe;
 	border: solid 1px #ccc;
 }
-
 .xbboxyell {
 	background-image: linear-gradient(#ffffff,#efefde);
 	border: solid 1px #cc8;
 }
-
 .xbboxgrn {
 	background-image: linear-gradient(#ffffff,#deefde);
 	border: solid 1px #8a8;
 }
-
 .xbboxcyan {
 	background-image: linear-gradient(#ffffff,#deefef);
 	border: solid 1px #8aa;
@@ -153,22 +146,20 @@ ul.nav-tabs {
 	background-image: linear-gradient(#ffffff,#e0e0ff);
 	border: solid 1px #8aa;
 }
-
 .xbboxmag {
 	background-image: linear-gradient(#ffffff,#efdeef);
 	border: solid 1px #a8a;
 }
-
 .xbboxred {
 	background-image: linear-gradient(#ffffff,#ff7f7f);
 	border: solid 1px #b88;
 }
-
 .xbboxgrey {
 	background-image: linear-gradient(#ffffff,#efefef);
 	border: solid 1px #ccc;
 }
 
+/* general font size, margin,width and padding classes */
 .xbtc {text-align:center;}
 .xb15 { font-size:1.5em; }
 .xb12 { font-size:1.2em; }
@@ -200,6 +191,7 @@ ul.nav-tabs {
 .xbmw400 {max-width:400px; }
 .xbwid100 {width:100%; }
 .xbyscroll { overflow-y:scroll;}
+
 .xbhlt {
 	background-color: yellow;
 	color: #444;
@@ -213,7 +205,6 @@ ul.nav-tabs {
 	font-weight:normal;
 	padding-right:5px;	
 }
-
 .xbcredit {
 	text-align:center;
 	font-size:0.8em;
@@ -230,6 +221,7 @@ ul.nav-tabs {
 	background-color: #189735;
 	padding: 3px 5px;
 }
+
 /* unordered list with no bullet and margins adjusted */
 ul.xblist {
 	margin: 0 0 9px 10px;
@@ -237,6 +229,7 @@ ul.xblist {
 ul.xblist li {
 	list-style-type: none;
 }
+
 /* definition list with term and definition on same line */
 dl.xbdl dt{
   display: inline-block;
@@ -255,5 +248,7 @@ dl.xbdl dd:after{
   display: block;
   content: '';
 }
+
+/* leaflet classes */
 .xbmarkerpop hr, .leaflet-popup hr { margin: 5px 0;}
  

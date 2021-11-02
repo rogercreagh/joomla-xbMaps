@@ -9,10 +9,8 @@
  ******/
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\Component\ComponentHelper;
-use Joomla\CMS\Installer\Installer;
 use Joomla\CMS\Language\Text;
 
 class XbmapsHelper extends ContentHelper {
@@ -36,25 +34,5 @@ class XbmapsHelper extends ContentHelper {
 		}
 		return $header;
 	}
-	
-	public static function credit() {
-		if (self::penPont()) {
-			return '';
-		}
-		$credit='<div class="xbcredit">';
-		$credit .= Text::_('XBMAPS_BEER_CREDIT');
-		$credit .= '</div>';
-		return $credit;
-	}
-	
-	private static function penPont() {
-		$params = ComponentHelper::getParams('com_xbmaps');
-		$beer = trim($params->get('roger_beer'));
-		//        Factory::getApplication()->enqueueMessage(password_hash($beer.'PASSWORD_DEFAULT'));
-		$hashbeer = $params->get('penpont');
-		if (password_verify($beer,$hashbeer)) { return true; }
-		return false;
-	}
-	
-	
+		
 }

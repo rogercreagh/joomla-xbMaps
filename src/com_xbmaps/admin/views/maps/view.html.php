@@ -14,7 +14,6 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\Version;
 use Joomla\CMS\Layout\FileLayout;
 
 class XbmapsViewMaps extends JViewLegacy {
@@ -55,7 +54,7 @@ class XbmapsViewMaps extends JViewLegacy {
 		
 		$this->addToolbar();
 		
-/** We are NOT doing j4 compatibility as J4 has too many problems and poor interface design 
+/** We are NOT doing j4 compatibility 
 		$version = new Version();
 		if (!$version->isCompatible('4.0.0-alpha')) {
 			XbmapsHelper::addSubmenu('cpanel');

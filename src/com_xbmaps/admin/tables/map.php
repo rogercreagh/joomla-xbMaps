@@ -56,9 +56,6 @@ class XbmapsTableMap extends Table
 		    $this->setError(Text::_('XBMAPS_SUM_OR_DESC_MISSING'));
 		    return false;
 		}
-//		if ($this->description == '') {
-//		    $this->description = $this->summary;
-//		}
 		
 		//if cat not set then set default category 
 		if (!$this->catid>0) {

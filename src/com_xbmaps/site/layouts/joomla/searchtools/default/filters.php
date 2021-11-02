@@ -3,7 +3,8 @@
  * @package xbMaps
  * @version 0.1.0.k 16th July 2021
  * @filesource site/layouts/joomla/searchtools/default/filters.php
- * @desc adds labels to the filter fields
+ * @desc adds labels to the filter fields and enbles search form fields to be conditionally hidden
+ * additional element $displayData['hide'] passed in with list of fields to be hidden
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html

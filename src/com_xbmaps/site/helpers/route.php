@@ -166,7 +166,7 @@ class XbmapsHelperRoute
 	
 	/**
 	 * @name getTrackLink
-	 * @desc gets a comlete link for a map menu item either dedicated, or maplist menu or generic
+	 * @desc gets a complete link for a map menu item either dedicated, or maplist menu or generic
 	 * @param int $fid
 	 * @return string
 	 */
@@ -209,6 +209,11 @@ class XbmapsHelperRoute
 		return null;
 	}
 	
+	/**
+	 * @name getCategoriesRoute
+	 * @desc returns itemid for menu item for the category list if exists
+	 * @return int|NULL
+	 */
 	public static function getCategoriesRoute() {
 		$items  = self::getItems();
 		foreach ($items as $item) {
@@ -220,6 +225,11 @@ class XbmapsHelperRoute
 		return null;
 	}
 	
+	/**
+	 * @name getTagsRoute
+	 * @desc returns itemid for menu item for the tag list if exists
+	 * @return int|NULL
+	 */
 	public static function getTagsRoute() {
 		$items  = self::getItems();
 		foreach ($items as $item) {

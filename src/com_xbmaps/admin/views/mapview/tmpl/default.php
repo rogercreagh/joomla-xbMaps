@@ -13,7 +13,6 @@ require_once(JPATH_COMPONENT_ADMINISTRATOR.'/helpers/geocoder.php');
 
 use What3words\Geocoder\Geocoder;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 
 $item = $this->item;
@@ -55,7 +54,6 @@ if (!empty($item->markers)) {
     			$popupdesc = ($mrk->mkdesc =='') ? '' : $mrk->mkdesc.'<br />';
     		}
     		$disp = $mrk->mkshowcoords;
-//    		Factory::getApplication()->enqueueMessage($disp);
     		if ($disp=='') $disp=0;
     		if ($disp>0) $popupdesc .= '<hr /><b>'.Text::_('XBMAPS_LOCATION').'</b></br>';
     		

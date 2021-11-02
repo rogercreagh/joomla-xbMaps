@@ -13,8 +13,6 @@ class XbmapsController extends JControllerLegacy
 {
 	public function display ($cachable = false, $urlparms = false){
 		require_once JPATH_COMPONENT.'/helpers/xbmaps.php';
-//		require_once JPATH_COMPONENT_ADMINISTRATOR.'/helpers/xbfilmsgeneral.php';
-//		require_once JPATH_ADMINISTRATOR . '/components/com_xbpeople/helpers/xbculture.php';
 		
 		return parent::display();
 	}

@@ -11,7 +11,6 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Layout\FileLayout;
 
@@ -35,7 +34,6 @@ $itemid = XbmapsHelperRoute::getMapsRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
 $mlink = 'index.php?option=com_xbmaps&view=map'.$itemid.'&id=';
 
-//$mlink = 'index.php?option=com_xbmaps&view=map&id=';
 ?>
 
 <div class="xbmaps">

@@ -44,17 +44,6 @@ class XbmapsModelMap extends JModelItem {
 			$db->setQuery($query);
 			if ($this->item = $db->loadObject()) {
 				
-/* 				$item = &$this->item;
-				// Load the JSON string
-				$params = new JRegistry;
-				$params->loadString($item->params, 'JSON');
-				
-				// Merge global params with item params
-				$comparams = clone $this->getState('params');
-//				$params->merge($item->params);
-				$params->merge($comparams);
-				$item->params = $params;
- */		
 				// Load the JSON string
 				$params = new Registry;
 				$params->loadString($this->item->params, 'JSON');

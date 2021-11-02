@@ -19,10 +19,6 @@ $itemid = XbmapsHelperRoute::getMapsRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
 $maplink = 'index.php?option=com_xbmaps&view=map'.$itemid.'&id=';
 
-//$itemid = XbmapsHelperRoute::getMarkerRoute();
-//$itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
-//$mrklink = 'index.php?option=com_xbmaps&view=marker'.$itemid.'&id=';
-
 $itemid = XbmapsHelperRoute::getTracksRoute() ;
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
 $trklink = 'index.php?option=com_xbmaps&view=track'.$itemid.'&id=';

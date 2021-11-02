@@ -10,10 +10,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
-use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\Component\ComponentHelper;
-use Joomla\Registry\Registry;
 
 class XbmapsViewMap extends JViewLegacy {
 	
@@ -23,7 +20,6 @@ class XbmapsViewMap extends JViewLegacy {
 		
 		$this->item = $this->get('Item');
 		$this->state = $this->get('State');
-//		$this->sparams = $this->state->get('params');
 		$this->params = $this->item->params;
 		
 		$this->show_empty = $this->params->get('show_empty',1);
@@ -33,9 +29,6 @@ class XbmapsViewMap extends JViewLegacy {
 		$this->show_cats = 0;
 		if ($gcat>0) {
 		    $this->show_cats = $mcat;
-//		    if ($this->params['maps_use_cats']!=='') {
-//		        $this->show_cats = $this->params['maps_use_cats'];
-//		    }
 		}
 		
 		$gtags = $this->params->get('global_use_tags',1);
@@ -43,9 +36,6 @@ class XbmapsViewMap extends JViewLegacy {
 		$this->show_tags = false;
 		if ($gtags >0) {
 		    $this->show_tags = $mtags;
-//		    if ($this->params['maps_use_tags']!=='') {
-//		        $this->show_tags = $this->params['maps_use_tags'];
-//		    }
 		}
 		
 		$this->fit_bounds = $this->params->get('fit_bounds');

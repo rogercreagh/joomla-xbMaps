@@ -15,7 +15,6 @@ class XbmapsRouter extends JComponentRouterBase {
     
 	public function build(&$query)
 	{
-		//      Factory::getApplication()->enqueueMessage('<pre>'.print_r($query,true).'</pre>','build');
 		$segments = array();
 		if (isset($query['view']))
 		{

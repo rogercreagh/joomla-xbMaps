@@ -18,7 +18,7 @@ use Joomla\CMS\Language\Text;
 
 class com_xbmapsInstallerScript 
 {	
-    protected $jminver = '3.9';
+    protected $jminver = '3.10';
     protected $jmaxver = '4.0';
     protected $extension = 'com_xbmaps';
     protected $ver = 'v0';
@@ -37,8 +37,6 @@ class com_xbmapsInstallerScript
 	        $this->date = $componentXML['creationDate'];        	
 	        $message = 'Updating xbMaps component from '.$componentXML['version'].' '.$componentXML['creationDate'];
         	$message .= ' to '.$parent->get('manifest')->version.' '.$parent->get('manifest')->creationDate;
-        } else {
-//        	$message = ($type);
         }
         if ($message!='') { Factory::getApplication()->enqueueMessage($message,'');}
     }
@@ -116,7 +114,6 @@ class com_xbmapsInstallerScript
 	}
      
 	public function createCategory($cats) {
-			//TODO modify to allow setting description		
 		$message = 'Creating '.$this->extension.' categories. ';
 		foreach ($cats as $cat) {
 			$db = Factory::getDBO();
@@ -126,7 +123,7 @@ class com_xbmapsInstallerScript
 			->where($db->quoteName('extension')." = ".$db->quote('com_xbmaps'));
 			$db->setQuery($query);
 			if ($db->loadResult()>0) {
-				$message .= '"'.$cat.' already exists<br /> ';
+			    $message .= '"'.$cat['title'].' already exists<br /> ';
 			} else {				
 				$category = Table::getInstance('Category');
 				$category->extension = $this->extension;

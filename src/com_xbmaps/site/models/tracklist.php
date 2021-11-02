@@ -12,7 +12,6 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Joomla\Utilities\ArrayHelper;
 use Joomla\CMS\Helper\TagsHelper;
-use Joomla\CMS\Component\ComponentHelper;
 
 class XbmapsModelTracklist extends JModelList {
 	

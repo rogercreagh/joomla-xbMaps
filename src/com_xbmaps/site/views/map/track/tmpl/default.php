@@ -9,9 +9,7 @@
  ******/
 defined('_JEXEC') or die;
 
-use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\Uri\Uri;
 
 $item = $this->item;
 
@@ -22,7 +20,6 @@ $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
 $clink = 'index.php?option=com_xbmaps&view=category'.$itemid.'&id=';
 
 $tracklink = XbmapsHelperRoute::getTrackLink('');
-//$trackslink = XbmapsHelperRoute::getMapsLink();
 $trackslink = 'index.php?option=com_xbmaps&view=tracklist';
 
 ?>

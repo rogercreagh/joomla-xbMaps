@@ -9,12 +9,7 @@
  ******/
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-use Joomla\CMS\Factory;
 use Joomla\CMS\Component\ComponentHelper;
-use Joomla\CMS\Toolbar\Toolbar;
-use Joomla\CMS\Toolbar\ToolbarHelper;
-use Joomla\CMS\Language\Text;
-use Joomla\CMS\Layout\FileLayout;
 
 class XbmapsViewMarkerlist extends JViewLegacy {
 		

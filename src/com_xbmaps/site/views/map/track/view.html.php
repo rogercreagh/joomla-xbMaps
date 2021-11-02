@@ -11,9 +11,6 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\TagsHelper;
-use Joomla\CMS\Language\Text;
-use Joomla\CMS\Component\ComponentHelper;
-use Joomla\Registry\Registry;
 
 class XbmapsViewTrack extends JViewLegacy {
 	

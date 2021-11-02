@@ -9,7 +9,6 @@
  ******/
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
@@ -111,19 +110,19 @@ $map->loadXbmapsJS();
 					<th>
 						<?php echo ucfirst(Text::_('XBMAPS_MAPS'));?>
 					</th>
-					<th class="hidden-tablet hidden-phone" style="width:15%;">
-						<?php if ($this->show_cats) {
-						    echo HTMLHelper::_('searchtools.sort','XBMAPS_CATEGORY','category_title',$listDirn,$listOrder );
-						} else {
-						    echo '<span class="xbdim">'.Text::_( 'XBMAPS_CATEGORY' ).'</span>';
-						}
-                        echo ' &amp; ';
-                        if ($this->show_tags) {
-                            echo Text::_( 'XBMAPS_TAGS' ); 
-                        } else {
-                            echo '<span class="xbdim">'.Text::_( 'XBMAPS_TAGS' ).'</span>';
-                        }?>
-					</th>
+				<?php if($this->show_cats || $this->show_tags) : ?>
+    				<th class="hidden-tablet hidden-phone">
+    					<?php if ($this->show_cats) {
+    						echo HTMLHelper::_('searchtools.sort','XBMAPS_CATEGORY','category_title',$listDirn,$listOrder );
+    					}
+    					if (($this->show_cats) && ($this->show_tags)) {
+    					    echo ' &amp; ';
+    					}
+    					if($this->show_tags) {
+    					    echo Text::_( 'XBMAPS_TAGS' ); 
+    					} ?>                
+    				</th>
+                <?php endif; ?>
 				</tr>
 			</thead>
 			<tbody>
@@ -189,20 +188,24 @@ $map->loadXbmapsJS();
 				}
 				?>
 				</td>
-				<td>
-					<p><a class="label <?php echo $catclass; ?>" href="<?php echo $cvlink.$item->catid; ?>" 
-						title="<?php echo Text::_( 'XBMAPS_VIEW_CATEGORY' );?>::<?php echo $item->category_title; ?>">
-							<?php echo $item->category_title; ?>
-						</a>
-					</p>												
-					<ul class="inline">
-					<?php foreach ($item->tags as $t) : ?>
-						<li><a href="<?php echo $tvlink.$t->id; ?>" class="label <?php echo $tagclass; ?>">
-							<?php echo $t->title; ?></a>
-						</li>												
-					<?php endforeach; ?>
-					</ul>						    											
-				</td>
+    				<?php if($this->show_cats || $this->show_tags) : ?>
+    					<td class="hidden-phone">
+     						<?php if($this->show_cats) : ?>	
+     							<p>
+     							<?php if($this->show_cats==2) : ?>											
+    								<a class="label label-success" href="<?php echo $clink.$item->catid; ?>"><?php echo $item->category_title; ?></a>
+    							<?php else: ?>
+    								<span class="label label-success"><?php echo $item->category_title; ?></span>
+    							<?php endif; ?>
+    							</p>
+    						<?php endif; ?>
+    						<?php if($this->show_tags) {
+    							$tagLayout = new FileLayout('joomla.content.tags');
+        						echo $tagLayout->render($item->tags);
+    						}
+        					?>
+    					</td>
+					<?php endif; ?>
 			</tr>			
 			<?php endforeach; ?>
 			

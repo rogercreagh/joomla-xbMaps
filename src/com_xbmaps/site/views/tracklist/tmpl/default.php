@@ -35,7 +35,6 @@ $itemid = XbmapsHelperRoute::getTracksRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
 $tlink = 'index.php?option=com_xbmaps&view=track'.$itemid.'&id=';
 
-//$mlink = 'index.php?option=com_xbmaps&view=map&id=';
 ?>
 
 <div class="xbmaps">

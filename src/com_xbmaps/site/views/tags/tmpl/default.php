@@ -10,9 +10,6 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\Language\Text;
-use Joomla\CMS\Uri\Uri;
-use Joomla\CMS\Layout\LayoutHelper;
 
 HTMLHelper::_('behavior.multiselect');
 HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => JText::_('JOPTION_SELECT_TAG')));
@@ -32,10 +29,6 @@ $tvlink = $xblink.'tag'.$itemid.'&id=';
 $itemid = XbmapsHelperRoute::getMapsRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
 $mapslink = $xblink.'maplist'.$itemid.'&tagid=';
-
-//$itemid = XbmapsHelperRoute::getMarkersRoute();
-//$itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
-//$rllink = $xblink.'markers'.$itemid.'&tagid=';
 
 $itemid = XbmapsHelperRoute::getTracksRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';

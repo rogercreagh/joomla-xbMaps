@@ -16,7 +16,6 @@ class XbmapsViewCatlist extends JViewLegacy {
 	public function display($tpl = null) {
 		
 		$this->items 		= $this->get('Items');
-//		$this->pagination	= $this->get('Pagination');
 		$this->state		= $this->get('State');
 		$this->params      = $this->state->get('params');
 		//if cats disabled on front-end redirect to maps view (we shouldn't even be here)
@@ -28,10 +27,6 @@ class XbmapsViewCatlist extends JViewLegacy {
 		$this->mapcats = $this->params->get('maps_use_cats');
 		$this->mrkcats = $this->params->get('markers_use_cats');
 		$this->trkcats = $this->params->get('tracks_use_cats');
-
-		//		$this->filterForm    	= $this->get('FilterForm');
-//		$this->activeFilters 	= $this->get('ActiveFilters');
-//		$this->searchTitle = $this->state->get('filter.search');
 		
 		$this->header = array();
 		$this->header['showheading'] = $this->params->get('show_page_heading',0,'int');
@@ -43,8 +38,6 @@ class XbmapsViewCatlist extends JViewLegacy {
 		$this->header['subtitle'] = $this->params->get('list_subtitle','','text');
 		$this->header['text'] = $this->params->get('list_headtext','','text');
 		
-//		$this->search_bar = $this->params->get('search_bar','0','int');
-//		$this->show_desc = $this->params->get('show_desc','1','int');
 		$this->show_parent = $this->params->get('show_parent','1','int');
 		$this->show_empty = $this->params->get('show_empty','0','int');
 		

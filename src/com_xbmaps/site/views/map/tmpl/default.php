@@ -12,10 +12,7 @@ defined('_JEXEC') or die;
 require_once(JPATH_COMPONENT_ADMINISTRATOR.'/helpers/geocoder.php');
 
 use What3words\Geocoder\Geocoder;
-use Joomla\CMS\Factory;
-use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\Uri\Uri;
 
 $item = $this->item;
 
@@ -25,8 +22,6 @@ $itemid = XbmapsHelperRoute::getCategoriesRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
 $clink = 'index.php?option=com_xbmaps&view=category'.$itemid.'&id=';
 
-$maplink = XbmapsHelperRoute::getMapLink('');
-//$mapslink = XbmapsHelperRoute::getMapsLink();
 $mapslink = 'index.php?option=com_xbmaps&view=maplist';
 
 ?>

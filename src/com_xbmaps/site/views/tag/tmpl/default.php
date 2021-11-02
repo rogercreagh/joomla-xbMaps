@@ -9,8 +9,6 @@
  ******/
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-use Joomla\CMS\Uri\Uri;
-use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
 $item = $this->item;
@@ -21,10 +19,6 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 $itemid = XbmapsHelperRoute::getMapsRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
 $maplink = $xblink.'map' . $itemid.'&id=';
-
-//$itemid = XbmapsHelperRoute::getMarkersRoute();
-//$itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
-//$mrklink = $xblink.'marker' . $itemid.'&id=';
 
 $itemid = XbmapsHelperRoute::getTracksRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';

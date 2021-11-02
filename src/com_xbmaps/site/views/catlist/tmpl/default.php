@@ -10,9 +10,6 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\Language\Text;
-use Joomla\CMS\Uri\Uri;
-use Joomla\CMS\Layout\LayoutHelper;
 
 HTMLHelper::_('formbehavior.chosen', 'select');
 

@@ -13,9 +13,10 @@
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  * only when included in xbMaps Joomla extension
 */
+namespace What3words\Geocoder;
+
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-namespace What3words\Geocoder;
 
 
 class Geocoder {

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.8.0.i 26th October 2021
+ * @version 0.9.0.b 3rd November 2021
  * @filesource admin/helpers/xbmaphelper.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -284,7 +284,14 @@ class XbMapHelper {
 L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 
  */		
-		$o[] = 'var imgIcon = L.icon({iconUrl: \''.Uri::root().$image.'\',iconAnchor:[15,35], popupAnchor:[0,-30] });';
+		$imagesize = getimagesize(Uri::root().$image);
+		$iwid = $imagesize[0];
+		$iht = $imagesize[1];
+		$isize = ($iwid>0) ? '['.($iwid).','.($iht).']' : '[30,40]';
+		$ianc = ($iwid>0) ? '['.($iwid/2).','.($iht).']' : '[15,40]';
+		$panc = ($iwid>0) ? '[0,'.(-$iht).']' : '[0,-40]';
+				
+		$o[] = 'var imgIcon = L.icon({iconUrl: \''.Uri::root().$image.'\',iconSize:'.$isize.',iconAnchor:'.$ianc.', popupAnchor:'.$panc.' });';
 		$o[]= 'var marker'.$markerId.' = L.marker(['.$lat.', '.$lng.'],{icon: imgIcon})';
 		
 		$popcontent = $this->makeMarkerPopup($title, $description, $width, $height, $open);
@@ -447,12 +454,11 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 	    return true;
 	}
 	
-	public function renderSearch($markerId = '', $position = '', $display='1') {
+	public function renderSearch($markerId = '', $position = '', $display='1', $inputw3w = false) {
 		
 		$position = $position != '' ? $position : 'topleft';
 		$o 	= array();
 		$o[] = 'map'.$this->name.$this->id.'.addControl(new L.Control.Search({';
-		
 		$o[] = '	url: \'https://nominatim.openstreetmap.org/search?format=json&q={s}\',';
 		$o[] = '	jsonpParam: \'json_callback\',';
 		$o[] = '	propertyName: \'display_name\',';

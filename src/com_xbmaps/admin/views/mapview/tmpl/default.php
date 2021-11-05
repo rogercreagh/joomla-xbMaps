@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.8.0 30th October 2021
+ * @version 0.9.0.b 3rd November 2021
  * @filesource admin/views/mapview/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -99,7 +99,7 @@ if (!empty($item->markers)) {
     }
 }
 if ($this->map_click_marker>0) {
-	$map->setMarker($uid,'52.507373', '-24.301758', '', '', '','','',0); //initial pos mid-Atlantic, prob off screen
+	$map->setImageMarker($uid,'52.50','-24.301','media/com_xbmaps/images/greendot-20x20.png' ,'', '', '','','',0); //initial pos mid-Atlantic, prob off screen
 	$map->mapClick($uid,$this->map_click_marker);
 }
 if ($this->show_scale) {

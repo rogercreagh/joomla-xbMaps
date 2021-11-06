@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.7.0.e 13th October 2021
+ * @version 0.9.0.c 6th November 2021
  * @filesource admin/models/track.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -253,7 +253,7 @@ class XbmapsModelTrack extends JModelAdmin {
     			//try
     			$db->setQuery($query);
     			$db->execute();
-S    		}
+    		}
     	}
     }
     

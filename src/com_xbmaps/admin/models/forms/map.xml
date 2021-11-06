@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbMaps admin/models/forms/map.xml v0.8.0.h 22nd October 2021 -->
+<!-- xbMaps admin/models/forms/map.xml v0.9.0.c 6th November 2021 -->
 <form>
 
 	<fieldset addfieldpath="/administrator/components/com_xbmaps/models/fields">
@@ -219,7 +219,7 @@
 			<field name="map_border_colour" type="color" 
 				label="XBMAPS_MAP_BORDER_COL_LABEL"
 				description="XBMAPS_MAP_BORDER_COL_DESC" 
-				default="#eee" format="hex"
+				default="#ccc" format="hex"
 				showon="map_border:1"
 			/>		
 		
@@ -390,7 +390,7 @@
 				<option value="7" showon="hid_w3wapi!:" >ddd, dms &amp; w3w</option>
 			</field>
 			
-			<field name="map_scale" type="radio"  
+			<field name="map_show_scale" type="radio"  
 				label="XBMAPS_MAP_SHOW_SCALE_LABEL" description="XBMAPS_MAP_SHOW_SCALE_DESC"
 				class="btn-group btn-group-yesno" 
 				useglobal="true"

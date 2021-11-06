@@ -1,11 +1,16 @@
 /*******
  * @package xbMaps
- * @version 0.7.0.d 11th October 2021
+ * @version 0.9.0.c 6th November 2021
  * @filesource media/css/xbmaps.css
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
+
+/* improve transparency on leaflet scale control */
+.leaflet-control-scale-line {
+	background: rgba(255, 255, 255, 0.75) !important;
+}
 
 /* replace the nasty default white on black tooltip style */
 .tooltip > .tooltip-inner {

@@ -38,7 +38,7 @@ class XbmapsViewMapview extends JViewLegacy {
 		$this->fit_bounds = $this->params->get('fit_bounds');
 		$this->clustering = $this->params->get('marker_clustering');
 		$this->homebutton = $this->params->get('map_home_button');
-		$this->show_scale = $this->params->get('show_scale');
+		$this->show_scale = $this->params->get('map_show_scale');
 		
 		$this->show_map_title = $this->params->get('show_map_title');
 		$this->marker_image_path = 'images/'.$this->params->get('def_markers_folder','');

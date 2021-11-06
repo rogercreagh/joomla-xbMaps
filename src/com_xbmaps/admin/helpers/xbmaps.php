@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.3.0.e 19th September 2021
+ * @version 0.9.0.c 6th November 2021
  * @filesource admin/helpers/xbmaps.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -52,16 +52,6 @@ class XbmapsHelper extends ContentHelper {
 					$vName == 'map'
 					);
 			JHtmlSidebar::addEntry(
-					Text::_('XBMAPS_ICONMENU_TRACKS'),
-					'index.php?option=com_xbmaps&view=tracks',
-					$vName == 'tracks'
-					);
-			JHtmlSidebar::addEntry(
-					Text::_('XBMAPS_ICONMENU_NEWTRACK'),
-					'index.php?option=com_xbmaps&view=track&layout=edit',
-					$vName == 'track'
-					);
-			JHtmlSidebar::addEntry(
 					Text::_('XBMAPS_ICONMENU_MARKERS'),
 					'index.php?option=com_xbmaps&view=markers',
 					$vName == 'markers'
@@ -70,6 +60,16 @@ class XbmapsHelper extends ContentHelper {
 					Text::_('XBMAPS_ICONMENU_NEWMARKER'),
 					'index.php?option=com_xbmaps&view=marker&layout=edit',
 					$vName == 'marker'
+					);
+			JHtmlSidebar::addEntry(
+					Text::_('XBMAPS_ICONMENU_TRACKS'),
+					'index.php?option=com_xbmaps&view=tracks',
+					$vName == 'tracks'
+					);
+			JHtmlSidebar::addEntry(
+					Text::_('XBMAPS_ICONMENU_NEWTRACK'),
+					'index.php?option=com_xbmaps&view=track&layout=edit',
+					$vName == 'track'
 					);
 			JHtmlSidebar::addEntry(
 					Text::_('XBMAPS_ICONMENU_CATSLIST'),

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.8.0. 30th October 2021
+ * @version 0.9.0 6th November 2021
  * @filesource site/views/map/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -41,7 +41,7 @@ class XbmapsViewMap extends JViewLegacy {
 		$this->fit_bounds = $this->params->get('fit_bounds');
 		$this->clustering = $this->params->get('marker_clustering');
 		$this->homebutton = $this->params->get('map_home_button');
-		$this->show_scale = $this->params->get('show_scale');
+		$this->show_scale = $this->params->get('map_show_scale');
 		
 		$this->show_map_title = $this->params->get('show_map_title');
 		$this->marker_image_path = 'images/'.$this->params->get('def_markers_folder','');

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbMaps config.xml v0.8.0.d 19th October 2021 -->
+<!-- xbMaps config.xml v0.9.0.c 6th November 2021 -->
 <config>
 <!-- GENERAL TAB -->				
 	<fieldset name="general"
@@ -228,7 +228,7 @@
 			<option value="1">JSHOW</option>
 		</field>
 
-			<field name="map_scale" type="radio"  
+			<field name="map_show_scale" type="radio"  
 				label="XBMAPS_MAP_SHOW_SCALE_LABEL" description="XBMAPS_MAP_SHOW_SCALE_DESC"
 				class="btn-group btn-group-yesno" 
 				default="0" 

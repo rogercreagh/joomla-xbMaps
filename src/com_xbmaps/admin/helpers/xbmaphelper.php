@@ -533,7 +533,7 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 	
 	public function renderScale($wid) {
 		$o 	= array();	
-		$o[] = 'new L.control.scale({{maxWidth: '.$wid.'}}).addTo(map'.$this->name.$this->id.');';		
+		$o[] = 'new L.control.scale({maxWidth: '.$wid.'}).addTo(map'.$this->name.$this->id.');';		
 		$this->output[] = implode("\n", $o);
 		return true;		
 	}

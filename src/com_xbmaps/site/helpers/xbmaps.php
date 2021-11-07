@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.1.0.k 16th July 2021
+ * @version 0.9.0.c 7th November 2021
  * @filesource site/helpers/xbmaps.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -30,7 +30,8 @@ class XbmapsHelper extends ContentHelper {
 			}
 			if ($displayData['text'] != '') {
 				$header .= '<p>'.$displayData['text'].'</p>';
-		}
+			}
+			$header .='</div></div>';
 		}
 		return $header;
 	}

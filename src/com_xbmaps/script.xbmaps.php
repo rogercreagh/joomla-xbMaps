@@ -105,7 +105,7 @@ class com_xbmapsInstallerScript
 	        echo '<p>version '.$componentXML['version'].' '.$componentXML['creationDate'].'<br />';
 	        echo '<p>For help and information see <a href="https://crosborne.co.uk/xbmaps/doc" target="_blank">
 	            www.crosborne.co.uk/xbmaps/doc</a> or use Help button in xbMaps Control Panel</p>';
-	        echo '<h4>Next steps</h4>';
+	        echo '<h4>Next steps:</h4>';
 		        echo '<p>IMPORTANT - <i>Review &amp; set the options</i>&nbsp;&nbsp;';
 		        echo '<a href="index.php?option=com_config&view=component&component=com_xbmaps" class="btn btn-small btn-info">xbMaps Options</a>';
 		        echo ' <br /><i>check the defaults match your expectations and save them.</i></p>';

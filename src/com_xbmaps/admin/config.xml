@@ -659,7 +659,7 @@
 		
 		<field name="def_generator" type="text" 
 			label="XBMAPS_META_GEN_LABEL" description="XBMAPS_META_GEN_DESC" 
-			default="Use system default" 
+			default="XBMAPS_META_GEN_DEFVAL" 
 			size="100" showon="show_generator:1"
 		/>	
 		

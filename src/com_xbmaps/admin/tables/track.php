@@ -69,7 +69,7 @@ class XbmapsTableTrack extends Table
 	            }
 	        } else {
 	            // this shouldn't happen unless uncategorised has been deleted
-	            $this->setError(JText::_('Please set a category'));
+	            $this->setError(JText::_('XBMAPS_SET_CATEGORY'));
 	            return false;
 	        }
 	    }

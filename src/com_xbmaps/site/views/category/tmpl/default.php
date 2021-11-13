@@ -114,7 +114,7 @@ $show_catdesc = $this->params->get('show_catdesc',1);
 <div class="clearfix"></div>
 <p class="xbtc xbmt16">
 	<a href="<?php echo $cclink; ?>" class="btn btn-small">
-		<?php echo JText::_('XBMAPS_CATEGORIES'); ?>
+		<?php echo JText::_('XBMAPS_CATSLIST'); ?>
 	</a>
 </p>
 <div class="clearfix"></div>

@@ -80,16 +80,16 @@ class JFormFieldXbSelectMapArea extends JFormField
 			$html[] = '<div class="input-append">';
 			$html[] = '<span class="input-append"><input type="number" id="' . $this->id . '_id" name="' . $this->name . '"'
 					. ' value="' . $this->value . '" '.$class.$disabled.$readonly.$onchangeOutput.'  max="90.000000" min="-90.000000" step="0.000001" style="width:100px;" />';
-			$html[] = '<a href="#'.$idA.'" role="button" class="btn " data-toggle="modal" title="' . Text::_('Set Coordinates') . '">'
+			$html[] = '<a href="#'.$idA.'" role="button" class="btn " data-toggle="modal" title="' . Text::_('XBMAPS_SET_COORDS') . '">'
 							. '<span class="icon-list icon-white"></span> '
-									. Text::_('Set Coordinates') . '</a></span>';
+									. Text::_('XBMAPS_SET_COORDS') . '</a></span>';
 			$html[] = '</div>'. "\n";
 									
 			$html[] = JHtml::_('bootstrap.renderModal',
 											$idA,
 											array(
 													'url'    => $link,
-													'title'  => Text::_('Click location to set centre and zoom'),
+													'title'  => Text::_('XBMAPS_SET_LOCATION'),
 													'width'  => '780px',
 													'height' => '580px',
 													'modalWidth' => '50',

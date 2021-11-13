@@ -41,7 +41,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 		<div class="span12">
 			<?php echo HTMLHelper::_('bootstrap.startTabSet', 'myTab', array('active' => 'details')); ?>
 	
-			<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'details', Text::_('Details')); ?>
+			<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'details', Text::_('XBMAPS_DETAILS')); ?>
 			<div class="row-fluid">
 	    		<div class="span6">
 	          		<h4>Content</h4>
@@ -62,7 +62,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 				</div>
 	   		</div>
 	 		<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
-			<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'params', JText::_('Map Controls')); ?>
+			<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'params', JText::_('XBMAPS_MAP_CONTROLS')); ?>
 			
 			<div class="row-fluid form-horizontal-desktop">
 				<div class="span6">
@@ -81,7 +81,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 			</div>
 			<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
 
-			<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'layout', Text::_('Map Layout')); ?>
+			<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'layout', Text::_('XBMAPS_MAP_LAYOUT')); ?>
 			<div class="row_fluid">
 				<div class="span7 form-horizontal-desktop">
 					<h4><?php echo Text::_('Layout Options'); ?></h4>
@@ -99,7 +99,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 					<?php //echo $this->form->renderField('show_mrk_desc','params'); ?>
 				</div>
 				<div class="span5">
-					<h4><?php echo Text::_('Map Dimensions &amp; Border'); ?></h4>
+					<h4><?php echo Text::_('XBMAPS_MAP_DIMS_BORDER'); ?></h4>
 					<div class="row-fluid form-vertical">
 						<div class="span6">
 							<div class="pull-left"><?php echo $this->form->renderField('map_height','params'); ?></div>

@@ -144,7 +144,7 @@
 					<option value="">JSELECT</option>	
 				</field>
 				<field name="track_colour" type="color" 
-				label="XBMAPS_TRACK_COL_LABEL"
+				label="XBMAPS_TRACKMAP_COL_LABEL"
 				default="" format="hex"
 				class="trkcol"
 				hint="XBMAPS_TRACK_COL_HINT"

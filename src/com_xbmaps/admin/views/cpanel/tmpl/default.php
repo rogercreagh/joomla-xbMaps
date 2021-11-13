@@ -53,13 +53,13 @@ use Joomla\CMS\Language\Text;
         							<div class="row-fluid">
         								<div class="span12">
         									<span class="badge <?php echo $this->trackCnts['mapswithtracks']>0 ?'badge-cyan' : ''; ?> xbmr10"><?php echo $this->trackCnts['mapswithtracks']; ?></span>
-        									<?php echo Text::_('maps with tracks'); ?>
+        									<?php echo Text::_('XBMAPS_MAPS_WITH_TRACKS'); ?>
         								</div>
         							</div>
         							<div class="row-fluid">
         								<div class="span12">
         									<span class="badge <?php echo $this->markerCnts['mapswithmarkers']>0 ?'badge-mag' : ''; ?> xbmr10"><?php echo $this->markerCnts['mapswithmarkers']; ?></span>
-        									<?php echo Text::_('maps with markers'); ?>
+        									<?php echo Text::_('XBMAPS_MAPS_WITH_MARKERS'); ?>
         								</div>
         							</div>
         						</div>
@@ -98,7 +98,7 @@ use Joomla\CMS\Language\Text;
         							<div class="row-fluid">
         								<div class="span12">
         									<span class="badge <?php echo $this->trackCnts['tracksonmaps']>0 ?'badge-cyan' : ''; ?> xbmr10"><?php echo $this->trackCnts['tracksonmaps']; ?></span>
-        									<?php echo Text::_('tracks assigned to maps'); ?>
+        									<?php echo Text::_('XBMAPS_TRACKS_WITH_MAPS'); ?>
         								</div>
         							</div>
         						</div>
@@ -137,7 +137,7 @@ use Joomla\CMS\Language\Text;
         							<div class="row-fluid">
         								<div class="span12">
         									<span class="badge <?php echo $this->markerCnts['markersonmaps']>0 ?'badge-mag' : ''; ?> xbmr10"><?php echo $this->markerCnts['markersonmaps']; ?></span>
-        									<?php echo Text::_('markers assigned to maps'); ?>
+        									<?php echo Text::_('XBMAPS_MARKERS_WITH_MAPS'); ?>
         								</div>
         							</div>
         						</div>

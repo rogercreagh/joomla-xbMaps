@@ -55,7 +55,7 @@ class com_xbmapsInstallerScript
     	
     	$message = '<br />Visit the <a href="index.php?option=com_xbmaps&view=cpanel" class="btn btn-small btn-info">';
     	$message .= 'xbMaps Control Panel</a> page for overview of status.</p>';
-    	$message .= '<br />For ChangeLog see <a href="http://crosborne.co.uk/xbmaps#changelog" target="_blank">
+    	$message .= '<br />For ChangeLog see <a href="http://crosborne.co.uk/xbmaps/changelog" target="_blank">
             www.crosborne.co.uk/xbmaps/changelog</a></p>';
      	
     	Factory::getApplication()->enqueueMessage($message,'Message');

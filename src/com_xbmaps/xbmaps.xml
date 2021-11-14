@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" version="3.1" method="upgrade">
 	<name>xbmaps</name>
-	<creationDate>8th November 2021</creationDate>
-	<version>0.9.0</version>
+	<creationDate>14th November 2021</creationDate>
+	<version>1.0.0</version>
 	<author>Roger C-O</author>
 	<authorEmail>roger@crosborne.uk</authorEmail>
 	<authorUrl>www.crosborne.uk</authorUrl>
@@ -73,31 +73,26 @@
 
 		<menu img="class:xbmaps"
 			link="option=com_xbmaps&amp;view=cpanel"
-			view="cpanel">xbMaps</menu>
+			view="cpanel" >xbMaps</menu>
 		<submenu>
 			<menu link="option=com_xbmaps"
-				view="cpanel" img="class:xbmaps-cpanel"
-				alt="xbmaps/Cpanel">
+				view="cpanel" img="class:xbmaps-cpanel" >
 					xbmaps_iconmenu_cpanel
 			</menu>
 			<menu link="option=com_xbmaps&amp;view=maps"
-				view="maps" img="class:xbmaps-maps"
-				alt="xbmaps/Maps">
+				view="maps" img="class:xbmaps-maps" >
 					xbmaps_iconmenu_maps
 			</menu>
 			<menu link="option=com_xbmaps&amp;view=markers"
-				view="markers" img="class:xbmaps-markers"
-				alt="xbmaps/Markers">
+				view="markers" img="class:xbmaps-markers" >
 					xbmaps_iconmenu_markers
 			</menu>
 			<menu link="option=com_xbmaps&amp;view=tracks"
-				view="tracks" img="class:xbmaps-tracks"
-				alt="xbmaps/Tracks">
+				view="tracks" img="class:xbmaps-tracks" >
 					xbmaps_iconmenu_tracks
 			</menu>
 			<menu link="option=com_xbmaps&amp;view=catslist"
-				view="catslist" img="class:categories"
-				alt="xbmaps/CatsInfo">
+				view="catslist" img="class:categories" >
 					xbmaps_iconmenu_catslist
 			</menu>
 			<!--
@@ -108,11 +103,9 @@
 			</menu>
 			 -->
 			<menu link="option=com_xbmaps&amp;view=tagslist"
-				view="tagslist" img="class:xbmaps-tags"
-				alt="xbmaps/Tags">
+				view="tagslist" img="class:xbmaps-tags" >
 					xbmaps_iconmenu_tagslist
 			</menu>
-
 		</submenu>
 	</administration>
 

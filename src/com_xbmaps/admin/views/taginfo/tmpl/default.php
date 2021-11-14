@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.8.0.g 21st October 2021
+ * @version 0.9.1.a 14th November 2021
  * @filesource admin/views/tag/tmpl/edit.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -49,7 +49,6 @@ $xblink = 'index.php?option=com_xbmaps';
 		<div class="row-fluid xbmb8">
 			<div class= "span3">
 				  <h3><?php echo Text::_('XBMAPS_TAG_ITEMS'); ?></h3>
-				  <p class="xbnit"><?php Text::_('XBMAPS_TAGINFO_INFO'); ?></p>
 			</div>
 			<div class="span5">
 				<a href="<?php echo $telink.$item->id; ?>" class="badge badge-info">

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.4.0.1 28th September 2021
+ * @version 0.9.1.a 14th November 2021
  * @filesource site/views/category/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -72,7 +72,7 @@ $show_catdesc = $this->params->get('show_catdesc',1);
     				} ?>				
     				</ul>
     			<?php else: ?>
-    				<p class="xbnit"><?php echo Text::_('no items assigned to category')?></p>
+    				<p class="xbnit"><?php echo Text::_('XBMAPS_CAT_NO_ITEMS')?></p>
     			<?php endif; ?>
     		</div>
     	</div>
@@ -89,7 +89,7 @@ $show_catdesc = $this->params->get('show_catdesc',1);
     				} ?>				
     				</ul>
     			<?php else: ?>
-    				<p class="xbnit"><?php echo Text::_('no items assigned to category')?></p>
+    				<p class="xbnit"><?php echo Text::_('XBMAPS_CAT_NO_ITEMS')?></p>
     			<?php endif; ?>
     		</div>
     	</div>
@@ -105,7 +105,7 @@ $show_catdesc = $this->params->get('show_catdesc',1);
     				} ?>				
     				</ul>
     			<?php else: ?>
-    				<p class="xbnit"><?php echo Text::_('no items assigned to category')?></p>
+    				<p class="xbnit"><?php echo Text::_('XBMAPS_CAT_NO_ITEMS')?></p>
     			<?php endif; ?>
     		</div>
     	</div>

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.8.0.g 21st October 2021
+ * @version 0.9.1.a 14th November 2021
  * @filesource admin/views/markers/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -270,7 +270,7 @@ $map->loadXbmapsJS();
 				</td>
 				<td class="hidden-phone">
 					<?php echo $item->id; ?>
-					<br /><span class="xbnit"><?php echo HtmlHelper::date($item->modified, Text::_('d M Y'));?></span>
+					<br /><span class="xbnit"><?php echo HtmlHelper::date($item->modified, 'd M Y');?></span>
 				</td>
 			</tr>			
 			<?php endforeach; ?>

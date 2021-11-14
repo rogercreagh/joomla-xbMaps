@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.9.0.c 6th November 2021
+ * @version 0.9.1.a 14th November 2021
  * @filesource admin/views/map/tmpl/edit.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -84,7 +84,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 			<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'layout', Text::_('XBMAPS_MAP_LAYOUT')); ?>
 			<div class="row_fluid">
 				<div class="span7 form-horizontal-desktop">
-					<h4><?php echo Text::_('Layout Options'); ?></h4>
+					<h4><?php echo Text::_('XBMAPS_LAYOUT_OPTIONS'); ?></h4>
 					<?php echo $this->form->renderField('show_map_title','params'); ?>
 					<?php echo $this->form->renderField('show_map_desc','params'); ?>
 					<?php echo $this->form->renderField('map_desc_class','params'); ?>
@@ -99,7 +99,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 					<?php //echo $this->form->renderField('show_mrk_desc','params'); ?>
 				</div>
 				<div class="span5">
-					<h4><?php echo Text::_('XBMAPS_MAP_DIMS_BORDER'); ?></h4>
+					<h4><?php echo Text::_('XBMAPS_MAP_HEIGHT_BORDER'); ?></h4>
 					<div class="row-fluid form-vertical">
 						<div class="span6">
 							<div class="pull-left"><?php echo $this->form->renderField('map_height','params'); ?></div>
@@ -121,7 +121,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 				</div>
 			</div>
 			<?php echo HTMLHelper::_('bootstrap.endTab'); ?>			
-			<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'markers', JText::_('Markers &amp; Tracks')); ?>
+			<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'markers', JText::_('XBMAPS_MARKERS_TRACKS')); ?>
 			<div class="row-fluid form-vertical">
 	    		<div class="span6">
 	          		<h4>Markers</h4>
@@ -135,7 +135,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 	          	</div>
 	         </div> 		
 	 		<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
-			<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'publishing', JText::_('Publishing')); ?>
+			<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'publishing', JText::_('XBMAPS_PUBLISHING')); ?>
 			<div class="row-fluid form-horizontal-desktop">
 				<div class="span6">
 					<?php echo LayoutHelper::render('joomla.edit.publishingdata', $this); ?>

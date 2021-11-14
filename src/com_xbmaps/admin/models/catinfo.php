@@ -89,3 +89,12 @@ class XbmapsModelCatinfo extends JModelItem {
 		} //endif item set			
 	} //end getItem()
 }
+
+
+
+
+
+
+
+
+

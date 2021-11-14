@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.9.0 6th November 2021
+ * @version 0.9.1.a 14th November 2021
  * @filesource site/views/map/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -106,7 +106,7 @@ class XbmapsViewMap extends JViewLegacy {
 		
 		$document = $this->document; //Factory::getDocument();
 		$document->setTitle($this->item->title);
-		$document->setMetaData('title', Text::_('xbMaps Map').' '.$this->item->title);
+		$document->setMetaData('title', Text::_('XBMAPS_MAPS_MAP').' '.$this->item->title);
 		$metadata = json_decode($this->item->metadata,true);
 		if (!empty($metadata['metadesc'])) { $document->setDescription($metadata['metadesc']); }
 		if (!empty($metadata['metakey'])) { $document->setMetaData('keywords', $metadata['metakey']);}

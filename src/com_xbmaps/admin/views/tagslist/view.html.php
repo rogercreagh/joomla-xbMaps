@@ -73,7 +73,7 @@ class XbmapsViewTagslist extends JViewLegacy {
     protected function setDocument()
     {
     	$document = Factory::getDocument();
-    	$document->setTitle(strip_tags(Text::_('XBMAPS_TTILE_TAGSLIST')));
+    	$document->setTitle(strip_tags(Text::_('XBMAPS_TITLE_TAGSLIST')));
     }
     
 }

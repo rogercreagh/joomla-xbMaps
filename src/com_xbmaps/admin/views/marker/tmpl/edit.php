@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.8.0.i 26th October 2021
+ * @version 0.9.1.a 14th November 2021
  * @filesource admin/views/marker/tmpl/edit.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -116,7 +116,7 @@ $map->renderMap();
  		<div class="span12">
 				<?php echo HTMLHelper::_('bootstrap.startTabSet', 'myTab', array('active' => 'details')); ?>
 	
-				<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'details', Text::_('Details')); ?>
+				<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'details', Text::_('XBMAPS_DETAILS')); ?>
 				<div class="row-fluid">
 		    		<div class="span4">
            	    	<?php echo $this->form->renderField('marker_type'); ?> 
@@ -163,7 +163,7 @@ $map->renderMap();
         			</div>
         		</div>
     			<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
-    			<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'publishing', JText::_('Publishing')); ?>
+    			<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'publishing', JText::_('XBMAPS_PUBLISHING')); ?>
     			<div class="row-fluid form-horizontal-desktop">
     				<div class="span6">
     					<?php echo LayoutHelper::render('joomla.edit.publishingdata', $this); ?>

@@ -39,3 +39,7 @@ tmp/
 .project
 
 # End of https://www.toptal.com/developers/gitignore/api/eclipse
+.buildpath
+.buildpath
+.project
+.settings/org.eclipse.php.core.prefs

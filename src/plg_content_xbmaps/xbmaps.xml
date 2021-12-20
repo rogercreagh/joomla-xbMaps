@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.0" type="plugin" group="content" method="upgrade">
+	<name>Content - xbMaps</name>
+	<version>0.1.0</version>
+	<creationDate> 20th December 2019</creationDate>
+	<author> Roger C-O</author>
+	<copyright>Copyright (c) Roger Creagh-Osborne, 2019. All rights reserved.</copyright>
+	<license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
+	<authorEmail>roger@crosborne.co.uk</authorEmail>
+	<authorUrl>www.crosborne.co.uk</authorUrl>
+	<description> <![CDATA[ xbMaps-Content Plugin for {xbmap...} shortcode to insert xbMaps map or track into articles]]> </description>
+	<files>
+		<filename plugin="xbmaps">xbmaps.php</filename>
+	</files>
+	<languages folder="language">
+		<language tag="en-GB">languages/en-GB.plg_content_xbmaps.ini</language>
+		<language tag="en-GB">languages/en-GB.plg_content_xbmaps.sys.ini</language>
+	</languages>
+	<!-- 
+	<media folder="media" destination="plg_content_xbfootnotetagcon">
+		<folder>css</folder>
+		<filename>index.html</filename>
+	</media>
+	 -->
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="note1" type="note" class="alert" close="true"
+					label="Note Label"
+					description="This is the basic params tab"
+				/>				
+			</fieldset>
+			<fieldset name="help">
+				<field name="note2" type="note" class="alert" close="true"
+					label="Note Label"
+					description="This is the help tab"
+				/>				
+			</fieldset>			
+		</fields>
+</config>
+</extension>

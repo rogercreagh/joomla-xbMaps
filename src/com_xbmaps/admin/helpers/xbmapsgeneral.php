@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps
- * @version 0.8.0.i 26th October 2021
+ * @version 1.0.1 20th December 2021
  * @filesource admin/helpers/xbmapsgeneral.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -386,5 +386,55 @@ class XbmapsGeneral extends ContentHelper {
 		return $mrklist;
 	}
 	
+	/**
+	 * @name getIdFromAlias()
+	 * @desc gets the id of an item in a given table from the alias
+	 * @param string $table - table to search
+	 * @param string $alias - alias to find
+	 * @param string $ext - the extension to match if searching in #__categories for a different extension
+	 * @return int - item id or 0 if not found
+	 */
+	public static function getIdFromAlias($table, $alias, $ext = 'com_xbmaps') {
+		$alias = trim($alias,"' ");
+		$table = trim($table,"' ");
+		//check for valid $alias (letter numbers and hyphens only)
+		if (!preg_match('[A-Za-z0-9-]+$', $alias)) {
+			return false;
+		}		
+		// check for valid format for $table ('#__' followed by letters nubers and underscores only)
+		if (!preg_match('#__[A-Za-z0-9\$_]+$', $table)) {
+			return false;
+		}
+		$db = Factory::getDBO();
+		$query = $db->getQuery(true);
+		$query->select('id')->from($db->quoteName($table))->where($db->quoteName('alias')." = ".$db->quote($alias));
+		if ($table === '#__categories') {
+			$query->where($db->quoteName('extension')." = ".$db->quote($ext));
+		}
+		$db->setQuery($query);
+		$res =0;
+		$res = $db->loadResult();
+		return $res;
+	}
 	
+	public static function idExists(int $id, string $table, $ext = 'com_xbmaps') {
+		//no zero id's
+		if ($id==0) {
+			return false;
+		}
+		// check for valid format for $table ('#__' followed by letters nubers and underscores only)
+		if (!preg_match('#__[A-Za-z0-9\$_]+$', $table)) {
+			return false;
+		}
+		$db = Factory::getDBO();
+		$query = $db->getQuery(true);
+		$query->select('id')->from($db->quoteName($table))->where($db->quoteName('id')." = ".$db->quote($id));
+		if ($table === '#__categories') {
+			$query->where($db->quoteName('extension')." = ".$db->quote($ext));
+		}
+		$db->setQuery($query);
+		//trap errors
+		$res = $db->loadResult();
+		return $res;		
+	}
 }

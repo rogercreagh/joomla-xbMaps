@@ -1,6 +1,6 @@
 <?php
 /*******
- * @package xbMaps
+ * @package xbMaps Component
  * @version 0.3.0.e 19th September 2021
  * @filesource admin/models/taginfo.php
  * @author Roger C-O

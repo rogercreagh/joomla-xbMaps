@@ -1,6 +1,6 @@
 <?php
 /*******
- * @package xbMaps
+ * @package xbMaps Component
  * @version 0.1.2.b 4th September 2021
  * @filesource admin/models/fields/markers.php
  * @author Roger C-O

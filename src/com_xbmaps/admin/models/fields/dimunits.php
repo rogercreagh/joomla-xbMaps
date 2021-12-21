@@ -1,6 +1,6 @@
 <?php
 /*******
- * @package xbMaps
+ * @package xbMaps Component
  * @version 0.1.0.m 24th July 2021
  * @filesource admin/models/fields/dimunits.php
  * @author Roger C-O

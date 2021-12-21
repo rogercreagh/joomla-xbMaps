@@ -1,6 +1,6 @@
 <?php
 /*******
- * @package xbMaps
+ * @package xbMaps Component
  * @version 0.8.0.b 17th October 2021
  * @filesource site/views/markerlist/tmpl/default.php
  * @author Roger C-O

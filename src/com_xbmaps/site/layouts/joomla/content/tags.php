@@ -1,6 +1,6 @@
 <?php
 /*******
- * @package xbMaps
+ * @package xbMaps Component
  * @version 0.1.0.k 16th July 2021
  * @filesource site/layouts/joomla/content/tags.php
  * @desc changes link to the com_xbmaps tag view

@@ -1,6 +1,6 @@
 <?php
 /*******
- * @package xbMaps
+ * @package xbMaps Component
  * @version 0.3.0.f 20th September 2021
  * @filesource site/models/category.php
  * @author Roger C-O

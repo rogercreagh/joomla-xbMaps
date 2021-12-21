@@ -1,6 +1,6 @@
 <?php
 /*******
- * @package xbMaps
+ * @package xbMaps Component
  * @version 0.1.0.0 7th August 2021
  * @filesource admin/models/fields/xbselectmaparea.php
  * @author Jan Pavelka www.phoca.cz, Roger C-O

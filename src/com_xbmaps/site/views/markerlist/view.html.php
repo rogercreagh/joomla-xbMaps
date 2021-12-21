@@ -1,6 +1,6 @@
 <?php
 /*******
- * @package xbMaps
+ * @package xbMaps Component
  * @version 0.5.0.d 30th September 2021
  * @filesource site/views/markerlist/view.html.php
  * @author Roger C-O

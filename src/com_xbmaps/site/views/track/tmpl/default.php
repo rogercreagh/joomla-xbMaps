@@ -1,7 +1,7 @@
 <?php
 /*******
- * @package xbMaps
- * @version 0.6.0.d 4th October 2021
+ * @package xbMaps Component
+ * @version 1.1.0 21st December 2021
  * @filesource site/views/track/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -25,9 +25,11 @@ $trackslink = 'index.php?option=com_xbmaps&view=tracklist';
 ?>
 
 <div class="xbmaps">
+<?php if (!$this->tmplcomp) : ?>
 	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
 		echo XbmapsHelper::sitePageheader($this->header);
 	} ?>
+<?php endif; ?>
 	
 <?php  if($this->show_track_title) :?>
 	<div class="row-fluid">
@@ -93,6 +95,7 @@ $trackslink = 'index.php?option=com_xbmaps&view=tracklist';
 <?php endif; ?>
 
 
+<?php if ($this->shownav) : ?>
 	<div class="row-fluid xbmt16">
 	<?php if ($this->show_cats >0) : ?>       
 		<div class="span4">
@@ -141,6 +144,7 @@ $trackslink = 'index.php?option=com_xbmaps&view=tracklist';
 		</div>
 	</div>
 	<div class="clearfix"></div>
+<?php endif; ?>
 	<?php echo XbmapsGeneral::credit();?>
 
 </div>

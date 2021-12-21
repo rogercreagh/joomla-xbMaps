@@ -1,7 +1,7 @@
 <?php
 /*******
- * @package xbMaps
- * @version 0.9.1.a 14th November 2021
+ * @package xbMaps Component
+ * @version 1.1.0 21st December 2021
  * @filesource site/views/map/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -17,6 +17,10 @@ class XbmapsViewMap extends JViewLegacy {
 	protected $item;
 	
 	public function display($tpl = null) {
+		
+		$input = Factory::getApplication()->input;
+
+		$this->tmplcomp = ($input->getString('tmpl', '')=='component') ? true : false; 
 		
 		$this->item = $this->get('Item');
 		$this->state = $this->get('State');
@@ -43,7 +47,12 @@ class XbmapsViewMap extends JViewLegacy {
 		$this->homebutton = $this->params->get('map_home_button');
 		$this->show_scale = $this->params->get('map_show_scale');
 		
-		$this->show_map_title = $this->params->get('show_map_title');
+		if ($input->exists('title')) {
+			$this->show_map_title = $input->getInt('title',0);
+		} else {
+			$this->show_map_title = $this->params->get('show_map_title',0);
+		}
+		
 		$this->marker_image_path = 'images/'.$this->params->get('def_markers_folder','');
 
 		$this->mapstyle = 'margin:0;padding:0;width:100%;height:';
@@ -54,11 +63,23 @@ class XbmapsViewMap extends JViewLegacy {
 		if ($mapborder==1) {
 		    $this->borderstyle = 'border:'.$this->params->get('map_border_width').'px solid '.$this->params->get('map_border_colour').';';
 		}
-		$this->show_map_info = $this->params->get('show_map_info');
+		
+		if ($input->exists('info')) {
+			$this->show_map_info = $input->getInt('info',0);
+		} else {
+			$this->show_map_info = $this->params->get('show_map_info',0);
+		}
+
 		$this->map_info_width = $this->params->get('map_info_width');
 		$this->mainspan = 12 - $this->map_info_width;
 		$this->show_info_summary = $this->params->get('show_info_summary',1);
-		$this->show_map_desc = $this->params->get('show_map_desc');
+
+		if ($input->exists('desc')) {
+			$this->show_map_desc = $input->getInt('desc',0);
+		} else {
+			$this->show_map_desc = $this->params->get('show_map_desc',0);
+		}
+		
 		$this->map_desc_class = $this->params->get('map_desc_class','');
 		$this->desc_title = $this->params->get('desc_title','');
 		$this->show_map_key = $this->params->get('show_map_key');

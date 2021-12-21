@@ -1,6 +1,6 @@
 <?php
 /*******
- * @package xbMaps
+ * @package xbMaps Component
  * @version 0.1.0,k 15th July 2021
  * @filesource site/controllers/mplist.php
  * @author Roger C-O

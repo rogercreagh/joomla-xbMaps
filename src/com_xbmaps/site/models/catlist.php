@@ -1,6 +1,6 @@
 <?php
 /*******
- * @package xbMaps
+ * @package xbMaps Component
  * @version 0.3.0.c 18th September 2021
  * @filesource site/models/catlist.php
  * @author Roger C-O

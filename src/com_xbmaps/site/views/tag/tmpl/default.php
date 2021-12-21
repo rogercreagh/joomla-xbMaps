@@ -1,6 +1,6 @@
 <?php
 /*******
- * @package xbMaps
+ * @package xbMaps Component
  * @version 0.4.0.1 28th September 2021
  * @filesource site/views/tag/tmpl/default.php
  * @author Roger C-O

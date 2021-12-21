@@ -1,7 +1,7 @@
 <?php
 /*******
- * @package xbMaps
- * @version 0.9.0.b 3rd November 2021
+ * @package xbMaps Component
+ * @version 1.1.0 21st December 2021
  * @filesource site/views/map/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -27,9 +27,11 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
 ?>
 
 <div class="xbmaps">
+<?php if (!$this->tmplcomp) : ?>
 	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
 		echo XbmapsHelper::sitePageheader($this->header);
 	} ?>
+<?php endif; ?>
 
 <?php  if($this->show_map_title) :?>
 <div class="row-fluid">
@@ -173,6 +175,7 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
 		<?php echo '<p> </p>'.$this->descbox; ?>
 	<?php endif; ?>
 
+<?php if (!$this->tmplcomp) : ?>
 <div class="row-fluid xbmt16">
 	<?php if ($this->show_cats >0) : ?>       
 		<div class="span4">
@@ -227,6 +230,8 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
 	</div>
 </div>
 	<div class="clearfix"></div>
+<?php endif; ?>
+
 	<?php echo XbmapsGeneral::credit();?>
 
 </div>

@@ -1,5 +1,5 @@
 /*****
- * @package xbMaps
+ * @package xbMaps Component
  * @version 0.8.0.i 26th October 2021
  * @filesource media/js/xbmaps.php
  * @author Roger C-O

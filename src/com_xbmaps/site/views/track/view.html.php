@@ -1,7 +1,7 @@
 <?php
 /*******
- * @package xbMaps
- * @version 0.8.0.h 25th October 2021
+ * @package xbMaps Component
+ * @version 1.1.0 21st December 2021
  * @filesource site/views/track/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -17,6 +17,10 @@ class XbmapsViewTrack extends JViewLegacy {
 	protected $item;
 	
 	public function display($tpl = null) {
+		
+		$input = Factory::getApplication()->input;
+		
+		$this->tmplcomp = ($input->getString('tmpl', '')=='component') ? false : true;
 		
 		$this->item = $this->get('Item');
 		$this->state = $this->get('State');
@@ -37,18 +41,35 @@ class XbmapsViewTrack extends JViewLegacy {
 		if ($gtags >0) {
 		    $this->show_tags = $mtags;
 		}
+		if ($input->exists('title')) {
+			$this->show_track_title = $input->getInt('title',0);
+		} else {
+			$this->show_track_title = $this->params->get('show_track_title',0);
+		}
+		
 		//TODO set default for all params
-		$this->show_track_title = $this->params->get('show_track_title');
 		$mapborder = $this->params->get('map_border');
 		$this->borderstyle = '';
 		if ($mapborder==1) {
 			$this->borderstyle = 'border:'.$this->params->get('map_border_width').'px solid '.$this->params->get('map_border_colour').';';
 		}
-		$this->show_track_info = $this->params->get('show_track_info');
+
+		if ($input->exists('info')) {
+			$this->show_track_info = $input->getInt('info',0);
+		} else {
+			$this->show_track_info = $this->params->get('show_track_info',0);
+		}
+		
 		$this->track_info_width = $this->params->get('track_info_width');
 		$this->mainspan = 12 - $this->track_info_width;
 		$this->show_info_summary = $this->params->get('show_info_summary',1);
-		$this->show_track_desc = $this->params->get('show_track_desc');
+		
+		if ($input->exists('desc')) {
+			$this->show_track_desc = $input->getInt('desc',0);
+		} else {
+			$this->show_track_desc = $this->params->get('show_track_desc',0);
+		}
+		
 		$this->track_desc_class = $this->params->get('track_desc_class','');
 		$this->desc_title = $this->params->get('desc_title','');
 		$this->show_stats = $this->params->get('show_stats','1');

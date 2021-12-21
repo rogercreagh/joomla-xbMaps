@@ -1,7 +1,7 @@
 <?php
 /*******
- * @package xbMaps
- * @version 0.3.0.e 19th September 2021
+ * @package xbMaps Component
+ * @version 1.1.0 21st December 2021
  * @filesource admin/tables/marker.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -51,7 +51,7 @@ class XbmapsTableMarker extends JTable
 		if (!$this->catid>0) {
 			$defcat = $params->get('def_new_markercat');
 			if ($defcat == 0) {
-				$defcat = XbmapsHelper::getIdFromAlias('#__categories', 'uncategorised');
+				$defcat = XbmapsGeneral::getIdFromAlias('#__categories', 'uncategorised');
 			}
 			if ($defcat>0) {
 				$this->catid = $defcat;

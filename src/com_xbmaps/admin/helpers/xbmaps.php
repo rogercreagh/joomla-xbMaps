@@ -1,7 +1,7 @@
 <?php
 /*******
- * @package xbMaps
- * @version 0.9.0.c 6th November 2021
+ * @package xbMaps Component
+ * @version 1.1.0 21st December 2021
  * @filesource admin/helpers/xbmaps.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -123,30 +123,7 @@ class XbmapsHelper extends ContentHelper {
 		}
 		return false;
 	}
-	
-	/**
-	 * @name getIdFromAlias()
-	 * @desc gets the id of an item in a given table from the alias
-	 * @param string $table - table to search
-	 * @param string $alias - alias to find
-	 * @param string $ext - the extension to match if searching in #__categories for a different extension 
-	 * @return int - item id or 0 if not found
-	 */
-	public static function getIdFromAlias($table, $alias, $ext = 'com_xbmaps') {
-		$alias = trim($alias,"' ");
-		$table = trim($table,"' ");
-		$db = Factory::getDBO();
-		$query = $db->getQuery(true);
-		$query->select('id')->from($db->quoteName($table))->where($db->quoteName('alias')." = ".$db->quote($alias));
-		if ($table === '#__categories') {
-			$query->where($db->quoteName('extension')." = ".$db->quote($ext));
-		}
-		$db->setQuery($query);
-		$res =0;
-		$res = $db->loadResult();
-		return $res;
-	}
-	
+		
 	/**
 	 * @name getCat()
 	 * @desc returns details of a category given the id

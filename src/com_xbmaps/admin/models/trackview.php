@@ -1,6 +1,6 @@
 <?php
 /*******
- * @package xbMaps
+ * @package xbMaps Component
  * @version 0.7.0.d 12th October 2021
  * @filesource admin/models/trackview.php
  * @author Roger C-O

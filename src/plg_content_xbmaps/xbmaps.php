@@ -1,7 +1,7 @@
 <?php
 /*******
- * @package xbMaps
- * @version 0.1.0 19th December 2021
+ * @package xbMaps Content Plugin
+ * @version 0.1.0 21st December 2021
  * @filesource xbmaps.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -27,8 +27,8 @@ class plgContentXbMaps extends JPlugin {
 			return true; //don't bother if no {xbref tags
 		}
 		
-		$xbmap_cmds		= '/({xbmap\s*)(.*?)(})/si';
-		$xbmap_scode		= '/{xbmap\s*.*?}/si';
+		$xbmap_cmds		= '/({xbmaps\s*)(.*?)(})/si';
+		$xbmap_scode		= '/{xbmaps\s*.*?}/si';
 		
 		//strip out xbshowref and xbhideref if they are present leaving enclosed content
 //		$article->text=preg_replace('!<span class="xbhideref" (.*?)>(.*?)</span>!', '${2}', $article->text);
@@ -68,14 +68,6 @@ class plgContentXbMaps extends JPlugin {
 			
 			$cmdsarr = explode(",", $sc_parts[2]);
 			$cmds = array();
-// 			$cmds['view'] = '';
-// 			$cmds['id'] = 0;
-// 			$cmds['title']= '';
-// 			$cmds['desc']= '';
-// 			$cmds['info']= '';
-// 			$cmds['width']= '';
-// 			$cmds['height']= '';
-// 			$cmds['float']= '';
 			foreach ($cmdsarr as $value) {
 				$nv = explode('=',$value,2);
 				$cmds[$nv[0]]=$nv[1];
@@ -92,19 +84,53 @@ class plgContentXbMaps extends JPlugin {
 				//check if map/track id exists and published, in database if not post error with name 
 				$view=strtolower(trim($cmds['view']));
 				$id=(int)$cmds['id'];
-				if (($view==='map') && (!$this->idExists($id,'#__xbmaps_maps'))) {
+				if (($view==='map') && (!XbmapsGeneral::idExists($id,'#__xbmaps_maps'))) {
 					$output = $errdiv.'Map id '.$id.' not found'.$enderrdiv;
-				} elseif (($view==='track') && (!$this->idExists($id,'#__xbmaps_tracks'))) {
+				} elseif (($view==='track') && (!XbmapsGeneral::idExists($id,'#__xbmaps_tracks'))) {
 					$output = $errdiv.'Track id '.$id.' not found'.$enderrdiv;				
 				}
 				
 			}
 			if ($output=='') {
-			$output = '<iframe src="/index.php?option=com_xbmaps&view='.$view.'&id='.$id;
-				//add in title,desc,info if set
+				//add float width and height to div
+				$class = '';
+				if (array_key_exists('float', $cmds)) {
+					if ($cmds['float']==='left') {
+						$class = ' class="pull-left"';
+					} elseif ($cmds['float']==='right') {
+						$class = ' class=" pull-right"';
+					}
+				}
+				$style = ' style="';
+				$ht = 500;
+				if (array_key_exists('ht', $cmds)) {
+					$ht = (int)$cmds['ht'];
+					$style .= $ht>0 ? 'height:'.($ht+10).'px;' : '510px;'; 
+				}
+				if (array_key_exists('wd', $cmds)) {
+					$wd = (int)$cmds['wd'];
+					$style .= $wd>0 ? 'width:'.($wd+10).'px;' : '100%;';
+				}
+				$style='"';
+				$output = '<div'.$class.$style.'>';
+				 
+				$output .= '<iframe src="/index.php?option=com_xbmaps&view='.$view.'&id='.$id;
+					//add in title,desc,info if set
+				if (array_key_exists('title', $cmds)) {
+					$output .= '&title='.(int)$cmds['title'];
+				}
+				if (array_key_exists('desc', $cmds)) {
+					$output .= '&desc='.(int)$cmds['desc'];
+				}
+				if (array_key_exists('info', $cmds)) {
+					$output .= '&info='.(int)$cmds['info'];
+				}
 				$output .= '&tmpl=component" ';
-				//$output .= ' width="'.strip_tags($width).'" height="'.strip_tags($height).'"
-				$output .=' frameborder="0" style="border:0" allowfullscreen></iframe>';
+				if ($ht>0) {
+					$output .= 'height="'.$ht.'" ';
+				}
+					//$output .= ' width="'.strip_tags($width).'" height="'.strip_tags($height).'"
+				$output .=' frameborder="0" style="border:0" allowfullscreen></iframe></div>';
 			}
 
 			Factory::getApplication()->enqueueMessage('<pre>'.$output.'</pre>');
@@ -117,28 +143,5 @@ class plgContentXbMaps extends JPlugin {
 		
 		return true;
 	}
-	
-	//TODO move these to xbmaps general
-	private function idExists(int $id, string $table, $ext = 'com_xbmaps') {
-		//no zero id's
-		if ($id==0) {
-			return false;
-		}
-		// check for valid format for $table ('#__' followed by letters nubers and underscores only)
-		if (!preg_match('/#__[A-Za-z0-9\$_]+$/', $table)) {
-			return false;
-		}
-		$db = Factory::getDBO();
-		$query = $db->getQuery(true);
-		$query->select('id')->from($db->quoteName($table))->where($db->quoteName('id')." = ".$db->quote($id));
-		if ($table === '#__categories') {
-			$query->where($db->quoteName('extension')." = ".$db->quote($ext));
-		}
-		$db->setQuery($query);
-		//trap errors
-		$res = $db->loadResult();
-		return $res;
-	}
-	
-	
+		
 }

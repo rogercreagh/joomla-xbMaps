@@ -113,24 +113,31 @@ class plgContentXbMaps extends JPlugin {
 					$errstr = Text::_('PLGCON_XBMAPS_MISSING_IN_SCODE');					
 				}
 			} else {
-				//check if map/track id exists and published, in database if not post error with name 
 				$view=strtolower(trim($cmds['view']));
-				$id=(int)$cmds['id'];
-				if (($view==='map') && (!XbmapsGeneral::idExists($id,'#__xbmaps_maps'))) {
-					$err = true;
-					if ($show_errors) {
-						$errstr = Text::sprintf('PLGCON_XBMAPS_ID_NOT_FOUND','Map', $id);
-					}
-				} elseif (($view==='track') && (!XbmapsGeneral::idExists($id,'#__xbmaps_tracks'))) {
-					$err = true;
-					if ($show_errors) {
-						$errstr = Text::sprintf('PLGCON_XBMAPS_ID_NOT_FOUND','Track', $id);
-					}
-				}							
+				if (($view !== 'map') && ($view !== 'track')) {
+			        $err = true;
+			        if ($show_errors) {
+			            $errstr = Text::_('PLGCON_XBMAPS_INVALID_VIEW');
+			        }
+				} else {
+    				//check if map/track id exists and published, in database if not post error with name 
+    				$id=(int)$cmds['id'];
+    				if (($view==='map') && (!XbmapsGeneral::idExists($id,'#__xbmaps_maps'))) {
+    					$err = true;
+    					if ($show_errors) {
+    						$errstr = Text::sprintf('PLGCON_XBMAPS_ID_NOT_FOUND','Map', $id);
+    					}
+    				} elseif (($view==='track') && (!XbmapsGeneral::idExists($id,'#__xbmaps_tracks'))) {
+    					$err = true;
+    					if ($show_errors) {
+    						$errstr = Text::sprintf('PLGCON_XBMAPS_ID_NOT_FOUND','Track', $id);
+    					}
+    				}											
+				}
 			}
 			if ($err) {
 				// shortcode invalid so blank this one and go on to next instance (any new match will again be the first one remaining)
-				$article->text = preg_replace($xbmap_scode, $errstr, $article->text, 1);			
+			    $article->text = preg_replace($xbmap_scode, $errdiv.$errstr.$enderrdiv, $article->text, 1);			
 			} else {
 				//shortcode has valid view and id exists so go ahead
 				$divstr = '<div';

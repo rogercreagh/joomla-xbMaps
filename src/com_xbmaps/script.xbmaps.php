@@ -9,6 +9,7 @@
  ******/
 // No direct access to this file
 defined('_JEXEC') or die;
+
 use Joomla\CMS\Factory;
 use Joomla\CMS\Version;
 use Joomla\CMS\Table\Table;

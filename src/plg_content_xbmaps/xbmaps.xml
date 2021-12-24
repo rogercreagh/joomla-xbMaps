@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="3.0" type="plugin" group="content" method="upgrade">
 	<name>Content - xbMaps</name>
-	<version>0.1.0</version>
-	<creationDate> 20th December 2019</creationDate>
+	<version>0.1.0.c</version>
+	<creationDate> 24th December 2019</creationDate>
+	<!-- Be sure to update the language string in .sys.ini for new version and date -->
 	<author> Roger C-O</author>
 	<copyright>Copyright (c) Roger Creagh-Osborne, 2019. All rights reserved.</copyright>
 	<license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
 	<authorEmail>roger@crosborne.co.uk</authorEmail>
 	<authorUrl>www.crosborne.co.uk</authorUrl>
-	<description> <![CDATA[ xbMaps-Content Plugin for {xbmap...} shortcode to insert xbMaps map or track into articles]]> </description>
+	<description> <![CDATA[ xbMaps Content Plugin parses {xbmap...} shortcode to insert xbMaps map or track into articles ]]> </description>
 	<files>
 		<filename plugin="xbmaps">xbmaps.php</filename>
 	</files>
@@ -16,6 +17,7 @@
 		<language tag="en-GB">languages/en-GB.plg_content_xbmaps.ini</language>
 		<language tag="en-GB">languages/en-GB.plg_content_xbmaps.sys.ini</language>
 	</languages>
+	<scriptfile>script.plgcon.xbmaps.php</scriptfile>
 	<!-- 
 	<media folder="media" destination="plg_content_xbfootnotetagcon">
 		<folder>css</folder>
@@ -25,17 +27,111 @@
 	<config>
 		<fields name="params">
 			<fieldset name="basic">
-				<field name="note1" type="note" class="alert" close="true"
-					label="Note Label"
-					description="This is the basic params tab"
+				<field name="note0" type="note"
+					label="" description="PLGCON_XBMAPS_VER_DESC"
 				/>				
+				<field name="note1" type="note"
+					label="PLGCON_XBMAPS_NOTE1_LABEL" description="PLGCON_XBMAPS_NOTE1_DESC"
+				/>				
+				<field name="show_title" type="list"  
+					label="PLGCON_XBMAPS_SHOW_TITLE_LABEL" description="PLGCON_XBMAPS_SHOW_TITLE_DESC"
+					default = "0"
+				>
+					<option value="-1">PLGCON_XBMAPS_USE_COM</option>
+					<option value="1">JSHOW</option>
+					<option value="0">JHIDE</option>
+				</field>
+				<field name="show_map_info" type="list"  
+					label="PLGCON_XBMAPS_MAP_INFOPANE_LABEL" description="PLGCON_XBMAPS_MAP_INFOPANE_DESC"
+					default="0"
+				>
+					<option value="-1">PLGCON_XBMAPS_USE_COM</option>
+					<option value="0">JHIDE</option>
+					<option value="above">PLGCON_XBMAPS_ABOVE</option>
+					<option value="left">PLGCON_XBMAPS_LEFT</option>
+					<option value="right">PLGCON_XBMAPS_RIGHT</option>
+					<option value="below">PLGCON_XBMAPS_BELOW</option>
+				</field>
+				<field name="show_map_desc" type="list"  
+					label="PLGCON_XBMAPS_MAP_DESC_LABEL" description="PLGCON_XBMAPS_MAP_DESC_DESC"
+					default="0"
+				>
+					<option value="-1">PLGCON_XBMAPS_USE_COM</option>
+					<option value="0">JHIDE</option>
+					<option value="1" showon="show_map_info!:0">PLGCON_XBMAPS_WITH_MAPINFO</option>
+					<option value="2">PLGCON_XBMAPS_ABOVE</option>
+					<option value="3">PLGCON_XBMAPS_BELOW</option>
+				</field>
+				<field name="def_map_ht" type="number"
+					class="inputbox" 
+					label="PLGCON_XBMAPS_HT_LABEL" description="PLGCON_XBMAPS_HT_DESC"
+					min="100" max="2000" step="1"
+					default="500"
+				/>
+				<field name="max_ht" type="number"
+					class="inputbox" 
+					label="PLGCON_XBMAPS_MAXHT_LABEL" description="PLGCON_XBMAPS_MAXHT_DESC"					
+					min="510" max="2000" step="10"
+					default="1000"
+				/>
+				<field name="def_map_wd" type="number"
+					class="inputbox" 
+					label="PLGCON_XBMAPS_WIDTH_LABEL" description="PLGCON_XBMAPS_WIDTH_DESC"
+					min="20" max="100" step="1"
+					default="100"
+				/>
+				<field name="def_map_float" type="list"
+					label="PLGCON_XBMAPS_FLOAT_LABEL" description="PLGCON_XBMAPS_FLOAT_DESC"
+					default = ""
+				>
+					<option value="-1">PLGCON_XBMAPS_NO_FLOAT</option>
+					<option value="pull-left">PLGCON_XBMAPS_LEFT</option>
+					<option value="pull-right">PLGCON_XBMAPS_RIGHT</option>
+				</field>
+				<field name="show_errors" type="radio"  
+					label="PLGCON_XBMAPS_SHOW_ERRORS_LABEL" description="PLGCON_XBMAPS_SHOW_ERRORS_DESC"
+					class="btn-group btn-group-yesno" 
+					showon="show_map_info!:"
+					default="0"
+				>
+					<option value="1">JSHOW</option>
+					<option value="0">JHIDE</option>
+				</field>
+				
 			</fieldset>
-			<fieldset name="help">
-				<field name="note2" type="note" class="alert" close="true"
-					label="Note Label"
-					description="This is the help tab"
+			<fieldset name="PLGCON_XBMAPS_HELP">
+				<field name="note0a" type="note"
+					description="PLGCON_XBMAPS_VER_DESC"
+				/>				
+				<field name="note2" type="note"
+					label="PLGCON_XBMAPS_NOTE2_LABEL"
+					description="PLGCON_XBMAPS_NOTE2_DESC"
+				/>				
+				<field name="note3" type="note"
+					label="PLGCON_XBMAPS_NOTE3_LABEL"
+					description="PLGCON_XBMAPS_NOTE3_DESC"
+				/>				
+				<field name="note4" type="note"
+					label="PLGCON_XBMAPS_NOTE4_LABEL"
+					description="PLGCON_XBMAPS_NOTE4_DESC"
+				/>				
+				<field name="note5" type="note"
+					label="PLGCON_XBMAPS_NOTE5_LABEL"
+					description="PLGCON_XBMAPS_NOTE5_DESC"
+				/>				
+				<field name="note6" type="note"
+					label="PLGCON_XBMAPS_NOTE6_LABEL"
+					description="PLGCON_XBMAPS_NOTE6_DESC"
+				/>				
+				<field name="note7" type="note"
+					description="PLGCON_XBMAPS_NOTE7_DESC"
 				/>				
 			</fieldset>			
 		</fields>
-</config>
+	</config>
+	<updateservers>
+		<server type="extension" priority="1"  name="xmMaps Content Plugin updates">
+		 	http://www.crosborne.co.uk/jupdates/update_plg_content_xbmaps.xml
+		</server>
+	</updateservers>
 </extension>

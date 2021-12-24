@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.1.0 21st December 2021
+ * @version 1.1.0.c 24th December 2021
  * @filesource site/views/track/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -40,23 +40,23 @@ $trackslink = 'index.php?option=com_xbmaps&view=tracklist';
 <?php endif; ?>
 
 <?php if (($this->show_track_desc=='2') || (($this->show_track_desc=='1') && ($this->show_track_info=='above'))) : ?>
-	<?php echo $this->descbox.'<p> </p>'; ?>
+	<?php echo $this->descbox; ?>
 <?php endif; ?>
 <?php if ($this->show_track_info=='above') :?>
-	<?php echo $this->infobox.'<p> </p>';?>
+	<?php echo $this->infobox;?>
 <?php endif; ?>	
 
 <div class="row-fluid">
-	<?php if (($this->show_track_info=='left')): ?>
+	<?php if (($this->show_track_info === 'left')): ?>
     	<div class="span<?php echo $this->track_info_width; ?>">
 			<?php echo $this->infobox;?>
     		<?php if ($this->show_track_desc==1) {
-    			echo '<p> </p>'.$this->descbox;
+    			echo $this->descbox;
     		} ?>
     	</div>
 	<?php endif; ?>
 
-	<div class="span<?php echo (($this->show_track_info == 'left') || ($this->show_track_info=='right')) ? $this->mainspan : '12'; ?>">
+	<div class="span<?php echo $this->mainspan; ?>">
 		<?php $uid = uniqid();
 			$map = new XbMapHelper($uid,$item->params);
 			$map->loadAPI(false,false);
@@ -76,11 +76,11 @@ $trackslink = 'index.php?option=com_xbmaps&view=tracklist';
 			</div>
 		</div>			
 	</div>
-	<?php if (($this->show_track_info=='right')): ?>
+	<?php if (($this->show_track_info === 'right')): ?>
     	<div class="span<?php echo $this->track_info_width; ?>">
 			<?php echo $this->infobox;?>
     		<?php if ($this->show_track_desc==1) {
-    			echo '<p> </p>'.$this->descbox;
+    			echo $this->descbox;
     		} ?>
     	</div>
 	<?php endif; ?>
@@ -88,14 +88,14 @@ $trackslink = 'index.php?option=com_xbmaps&view=tracklist';
 </div>
 
 <?php if ($this->show_track_info=='below') :?>
-	<?php echo '<p> </p>'.$this->infobox;?>
+	<?php echo $this->infobox;?>
 <?php endif; ?>	
 <?php if (($this->show_track_desc=='3') || (($this->show_track_desc=='1') && ($this->show_track_info=='below'))) : ?>
-	<?php echo '<p> </p>'.$this->descbox; ?>
+	<?php echo $this->descbox; ?>
 <?php endif; ?>
 
 
-<?php if ($this->shownav) : ?>
+<?php if ($this->tmplcomp) : ?>
 	<div class="row-fluid xbmt16">
 	<?php if ($this->show_cats >0) : ?>       
 		<div class="span4">
@@ -144,7 +144,7 @@ $trackslink = 'index.php?option=com_xbmaps&view=tracklist';
 		</div>
 	</div>
 	<div class="clearfix"></div>
-<?php endif; ?>
 	<?php echo XbmapsGeneral::credit();?>
+<?php endif; ?>
 
 </div>

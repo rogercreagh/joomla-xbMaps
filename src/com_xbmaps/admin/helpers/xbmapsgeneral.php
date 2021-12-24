@@ -9,7 +9,7 @@
  ******/
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-require_once(JPATH_COMPONENT_ADMINISTRATOR.'/helpers/geocoder.php');
+require_once(JPATH_ADMINISTRATOR.'/components/com_xbmaps/helpers/geocoder.php');
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\ContentHelper;
@@ -398,11 +398,11 @@ class XbmapsGeneral extends ContentHelper {
 		$alias = trim($alias,"' ");
 		$table = trim($table,"' ");
 		//check for valid $alias (letter numbers and hyphens only)
-		if (!preg_match('[A-Za-z0-9-]+$', $alias)) {
+		if (!preg_match('![A-Za-z0-9-]+$!', $alias)) {
 			return false;
 		}		
 		// check for valid format for $table ('#__' followed by letters nubers and underscores only)
-		if (!preg_match('#__[A-Za-z0-9\$_]+$', $table)) {
+		if (!preg_match('!#__[A-Za-z0-9\$_]+$!', $table)) {
 			return false;
 		}
 		$db = Factory::getDBO();
@@ -423,7 +423,7 @@ class XbmapsGeneral extends ContentHelper {
 			return false;
 		}
 		// check for valid format for $table ('#__' followed by letters nubers and underscores only)
-		if (!preg_match('#__[A-Za-z0-9\$_]+$', $table)) {
+		if (!preg_match('!#__[A-Za-z0-9\$_]+$!', $table)) {
 			return false;
 		}
 		$db = Factory::getDBO();

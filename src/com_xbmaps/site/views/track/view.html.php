@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.1.0 21st December 2021
+ * @version 1.1.0.c 24th December 2021
  * @filesource site/views/track/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -48,6 +48,24 @@ class XbmapsViewTrack extends JViewLegacy {
 		}
 		
 		//TODO set default for all params
+		$this->mapstyle = 'margin:0;padding:0;width:100%;height:';
+		$ht = 0;
+		$htstr = '';
+		if ($input->exists('ht')) {
+			$ht = $input->getInt('ht',0);
+		}
+		if ($ht>0) {
+			$htstr .= $ht.'px';
+		} else {
+			$ht = $this->params->get('map_height',0);
+			if ($ht>0) {
+				$htstr = $ht.$this->params->get('height_unit');
+			} else {
+				$htstr = '500px'; //TODO replace this with a default component parameter
+			}
+		}
+		$this->mapstyle .= $htstr.';';
+		
 		$mapborder = $this->params->get('map_border');
 		$this->borderstyle = '';
 		if ($mapborder==1) {
@@ -55,13 +73,23 @@ class XbmapsViewTrack extends JViewLegacy {
 		}
 
 		if ($input->exists('info')) {
-			$this->show_track_info = $input->getInt('info',0);
+			$info = strtolower($input->getString('info',''));
+			$validvalues = array('above','right','left','below');
+			if (in_array($info, $validvalues)) {
+				$this->show_track_info = $info;
+			} else {
+				$this->show_track_info = 0;
+			}
 		} else {
 			$this->show_track_info = $this->params->get('show_track_info',0);
 		}
 		
 		$this->track_info_width = $this->params->get('track_info_width');
-		$this->mainspan = 12 - $this->track_info_width;
+		$this->mainspan = 12;
+		if (($this->show_track_info === 'right') || ($this->show_track_info === 'left')) {
+			$this->mainspan = 12 - $this->track_info_width;
+		}
+
 		$this->show_info_summary = $this->params->get('show_info_summary',1);
 		
 		if ($input->exists('desc')) {
@@ -80,9 +108,6 @@ class XbmapsViewTrack extends JViewLegacy {
 		$this->centre_longitude = $this->params->get('centre_longitude');
 		$this->default_zoom = $this->params->get('default_zoom','12');
 		$this->track_map_type = $this->params->get('track_map_type');
-		
-		$this->mapstyle = 'margin:0;padding:0;width:100%;height:';
-		$this->mapstyle .= ($this->params->get('map_height')>0) ? $this->params->get('map_height').$this->params->get('height_unit').';' : '500px;';
 		
 		
 		$this->header = array();

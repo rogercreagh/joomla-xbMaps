@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Content Plugin
- * @version 0.1.0 21st December 2021
+ * @version 0.1.0.c 24th December 2021
  * @filesource xbmaps.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -16,15 +16,27 @@ use Joomla\CMS\Uri\Uri;
 
 class plgContentXbMaps extends JPlugin {
 	
+	protected $autoloadLanguage = true;
+	
+	public function __construct(& $subject, $config) {
+		
+		parent::__construct($subject, $config);
+		
+	}
+	
 	public function onContentPrepare($context, &$article, &$params, $page = 0) {
 	
 		// Don't run this plugin when the content is being indexed
 		if ($context == 'com_finder.indexer') {
 			return true;
 		}
-		if (false === strpos($article->text, '{xbmap '))
-		{
-			return true; //don't bother if no {xbref tags
+		//only use on site side
+		if (Factory::getApplication()->isClient('adninistrator')) {
+			return true;
+		}
+		// quick check if {xbmaps shortcode is present
+		if (false === strpos($article->text, '{xbmaps ')) {
+			return true; 
 		}
 		
 		$xbmap_cmds		= '/({xbmaps\s*)(.*?)(})/si';
@@ -36,18 +48,33 @@ class plgContentXbMaps extends JPlugin {
 
 		//TODO get param for show errors in article display (for debugging) and make error strings conditional
 		
+		$show_errors = $this->params->get('show_errors');
 		$errdiv = '<div class="xbbox xbboxyell" style="width:400px;"><p class="xbnit" style="color:red;">';
-		//if com_xbmaps not enabled simply strip out shortcode and replace with message (?param to disable
-		if (!ComponentHelper::isEnabled('com_xbmaps')) {
-			$errstr = $errdiv.'xbMap display requires component xbMaps to be installed and enabled</p></div>';
+		$enderrdiv = '</p></div>';
+		//if com_xbmaps not enabled simply strip out shortcode and replace with optional message 
+		$errstr = '';
+		if (!ComponentHelper::isEnabled('com_xbmaps'))  {
+			if ($show_errors) {
+				$errstr = $errdiv.Text::_('PLGCON_XBMAPS_MISSING_COMPONENT_ERROR').$enderrdiv;
+			}
 			$article->text = preg_replace($xbmap_scode, $errstr, $article->text);			
 			return true;
 		}
 
+		//get the defaults from params
+		$def_title = (int)$this->params->get('show_title');
+		$def_info = $this->params->get('show_map_info');
+		$validinfo = array('0','above','right','left','below');
+		$def_desc = (int)$this->params->get('show_map_desc');
+		$def_ht = (int)$this->params->get('def_map_ht');
+		$maxht = (int)$this->params->get('max_ht');
+		$def_wd = (int)$this->params->get('def_map_wd');
+		$def_float = $this->params->get('def_map_float');
+		
 		// load stylesheets, javascript, language
 		$document = Factory::getDocument();
 		$document->addStyleSheet(Uri::base(). 'media/com_xbmaps/css/xbmaps.css');
-		require_once( JPATH_ADMINISTRATOR.'/components/com_xbmaps/helpers/xbmaps.php');
+		require_once( JPATH_ADMINISTRATOR.'/components/com_xbmaps/helpers/xbmapsgeneral.php');
 		
 		//  get array of {xbref ...} shortcodes
 		$matches 		= array();
@@ -74,74 +101,130 @@ class plgContentXbMaps extends JPlugin {
 			}			
 			// use alias as alternative to id
 			if ((array_key_exists('view',$cmds)) && (array_key_exists('alias', $cmds))) {
-				$cmds['id'] = XbmapsHelper::getIdFromAlias($cmds['alias'],'#__xbmaps_'.$cmds['view'].'s');
+				$cmds['id'] = XbmapsGeneral::getIdFromAlias($cmds['alias'],'#__xbmaps_'.$cmds['view'].'s');
 			}
 			$output = '';			
+			$err = false;
+			$errstr = '';
 			// must have view and id
 			if ((!array_key_exists('view',$cmds)) || (!array_key_exists('id', $cmds))) {
-				$output = $errdiv.'Missing view or id in xbmap shortcode'.$enderrdiv;
+				$err = true;
+				if ($show_errors) {
+					$errstr = Text::_('PLGCON_XBMAPS_MISSING_IN_SCODE');					
+				}
 			} else {
 				//check if map/track id exists and published, in database if not post error with name 
 				$view=strtolower(trim($cmds['view']));
 				$id=(int)$cmds['id'];
 				if (($view==='map') && (!XbmapsGeneral::idExists($id,'#__xbmaps_maps'))) {
-					$output = $errdiv.'Map id '.$id.' not found'.$enderrdiv;
+					$err = true;
+					if ($show_errors) {
+						$errstr = Text::sprintf('PLGCON_XBMAPS_ID_NOT_FOUND','Map', $id);
+					}
 				} elseif (($view==='track') && (!XbmapsGeneral::idExists($id,'#__xbmaps_tracks'))) {
-					$output = $errdiv.'Track id '.$id.' not found'.$enderrdiv;				
-				}
-				
+					$err = true;
+					if ($show_errors) {
+						$errstr = Text::sprintf('PLGCON_XBMAPS_ID_NOT_FOUND','Track', $id);
+					}
+				}							
 			}
-			if ($output=='') {
-				//add float width and height to div
-				$class = '';
+			if ($err) {
+				// shortcode invalid so blank this one and go on to next instance (any new match will again be the first one remaining)
+				$article->text = preg_replace($xbmap_scode, $errstr, $article->text, 1);			
+			} else {
+				//shortcode has valid view and id exists so go ahead
+				$divstr = '<div';
+				//add float to div for iframe
+				$class = ($def_float!='-1')? $def_float : '';
 				if (array_key_exists('float', $cmds)) {
 					if ($cmds['float']==='left') {
-						$class = ' class="pull-left"';
+						$class = 'pull-left';
 					} elseif ($cmds['float']==='right') {
-						$class = ' class=" pull-right"';
+						$class = 'pull-right';
 					}
 				}
-				$style = ' style="';
-				$ht = 500;
-				if (array_key_exists('ht', $cmds)) {
-					$ht = (int)$cmds['ht'];
-					$style .= $ht>0 ? 'height:'.($ht+10).'px;' : '510px;'; 
+				$stylestr = ' style="';
+				if ($class != '') {
+					$divstr .= ' class="'.$class.'"';
+					//if floating add a margin between frame and text
+					if ($class === 'pull-left') {
+						$stylestr .= 'margin-right:15px;';
+					} elseif ($class === 'pull-right') {
+						$stylestr .= 'margin-left:15px;';
+					}
 				}
+				
+				//add width to div for iframe
+				$wd = $def_wd; 
 				if (array_key_exists('wd', $cmds)) {
 					$wd = (int)$cmds['wd'];
-					$style .= $wd>0 ? 'width:'.($wd+10).'px;' : '100%;';
+					//wd= must be between 20 and 100, otherwise use default
+					$wd = (($wd>=20) && ($wd<=100)) ? $wd : $def_wd;
+				} 
+				$stylestr .= 'width:'.$wd.'%;';
+				//get height for map
+				$ht = $def_ht;
+				if (array_key_exists('ht', $cmds)) {
+					$ht = (int)$cmds['ht'];
+					// ht= must be between 100 and max_ht otherwise use default
+					$ht = (($ht>=100) && ($ht <= $maxht)) ? $ht : $def_ht; 
 				}
-				$style='"';
-				$output = '<div'.$class.$style.'>';
+				//get the map settings so we can extend div height if necessary
 				 
-				$output .= '<iframe src="/index.php?option=com_xbmaps&view='.$view.'&id='.$id;
-					//add in title,desc,info if set
+				$frmstr = '<iframe src="/index.php?option=com_xbmaps&view='.$view.'&id='.$id;
+				//add in title,desc,info if set
+				$title = $def_title;
 				if (array_key_exists('title', $cmds)) {
-					$output .= '&title='.(int)$cmds['title'];
+					$title = (int)$cmds['title'];
+					if (($title !== 0) || ($title !== 1)) {
+						$title = $def_title;
+					}
 				}
+				$frmstr .= ($title > -1)? '&title='.$title : '';
+				
+				$desc = $def_desc;
 				if (array_key_exists('desc', $cmds)) {
-					$output .= '&desc='.(int)$cmds['desc'];
+					$desc = (int)$cmds['desc'];
+					if (($desc<0) || ($desc>4)) {
+						$desc = $def_desc;
+					}
 				}
+				$frmstr .= ($desc > -1)? '&desc='.$desc : '';
+				
+				$info = $def_info;
 				if (array_key_exists('info', $cmds)) {
-					$output .= '&info='.(int)$cmds['info'];
+					$info = strtolower($cmds['info']);
+					if (!in_array($info, $validinfo)) {
+						$info = $def_info;
+					}
 				}
-				$output .= '&tmpl=component" ';
-				if ($ht>0) {
-					$output .= 'height="'.$ht.'" ';
-				}
-					//$output .= ' width="'.strip_tags($width).'" height="'.strip_tags($height).'"
-				$output .=' frameborder="0" style="border:0" allowfullscreen></iframe></div>';
+				$frmstr .= ($info != '-1')? '&info='.$info : '';
+				
+				//scale ht by width
+				$ht = intdiv(($ht * $wd), 100 );
+				$frmstr .= '&ht='.$ht; //this will be the height of the map itself
+				//add 10px to div to eliminate scrollbar
+				$ht += 10;
+				// width of the iframe is always 100%, the shortcode wd value sets the width of the containing div in $stylestr
+				$frmstr .= '&tmpl=component" width="100%" ';
+				
+				//now we can correct the div and frame height to allow for title and info above/below
+				if ($title==1) { $ht = $ht + 50; }
+				if ($desc > 1) { $ht = $ht + 150; } //allow 150px for desc if above or below - it might be much more in practice
+				if (($info == 'above') || ($info == 'below')) { $ht = $ht + 200; } //allow 200px for info if above or below
+				
+				$frmstr .= 'height="'.$ht.'" frameborder="0" style="border:0" allowfullscreen></iframe>';
+				
+				$stylestr .= 'height:'.$ht.'px;"';
+				$divstr .= $stylestr.' >';
+				$output = $divstr.$frmstr.'</div>';
+				// replace the first instance of shortcode with output (so next time around the new match will again be the first one remaining)
+				$article->text = preg_replace($xbmap_scode, $output, $article->text, 1);
 			}
-
-			Factory::getApplication()->enqueueMessage('<pre>'.$output.'</pre>');
 			
-			// replace the first instance of shortcode with output (so next time around the new match will again be the first one remaining)
-			$article->text = preg_replace($xbmap_scode, $output, $article->text, 1);
-						
 		} //endfor $count_matches
 		
-		
 		return true;
-	}
+	} //end contentprepare
 		
 }

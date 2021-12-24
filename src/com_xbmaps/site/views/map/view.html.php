@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.1.0 21st December 2021
+ * @version 1.1.0.c 24th December 2021
  * @filesource site/views/map/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -55,8 +55,25 @@ class XbmapsViewMap extends JViewLegacy {
 		
 		$this->marker_image_path = 'images/'.$this->params->get('def_markers_folder','');
 
-		$this->mapstyle = 'margin:0;padding:0;width:100%;height:';
-		$this->mapstyle .= ($this->params->get('map_height')>0) ? $this->params->get('map_height').$this->params->get('height_unit').';' : '500px;';
+		// the map itself is always 100% width of container div, 
+		// height is set by parameter but may be overidden by input string from plugin
+		$this->mapstyle = 'margin:0;padding:0;width:100%;height:';		
+		$ht = 0;
+		$htstr = '';
+		if ($input->exists('ht')) {
+			$ht = $input->getInt('ht',0);
+		}
+		if ($ht>0) {
+			$htstr .= $ht.'px';
+		} else {
+			$ht = $this->params->get('map_height',0);
+			if ($ht>0) {
+				$htstr = $ht.$this->params->get('height_unit');
+			} else {
+				$htstr = '500px'; //TODO replace this with a default component parameter
+			}
+		}		
+		$this->mapstyle .= $htstr.';';
 		
 		$mapborder = $this->params->get('map_border');
 		$this->borderstyle = '';
@@ -65,13 +82,23 @@ class XbmapsViewMap extends JViewLegacy {
 		}
 		
 		if ($input->exists('info')) {
-			$this->show_map_info = $input->getInt('info',0);
+			$info = strtolower($input->getString('info',''));
+			$validvalues = array('above','right','left','below');
+			if (in_array($info, $validvalues)) {
+				$this->show_map_info = $info;
+			} else {
+				$this->show_map_info = 0;
+			}
 		} else {
 			$this->show_map_info = $this->params->get('show_map_info',0);
 		}
+		$this->show_map_key = $this->params->get('show_map_key',0);
 
+		$this->mainspan = 12;
 		$this->map_info_width = $this->params->get('map_info_width');
-		$this->mainspan = 12 - $this->map_info_width;
+		if (($this->show_map_info === 'right') || ($this->show_map_info === 'left')) {
+			$this->mainspan = 12 - $this->map_info_width;
+		} 
 		$this->show_info_summary = $this->params->get('show_info_summary',1);
 
 		if ($input->exists('desc')) {
@@ -82,7 +109,6 @@ class XbmapsViewMap extends JViewLegacy {
 		
 		$this->map_desc_class = $this->params->get('map_desc_class','');
 		$this->desc_title = $this->params->get('desc_title','');
-		$this->show_map_key = $this->params->get('show_map_key');
 		$this->track_infodetails = $this->params->get('track_infodetails','');
 		$this->marker_infocoords = $this->params->get('marker_infocoords','');
 		

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.1.0 21st December 2021
+ * @version 1.1.0.c 24th December 2021
  * @filesource site/views/map/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -41,23 +41,22 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
 </div>
 <?php endif; ?>
 
-<?php if (($this->show_map_desc=='2') || (($this->show_map_desc=='1') && ($this->show_map_info=='above'))) : ?>
+<?php if ( ($this->show_map_desc=='2') || ( ($this->show_map_desc=='1') && ($this->show_map_info=='above') ) ) : ?>
 	<?php echo $this->descbox; ?>
-	<p> </p>
 <?php endif; ?>
 <?php if ($this->show_map_info=='above') :?>
-	<?php echo $this->keybox.'<p> </p>';?>
+	<?php echo $this->keybox;?>
 <?php endif; ?>	
 <div class="row-fluid">
-	<?php if (($this->show_map_info=='left') && (($this->show_map_key) || ($this->show_map_desc==1))): ?>
+	<?php if ($this->show_map_info ===  'left'): ?>
     	<div class="span<?php echo $this->map_info_width; ?>">
     		<?php echo $this->keybox;?>
     		<?php if ($this->show_map_desc==1) {
-    			echo '<p> </p>'.$this->descbox;
+    			echo $this->descbox;
     		} ?>
     	</div>
 	<?php endif; ?>
-	<div class="span<?php echo (($this->show_map_info == 'left') || ($this->show_map_info=='right')) ? $this->mainspan : '12'; ?>">
+	<div class="span<?php echo $this->mainspan; ?>">
 		<?php $uid = uniqid();
 			$map = new XbMapHelper($uid,$item->params);
 			$map->loadAPI($this->clustering,$this->homebutton);
@@ -159,20 +158,20 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
             </div>
 			
 	</div>
-	<?php if (($this->show_map_info=='right') && (($this->show_map_key) || ($this->show_map_desc==1))): ?>
+	<?php if ($this->show_map_info === 'right'): ?>
     	<div class="span<?php echo $this->map_info_width; ?>">
     		<?php echo $this->keybox;?>
     		<?php if ($this->show_map_desc==1) {
-    			echo '<p> </p>'.$this->descbox;
+    			echo $this->descbox;
     		} ?>
     	</div>
 	<?php endif; ?>
 	</div>
 	<?php if ($this->show_map_info=='below') :?>
-		<?php echo '<p> </p>'.$this->keybox;?>
+		<?php echo $this->keybox;?>
 	<?php endif; ?>	
 	<?php if (($this->show_map_desc=='3') || (($this->show_map_desc=='1') && ($this->show_map_info=='below'))) : ?>
-		<?php echo '<p> </p>'.$this->descbox; ?>
+		<?php echo $this->descbox; ?>
 	<?php endif; ?>
 
 <?php if (!$this->tmplcomp) : ?>
@@ -230,8 +229,8 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
 	</div>
 </div>
 	<div class="clearfix"></div>
-<?php endif; ?>
 
 	<?php echo XbmapsGeneral::credit();?>
+<?php endif; ?>
 
 </div>

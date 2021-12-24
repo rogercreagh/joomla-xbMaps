@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<updates>
+	<update>
+		<name>Plugin Content - xbMaps</name>
+		<description>Embedd a map or track from xbMaps into article</description>
+		<element>plg_content_xbmaps</element>
+		<type>plugin</type>
+		<folder>content</folder>
+		<client>0</client>
+		<version>0.1.0</version>
+		<infourl title="Content Editor Autosave v3.0.0">
+			https://www.crosborne.co.uk/plg_content_xbmaps/changelog
+		</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">https://www.crosborne.uk/downloads?download=14</downloadurl>
+		</downloads>
+		<tags><tag>stable</tag></tags>
+		<maintainer>Roger C-O</maintainer>
+		<maintainerurl>http://crosborne.co.uk/xbaps</maintainerurl>
+		<targetplatform name="joomla" version="3.10"/>
+		<php_minimum>7.4</php_minimum>
+	</update>
+</updates>		

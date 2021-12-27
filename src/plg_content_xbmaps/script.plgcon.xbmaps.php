@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Content Plugin
- * @version 0.1.0.d 24th December 2021
+ * @version 0.1.0.e 24th December 2021
  * @filesource xbmaps.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -89,7 +89,7 @@ class plgContentXbmapsInstallerScript
 	            www.crosborne.co.uk/xbmaps_plgcon/doc</a> or see the Help tab on the <a href="index.php?option=com_config&view=component&component=com_xbmaps">plugin options page</a></p>';
             echo '<h4>Next steps:</h4>';
             echo '<p>IMPORTANT - <i>The plugin is not yet enabled, visit the options page to set defaults and enable the plugin</i>&nbsp;&nbsp;';
-            echo '<a href="index.php?option=com_plugins&view=plugin&layout=edit&id='.$myid.'" class="btn btn-small btn-info">xbMaps Content Plugin Options</a>';
+            echo '<a href="index.php?option=com_plugins&task=plugin.edit&extension_id='.$myid.'" class="btn btn-small btn-info">xbMaps Content Plugin Options</a>';
             echo ' <br /><i>check the defaults match your expectations and save them.</i></p>';
             echo '<h4>Shortcode format</h3>';
             echo '<p>Minimal: <code>{xbmaps view=map,id=1}</code>  All options: <code>{xbmaps view=track,alias=tuesday-ride,title=1,desc=1,info=1,float=left,wd=50,ht=400}</code>';

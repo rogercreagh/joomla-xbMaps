@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.1.0.c 24th December 2021
+ * @version 1.1.0.e 26th December 2021
  * @filesource site/views/map/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -110,6 +110,7 @@ class XbmapsViewMap extends JViewLegacy {
 		$this->map_desc_class = $this->params->get('map_desc_class','');
 		$this->desc_title = $this->params->get('desc_title','');
 		$this->track_infodetails = $this->params->get('track_infodetails','');
+		$this->show_track_popover = $this->params->get('show_track_popover','');
 		$this->marker_infocoords = $this->params->get('marker_infocoords','');
 		
 		$this->map_click_marker = $this->params->get('map_click_marker','0');

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="3.0" type="plugin" group="content" method="upgrade">
 	<name>Content - xbMaps</name>
-	<version>0.1.0.d</version>
-	<creationDate> 24th December 2019</creationDate>
+	<version>0.1.0</version>
+	<creationDate> 26th December 2021</creationDate>
 	<!-- Be sure to update the language string in .sys.ini for new version and date -->
 	<author> Roger C-O</author>
 	<copyright>Copyright (c) Roger Creagh-Osborne, 2019. All rights reserved.</copyright>
@@ -28,7 +28,7 @@
 		<fields name="params">
 			<fieldset name="basic">
 				<field name="note0" type="note"
-					label="" description="PLGCON_XBMAPS_VER_DESC"
+					label=" " description="PLGCON_XBMAPS_VER_DESC"
 				/>				
 				<field name="note1" type="note"
 					label="PLGCON_XBMAPS_NOTE1_LABEL" description="PLGCON_XBMAPS_NOTE1_DESC"
@@ -91,7 +91,6 @@
 				<field name="show_errors" type="radio"  
 					label="PLGCON_XBMAPS_SHOW_ERRORS_LABEL" description="PLGCON_XBMAPS_SHOW_ERRORS_DESC"
 					class="btn-group btn-group-yesno" 
-					showon="show_map_info!:"
 					default="0"
 				>
 					<option value="1">JSHOW</option>
@@ -101,7 +100,7 @@
 			</fieldset>
 			<fieldset name="Help">
 				<field name="note0a" type="note"
-					label="" description="PLGCON_XBMAPS_VER_DESC"
+					label=" " description="PLGCON_XBMAPS_VER_DESC"
 				/>				
 				<field name="note2" type="note"
 					label="PLGCON_XBMAPS_NOTE2_LABEL"
@@ -124,13 +123,13 @@
 					description="PLGCON_XBMAPS_NOTE6_DESC"
 				/>				
 				<field name="note7" type="note"
-					label="" description="PLGCON_XBMAPS_NOTE7_DESC"
+					label=" " description="PLGCON_XBMAPS_NOTE7_DESC"
 				/>				
 				<field name="note8" type="note"
-					label="" description="PLGCON_XBMAPS_NOTE8_DESC"
+					label=" " description="PLGCON_XBMAPS_NOTE8_DESC"
 				/>				
 				<field name="note9" type="note"
-					label="" description="PLGCON_XBMAPS_NOTE9_DESC"
+					label=" " description="PLGCON_XBMAPS_NOTE9_DESC"
 				/>				
 			</fieldset>			
 		</fields>

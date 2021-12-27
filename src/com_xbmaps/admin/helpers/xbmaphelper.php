@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 0.9.0.b 3rd November 2021
+ * @version 1.1.0 26th December 2021
  * @filesource admin/helpers/xbmaphelper.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -538,7 +538,7 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		return true;		
 	}
 			
-	public function renderTracks( $tracks, $fitbounds = false, $info = true, $pop = 3) {
+	public function renderTracks( $tracks, $fitbounds = false, $info = true, $mappop = -1) {
 		$mapname = 'map'.$this->name.$this->id;
 		$aliaslist = '';
 		$fitto = 400; 	//delay to allow tracks to render before fitting bounds
@@ -560,8 +560,12 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 			if ($info) {
 				$o[] = 'jQuery(\'#'.$cleanalias.'\', window.document).html(\'<li>\'+dist+\'</li><li>\'+speed+\'</li><li>\'+time+\'</li><li>\'+climb+\'</li>\');';				
 			}
-			$disp = $trk->params['show_track_popover'];
-		    switch ($disp) {
+			if ($mappop == -1) {
+				$disp = $trk->params->get('show_track_popover');
+			} else {
+				$disp = $mappop;
+			}
+			switch ($disp) {
 		        case 1:
 		            $o[] = 'e.target.bindPopup(\'<b>'.addslashes($trk->title).'</b>\')';
 		            break;

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 0.8.0.g 21st October 2021
+ * @version 1.1.0 26th December 2021
  * @filesource admin/views/cpanel/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -11,6 +11,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Plugin\PluginHelper;
 
 ?>
 <form action="<?php echo JRoute::_('index.php?option=com_xbmaps&view=cpanel'); ?>" method="post" name="adminForm" id="adminForm">
@@ -148,7 +149,7 @@ use Joomla\CMS\Language\Text;
               	</div>
 				<div id="xbinfo" class="span4">
 					<div class="row-fluid">
-			        	<?php echo HTMLHelper::_('bootstrap.startAccordion', 'slide-cpanel', array('active' => 'keyconfig')); ?>
+			        	<?php echo HTMLHelper::_('bootstrap.startAccordion', 'slide-cpanel', array('active' => 'sysinfo')); ?>
 		        		<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-cpanel', Text::_('XBMAPS_KEY_CONFIG'), 'keyconfig','xbaccordion'); ?>
 		        		Maps
 		        		<ul>
@@ -205,7 +206,33 @@ use Joomla\CMS\Language\Text;
 							<br /><?php echo Text::_('XBMAPS_VERSION').': '.$this->xmldata['version'].'<br/>'.
 								$this->xmldata['creationDate'];?>
 						</p>
-						<p><b><?php echo Text::_( 'XBMAPS_PLUGIN' ); ?></b>: <?php echo Text::_( 'XBMAPS_NOT_INSTALLED' ); ?>
+						<p><b><?php echo Text::_( 'XBMAPS_CONTENT_PLUGIN' ); ?></b>: ;
+						<?php if(PluginHelper::isEnabled('content','xbmaps')) {
+							$man = XbmapsGeneral::getExtManifest('plugin','xbmaps','content');
+							if ($man) {
+								$man = json_decode($man);
+								echo '<br />'.Text::_('XBMAPS_VERSION').': '.$man->version;
+								echo '<br />'.$man->creationDate;
+							} else {
+								echo 'problem with manifest';
+							}
+						} else {
+							echo Text::_( 'XBMAPS_NOT_INSTALLED' ); 
+						}?>
+						</p>
+						<p><b><?php echo Text::_( 'XBMAPS_BUTTON_PLUGIN' ); ?></b>: ;
+						<?php if(PluginHelper::isEnabled('editor-xtd','xbmaps')) {
+							$man = XbmapsGeneral::getExtManifest('plugin','xbmaps','editors-xtd');
+							if ($man) {
+								$man = json_decode($man);
+								echo '<br />'.Text::_('XBMAPS_VERSION').': '.$man->version;
+								echo '<br />'.$man->creationDate;
+							} else {
+								echo 'problem with manifest';
+							}
+						} else {
+							echo Text::_( 'XBMAPS_NOT_INSTALLED' ); 
+						}?>
 						</p>
 						<p><b><?php echo Text::_( 'XBMAPS_YOUR_CLIENT' ); ?></b>
 							<br/><?php echo $this->client['platform'].'<br/>'.$this->client['browser']; ?>

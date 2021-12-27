@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.0.1 20th December 2021
+ * @version 1.1.0 26th December 2021
  * @filesource admin/helpers/xbmapsgeneral.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -205,6 +205,8 @@ class XbmapsGeneral extends ContentHelper {
 			}
 			if ($item->track_colour=='') {$item->track_colour = $item->defcol; }
 			$item->rec_date = HtmlHelper::date($item->rec_date, 'd M Y');
+			// get the track params - actually at present only using show_track_popover so counld simplify
+			$params = new Registry;
 			$params->loadString($item->tparams, 'JSON');
 			$item->params = $params;
 		}
@@ -437,4 +439,19 @@ class XbmapsGeneral extends ContentHelper {
 		$res = $db->loadResult();
 		return $res;		
 	}
+
+	public static function getExtManifest($type,$element,$folder=''){
+		$db = Factory::getDBO();
+		$query = $db->getQuery(true);
+		$query->select('manifest_cache')
+			->from($db->quoteName('#__extensions'))
+			->where($db->quoteName('type')." = ".$db->quote($type). 'AND '.$db->quoteName('element')." = ".$db->quote($element));
+			if ($type == 'plugin') {
+				$query->where($db->quoteName('folder')." = ".$db->quote($folder));
+			}
+		$db->setQuery($query);
+		$res = $db->loadResult();
+		return $res;
+	}
+	
 }

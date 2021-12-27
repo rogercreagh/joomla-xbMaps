@@ -305,7 +305,6 @@
 			/>	
 			<field name="show_track_popover" type="list"  
 				label="XBMAPS_TRACK_POP_LABEL" description="XBMAPS_TRACK_POP_DESC"
-				class="btn-group btn-group-yesno" 
 				useglobal="true"
 			>
 				<option value="0">JNO</option>

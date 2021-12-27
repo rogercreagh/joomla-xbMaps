@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Content Plugin
- * @version 0.1.0.c 24th December 2021
+ * @version 0.1.0.e 26th December 2021
  * @filesource xbmaps.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -101,7 +101,7 @@ class plgContentXbMaps extends JPlugin {
 			}			
 			// use alias as alternative to id
 			if ((array_key_exists('view',$cmds)) && (array_key_exists('alias', $cmds))) {
-				$cmds['id'] = XbmapsGeneral::getIdFromAlias($cmds['alias'],'#__xbmaps_'.$cmds['view'].'s');
+				$cmds['id'] = XbmapsGeneral::getIdFromAlias('#__xbmaps_'.$cmds['view'].'s',$cmds['alias']);
 			}
 			$output = '';			
 			$err = false;
@@ -110,14 +110,14 @@ class plgContentXbMaps extends JPlugin {
 			if ((!array_key_exists('view',$cmds)) || (!array_key_exists('id', $cmds))) {
 				$err = true;
 				if ($show_errors) {
-					$errstr = Text::_('PLGCON_XBMAPS_MISSING_IN_SCODE');					
+					$errstr = $errdiv.Text::_('PLGCON_XBMAPS_MISSING_IN_SCODE').$enderrdiv;					
 				}
 			} else {
 				$view=strtolower(trim($cmds['view']));
 				if (($view !== 'map') && ($view !== 'track')) {
 			        $err = true;
 			        if ($show_errors) {
-			            $errstr = Text::_('PLGCON_XBMAPS_INVALID_VIEW');
+			        	$errstr = $errdiv.Text::_('PLGCON_XBMAPS_INVALID_VIEW').$enderrdiv;
 			        }
 				} else {
     				//check if map/track id exists and published, in database if not post error with name 
@@ -125,19 +125,19 @@ class plgContentXbMaps extends JPlugin {
     				if (($view==='map') && (!XbmapsGeneral::idExists($id,'#__xbmaps_maps'))) {
     					$err = true;
     					if ($show_errors) {
-    						$errstr = Text::sprintf('PLGCON_XBMAPS_ID_NOT_FOUND','Map', $id);
+    						$errstr = $errdiv.Text::sprintf('PLGCON_XBMAPS_ID_NOT_FOUND','Map', $id).$enderrdiv;
     					}
     				} elseif (($view==='track') && (!XbmapsGeneral::idExists($id,'#__xbmaps_tracks'))) {
     					$err = true;
     					if ($show_errors) {
-    						$errstr = Text::sprintf('PLGCON_XBMAPS_ID_NOT_FOUND','Track', $id);
+    						$errstr = $errdiv.Text::sprintf('PLGCON_XBMAPS_ID_NOT_FOUND','Track', $id).$enderrdiv;
     					}
-    				}											
+    				}								
 				}
 			}
 			if ($err) {
 				// shortcode invalid so blank this one and go on to next instance (any new match will again be the first one remaining)
-			    $article->text = preg_replace($xbmap_scode, $errdiv.$errstr.$enderrdiv, $article->text, 1);			
+				$article->text = preg_replace($xbmap_scode, $errstr, $article->text, 1);			
 			} else {
 				//shortcode has valid view and id exists so go ahead
 				$divstr = '<div';
@@ -183,7 +183,7 @@ class plgContentXbMaps extends JPlugin {
 				$title = $def_title;
 				if (array_key_exists('title', $cmds)) {
 					$title = (int)$cmds['title'];
-					if (($title !== 0) || ($title !== 1)) {
+					if (($title !== 0) && ($title !== 1)) {
 						$title = $def_title;
 					}
 				}

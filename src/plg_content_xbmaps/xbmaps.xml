@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="3.0" type="plugin" group="content" method="upgrade">
 	<name>Content - xbMaps</name>
-	<version>0.1.0</version>
+	<version>0.1.0.1</version>
 	<creationDate> 26th December 2021</creationDate>
 	<!-- Be sure to update the language string in .sys.ini for new version and date -->
 	<author> Roger C-O</author>
@@ -135,7 +135,7 @@
 		</fields>
 	</config>
 	<updateservers>
-		<server type="extension" priority="1"  name="xmMaps Content Plugin updates">
+		<server type="extension" priority="1"  name="Content - xbMaps updates">
 		 	http://www.crosborne.co.uk/jupdates/update_plg_content_xbmaps.xml
 		</server>
 	</updateservers>

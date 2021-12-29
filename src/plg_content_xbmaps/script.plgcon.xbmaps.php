@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Content Plugin
- * @version 0.1.0.e 24th December 2021
+ * @version 0.1.0.1 29th December 2021
  * @filesource xbmaps.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -63,8 +63,8 @@ class plgContentXbmapsInstallerScript
     
     function update($parent) {
         
-        $message = '<br />For ChangeLog see <a href="http://crosborne.co.uk/xbmaps_plgcon/changelog" target="_blank">
-            www.crosborne.co.uk/xbmaps_plgcon/changelog</a></p>';
+        $message = '<br />For ChangeLog see <a href="http://crosborne.co.uk/xbmaps/content/changelog" target="_blank">
+            www.crosborne.co.uk/xbmaps/content/changelog</a></p>';
         
         Factory::getApplication()->enqueueMessage($message,'Message');
     }

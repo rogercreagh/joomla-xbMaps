@@ -6,6 +6,11 @@
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
+/* allow narrower labels in horizontal forms */
+.form-horizontal.lbl100 .control-label {width:100px;}
+.form-horizontal.lbl100 .controls {margin-left:115px;}
+.form-horizontal.lbl50 .control-label {width:50px;}
+.form-horizontal.lbl50 .controls {margin-left:60px;}
 
 /* improve transparency on leaflet scale control */
 .leaflet-control-scale-line {
@@ -194,6 +199,7 @@ ul.nav-tabs {
 .xbmh300 {max-height:300px; }
 .xbmh400 {max-height:400px; }
 .xbmw400 {max-width:400px; }
+.xbw50p {width:50px; }
 .xbwid100 {width:100%; }
 .xbyscroll { overflow-y:scroll;}
 

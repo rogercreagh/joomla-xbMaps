@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbMaps admin/models/forms/track.xml v0.8.0.h 22nd October 2021 -->
+<!-- xbMaps admin/models/forms/track.xml v1.2.0.2 2nd January 2023 -->
 <form>
 
 	<fieldset name="trackset" addfieldpath="/administrator/components/com_xbmaps/models/fields">
@@ -7,7 +7,7 @@
 		<field 
 			name="id"  type="number" 
 			label="JGLOBAL_FIELD_ID_LABEL" description="JGLOBAL_FIELD_ID_DESC" 
-			readonly="true" class="readonly" 
+			readonly="true" class="readonly xbw50p" 
 			size="10" default="0" 
 		/>
 
@@ -36,19 +36,22 @@
 			value="" class="xbfilecontrol xbbold"
 			readonly="true"
 		/>
-		<field name="gpx_folder" type="text"
-			label="GPX Folder" description="Folder to use in the options tab"
-			readonly="true" class="xbbold"
-		/>
- 				
-		<field name="select_gpxfile" type="filelist"
+		<field name="gpx_upload_folder" type="folderlist"
+			label="GPX Upload Folder" description="Sub-folder of default to upload gpx files to"
+			directory="xbmaps-tracks"
+		>
+			<option value="0">- Select folder -</option>
+ 		</field>		
+		<field name="select_gpxfile" type="folderfilelist"
 			label="XBMAPS_GPXFILE_LABEL" description="XBMAPS_GPXFILE_DESC"
 			directory = ""
 			class="xbfilecontrol"
 			filter = ".(.gpx)$"
 			hide_default = "true"
-  			onchange="document.getElementById('jform_gpx_filename').value='/'+document.getElementById('jform_gpx_folder').value + '/' + this.value;"
-		/>
+  			onchange="document.getElementById('jform_gpx_filename').value=this.value;"
+		>
+			<option value="0">- Select file -</option>
+ 		</field>		
 		<field name="upload_gpxfile"
 			type="file" accept=".gpx"
 			label="XBMAPS_UPLOAD_GPX_LABEL"

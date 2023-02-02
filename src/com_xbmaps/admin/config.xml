@@ -438,15 +438,12 @@
  		<field name="gpx_note" type="note"
 			label="XBMAPS_TRACKGPX_NOTE_LABEL" description="XBMAPS_TRACKGPX_NOTE_DESC"
 		/>	
-		<field name="def_tracks_folder" type="folderlist"
+		<field name="def_tracks_folder" type="list"
 			label="XBMAPS_TRACKS_DEFFOLDER_LABEL" description="XBMAPS_TRACKS_DEFFOLDER_DESC"
-  			directory="images"
-  			hide_none="true" hide_default="true"
-  			recursive="true" required="true"
-  			default="xbmaps-tracks"
+  			default="/xbmaps-tracks"
   		>
-  			<option value="xbmaps-tracks">XBMAPS_FOLDER_TRACKS</option>
-  			<option value="">XBMAPS_FOLDER_SUBIMAGES</option>
+  			<option value="/xbmaps-tracks">/xbmaps-tracks</option>
+  			<option value="/images/xbmaps">/images/xbmaps</option>
 		</field>
 		<field name="def_track_colour" type="color" 
 			label="XBMAPS_TRACK_DEFCOL_LABEL"

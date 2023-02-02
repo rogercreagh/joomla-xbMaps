@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 0.1.2.c 10th September 2021
+ * @version 1.2.0.1 2nd February 2023
  * @filesource admin/views/track/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -27,6 +27,7 @@ class XbmapsViewTrack extends JViewLegacy {
         
         $this->params = ComponentHelper::getParams('com_xbmaps');
         $this->track_map_type = $this->params->get('track_map_type','');
+        $this->gpxfolder = $this->params->get('def_tracks_folder');
         
         // Check for errors.
 		if (count($errors = $this->get('Errors'))) {

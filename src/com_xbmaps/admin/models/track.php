@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 0.9.0.c 6th November 2021
+ * @version 1.2.0.1 2nd February 2023
  * @filesource admin/models/track.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -67,11 +67,13 @@ class XbmapsModelTrack extends JModelAdmin {
 	    $params = ComponentHelper::getParams('com_xbmaps');
 	    // set any field attributes according to params if needed
 	    $def_tracks_folder = $params->get('def_tracks_folder','');
-	    if ($def_tracks_folder == 'xbmaps-tracks') {
-	    	$form->setFieldAttribute('select_gpxfile','directory','xbmaps-tracks');
-	    } else {
-	    	$form->setFieldAttribute('select_gpxfile','directory','images/'.$def_tracks_folder);
-	    }
+	    $form->setFieldAttribute('gpx_upload_folder','directory',$def_tracks_folder);
+	    
+// 	    if ($def_tracks_folder == 'xbmaps-tracks') {
+// 	    	$form->setFieldAttribute('select_gpxfile','directory','xbmaps-tracks');
+// 	    } else {
+// 	    	$form->setFieldAttribute('select_gpxfile','directory','images/'.$def_tracks_folder);
+// 	    }
     	$def_track_colour = $params->get('def_track_colour','');
     	$form->setFieldAttribute('track_colour','default',$def_track_colour);
     	

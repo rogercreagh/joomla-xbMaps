@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbMaps admin/models/forms/track.xml v1.2.0.2 2nd January 2023 -->
+<!-- xbMaps admin/models/forms/track.xml v1.2.0.3 19th February 2023 -->
 <form>
 
 	<fieldset name="trackset" addfieldpath="/administrator/components/com_xbmaps/models/fields">
@@ -37,7 +37,9 @@
 			readonly="true"
 		/>
 		<field name="gpx_upload_folder" type="folderlist"
-			label="GPX Upload Folder" description="Sub-folder of default to upload gpx files to"
+			label="GPX Upload sub-folder" description="Sub-folder of default to upload gpx files to"
+			hide-none="true"
+			recursive="true"
 			directory="xbmaps-tracks"
 		>
 			<option value="0">- Select folder -</option>

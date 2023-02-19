@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.2.0.1 2nd February 2023
+ * @version 1.2.0.3 19th February 2023
  * @filesource admin/views/track/tmpl/edit.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -67,6 +67,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
             			    				<?php echo $this->form->renderField('upload_gpxfile'); ?>   					
             		    				</div> 					
                         				<div class="pull-left">
+                        					<p>Select subfolder of default <code><?php echo $this->gpxfolder; ?></code> if required.
                              	    		<?php echo $this->form->renderField('gpx_upload_folder'); ?> 
                         				</div>	
             		    				<div class="pull-right xbmr20">

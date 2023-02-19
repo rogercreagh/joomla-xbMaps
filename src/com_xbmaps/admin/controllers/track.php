@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.2.0.1 2nd February 2023
+ * @version 1.2.0.3 19th February 2023
  * @filesource admin/controllers/track.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -54,7 +54,7 @@ class XbmapsControllerTrack extends FormController {
 		$folder = $params->get('def_tracks_folder','xbmaps-tracks');
 		//if ($folder != 'xbmaps-tracks') { $folder = 'images/'.$folder; }
 		//get the filename and copy it in to tmp folder
-		$folder .= $post['gpx_upload_folder'];
+		$folder .= '/'.$post['gpx_upload_folder'];
 		$importfile = $jinput->files->get('jform', null, 'files', 'array' );
 		$filename = File::makeSafe($importfile['upload_gpxfile']['name']);
 		$name = pathinfo($filename, PATHINFO_FILENAME);

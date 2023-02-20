@@ -1,13 +1,17 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 0.8.0.b 17th October 2021
+ * @version 1.2.1.1 20th February 2023
  * @filesource site/views/markerlist/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
 defined( '_JEXEC' ) or die( 'Restricted access' );
+
+require_once(JPATH_COMPONENT_ADMINISTRATOR.'/helpers/xbparsedown.php');
+
+use Xbmaps\Xbparsedown\Xbparsedown;
 
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
@@ -169,7 +173,7 @@ $map->loadXbmapsJS();
 				<td>
 					<p class="xb095">
     					<?php if (!empty($item->summary)) : ?>
-    						<?php echo $item->summary; ?>
+    						<?php echo Xbparsedown::instance()->text($item->summary); ?>
     					<?php else : ?><span class="xbnit">
     						<?php echo Text::_('XBMAPS_NO_DESCRIPTION'); ?></span>
     					<?php endif; ?>

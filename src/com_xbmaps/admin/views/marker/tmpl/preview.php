@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 0.8.0.i 26th October 2021
+ * @version 1.2.1.1 20th February 2023
  * @filesource admin/views/marker/tmpl/preview.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -10,6 +10,9 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
 require_once(JPATH_COMPONENT_ADMINISTRATOR.'/helpers/geocoder.php');
+require_once(JPATH_COMPONENT_ADMINISTRATOR.'/helpers/xbparsedown.php');
+
+use Xbmaps\Xbparsedown\Xbparsedown;
 
 use What3words\Geocoder\Geocoder;
 use Joomla\CMS\Language\Text;
@@ -19,7 +22,7 @@ $lat = $this->item->latitude;
 $long = $this->item->longitude;
 $popupdesc = '';
 if ($this->item->params['marker_popdesc']) {
-	$popupdesc .= ($this->item->summary).'<br />';
+    $popupdesc .= Xbparsedown::instance()->text($this->item->summary).'<br />';
 }
 $disp = $this->item->params['marker_popcoords'];
 if ($disp=='') $disp=0;

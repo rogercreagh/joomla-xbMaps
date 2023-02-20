@@ -370,6 +370,11 @@
 		label="XBMAPS_FSET_TRACK_SETTINGS_LABEL" 
 		description="XBMAPS_FSET_TRACK_SETTINGS_DESC"
 		>	
+		<field name="def_activity" type="activitylist"
+			label="Default Activity Type" description="Set default activity - can be overridden in individual track"
+			>
+			<option value="">- none -</option>
+		</field>
 		
  		<field name="trackcat_note" type="note"
 			label="XBMAPS_TRACKCAT_NOTE_LABEL" description="XBMAPS_TRACKCAT_NOTE_DESC"

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 0.1.2.d 10th September 2021
+ * @version 1.2.1.1 20th February 2023
  * @filesource admin/views/maps/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021

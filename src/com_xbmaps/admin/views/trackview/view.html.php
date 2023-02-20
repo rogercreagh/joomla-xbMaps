@@ -1,13 +1,17 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 0.8.0. 30th October 2021
+ * @version 1.2.1.1 20th February 2023
  * @filesource admin/views/trackview/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
 defined( '_JEXEC' ) or die( 'Restricted access' );
+
+require_once(JPATH_COMPONENT_ADMINISTRATOR.'/helpers/xbparsedown.php');
+
+use Xbmaps\Xbparsedown\Xbparsedown;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Component\ComponentHelper;
@@ -83,7 +87,8 @@ class XbmapsViewTrackview extends JViewLegacy {
 	    	$this->infobox .= '<div class="xbbox xbboxmag">';
 	    	$this->infobox .= '<h4>'.$this->item->title.'</h4>';
 	    	if ($this->show_info_summary) {
-	    		$this->infobox .= $this->item->summary;
+	    	    
+	    	    $this->infobox .= Xbparsedown::instance()->text($this->item->summary);
 	    	}
 	    	if ($this->infopos == 'topbot') {
 	    		$this->infobox .= '<div class="row-fluid"><div class="span4">';

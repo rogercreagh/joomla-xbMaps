@@ -1,13 +1,17 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 0.9.1.a 14th November 2021
+ * @version 1.2.1.1 20th February 2023
  * @filesource admin/views/tracks/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
 defined( '_JEXEC' ) or die( 'Restricted access' );
+
+require_once(JPATH_COMPONENT_ADMINISTRATOR.'/helpers/xbparsedown.php');
+
+use Xbmaps\Xbparsedown\Xbparsedown;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
@@ -192,7 +196,7 @@ $tagclass = $this->show_tags? 'label-info' : 'label-grey';
 				</td>
 				<td>
 					<p class="xb095">
-    					<?php echo $item->summary; ?>
+    					<?php echo Xbparsedown::instance()->text($item->summary); ?>
 					</p>
                     <?php $plaintext = strip_tags($item->description);
                     if (strlen($plaintext)>180) : ?>

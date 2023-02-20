@@ -88,6 +88,9 @@ class XbmapsModelTrack extends JModelAdmin {
 	    if (empty($data)) {
 	    	
  	        $data = $this->getItem();
+ 	        if ($data->activity =='') {
+ 	            $data->activity = $params->get('def_activity','');
+ 	        }
 
 	    	//load subform data as required
  	        if ($data->id) {

@@ -1,13 +1,17 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.1.0.e 26th December 2021
+ * @version 1.2.1.1 20th February 2023
  * @filesource admin/views/mapview/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
 defined( '_JEXEC' ) or die( 'Restricted access' );
+
+require_once(JPATH_COMPONENT_ADMINISTRATOR.'/helpers/xbparsedown.php');
+
+use Xbmaps\Xbparsedown\Xbparsedown;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Toolbar\ToolbarHelper;
@@ -93,7 +97,7 @@ class XbmapsViewMapview extends JViewLegacy {
 			$this->keybox .= '<div class="xbbox xbboxgrn">';
 			$this->keybox .= '<h4>'.$this->item->title.'</h4>';
 			if ($this->show_info_summary) {
-				$this->keybox .= '<p>'.$this->item->summary.'</p>';
+			    $this->keybox .= '<p>'.Xbparsedown::instance()->text($this->item->summary).'</p>';
 			}
 			if ($this->show_map_key) {
 				if ((!empty($this->item->tracks)) || (!empty($this->item->markers))) {

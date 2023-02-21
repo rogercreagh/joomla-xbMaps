@@ -34,13 +34,20 @@ class XbmapsControllerTrack extends FormController {
 	        $item->params = (string) $registry;
 	    }
 	    
-	    if ($task == 'savepreview') {	    	
+	    if ($task == 'savepreview') {
 	        $tid = $validData['id'];
 	        if ($tid>0) {
-	        	$this->setRedirect('index.php?option=com_xbmaps&view=trackview&id='.$tid);	   
+	            $this->setRedirect('index.php?option=com_xbmaps&view=trackview&id='.$tid);
 	        }
 	    }
-	}
+	    if ($task=='import') {
+	        $tid = $validData['id'];
+	        if ($tid>0) {
+	            $this->setRedirect('index.php?option=com_xbmaps&view=track&id='.$tid);
+	        }
+	        
+	    }
+    }
 	
 	function import() {
 		$msg = '';
@@ -78,7 +85,9 @@ class XbmapsControllerTrack extends FormController {
 			$msg = 'Problem uploading file';
 			$msgtype = 'error';
 		}
-		$this->setRedirect($link, $msg, $msgtype);
+		Factory::getApplication()->enqueueMessage($msg,$msgtype);
+		$this->save();
+//		$this->setRedirect($link, $msg, $msgtype);
 	}
 	
 	public function publish() {

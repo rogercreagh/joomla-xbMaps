@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.2.0.3 19th February 2023
+ * @version 1.2.1.3 21st February 2023
  * @filesource admin/views/track/tmpl/edit.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -135,6 +135,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
         					<?php echo $this->form->renderField('track_desc_class','params'); ?>
         					<?php echo $this->form->renderField('desc_title','params'); ?>
                    	    	<hr />
+                   	    	<h4><?php echo Text::_('Track Info Box'); ?></h4>
                    	    	<?php echo $this->form->renderField('show_track_info','params'); ?>
                    	    	<?php echo $this->form->renderField('track_info_width','params'); ?>  					
                    	    	<?php echo $this->form->renderField('show_info_summary','params'); ?>  					
@@ -142,6 +143,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
                    	    	<?php echo $this->form->renderField('show_stats','params'); ?>  					
         				</div>
         				<div class="span5 form-horizontal-desktop">
+        					<?php echo $this->form->renderField('is_loop','params'); ?> 
         					<h4><?php echo Text::_('XBMAPS_MAP_HEIGHT_BORDER'); ?></h4>
         					<div class="row-fluid">
         						<div class="span6">

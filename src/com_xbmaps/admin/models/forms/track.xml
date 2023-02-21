@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbMaps admin/models/forms/track.xml v1.2.0.3 19th February 2023 -->
+<!-- xbMaps admin/models/forms/track.xml v1.2.1.3 21st February 2023 -->
 <form>
 
 	<fieldset name="trackset" addfieldpath="/administrator/components/com_xbmaps/models/fields">
@@ -217,6 +217,15 @@
 			default="px"
 			>
 		</field>
+			<field name="is_loop" type="radio"
+				label="Track is Loop"
+				description="Select yes if the start and finish are in same position"
+				class="btn-group btn-group-yesno"
+				default="0"
+				>
+				<option value="0" >JNO</option>
+				<option value="1">JYES</option>
+			</field>	
 
 			<field name="map_border" type="radio"
 				label="XBMAPS_MAP_BORDER_LABEL"

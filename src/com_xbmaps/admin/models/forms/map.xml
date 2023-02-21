@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbMaps admin/models/forms/map.xml v1.1.0 26th December 2021 -->
+<!-- xbMaps admin/models/forms/map.xml v1.2.1.3 21st February 2023 -->
 <form>
 
 	<fieldset addfieldpath="/administrator/components/com_xbmaps/models/fields">
@@ -149,6 +149,7 @@
 				class="trkcol"
 				hint="XBMAPS_TRACK_COL_HINT"
 				/>
+
 			</form>
 		</field>			
 			

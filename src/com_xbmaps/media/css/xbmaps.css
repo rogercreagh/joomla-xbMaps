@@ -1,11 +1,17 @@
 /*******
  * @package xbMaps Component
- * @version 0.9.0.c 6th November 2021
+ * @version 1.2.1.3 21st February 2023
  * @filesource media/css/xbmaps.css
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
+ 
+/* set height for editor:none if markdowne editor not available */
+.js-editor-none textarea {
+  height: 100px !important;
+}
+
 /* allow narrower labels in horizontal forms */
 .form-horizontal.lbl100 .control-label {width:100px;}
 .form-horizontal.lbl100 .controls {margin-left:115px;}
@@ -201,6 +207,7 @@ ul.nav-tabs {
 .xbmw400 {max-width:400px; }
 .xbw50p {width:50px; }
 .xbwid100 {width:100%; }
+.xbw100 {width:100px;}
 .xbyscroll { overflow-y:scroll;}
 
 .xbhlt {

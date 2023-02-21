@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.1.0 26th December 2021
+ * @version 1.2.1.3 21st February 2023
  * @filesource admin/helpers/xbmaphelper.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -18,6 +18,7 @@ class XbMapHelper {
 	
 	protected $name					= 'xbMap';
 	protected $id					= '';
+	protected $mapchain = 0;
 	private	$output					= array();
 	
 	public $maptype				= '';
@@ -544,13 +545,22 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		$fitto = 400; 	//delay to allow tracks to render before fitting bounds
 		$o 	= array();
 		foreach ($tracks as $trk) {
+		    $isloop = $trk->params->get('is_loop',0);		    
 			$cleanalias = str_replace('-','_',$trk->alias);
 			$o[] = 'var gpx = \''.Uri::root().$trk->gpx_filename.'\';';
 			$o[] = 'var '.$cleanalias.' = new L.GPX(gpx,';
 			$o[] = '{ polyline_options: {color: \''.$trk->track_colour.'\'},';
 			$o[] = 'async: true, max_point_interval: 24000, marker_options: ';
-			$o[] = '{ startIconUrl: \''.Uri::root().'/media/com_xbmaps/images/start.png\',';
-			$o[] = ' endIconUrl: \''.Uri::root().'/media/com_xbmaps/images/end.png\',';
+			if ($isloop) {
+			    $o[] = '{ startIconUrl: \''.Uri::root().'/media/com_xbmaps/images/startleft.png\',';
+			} else {
+                $o[] = '{ startIconUrl: \''.Uri::root().'/media/com_xbmaps/images/start.png\',';
+			}
+            if ($isloop) {
+			    $o[] = ' endIconUrl: \''.Uri::root().'/media/com_xbmaps/images/endright.png\',';
+			} else {
+                $o[] = ' endIconUrl: \''.Uri::root().'/media/com_xbmaps/images/end.png\',';
+			}
 			$o[] = ' shadowUrl: \'\', iconSize: [24, 25],iconAnchor: [12, 25]}';
 			$o[] = '}).on(\'loaded\',function(e) {';
 			$o[] = 'var dist = \'<i>Distance: </i>\'+parseInt(e.target.get_distance())/1000+\' km\';';

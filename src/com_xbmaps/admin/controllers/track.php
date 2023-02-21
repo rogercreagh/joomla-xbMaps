@@ -43,7 +43,7 @@ class XbmapsControllerTrack extends FormController {
 	    if ($task=='import') {
 	        $tid = $validData['id'];
 	        if ($tid>0) {
-	            $this->setRedirect('index.php?option=com_xbmaps&view=track&id='.$tid);
+	            $this->setRedirect('index.php?option=com_xbmaps&view=track&layout=edit&id='.$tid);
 	        }
 	        
 	    }
@@ -87,7 +87,7 @@ class XbmapsControllerTrack extends FormController {
 		}
 		Factory::getApplication()->enqueueMessage($msg,$msgtype);
 		$this->save();
-//		$this->setRedirect($link, $msg, $msgtype);
+		$this->setRedirect($link, $msg, $msgtype);
 	}
 	
 	public function publish() {

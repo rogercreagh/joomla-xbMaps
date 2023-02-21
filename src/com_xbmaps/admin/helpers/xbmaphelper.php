@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.2.1.3 21st February 2023
+ * @version 1.2.1.5 21st February 2023
  * @filesource admin/helpers/xbmaphelper.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -570,6 +570,10 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 			if ($info) {
 				$o[] = 'jQuery(\'#'.$cleanalias.'\', window.document).html(\'<li>\'+dist+\'</li><li>\'+speed+\'</li><li>\'+time+\'</li><li>\'+climb+\'</li>\');';				
 			}
+			$o[] = 'jQuery(\'#'.$cleanalias.'-d\', window.document).html(dist);';
+			$o[] = 'jQuery(\'#'.$cleanalias.'-c\', window.document).html(climb);';
+			$o[] = 'jQuery(\'#'.$cleanalias.'-m\', window.document).html(speed);';
+			$o[] = 'jQuery(\'#'.$cleanalias.'-t\', window.document).html(time);';
 			if ($mappop == -1) {
 				$disp = $trk->params->get('show_track_popover');
 			} else {

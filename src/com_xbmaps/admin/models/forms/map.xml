@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbMaps admin/models/forms/map.xml v1.2.1.3 21st February 2023 -->
+<!-- xbMaps admin/models/forms/map.xml v1.2.1.5 21st February 2023 -->
 <form>
 
 	<fieldset addfieldpath="/administrator/components/com_xbmaps/models/fields">
@@ -263,6 +263,7 @@
 				<option value="1">JSHOW</option>
 				<option value="0">JHIDE</option>
 			</field>
+<!-- 
 			<field name="track_infodetails" type="list"  
 				label="XBMAPS_MAP_TRACK_INFO_LABEL" description="XBMAPS_MAP_TRACK_INFO_DESC"
 				class="btn-group btn-group-yesno" 
@@ -277,6 +278,24 @@
 				<option value="5">Activity &amp; Device</option>
 				<option value="6">Date &amp; Device</option>
 				<option value="7">Activity, Date &amp; Device</option>
+			</field>			
+ -->			
+			
+			<field name="track_info" type="checkboxes"  
+				label="XBMAPS_MAP_TRACK_INFO_LABEL" description="XBMAPS_MAP_TRACK_INFO_DESC"
+				class="" 
+				showon="show_map_info!:0[AND]show_map_key:1"
+				default="" 
+			>
+				<option value="">Nothing</option>
+				<option value="A">Activity</option>
+				<option value="V">Device</option>
+				<option value="S">Start Time</option>
+				<option value="D">Distance</option>
+				<option value="C">Total Ascent</option>
+				<option value="M">Average Speed</option>
+				<option value="T">Duration</option>
+				
 			</field>			
 			
 			<field name="show_track_popover" type="list"  

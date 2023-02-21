@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.1.0.e 26th December 2021
+ * @version 1.2.1.5 21st February 2023
  * @filesource admin/views/map/tmpl/edit.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -94,7 +94,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 					<?php echo $this->form->renderField('map_info_width','params'); ?>
 					<?php echo $this->form->renderField('show_info_summary','params'); ?>
 					<?php echo $this->form->renderField('show_map_key','params'); ?>
-					<?php echo $this->form->renderField('track_infodetails','params'); ?>
+					<?php echo $this->form->renderField('track_info','params'); ?>
 					<?php echo $this->form->renderField('show_track_popover','params'); ?>
 					<?php echo $this->form->renderField('marker_infocoords','params'); ?>
 					<?php //echo $this->form->renderField('show_mrk_desc','params'); ?>

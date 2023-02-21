@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.1.0 26th December 2021
+ * @version 1.2.1.5 21st February 2023
  * @filesource admin/helpers/xbmapsgeneral.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -316,17 +316,52 @@ class XbmapsGeneral extends ContentHelper {
 			$trksum = $trk->summary;
 			if ($trksum!=''){$trklist .= ' class= "hasTooltip" title="" data-original-title="'.$trksum.'"';}
 			$trklist .=	'><b>'.$trk->linkedtitle.'</b></span> ';
-			if (($infodisp & 1)==1) {
-			    $trklist .= ' : '.$trk->activity;
+			
+			if (is_array($infodisp)) {
+			    $cleanalias = str_replace('-','_',$trk->alias);
+			    $parts = 'x'.implode(',', $infodisp);
+			    $trklist .= ': ';
+			    if (strpos($parts,'A')) {
+			        $trklist .= '<span class="xbml20">'.$trk->activity.'</span>';
+			    }
+			    if (strpos($parts,'V')) {
+			        $trklist .= '<span class="xbnit xbml20">Device: </span>' ;
+			        $trklist .= $trk->rec_device;
+			    }
+			    if (strpos($parts,'S')) {
+			        $trklist .= '<span class="xbnit xbml20">Start: </span>' ;
+			        $trklist .= $trk->rec_date;
+			    }
+			    if (strpos($parts,'D')) {
+			        $trklist .= '<span class="xbnit xbml20">Distance: </span>' ;
+			        $trklist .= '<span id="'.$cleanalias.'-d"> </span>';
+			    }
+			    if (strpos($parts,'C')) {
+			        $trklist .= '<span class="xbnit xbml20">Climbed: </span>' ;
+			        $trklist .= '<span id="'.$cleanalias.'-c"> </span>';
+			    }
+			    if (strpos($parts,'M')) {
+			        $trklist .= '<span class="xbnit xbml20">Speed: </span>' ;
+			        $trklist .= '<span id="'.$cleanalias.'-m"> </span>';
+			    }
+		        if (strpos($parts,'T')) {
+			        $trklist .= '<span class="xbnit xbml20">Duration: </span>' ;
+			        $trklist .= '<span id="'.$cleanalias.'-t"> </span>';
+			    }
 			}
-			$trklist .= ($infopos == 'side') ? '<br >' : ' - ';
-			if (($infodisp & 2)==2) {
-			    $trklist .= '<span class="xbnit xbml20">Recorded: </span>'.$trk->rec_date.'<br />';
-			}
-			if (($infodisp > 3)) {
-			    $trklist .= '<span class="xbnit xbml20">Device: </span>'.$trk->rec_device.'';
-			}
-			$trklist .=	 '</li>';
+			
+			
+//			if (($infodisp & 1)==1) {
+// 			    $trklist .= ' : '.$trk->activity;
+// 			}
+// 			$trklist .= ($infopos == 'side') ? '<br >' : ' - ';
+// 			if (($infodisp & 2)==2) {
+// 			    $trklist .= '<span class="xbnit xbml20">Recorded: </span>'.$trk->rec_date.'<br />';
+// 			}
+// 			if (($infodisp > 3)) {
+// 			    $trklist .= '<span class="xbnit xbml20">Device: </span>'.$trk->rec_device.'';
+// 			}
+ 			$trklist .=	 '</li>';
 		} // endforeach;
 		$trklist .=	 '</ul>';
 		return $trklist;

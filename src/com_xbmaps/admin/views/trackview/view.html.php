@@ -110,9 +110,23 @@ class XbmapsViewTrackview extends JViewLegacy {
 	    			$this->infobox .= '</div><div class="span4">';
 	    		}
 	    		$this->infobox .= '<p><b>Track Stats.</b></p>';
+	    		$cleanalias = str_replace('-','_',$this->item->alias);
+	    		$parts = 'xDCMT';
+//	    		$this->infobox .= '<div id="'.str_replace('-','_',$this->item->alias).'">';
 	    		$this->infobox .= '<ul class="xblist">';
-	    		$this->infobox .= '<div id="'.str_replace('-','_',$this->item->alias).'">';
-	    		$this->infobox .= '</div>';
+	    		if (strpos($parts,'D')) {
+	    		    $this->infobox .= '<li><span id="'.$cleanalias.'-d"> </span></li>';
+	    		}
+	    		if (strpos($parts,'C')) {
+	    		    $this->infobox .= '<li><span id="'.$cleanalias.'-c"> </span></li>';
+	    		}
+	    		if (strpos($parts,'M')) {
+	    		    $this->infobox .= '<li><span id="'.$cleanalias.'-m"> </span></li>';
+	    		}
+	    		if (strpos($parts,'T')) {
+	    		    $this->infobox .= '<li><span id="'.$cleanalias.'-t"> </span></li>';
+	    		}	    		
+//	    		$this->infobox .= '</div>';
 	    		$this->infobox .= '</ul>';
 	    	}
 	    	if ((!empty($this->item->maps))) {
@@ -134,6 +148,8 @@ class XbmapsViewTrackview extends JViewLegacy {
 	    	}
 	    	$this->infobox .= '</div>';
 	    }
+	    
+	    
 	    
 	    $this->addToolbar();
 	    

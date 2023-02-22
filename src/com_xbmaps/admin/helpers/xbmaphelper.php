@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.2.1.5 21st February 2023
+ * @version 1.2.1.5 22nd February 2023
  * @filesource admin/helpers/xbmaphelper.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -564,9 +564,9 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 			$o[] = ' shadowUrl: \'\', iconSize: [24, 25],iconAnchor: [12, 25]}';
 			$o[] = '}).on(\'loaded\',function(e) {';
 			$o[] = 'var dist = \'<i>Distance: </i>\'+parseInt(e.target.get_distance())/1000+\' km\';';
-			$o[] = 'var speed = ((e.target.get_moving_time() > 0) ? \'<i>Speed: </i>: \'+e.target.get_moving_speed().toFixed(2)+\' km/hr\':\'\');';
-			$o[] = 'var time = ((e.target.get_moving_time() > 0) ? \'<i>Time: </i>: \'+e.target.get_duration_string(e.target.get_moving_time()):\'\');';
-			$o[] = 'var climb = ((e.target.get_elevation_gain() > 5) ? \'<i>Climbed: </i>: \'+Math.trunc(e.target.get_elevation_gain())+\' m\':\'\');';
+			$o[] = 'var speed = ((e.target.get_moving_time() > 0) ? \'<i>Speed: </i>\'+e.target.get_moving_speed().toFixed(2)+\' km/hr\':\'\');';
+			$o[] = 'var time = ((e.target.get_moving_time() > 0) ? \'<i>Time: </i>\'+e.target.get_duration_string(e.target.get_moving_time()):\'\');';
+			$o[] = 'var climb = ((e.target.get_elevation_gain() > 5) ? \'<i>Climbed: </i>\'+Math.trunc(e.target.get_elevation_gain())+\' m\':\'\');';
 			if ($info) {
 				$o[] = 'jQuery(\'#'.$cleanalias.'\', window.document).html(\'<li>\'+dist+\'</li><li>\'+speed+\'</li><li>\'+time+\'</li><li>\'+climb+\'</li>\');';				
 			}

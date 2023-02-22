@@ -210,6 +210,11 @@ ul.nav-tabs {
 .xbw100 {width:100px;}
 .xbyscroll { overflow-y:scroll;}
 
+.xbilb20 {
+	display:inline-block;
+	margin-left:20px;
+}
+
 .xbhlt {
 	background-color: yellow;
 	color: #444;

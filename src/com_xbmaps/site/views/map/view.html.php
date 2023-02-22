@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.2.1.1 20th February 2023
+ * @version 1.2.1.5 22nd February 2023
  * @filesource site/views/map/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -113,7 +113,7 @@ class XbmapsViewMap extends JViewLegacy {
 		
 		$this->map_desc_class = $this->params->get('map_desc_class','');
 		$this->desc_title = $this->params->get('desc_title','');
-		$this->track_infodetails = $this->params->get('track_infodetails','');
+		$this->track_info = $this->params->get('track_info','');
 		$this->show_track_popover = $this->params->get('show_track_popover','');
 		$this->marker_infocoords = $this->params->get('marker_infocoords','');
 		
@@ -199,9 +199,11 @@ class XbmapsViewMap extends JViewLegacy {
 		        if ((!empty($this->item->tracks)) || (!empty($this->item->markers))) {
 		            $this->keybox .= ($this->infopos == 'topbot')? '<div class="row-fluid">' : '';
 		            if (!empty($this->item->tracks)) {
-		                $this->keybox .= ($this->infopos == 'topbot')? '<div class="span6">' : '';
+		                if ($this->infopos == 'topbot') {
+		                    $this->keybox .= (!empty($this->item->markers))? '<div class="span6">' : '<div class="span12">';
+		                }
 		                $this->keybox .= '<p><b>Tracks</b></p>';
-		                $this->keybox .= XbmapsGeneral::buildTrackList($this->item->tracks, $this->infopos,$this->track_infodetails);
+		                $this->keybox .= XbmapsGeneral::buildTrackList($this->item->tracks, $this->infopos,$this->track_info);
 		                $this->keybox .= ($this->infopos == 'topbot')? '</div>' : '';
 		            }
 		            if (($this->infopos != 'topbot') && ((!empty($this->item->tracks)) && (!empty($this->item->markers)))) {

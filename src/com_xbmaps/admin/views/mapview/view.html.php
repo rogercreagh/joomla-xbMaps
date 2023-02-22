@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.2.1.5 21st February 2023
+ * @version 1.2.1.5 22nd February 2023
  * @filesource admin/views/mapview/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -104,19 +104,21 @@ class XbmapsViewMapview extends JViewLegacy {
 				if ((!empty($this->item->tracks)) || (!empty($this->item->markers))) {
 					$this->keybox .= ($this->infopos == 'topbot')? '<div class="row-fluid">' : '';
 					if (!empty($this->item->tracks)) {
-						$this->keybox .= ($this->infopos == 'topbot')? '<div class="span6">' : '';
-						$this->keybox .= '<p><b>Tracks</b></p>';
-						$this->keybox .= XbmapsGeneral::buildTrackList($this->item->tracks, $this->infopos,$this->track_info);
-						$this->keybox .= ($this->infopos == 'topbot')? '</div>' : '';
+					    if ($this->infopos == 'topbot') {
+					        $this->keybox .= (!empty($this->item->markers))? '<div class="span6">' : '<div class="span12">';
+					    }					    
+					    $this->keybox .= '<p><b>Tracks</b></p>';
+					    $this->keybox .= XbmapsGeneral::buildTrackList($this->item->tracks, $this->infopos,$this->track_info);
+					    $this->keybox .= ($this->infopos == 'topbot')? '</div>' : '';
 					}
 					if (($this->infopos != 'topbot') && ((!empty($this->item->tracks)) && (!empty($this->item->markers)))) {
-						$this->keybox .=  '<hr style="margin:8px 0;" />';
+					    $this->keybox .=  '<hr style="margin:8px 0;" />';
 					}
 					if (!empty($this->item->markers)) {
-						$this->keybox .= ($this->infopos == 'topbot')? '<div class="span6">' : '';
-						$this->keybox .= '<p><b>Markers</b></p>';
-						$this->keybox .= XbmapsGeneral::buildMarkerList($this->item->markers, $this->infopos, $this->marker_image_path,$this->marker_infocoords);
-						$this->keybox .= ($this->infopos == 'topbot')? '</div>' : '';
+					    $this->keybox .= ($this->infopos == 'topbot')? '<div class="span6">' : '';
+					    $this->keybox .= '<p><b>Markers</b></p>';
+					    $this->keybox .= XbmapsGeneral::buildMarkerList($this->item->markers, $this->infopos, $this->marker_image_path,$this->marker_infocoords);
+					    $this->keybox .= ($this->infopos == 'topbot')? '</div>' : '';
 					}
 					$this->keybox .= ($this->infopos == 'topbot')? '</div>' : '';
 				}

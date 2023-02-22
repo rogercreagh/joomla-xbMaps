@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.2.1.5 21st February 2023
+ * @version 1.2.1.5 22nd February 2023
  * @filesource admin/helpers/xbmapsgeneral.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -204,7 +204,12 @@ class XbmapsGeneral extends ContentHelper {
 				$item->linkedtitle = $item->display;
 			}
 			if ($item->track_colour=='') {$item->track_colour = $item->defcol; }
-			$item->rec_date = HtmlHelper::date($item->rec_date, 'd M Y');
+			
+			if (($item->rec_date == '0000-00-00 00:00:00') || is_null($item->rec_date)) {
+			    $item->rec_date = '';
+			} else {
+			     $item->rec_date = HtmlHelper::date($item->rec_date, 'd M Y');
+			}
 			// get the track params - actually at present only using show_track_popover so counld simplify
 			$params = new Registry;
 			$params->loadString($item->tparams, 'JSON');
@@ -308,63 +313,101 @@ class XbmapsGeneral extends ContentHelper {
 			return $list;
 	}
 	
-	public static function buildTrackList($tracks, $infopos, $infodisp = 1) {
-		$trklist = '<ul class="xblist" style="margin:0;">';
-		foreach ($tracks as $trk) {
-			$trklist .=	'<li><i class="fas fa-project-diagram" style="color:'.$trk->track_colour.'"></i>&nbsp; &nbsp;';
-			$trklist .= '<span';
-			$trksum = $trk->summary;
-			if ($trksum!=''){$trklist .= ' class= "hasTooltip" title="" data-original-title="'.$trksum.'"';}
-			$trklist .=	'><b>'.$trk->linkedtitle.'</b></span> ';
-			
-			if (is_array($infodisp)) {
-			    $cleanalias = str_replace('-','_',$trk->alias);
-			    $parts = 'x'.implode(',', $infodisp);
-			    $trklist .= ': ';
-			    if (strpos($parts,'A')) {
-			        $trklist .= '<span class="xbml20">'.$trk->activity.'</span>';
-			    }
-			    if (strpos($parts,'V')) {
-			        $trklist .= '<span class="xbnit xbml20">Device: </span>' ;
-			        $trklist .= $trk->rec_device;
-			    }
-			    if (strpos($parts,'S')) {
-			        $trklist .= '<span class="xbnit xbml20">Start: </span>' ;
-			        $trklist .= $trk->rec_date;
-			    }
-			    if (strpos($parts,'D')) {
-			        $trklist .= '<span class="xbnit xbml20">Distance: </span>' ;
-			        $trklist .= '<span id="'.$cleanalias.'-d"> </span>';
-			    }
-			    if (strpos($parts,'C')) {
-			        $trklist .= '<span class="xbnit xbml20">Climbed: </span>' ;
-			        $trklist .= '<span id="'.$cleanalias.'-c"> </span>';
-			    }
-			    if (strpos($parts,'M')) {
-			        $trklist .= '<span class="xbnit xbml20">Speed: </span>' ;
-			        $trklist .= '<span id="'.$cleanalias.'-m"> </span>';
-			    }
-		        if (strpos($parts,'T')) {
-			        $trklist .= '<span class="xbnit xbml20">Duration: </span>' ;
-			        $trklist .= '<span id="'.$cleanalias.'-t"> </span>';
-			    }
-			}
-			
-			
-//			if (($infodisp & 1)==1) {
-// 			    $trklist .= ' : '.$trk->activity;
-// 			}
-// 			$trklist .= ($infopos == 'side') ? '<br >' : ' - ';
-// 			if (($infodisp & 2)==2) {
-// 			    $trklist .= '<span class="xbnit xbml20">Recorded: </span>'.$trk->rec_date.'<br />';
-// 			}
-// 			if (($infodisp > 3)) {
-// 			    $trklist .= '<span class="xbnit xbml20">Device: </span>'.$trk->rec_device.'';
-// 			}
- 			$trklist .=	 '</li>';
-		} // endforeach;
-		$trklist .=	 '</ul>';
-		return $trklist;
+/* 	public static function buildTrackList($tracks, $infopos, $infodisp) {
+	    $trklist = '<ul class="xblist" style="margin:0;">';
+	    foreach ($tracks as $trk) {
+	        $trklist .=	'<li><i class="fas fa-project-diagram" style="color:'.$trk->track_colour.'"></i>&nbsp; &nbsp;';
+	        $trklist .= '<span';
+	        $trksum = $trk->summary;
+	        if ($trksum!=''){$trklist .= ' class= "hasTooltip" title="" data-original-title="'.$trksum.'"';}
+	        $trklist .=	'><b>'.$trk->linkedtitle.'</b></span> ';
+	        
+	        if (is_array($infodisp)) {
+	            $cleanalias = str_replace('-','_',$trk->alias);
+	            $parts = 'x'.implode(',', $infodisp);
+	            $trklist .= ': ';
+	            if (strpos($parts,'A')) {
+	                $trklist .= '<span class="xbml20">'.$trk->activity.'</span>';
+	            }
+	            if (strpos($parts,'V')) {
+	                $trklist .= '<span class="xbnit xbml20">Device: </span>' ;
+	                $trklist .= $trk->rec_device;
+	            }
+	            if (strpos($parts,'S')) {
+	                $trklist .= '<span class="xbnit xbml20">Start: </span>' ;
+	                $trklist .= $trk->rec_date;
+	            }
+	            if (strpos($parts,'D')) {
+	                $trklist .= '<span id="'.$cleanalias.'-d" class="xbml20"> </span>';
+	            }
+	            if (strpos($parts,'C')) {
+	                $trklist .= '<span id="'.$cleanalias.'-c" class="xbml20"> </span>';
+	            }
+	            if (strpos($parts,'M')) {
+	                $trklist .= '<span id="'.$cleanalias.'-m" class="xbml20"> </span>';
+	            }
+	            if (strpos($parts,'T')) {
+	                $trklist .= '<span id="'.$cleanalias.'-t" class="xbml20"> </span>';
+	            }
+	        }
+	        $trklist .=	 '</li>';
+	    } // endforeach;
+	    $trklist .=	 '</ul>';
+	    return $trklist;
+	}
+ */	
+	public static function buildTrackList($tracks, $infopos, $infodisp) {
+	    $trklist = '';
+	    foreach ($tracks as $trk) {
+	        $trklist .=	'<div>';
+	        $trksum = $trk->summary;
+	        if ($trksum!=''){
+	            $trklist .= '<div class="pull-left hasTooltip" title="" data-original-title="'.$trksum.'">';
+	        } else {
+	            $trklist .= '<div class="pull-left">';
+	        }
+	        $trklist .=	'<i class="fas fa-project-diagram" style="color:'.$trk->track_colour.'"></i>&nbsp; &nbsp;';
+	        $trklist .=	'<b>'.$trk->linkedtitle.'</b> </div> ';
+	        
+	        if (is_array($infodisp)) {
+	            $cleanalias = str_replace('-','_',$trk->alias);
+	            $parts = 'x'.implode(',', $infodisp);
+	            $trklist .= '<div>';
+	            if (strpos($parts,'A') && ($trk->activity!='')) {
+	                $trklist .= '<span class="xbilb20">';
+	                $trklist .= '<span class="xbnit">Activity: </span>'.$trk->activity;
+	                $trklist .= '</span>';
+	            }
+	            if (strpos($parts,'V') && ($trk->rec_device!='')) {
+	                $trklist .= '<span class="xbilb20">';
+	                $trklist .= '<span class="xbnit">Device: </span>' ;
+	                $trklist .= $trk->rec_device;
+	                $trklist .= '</span>';
+	            }
+	            if (strpos($parts,'S')) {
+	                $trklist .= '<span class="xbilb20">';
+	                $trklist .= '<span class="xbnit">Start: </span>' ;
+	                $trklist .= $trk->rec_date;
+	                $trklist .= '</span>';
+	            }
+	            if (strpos($parts,'D')) {
+	                $trklist .= '<span id="'.$cleanalias.'-d" class="xbilb20"> </span>';
+	            }
+	            if (strpos($parts,'C')) {
+	                $trklist .= '<span id="'.$cleanalias.'-c" class="xbilb20"> </span>';
+	            }
+	            if (strpos($parts,'M')) {
+	                $trklist .= '<span id="'.$cleanalias.'-m" class="xbilb20"> </span>';
+	            }
+	            if (strpos($parts,'T')) {
+	                $trklist .= '<span id="'.$cleanalias.'-t" class="xbilb20"> </span>';
+	            }
+	            $trklist .= '</div>';
+	        }
+	        $trklist .=	 '</div><div class="clearfix"></div>';
+	    } // endforeach;
+	    $trklist .=	 '';
+	    return $trklist;
 	}
 	
 	public static function buildMarkerList($markers, $infopos, $marker_image_path, $locdisp = 2) {
@@ -489,4 +532,8 @@ class XbmapsGeneral extends ContentHelper {
 		return $res;
 	}
 	
+	public static function getInfoFromTrkfile($fname) {
+	    $gpx = simplexml_load_file($fname);
+	    
+	}
 }

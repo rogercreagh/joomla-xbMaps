@@ -286,16 +286,14 @@
 				class="" 
 				showon="show_map_info!:0[AND]show_map_key:1"
 				default="" 
-			>
-				<option value="">Nothing</option>
+			>				
 				<option value="A">Activity</option>
 				<option value="V">Device</option>
 				<option value="S">Start Time</option>
 				<option value="D">Distance</option>
 				<option value="C">Total Ascent</option>
 				<option value="M">Average Speed</option>
-				<option value="T">Duration</option>
-				
+				<option value="T">Duration</option>				
 			</field>			
 			
 			<field name="show_track_popover" type="list"  

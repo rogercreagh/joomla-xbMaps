@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.2.0.1 2nd February 2023
+ * @version 1.2.1.5 21st February 2023
  * @filesource admin/models/track.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -88,6 +88,8 @@ class XbmapsModelTrack extends JModelAdmin {
 	    if (empty($data)) {
 	    	
  	        $data = $this->getItem();
+ 	        
+ 	        //load default activity
  	        if ($data->activity =='') {
  	            $data->activity = $params->get('def_activity','');
  	        }
@@ -96,8 +98,19 @@ class XbmapsModelTrack extends JModelAdmin {
  	        if ($data->id) {
  	        	$data->maplist=$this->getMaplist($data->id, $data->track_colour);
  	        }
+ 	        
+ 	        //if we have a gpx file read rec date and rec_device if empty from file i
+ 	        if ($data->gpx_filename != '') {
+ 	            $gpxinfo = XbMapsHelper::parseGpxHeader($data->gpx_filename);
+ 	            if (($data->rec_date == '0000-00-00 00:00:00') || is_null($data->rec_date)) {
+ 	                $data->rec_date = $gpxinfo['recdate'];
+ 	            }
+ 	            if ($data->rec_device == '') {
+ 	                $data->rec_device = $gpxinfo['creator'];
+ 	            }
+ 	            
+ 	        }
 	    }
-	    
 	    return $data;
 	}
 	

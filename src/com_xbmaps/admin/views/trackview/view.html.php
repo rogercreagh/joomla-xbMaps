@@ -49,11 +49,11 @@ class XbmapsViewTrackview extends JViewLegacy {
 	    $this->track_info_width = $this->params->get('track_info_width');
 	    $this->mainspan = 12 - $this->track_info_width;
 	    $this->show_info_summary = $this->params->get('show_info_summary',1);
+	    $this->show_info_stats = $this->params->get('show_stats','1');
+	    $this->track_stats = $this->params->get('track_stats','');
 	    $this->show_track_desc = $this->params->get('show_track_desc');
 	    $this->track_desc_class = $this->params->get('track_desc_class','');
 	    $this->desc_title = $this->params->get('desc_title','');
-	    $this->show_stats = $this->params->get('show_stats','1');
-	    $this->show_device = $this->params->get('show_device','1');
 	    $this->show_track_popover = $this->params->get('show_track_popover','1');
 	    
 	    $this->centre_latitude = $this->params->get('centre_latitude');
@@ -90,29 +90,36 @@ class XbmapsViewTrackview extends JViewLegacy {
 	    	    
 	    	    $this->infobox .= Xbparsedown::instance()->text($this->item->summary);
 	    	}
-	    	if ($this->infopos == 'topbot') {
-	    		$this->infobox .= '<div class="row-fluid"><div class="span4">';
-	    	}
-	    	$this->infobox .= '<p><b>Track Info.</b></p>';
-	    	$this->infobox .= '<dl class="xbdl">';
-	    	if ( ($this->item->rec_date!='')) {
-	    		$this->infobox .= '<dt>Recording start : </dt><dd>'.$this->item->rec_date.'</dd>';
-	    	}
-	    	if (($this->item->activity!='')) {
-	    		$this->infobox .= '<dt>Activity type: </dt><dd>'.$this->item->activity.'</dd>';
-	    	}
-	    	if (($this->item->rec_device!='')) {
-	    		$this->infobox .= '<dt>Record device: </dt><dd>'.$this->item->rec_device.'</dd>';
-	    	}
-	    	$this->infobox .= '</dl>';
-	    	if ($this->show_stats) {
+	    	$this->infobox .= '<div class="row-fluid">';
+	    	if ($this->show_stats && is_array($this->track_stats)) {
+    	    	if ($this->infopos == 'topbot') {
+    	    		$this->infobox .= '<div class="span4">';
+    	    	}
+	    		$cleanalias = str_replace('-','_',$this->item->alias);
+    	    	$parts = 'x'.implode(',', $this->track_stats);
+    	    	$this->infobox .= '<p><b>'.Text::_('Track Info').'</b></p>';
+    
+    	    	$this->infobox .= '<dl class="xbdl">';
+    	    	if (strpos($parts,'A') && ($trk->activity!='')) {
+    	    	    $this->infobox .= '<dt>Activity: </dt><dd>'.$this->item->activity;
+    	    	    $this->infobox .= '</dd>';
+    	    	}
+    	    	if (strpos($parts,'V') && ($trk->rec_device!='')) {
+    	    	    $this->infobox .= '<dt>Device: </dt><dd>' ;
+    	    	    $this->infobox .= $this->item->rec_device;
+    	    	    $this->infobox .= '</dd>';
+    	    	}
+    	    	if (strpos($parts,'S')) {
+    	    	    $this->infobox .= '<dt>Start: </dt><dd>' ;
+    	    	    $this->infobox .= $this->item->rec_date;
+    	    	    $this->infobox .= '</dd>';
+    	    	}
+    	    	$this->infobox .= '</dl>';
 	    		if ($this->infopos == 'topbot') {
 	    			$this->infobox .= '</div><div class="span4">';
 	    		}
 	    		$this->infobox .= '<p><b>Track Stats.</b></p>';
-	    		$cleanalias = str_replace('-','_',$this->item->alias);
-	    		$parts = 'xDCMT';
-//	    		$this->infobox .= '<div id="'.str_replace('-','_',$this->item->alias).'">';
+	    		
 	    		$this->infobox .= '<ul class="xblist">';
 	    		if (strpos($parts,'D')) {
 	    		    $this->infobox .= '<li><span id="'.$cleanalias.'-d"> </span></li>';
@@ -126,8 +133,8 @@ class XbmapsViewTrackview extends JViewLegacy {
 	    		if (strpos($parts,'T')) {
 	    		    $this->infobox .= '<li><span id="'.$cleanalias.'-t"> </span></li>';
 	    		}	    		
-//	    		$this->infobox .= '</div>';
-	    		$this->infobox .= '</ul>';
+	    		$this->infobox .= '</ul>';	    	
+	    		$this->infobox .= '</div>';
 	    	}
 	    	if ((!empty($this->item->maps))) {
 	    		if ($this->infopos == 'topbot') {
@@ -144,12 +151,10 @@ class XbmapsViewTrackview extends JViewLegacy {
 	    		}
 	    	}
 	    	if ($this->infopos == 'topbot') {
-	    		$this->infobox .= '</div></div>';
+	    		$this->infobox .= '</div>';
 	    	}
 	    	$this->infobox .= '</div>';
 	    }
-	    
-	    
 	    
 	    $this->addToolbar();
 	    

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.2.1.3 21st February 2023
+ * @version 1.2.1.5 22nd February 2023
  * @filesource admin/views/track/tmpl/edit.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -44,6 +44,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 	<div class="row-fluid">
 		<div class="span5">
 			<?php echo $this->form->renderField('summary'); ?>            	    	 					
+        	<?php echo $this->form->renderField('is_loop','params'); ?> 
 		</div>		
 		<div class="span7">
 			<?php echo $this->form->renderField('maplist'); ?>  
@@ -139,11 +140,10 @@ HTMLHelper::_('formbehavior.chosen', 'select');
                    	    	<?php echo $this->form->renderField('show_track_info','params'); ?>
                    	    	<?php echo $this->form->renderField('track_info_width','params'); ?>  					
                    	    	<?php echo $this->form->renderField('show_info_summary','params'); ?>  					
-                   	    	<?php echo $this->form->renderField('show_activity','params'); ?>  					
-                   	    	<?php echo $this->form->renderField('show_stats','params'); ?>  					
+                   	    	<?php echo $this->form->renderField('show_info_stats','params'); ?>  					
+                   	    	<?php echo $this->form->renderField('track_info','params'); ?>  					
         				</div>
         				<div class="span5 form-horizontal-desktop">
-        					<?php echo $this->form->renderField('is_loop','params'); ?> 
         					<h4><?php echo Text::_('XBMAPS_MAP_HEIGHT_BORDER'); ?></h4>
         					<div class="row-fluid">
         						<div class="span6">

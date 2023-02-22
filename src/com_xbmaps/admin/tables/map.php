@@ -53,8 +53,9 @@ class XbmapsTableMap extends Table
 		    $this->summary = XbmapsGeneral::makeSummaryText($this->description,180,true);
 		}
 		if (trim($this->summary) =='') {
-		    $this->setError(Text::_('XBMAPS_SUM_OR_DESC_MISSING'));
-		    return false;
+//		    $this->setError(Text::_('XBMAPS_SUM_OR_DESC_MISSING'));
+//		    return false;
+		    Factory::getApplication()->enqueueMessage(Text::_('XBMAPS_SUM_OR_DESC_MISSING'),'Warning');
 		}
 		
 		//if cat not set then set default category 

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.2.1.5 21st February 2023
+ * @version 1.2.1.6 23rd February 2023
  * @filesource admin/models/track.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -20,7 +20,7 @@ class XbmapsModelTrack extends JModelAdmin {
     public $typeAlias = 'com_xbmaps.track';
     
     public function getItem($pk = null) {
-		
+        
 		$item = parent::getItem($pk);
 
 		if (!empty($item->id)) {		    
@@ -68,12 +68,11 @@ class XbmapsModelTrack extends JModelAdmin {
 	    // set any field attributes according to params if needed
 	    $def_tracks_folder = $params->get('def_tracks_folder','');
 	    $form->setFieldAttribute('gpx_upload_folder','directory',$def_tracks_folder);
+    	$form->setFieldAttribute('gpx_folder','directory',$def_tracks_folder,'params');
+    	
+    	$gpxfolder = Factory::getSession()->get('gpxfolder',''); 
+    	$form->setFieldAttribute('new_gpx_filename','directory', $def_tracks_folder.'/'.$gpxfolder,'params');
 	    
-// 	    if ($def_tracks_folder == 'xbmaps-tracks') {
-// 	    	$form->setFieldAttribute('select_gpxfile','directory','xbmaps-tracks');
-// 	    } else {
-// 	    	$form->setFieldAttribute('select_gpxfile','directory','images/'.$def_tracks_folder);
-// 	    }
     	$def_track_colour = $params->get('def_track_colour','');
     	$form->setFieldAttribute('track_colour','default',$def_track_colour);
     	

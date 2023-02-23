@@ -49,6 +49,8 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 		<div class="span7">
 			<?php echo $this->form->renderField('maplist'); ?>  
 			<div class="form-hortizontal lbl100">
+	    		<?php echo $this->form->renderField('gpx_folder','params'); ?>   
+	    		<?php echo $this->form->renderField('new_gpx_filename','params'); ?>   
 	    		<?php echo $this->form->renderField('gpx_filename'); ?>   
 			</div>          	    	 					
 		</div>
@@ -62,7 +64,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
             				<div class="row-fluid">
             					<div class="span9">
             			        	<?php echo HTMLHelper::_('bootstrap.startAccordion', 'slide-cpanel', array('active' => '')); ?>
-            		        		<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-cpanel', Text::_('XBMAPS_GPX_UPLOAD_CLICK').' <code>'.$this->gpxfolder.'</code>','upload','xbaccordion'); ?>
+            		        		<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-cpanel', Text::_('XBMAPS_GPX_UPLOAD_CLICK'),'upload','xbaccordion'); ?>
             		    				<div class="pull-left">
             		    					<p class="xbnit"><?php echo JText::_('XBMAPS_UPLOAD_SAVE_CHANGES'); ?></p>
             			    				<?php echo $this->form->renderField('upload_gpxfile'); ?>   					

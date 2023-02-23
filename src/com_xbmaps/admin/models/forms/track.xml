@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbMaps admin/models/forms/track.xml v1.2.1.5 22nd February 2023 -->
+<!-- xbMaps admin/models/forms/track.xml v1.2.1.6 23rd February 2023 -->
 <form>
 
 	<fieldset name="trackset" addfieldpath="/administrator/components/com_xbmaps/models/fields">
@@ -31,20 +31,21 @@
 			rows="5"  filter="safehtml"
 		/>
 
-		<field name="gpx_filename" type="text" 
+ 		<field name="gpx_filename" type="text" 
 			label="GPX File" description="To change the GPX file use the Select and Upload controls below" 
 			value="" class="xbfilecontrol xbbold"
 			readonly="true"
 		/>
+
 		<field name="gpx_upload_folder" type="folderlist"
 			label="GPX Upload sub-folder" description="Sub-folder of default to upload gpx files to"
-			hide-none="true"
+			hide_none="true"
 			recursive="true"
 			directory="xbmaps-tracks"
 		>
 			<option value="0">- Select folder -</option>
  		</field>		
-		<field name="select_gpxfile" type="folderfilelist"
+ 		<field name="select_gpxfile" type="folderfilelist"
 			label="XBMAPS_GPXFILE_LABEL" description="XBMAPS_GPXFILE_DESC"
 			directory = ""
 			class="xbfilecontrol"
@@ -54,8 +55,9 @@
 		>
 			<option value="0">- Select file -</option>
  		</field>		
-		<field name="upload_gpxfile"
-			type="file" accept=".gpx"
+
+		<field name="upload_gpxfile" type="file" 
+			accept=".gpx"
 			label="XBMAPS_UPLOAD_GPX_LABEL"
 			description="XBMAPS_UPLOAD_GPX_DESC"
 		/>
@@ -173,6 +175,22 @@
 				name="params"
 				label="JGLOBAL_FIELDSET_DISPLAY_OPTIONS"
 		>
+		<field name="gpx_folder" type="gpxfolderlist"
+			label="GPX Folder" description="Select folder to select gpx file"
+			hide_none="true" hide_default="true" recursive="true"
+			directory="xbmaps-tracks"
+			onchange="document.getElementById('task').value='track.setfolder';this.form.submit();"
+		>
+ 		</field>		
+		
+		<field name="new_gpx_filename" type="filelist"
+			label="XBMAPS_GPXFILE_LABEL" description="XBMAPS_GPXFILE_DESC"
+			directory = "xbmaps-tracks"
+			filter = ".(.gpx)$"
+			hide_none="true" hide_default="true"
+		>
+ 		</field>		
+ 
 		<field name="def_tracks_folder" type="folderlist"
 			label="XBMAPS_TRACKGPX_NOTE_LABEL" description="XBMAPS_DEF_TRACKS_FOLDER_DESC"
   			directory="images"

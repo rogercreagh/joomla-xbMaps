@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.2.1.6 23rd February 2023
+ * @version 1.2.1.6 27th February 2023
  * @filesource admin/models/track.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -39,11 +39,11 @@ class XbmapsModelTrack extends JModelAdmin {
 		}
 		if (!empty($item->gpx_filename)) {
 			//$item->gpx_folder = pathinfo($item->gpx_filename,PATHINFO_DIRNAME);
-			$item->select_gpxfile = pathinfo($item->gpx_filename,PATHINFO_BASENAME);			
+//			$item->select_gpxfile = pathinfo($item->gpx_filename,PATHINFO_BASENAME);			
 			//$item->gpx_folder = '';
 		}
-		$params = ComponentHelper::getParams('com_xbmaps');
-		$item->gpx_folder = $params->get('def_tracks_folder','');
+//		$params = ComponentHelper::getParams('com_xbmaps');
+//		$item->gpx_folder = $params->get('base_gpx_folder','');
 		
 		
 		return $item;
@@ -64,14 +64,14 @@ class XbmapsModelTrack extends JModelAdmin {
 	        return false;
 	    }
 	    
-	    $params = ComponentHelper::getParams('com_xbmaps');
 	    // set any field attributes according to params if needed
-	    $def_tracks_folder = $params->get('def_tracks_folder','');
-	    $form->setFieldAttribute('gpx_upload_folder','directory',$def_tracks_folder);
-    	$form->setFieldAttribute('gpx_folder','directory',$def_tracks_folder,'params');
+	    $params = ComponentHelper::getParams('com_xbmaps');
+	    $base_gpx_folder = $params->get('base_gpx_folder','');
+	    $form->setFieldAttribute('gpx_upload_folder','directory',$base_gpx_folder);
+    	$form->setFieldAttribute('gpx_folder','directory',$base_gpx_folder,'params');
     	
     	$gpxfolder = Factory::getSession()->get('gpxfolder',''); 
-    	$form->setFieldAttribute('new_gpx_filename','directory', $def_tracks_folder.'/'.$gpxfolder,'params');
+    	$form->setFieldAttribute('gpx_file','directory', $gpxfolder,'params');
 	    
     	$def_track_colour = $params->get('def_track_colour','');
     	$form->setFieldAttribute('track_colour','default',$def_track_colour);
@@ -99,7 +99,7 @@ class XbmapsModelTrack extends JModelAdmin {
  	        }
  	        
  	        //if we have a gpx file read rec date and rec_device if empty from file i
- 	        if ($data->gpx_filename != '') {
+ 	        if (is_file(JPATH_ROOT.'/'.$data->gpx_filename)) {
  	            $gpxinfo = XbMapsHelper::parseGpxHeader($data->gpx_filename);
  	            if (($data->rec_date == '0000-00-00 00:00:00') || is_null($data->rec_date)) {
  	                $data->rec_date = $gpxinfo['recdate'];
@@ -200,8 +200,9 @@ class XbmapsModelTrack extends JModelAdmin {
     
     public function save($data) {
         $input = Factory::getApplication()->input;
+        $task = $input->get('task');
         
-        if ($input->get('task') == 'save2copy') {
+        if ($task == 'save2copy') {
             $origTable = clone $this->getTable();
             $origTable->load($input->getInt('id'));
             
@@ -217,7 +218,17 @@ class XbmapsModelTrack extends JModelAdmin {
             // standard Joomla practice is to set the new copy record as unpublished
             $data['state'] = 0;
         }
-        
+        if ($task == 'setgpxfile') {
+//            $data['gpx_filename'] = $data['params']['base_gpx_folder'] .'/'.$data['params']['gpx_folder'].'/'.$data['params']['gpx_file'];
+            $gpxfilename = '/'.$data['params']['gpx_folder'].'/'.$data['params']['gpx_file'];
+            if (is_file(JPATH_ROOT.'/'.$gpxfilename)) {
+                $data['gpx_filename'] = $gpxfilename;
+            } else {
+                $data['gpx_file'] = '';
+                $data['gpx_filename'] = '';
+            }
+        }
+            
         if (parent::save($data)) {
             //other stuff if req - eg saving subform data
         	$tid = $this->getState('track.id');

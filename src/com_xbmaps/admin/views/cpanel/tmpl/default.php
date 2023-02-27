@@ -194,7 +194,7 @@ use Joomla\CMS\Plugin\PluginHelper;
 		        			<li>Tags: <b>
 		        				<?php echo Text::_($this->trktags ? 'XBMAPS_ENABLED' : 'XBMAPS_DISABLED'); ?></b>
 		        			</li>
-		        			<li>GPX Folder: <b>/<?php echo $this->params->get('def_tracks_folder')?></b>
+		        			<li>GPX Folder: <b>/<?php echo $this->params->get('base_gpx_folder')?></b>
 		        			</li>
 		        			<li>Single Track View: <b>
 		        				<?php echo Text::_($this->trkview ? 'XBMAPS_ENABLED' : 'XBMAPS_DISABLED');?></b>

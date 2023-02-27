@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.2.1.5 22nd February 2023
+ * @version 1.2.1.6 27th February 2023
  * @filesource admin/views/track/tmpl/edit.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -43,15 +43,26 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 	</div>
 	<div class="row-fluid">
 		<div class="span5">
-			<?php echo $this->form->renderField('summary'); ?>            	    	 					
-        	<?php echo $this->form->renderField('is_loop','params'); ?> 
+			<?php echo $this->form->renderField('summary'); ?>
+			<p><?php echo Text::_('XBMAPS_GPX_PARENT').' <code>'.$this->basegpxfolder.'</code> ';?>
+			<i><?php echo Text::_('XBMAPS_GPX_FOLDER_NOTE1'); ?>  
+				<a href="index.php?option=com_config&view=component&component=com_xbmaps#Tracks">
+					<?php echo Text::_('XBMAPS_GPX_BASE_FOLDER'); ?></a> 
+				<?php echo Text::_('XBMAPS_GPX_FOLDER_NOTE2'); ?>
+			</i></p>
+			<div class="pull-left">
+	    		<?php echo $this->form->renderField('gpx_folder','params'); ?>   
+			</div>
+			<div>
+	    		<?php echo $this->form->renderField('gpx_file','params'); ?>   
+			</div>  
+			<div class="clearfix"></div>        	    	 					
 		</div>		
 		<div class="span7">
 			<?php echo $this->form->renderField('maplist'); ?>  
-			<div class="form-hortizontal lbl100">
-	    		<?php echo $this->form->renderField('gpx_folder','params'); ?>   
-	    		<?php echo $this->form->renderField('new_gpx_filename','params'); ?>   
-	    		<?php echo $this->form->renderField('gpx_filename'); ?>   
+	    	<?php echo $this->form->renderField('gpx_filename'); ?>   
+			<div class="form-hortizontal">
+        		<?php echo $this->form->renderField('is_loop','params'); ?> 
 			</div>          	    	 					
 		</div>
 	</div>
@@ -63,14 +74,16 @@ HTMLHelper::_('formbehavior.chosen', 'select');
             			<div class="span9">  
             				<div class="row-fluid">
             					<div class="span9">
+            					
             			        	<?php echo HTMLHelper::_('bootstrap.startAccordion', 'slide-cpanel', array('active' => '')); ?>
             		        		<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-cpanel', Text::_('XBMAPS_GPX_UPLOAD_CLICK'),'upload','xbaccordion'); ?>
+            		        		
             		    				<div class="pull-left">
             		    					<p class="xbnit"><?php echo JText::_('XBMAPS_UPLOAD_SAVE_CHANGES'); ?></p>
             			    				<?php echo $this->form->renderField('upload_gpxfile'); ?>   					
             		    				</div> 					
                         				<div class="pull-left">
-                        					<p>Select subfolder of default <code><?php echo $this->gpxfolder; ?></code> if required.
+                        					<p>Select subfolder of default <code><?php echo $this->basegpxfolder; ?></code> if required.
                              	    		<?php echo $this->form->renderField('gpx_upload_folder'); ?> 
                         				</div>	
             		    				<div class="pull-right xbmr20">
@@ -84,15 +97,8 @@ HTMLHelper::_('formbehavior.chosen', 'select');
             	        			<?php echo HTMLHelper::_('bootstrap.endAccordion'); ?>
             					</div>
             	        	</div>
-                			<p><?php echo Text::_('XBMAPS_GPX_PARENT').' <code>'.$this->gpxfolder.'</code> ';?>
-                			<i><?php echo Text::_('XBMAPS_GPX_FOLDER_NOTE1'); ?>  
-                				<a href="index.php?option=com_config&view=component&component=com_xbmaps#Tracks">
-                					<?php echo Text::_('XBMAPS_GPX_FOLDER'); ?></a> 
-                				<?php echo Text::_('XBMAPS_GPX_FOLDER_NOTE2'); ?>
-                			</i></p>
                 			 	
             	        	
-                			<p><?php echo $this->form->renderField('select_gpxfile'); ?>
                 			<div class="clearfix"></div> 					
             
             	        	<div class="row-fluid">

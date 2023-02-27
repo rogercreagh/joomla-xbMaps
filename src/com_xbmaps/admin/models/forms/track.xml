@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbMaps admin/models/forms/track.xml v1.2.1.6 23rd February 2023 -->
+<!-- xbMaps admin/models/forms/track.xml v1.2.1.6 27th February 2023 -->
 <form>
 
 	<fieldset name="trackset" addfieldpath="/administrator/components/com_xbmaps/models/fields">
@@ -32,7 +32,7 @@
 		/>
 
  		<field name="gpx_filename" type="text" 
-			label="GPX File" description="To change the GPX file use the Select and Upload controls below" 
+			label="GPX File" description="updates when either folder or file is changed" 
 			value="" class="xbfilecontrol xbbold"
 			readonly="true"
 		/>
@@ -45,6 +45,7 @@
 		>
 			<option value="0">- Select folder -</option>
  		</field>		
+<!-- 
  		<field name="select_gpxfile" type="folderfilelist"
 			label="XBMAPS_GPXFILE_LABEL" description="XBMAPS_GPXFILE_DESC"
 			directory = ""
@@ -55,7 +56,7 @@
 		>
 			<option value="0">- Select file -</option>
  		</field>		
-
+ -->
 		<field name="upload_gpxfile" type="file" 
 			accept=".gpx"
 			label="XBMAPS_UPLOAD_GPX_LABEL"
@@ -179,19 +180,25 @@
 			label="GPX Folder" description="Select folder to select gpx file"
 			hide_none="true" hide_default="true" recursive="true"
 			directory="xbmaps-tracks"
-			onchange="document.getElementById('task').value='track.setfolder';this.form.submit();"
+			onchange="document.getElementById('task').value='track.setgpxfile';this.form.submit();"
 		>
  		</field>		
 		
-		<field name="new_gpx_filename" type="filelist"
+		<field name="gpx_file" type="filelist"
 			label="XBMAPS_GPXFILE_LABEL" description="XBMAPS_GPXFILE_DESC"
 			directory = "xbmaps-tracks"
 			filter = ".(.gpx)$"
 			hide_none="true" hide_default="true"
+			class="xbfilecontrol"
+			onchange="document.getElementById('task').value='track.setgpxfile';this.form.submit();"
 		>
- 		</field>		
- 
-		<field name="def_tracks_folder" type="folderlist"
+			<option value="">Select GPX file</option>
+ 		</field>
+<!-- 
+		<field name="base_gpx_folder" type="hidden"
+ 			useglobal = "true"
+ 		/> 			
+		<field name="base_gpx_folder" type="folderlist"
 			label="XBMAPS_TRACKGPX_NOTE_LABEL" description="XBMAPS_DEF_TRACKS_FOLDER_DESC"
   			directory="images"
   			hide_none="false"
@@ -200,6 +207,7 @@
   		>
   			<option value="xbmaps-tracks">XBMAPS_FOLDER_TRACKS</option>
 		</field>
+ --> 
 		<field name="track_map_type" type="list"
 			label="XBMAPS_TRACKMAP_TYPE_LABEL" description="XBMAPS_TRACKMAP_TYPE_DESC"
 			useglobal="true" 	
@@ -240,6 +248,7 @@
 				description="Select yes if the start and finish are in same position"
 				class="btn-group btn-group-yesno"
 				default="0"
+				showon="gpx_filename!:"
 				>
 				<option value="0" >JNO</option>
 				<option value="1">JYES</option>

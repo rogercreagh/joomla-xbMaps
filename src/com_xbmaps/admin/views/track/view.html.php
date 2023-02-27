@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.2.0.1 2nd February 2023
+ * @version 1.2.1.6 27th February 2023
  * @filesource admin/views/track/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -27,14 +27,14 @@ class XbmapsViewTrack extends JViewLegacy {
         
         $this->params = ComponentHelper::getParams('com_xbmaps');
         $this->track_map_type = $this->params->get('track_map_type','');
-        $this->gpxfolder = $this->params->get('def_tracks_folder');
+        $this->basegpxfolder = $this->params->get('base_gpx_folder');
         
         // Check for errors.
 		if (count($errors = $this->get('Errors'))) {
 			throw new Exception(implode("\n", $errors), 500);
 		}
 		$this->gpxinfo= '';
-		if ($this->item->gpx_filename!='') {
+		if (is_file(JPATH_ROOT.'/'.$this->item->gpx_filename)) {
 			$this->gpxinfo = XbmapsHelper::parseGpxHeader($this->item->gpx_filename);
 		}
 		

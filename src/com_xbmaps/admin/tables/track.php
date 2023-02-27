@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.1.0 21st December 2021
+ * @version 1.2.1.6 27th February 2023
  * @filesource admin/tables/track.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -47,7 +47,7 @@ class XbmapsTableTrack extends Table
 	    } 
 	    $this->alias = OutputFilter::stringURLSafe(strtolower($this->alias));
 	    
-	    //require either summary or make summary from description 
+	    //warn if no summary or description 
 	    if (trim($this->summary) =='') {
 	        $this->summary = XbmapsGeneral::makeSummaryText($this->description,180,true);
 	    }
@@ -56,6 +56,11 @@ class XbmapsTableTrack extends Table
 //	        return false;
 	        Factory::getApplication()->enqueueMessage(Text::_('XBMAPS_SUM_OR_DESC_MISSING'),'Warning');
 	    }
+	    
+	    //warn if gpx filename not valid
+	    if (!file_exists(JPATH_ROOT.'/'.$this->gpx_filename)) {
+	        Factory::getApplication()->enqueueMessage(Text::_('XBMAPS_GPXFILENAME_MISSING'),'Warning');
+	    }    
 	    
 	    //if cat not set then set default category
 	    if (!$this->catid>0) {

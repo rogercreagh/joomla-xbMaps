@@ -21,19 +21,17 @@ class JFormFieldGpxFolderList extends JFormFieldFolderList {
     
     public function getOptions() {
  
+        $params = ComponentHelper::getParams('com_xbmaps');
+        $def_folder = trim($params->get('base_gpx_folder','xbmaps-tracks'),'/');
+        $def = new stdClass;
+        $def->text = $def_folder;
+        $def->value = $def_folder;
+        $default = array($def);
         $options = parent::getOptions();
         foreach ($options as $opt) {
             $opt->text = ' -- '.$opt->text;
+            $opt->value = $def_folder.'/'.$opt->value;
         }
-        $params = ComponentHelper::getParams('com_xbmaps');
-        $def_folder = trim($params->get('def_tracks_folder','xbmaps-tracks'),'/');
-        $def = new stdClass;
-        $def->text = '..';
-        $def->value = '..';
-        $default = array($def);
-        $def->text = $def_folder;
-        $def->value = $def_folder;
-        $default[] = $def;
         
         $options = array_merge($default, $options );
         return $options;

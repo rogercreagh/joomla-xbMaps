@@ -443,7 +443,7 @@
  		<field name="gpx_note" type="note"
 			label="XBMAPS_TRACKGPX_NOTE_LABEL" description="XBMAPS_TRACKGPX_NOTE_DESC"
 		/>	
-		<field name="def_tracks_folder" type="list"
+		<field name="base_gpx_folder" type="list"
 			label="XBMAPS_TRACKS_DEFFOLDER_LABEL" description="XBMAPS_TRACKS_DEFFOLDER_DESC"
   			default="/xbmaps-tracks"
   		>

@@ -27,7 +27,7 @@ class JFormFieldFolderFileList extends JFormFieldList {
         
         $options = array();
         $params = ComponentHelper::getParams('com_xbpeople');
-        $def_folder = $params->get('def_tracks_folder','xbmaps-tracks');
+        $def_folder = $params->get('base_gpx_folder','xbmaps-tracks');
         
         $path = $def_folder; //$this->element['directory'];
         //set path from component options

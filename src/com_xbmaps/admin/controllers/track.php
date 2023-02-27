@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.2.5.6 23rd February 2023
+ * @version 1.2.1.6 27th February 2023
  * @filesource admin/controllers/track.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -22,7 +22,7 @@ class XbmapsControllerTrack extends FormController {
     {
         parent::__construct($config, $factory);
         $this->registerTask('savepreview', 'save');
-        $this->registerTask('setfolder', 'save');
+        $this->registerTask('setgpxfile', 'save');
     }
     
     protected function postSaveHook(JModelLegacy $model, $validData = array()) {
@@ -44,7 +44,7 @@ class XbmapsControllerTrack extends FormController {
 	            $this->setRedirect('index.php?option=com_xbmaps&view=trackview&id='.$tid);
 	        }
 	    }
-	    if (($task=='import') || ($task=='setfolder')) {
+	    if (($task=='import') || ($task=='setgpxfile')) {
 	        $tid = $validData['id'];
 	        if ($tid>0) {
 	            $this->setRedirect('index.php?option=com_xbmaps&view=track&layout=edit&id='.$tid);
@@ -61,7 +61,7 @@ class XbmapsControllerTrack extends FormController {
 		$link = 'index.php?option=com_xbmaps&view=track&layout=edit&id='.$id;
 		//get the destination folder
 		$params = ComponentHelper::getParams('com_xbmaps');
-		$folder = $params->get('def_tracks_folder','xbmaps-tracks');
+		$folder = $params->get('base_gpx_folder','xbmaps-tracks');
 		//if ($folder != 'xbmaps-tracks') { $folder = 'images/'.$folder; }
 		//get the filename and copy it in to tmp folder
 		$folder .= '/'.$post['gpx_upload_folder'];

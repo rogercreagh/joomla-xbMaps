@@ -318,7 +318,7 @@
 			<field name="track_stats" type="checkboxes"  
 				label="XBMAPS_MAP_TRACK_INFO_LABEL" description="XBMAPS_MAP_TRACK_INFO_DESC"
 				class="" 
-				showon="show_track_info!:0[AND]show_stats:1"
+				showon="show_track_info!:0[AND]show_info_stats:1"
 				default="" 
 			>				
 				<option value="A">Activity</option>

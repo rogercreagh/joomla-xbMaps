@@ -20,7 +20,7 @@ $map->loadXbmapsJS();
 $map->createMap($this->centre_latitude, $this->centre_longitude, $this->default_zoom);
 $map->setMapType($this->track_map_type);
 $map->renderFullScreenControl();
-$map->renderTracks(array($this->item),true,$this->show_stats,$this->show_track_popover);
+$map->renderTracks(array($this->item),true,$this->show_info_stats,$this->show_track_popover);
 
 $map->renderMap();
 

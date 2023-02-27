@@ -86,12 +86,11 @@ class XbmapsViewTrackview extends JViewLegacy {
 	    if ($this->show_track_info) {
 	    	$this->infobox .= '<div class="xbbox xbboxmag">';
 	    	$this->infobox .= '<h4>'.$this->item->title.'</h4>';
-	    	if ($this->show_info_summary) {
-	    	    
+	    	if ($this->show_info_summary) {	    	    
 	    	    $this->infobox .= Xbparsedown::instance()->text($this->item->summary);
 	    	}
 	    	$this->infobox .= '<div class="row-fluid">';
-	    	if ($this->show_stats && is_array($this->track_stats)) {
+	    	if ($this->show_info_stats && is_array($this->track_stats)) {
     	    	if ($this->infopos == 'topbot') {
     	    		$this->infobox .= '<div class="span4">';
     	    	}
@@ -100,11 +99,11 @@ class XbmapsViewTrackview extends JViewLegacy {
     	    	$this->infobox .= '<p><b>'.Text::_('Track Info').'</b></p>';
     
     	    	$this->infobox .= '<dl class="xbdl">';
-    	    	if (strpos($parts,'A') && ($trk->activity!='')) {
+    	    	if (strpos($parts,'A') && ($this->item->activity!='')) {
     	    	    $this->infobox .= '<dt>Activity: </dt><dd>'.$this->item->activity;
     	    	    $this->infobox .= '</dd>';
     	    	}
-    	    	if (strpos($parts,'V') && ($trk->rec_device!='')) {
+    	    	if (strpos($parts,'V') && ($this->item->rec_device!='')) {
     	    	    $this->infobox .= '<dt>Device: </dt><dd>' ;
     	    	    $this->infobox .= $this->item->rec_device;
     	    	    $this->infobox .= '</dd>';

@@ -149,7 +149,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
                    	    	<?php echo $this->form->renderField('track_info_width','params'); ?>  					
                    	    	<?php echo $this->form->renderField('show_info_summary','params'); ?>  					
                    	    	<?php echo $this->form->renderField('show_info_stats','params'); ?>  					
-                   	    	<?php echo $this->form->renderField('track_info','params'); ?>  					
+                   	    	<?php echo $this->form->renderField('track_stats','params'); ?>  					
         				</div>
         				<div class="span5 form-horizontal-desktop">
         					<h4><?php echo Text::_('XBMAPS_MAP_HEIGHT_BORDER'); ?></h4>

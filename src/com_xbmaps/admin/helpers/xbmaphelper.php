@@ -9,6 +9,10 @@
  ******/
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
+require_once(JPATH_COMPONENT_ADMINISTRATOR.'/helpers/xbparsedown.php');
+
+use Xbmaps\Xbparsedown\Xbparsedown;
+
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Component\ComponentHelper;
@@ -587,10 +591,10 @@ L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
 		            $o[] = 'e.target.bindPopup(\'<b>'.addslashes($trk->title).'</b><br />\'+dist+\'<br />\'+speed+\'<br />Time: \'+time+\'<br />\'+climb)';
 		            break;
 		        case 3:
-		            $o[] = 'e.target.bindPopup(\'<b>'.addslashes($trk->title).'</b><br />'.$trk->summary.'\')';
+		            $o[] = 'e.target.bindPopup(\'<b>'.addslashes($trk->title).'</b><br />'.strip_tags(Xbparsedown::instance()->text($trk->summary)).'\')';
 		            break;
 		        case 4:
-		            $o[] = 'e.target.bindPopup(\'<b>'.addslashes($trk->title).'</b><br />'.$trk->summary.'<hr />\'+dist+\'<br />\'+speed+\'<br />Time: \'+time+\'<br />\'+climb)';
+		            $o[] = 'e.target.bindPopup(\'<b>'.addslashes($trk->title).'</b><br />'.strip_tags(Xbparsedown::instance()->text($trk->summary)).'<hr />\'+dist+\'<br />\'+speed+\'<br />Time: \'+time+\'<br />\'+climb)';
 		            break;
 		            
 		        default:

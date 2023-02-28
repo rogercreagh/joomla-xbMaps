@@ -30,7 +30,7 @@ class XbmapsViewTrack extends JViewLegacy {
         $this->basegpxfolder = $this->params->get('base_gpx_folder');
         $this->gpxfolder = '';
         if ($this->item->id > 0) {
-           $this->gpxfolder = $this->item->params['gpx_folder'];
+            $this->gpxfolder = array_key_exists('gpx_folder', $this->item->params) ? $this->item->params['gpx_folder'] : '';
         }
         // Check for errors.
 		if (count($errors = $this->get('Errors'))) {

@@ -48,7 +48,8 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 	<div class="row-fluid">
 		<div class="span5">
 			<?php echo $this->form->renderField('summary'); ?>
-			<p><?php echo Text::_('XBMAPS_GPX_PARENT').' <code>'.$this->basegpxfolder.'</code> ';?>
+			<?php if($this->item->id >0) : ?>
+			<p><?php echo Text::_('XBMAPS_GPX_PARENT').' <code>'.$this->basegpxfolder.'</code> ';?>&nbsp;
 			<i><?php echo Text::_('XBMAPS_GPX_FOLDER_NOTE1'); ?>  
 				<a href="index.php?option=com_config&view=component&component=com_xbmaps#Tracks">
 					<?php echo Text::_('XBMAPS_GPX_BASE_FOLDER'); ?></a> 
@@ -61,6 +62,11 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 	    		<?php echo $this->form->renderField('gpx_file','params'); ?>   
 			</div>  
 			<div class="clearfix"></div>        	    	 					
+			<?php else : ?>
+				<p class="xbnit">
+					<?php echo Text::_('XBMAPS_SAVE_BEFORE_SELECT'); ?>
+				</p>
+			<?php endif; ?>
 		</div>		
 		<div class="span7">
 			<?php echo $this->form->renderField('maplist'); ?>  
@@ -101,11 +107,12 @@ HTMLHelper::_('formbehavior.chosen', 'select');
                 	        			<?php echo HTMLHelper::_('bootstrap.endSlide'); ?>
                 	        			<?php echo HTMLHelper::_('bootstrap.endAccordion'); ?>
             	        			<?php else : ?>
-            	        				<p class="xbnit">Please save first if you wish to upload a new gpx file</p>
+            	        				<p class="xbnit">
+            	        					<?php echo Text::_('XBMAPS_SAVE_BEFORE_UPLOAD'); ?>
+            	        				</p>
             	        			<?php endif; ?>
             					</div>
-            	        	</div>
-                			 	
+            	        	</div>              			 	
             	        	
                 			<div class="clearfix"></div> 					
             

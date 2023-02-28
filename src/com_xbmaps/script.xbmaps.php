@@ -2,7 +2,7 @@
 /*******
  * @package xbMaps Component
  * @filesource script.xbmaps.php
- * @version 1.2.1.7 28th February 2023
+ * @version 1.3.0.0 28th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html 
@@ -56,7 +56,8 @@ class com_xbmapsInstallerScript
     	
         if (!file_exists(JPATH_ROOT.'/images/xbmaps/gpx')) {
             $res = mkdir(JPATH_ROOT.'/images/xbmaps/gpx', 0775, true);
-            $message .= ($res) ? 'New alternate GPX tracks folder <code>/images/xbmaps/gpx</code> created.<br />' : 'error creating new alternate track upload folder';
+            $message = ($res) ? 'New alternate GPX tracks folder <code>/images/xbmaps/gpx</code> created.<br />' : 'error creating new alternate track upload folder';
+            Factory::getApplication()->enqueueMessage($message,'Info');
         } 
         $message = '<br />Visit the <a href="index.php?option=com_xbmaps&view=cpanel" class="btn btn-small btn-info">';
     	$message .= 'xbMaps Control Panel</a> page for overview of status.</p>';

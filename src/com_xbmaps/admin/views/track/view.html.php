@@ -28,7 +28,10 @@ class XbmapsViewTrack extends JViewLegacy {
         $this->params = ComponentHelper::getParams('com_xbmaps');
         $this->track_map_type = $this->params->get('track_map_type','');
         $this->basegpxfolder = $this->params->get('base_gpx_folder');
-        
+        $this->gpxfolder = '';
+        if ($this->item->id > 0) {
+           $this->gpxfolder = $this->item->params['gpx_folder'];
+        }
         // Check for errors.
 		if (count($errors = $this->get('Errors'))) {
 			throw new Exception(implode("\n", $errors), 500);

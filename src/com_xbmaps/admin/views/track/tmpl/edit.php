@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.2.1.6 27th February 2023
+ * @version 1.2.1.7 28th February 2023
  * @filesource admin/views/track/tmpl/edit.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -22,6 +22,10 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 ?>
 <script language="JavaScript" type="text/javascript">
 	function confirmImport(){
+		if (document.getElementById('jform_id').value == 0) {
+			alert('Please save before uploading file');
+			return false;
+		}
 		document.getElementById('task').value='track.import';
 		return true;
 	}
@@ -73,28 +77,32 @@ HTMLHelper::_('formbehavior.chosen', 'select');
             		<div class="row-fluid">
             			<div class="span9">  
             				<div class="row-fluid">
-            					<div class="span9">
-            					
-            			        	<?php echo HTMLHelper::_('bootstrap.startAccordion', 'slide-cpanel', array('active' => '')); ?>
-            		        		<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-cpanel', Text::_('XBMAPS_GPX_UPLOAD_CLICK'),'upload','xbaccordion'); ?>
-            		        		
-            		    				<div class="pull-left">
-            		    					<p class="xbnit"><?php echo JText::_('XBMAPS_UPLOAD_SAVE_CHANGES'); ?></p>
-            			    				<?php echo $this->form->renderField('upload_gpxfile'); ?>   					
-            		    				</div> 					
-                        				<div class="pull-left">
-                        					<p>Select subfolder of default <code><?php echo $this->basegpxfolder; ?></code> if required.
-                             	    		<?php echo $this->form->renderField('gpx_upload_folder'); ?> 
-                        				</div>	
-            		    				<div class="pull-right xbmr20">
-            	    						<button class="btn btn-warning" type="submit" 
-            									onclick="if(confirmImport()) {this.form.submit();}" >
-            									<i class="icon-upload icon-white"></i><?php echo JText::_('XBMAPS_UPLOAD_GPX'); ?>
-            								</button>
-            		    				</div> 					
-            		    				<div class="clearfix"></div> 	
-            	        			<?php echo HTMLHelper::_('bootstrap.endSlide'); ?>
-            	        			<?php echo HTMLHelper::_('bootstrap.endAccordion'); ?>
+            					<div class="span12">
+            						<?php if($this->gpxfolder != '') : ?>
+                			        	<?php echo HTMLHelper::_('bootstrap.startAccordion', 'slide-cpanel', array('active' => '')); ?>
+                		        		<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-cpanel', Text::_('XBMAPS_GPX_UPLOAD_CLICK'),'upload','xbaccordion'); ?>
+                		        		
+                		    				<div class="pull-left">
+                		    					<p class="xbnit"><?php echo JText::_('XBMAPS_UPLOAD_SAVE_CHANGES'); ?></p>
+                			    				<?php echo $this->form->renderField('upload_gpxfile'); ?>   					
+                		    				</div> 					
+                            				<div class="pull-left">
+                            					<p>File will upload to <code><?php echo $this->gpxfolder; ?></code>.
+                                 	    		<?php echo $this->form->renderField('upload_newname'); ?> 
+                            				</div>	
+                		    				<div class="pull-right xbmr20">
+                		    					<p> </p>
+                	    						<button class="btn btn-warning" type="submit" 
+                									onclick="if(confirmImport()) {this.form.submit();}" >
+                									<i class="icon-upload icon-white"></i><?php echo JText::_('XBMAPS_UPLOAD_GPX'); ?>
+                								</button>
+                		    				</div> 					
+                		    				<div class="clearfix"></div> 	
+                	        			<?php echo HTMLHelper::_('bootstrap.endSlide'); ?>
+                	        			<?php echo HTMLHelper::_('bootstrap.endAccordion'); ?>
+            	        			<?php else : ?>
+            	        				<p class="xbnit">Please save first if you wish to upload a new gpx file</p>
+            	        			<?php endif; ?>
             					</div>
             	        	</div>
                 			 	

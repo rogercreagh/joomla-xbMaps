@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbMaps admin/models/forms/track.xml v1.2.1.6 27th February 2023 -->
+<!-- xbMaps admin/models/forms/track.xml v1.2.1.7 28th February 2023 -->
 <form>
 
 	<fieldset name="trackset" addfieldpath="/administrator/components/com_xbmaps/models/fields">
@@ -37,6 +37,7 @@
 			readonly="true"
 		/>
 
+<!-- 
 		<field name="gpx_upload_folder" type="folderlist"
 			label="GPX Upload sub-folder" description="Sub-folder of default to upload gpx files to"
 			hide_none="true"
@@ -45,7 +46,6 @@
 		>
 			<option value="0">- Select folder -</option>
  		</field>		
-<!-- 
  		<field name="select_gpxfile" type="folderfilelist"
 			label="XBMAPS_GPXFILE_LABEL" description="XBMAPS_GPXFILE_DESC"
 			directory = ""
@@ -62,7 +62,10 @@
 			label="XBMAPS_UPLOAD_GPX_LABEL"
 			description="XBMAPS_UPLOAD_GPX_DESC"
 		/>
-					
+		<field name="upload_newname" type="text"
+			label="New name (optional)" description="Set a new name for the uploaded file"
+			default="" hint="include extension (eg .gpx)"
+		/>			
 		<field name="rec_date" type="calendar"
 			label="XBMAPS_RECORDED_DATE_LABEL" description="XBMAPS_RECORDED_DATE_DESC"
 			class="inputbox" size="20" format="%Y-%m-%d %H:%M:%S" filter="user_utc" 
@@ -248,7 +251,7 @@
 				description="Select yes if the start and finish are in same position"
 				class="btn-group btn-group-yesno"
 				default="0"
-				showon="gpx_filename!:"
+				showon="gpx_file!:"
 				>
 				<option value="0" >JNO</option>
 				<option value="1">JYES</option>

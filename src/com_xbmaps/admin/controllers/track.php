@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.2.1.6 27th February 2023
+ * @version 1.2.1.7 28th February 2023
  * @filesource admin/controllers/track.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -56,53 +56,48 @@ class XbmapsControllerTrack extends FormController {
 		$msg = '';
 		$msgtype = 'Success';
 		$jinput = Factory::getApplication()->input;
-		$post   = $jinput->get('jform', 'array()', 'ARRAY');
+		$post   = $jinput->get('jform', '', 'RAW');
 		$id = $post['id'];
 		$link = 'index.php?option=com_xbmaps&view=track&layout=edit&id='.$id;
-		//get the destination folder
-		$params = ComponentHelper::getParams('com_xbmaps');
-		$folder = $params->get('base_gpx_folder','xbmaps-tracks');
-		//if ($folder != 'xbmaps-tracks') { $folder = 'images/'.$folder; }
-		//get the filename and copy it in to tmp folder
-		$folder .= '/'.$post['gpx_upload_folder'];
-		$importfile = $jinput->files->get('jform', null, 'files', 'array' );
-		$filename = File::makeSafe($importfile['upload_gpxfile']['name']);
-		$name = pathinfo($filename, PATHINFO_FILENAME);
-		$n = 0;
-		$suffix='';
-		while (file_exists(JPATH_ROOT .'/'.$folder.'/'. $name.$suffix.'.gpx')) {
-			$n ++;
-			$suffix = '-'.$n;
+		if ($id != 0)  {
+    		//get the destination folder
+    		$folder = $post['params']['gpx_folder'];
+    //		$folder .= '/'.$post['gpx_upload_folder'];
+    		$importfile = $jinput->files->get('jform', null, 'files', 'array' );
+    		if ($post['upload_newname'] != '') {
+    		    $filename = File::makeSafe($post['upload_newname']);
+    		    if (pathinfo($filename, PATHINFO_EXTENSION)=='') {
+    		        $filename .= '.gpx';
+    		    }
+    		} else {
+                $filename = File::makeSafe($importfile['upload_gpxfile']['name']);
+    		}
+    		$name = pathinfo($filename, PATHINFO_FILENAME);
+    		$n = 0;
+    		$suffix='';
+    		while (file_exists(JPATH_ROOT .'/'.$folder.'/'. $name.$suffix.'.gpx')) {
+    			$n ++;
+    			$suffix = '-'.$n;
+    		}
+    		if ($suffix) {
+    			$msg = 'File '.$filename.' already exists in '.$folder.'.<br />Saving as '.$name.$suffix.'.gpx<br />';
+    			$msgtype = 'Warning';
+    			$filename = $name.$suffix.'.gpx';
+    		}
+    		$src = $importfile['upload_gpxfile']['tmp_name'];
+    		$dest = JPATH_ROOT .'/'.$folder.'/'. $filename;
+    		if (File::upload($src, $dest)) {
+    			$msg .= 'gpx file '.$filename.' uploaded ok to '.$folder;
+        		//TODO check file for valid track data			
+    		} else {
+    			$msg = 'Problem uploading file';
+    			$msgtype = 'error';
+    		}
+    		Factory::getApplication()->enqueueMessage($msg,$msgtype);
+    		$this->save();
+    		$this->setRedirect($link, $msg, $msgtype);
 		}
-		if ($suffix) {
-			$msg = 'File '.$filename.' already exists in '.$folder.'.<br />Saving as '.$name.$suffix.'.gpx<br />';
-			$msgtype = 'Warning';
-			$filename = $name.$suffix.'.gpx';
-		}
-		$src = $importfile['upload_gpxfile']['tmp_name'];
-		$dest = JPATH_ROOT .'/'.$folder.'/'. $filename;
-		if (File::upload($src, $dest)) {
-			$msg .= 'gpx file '.$filename.' uploaded ok to '.$folder;
-		//TODO check file for valid track data			
-		} else {
-			$msg = 'Problem uploading file';
-			$msgtype = 'error';
-		}
-		Factory::getApplication()->enqueueMessage($msg,$msgtype);
-		$this->save();
-		$this->setRedirect($link, $msg, $msgtype);
 	}
-	
-//	function setfolder() {
-// 	    $jinput = Factory::getApplication()->input;
-// 	    $post   = $jinput->get('jform', 'array()', 'ARRAY');
-// 	    $gpxfolder = $post['gpx_folder'];
-// 	    $sess= Factory::getSession()->set('gpxfolder',$gpxfolder);
-// 	    $id = $post['id'];
-// 	    $link = 'index.php?option=com_xbmaps&view=track&layout=edit&id='.$id;
-// 	    $this->setRedirect($link);
-	    
-//	}
 	
 	public function publish() {
 	    $jip =  Factory::getApplication()->input;

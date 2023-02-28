@@ -448,7 +448,7 @@
   			default="/xbmaps-tracks"
   		>
   			<option value="/xbmaps-tracks">/xbmaps-tracks</option>
-  			<option value="/images/xbmaps">/images/xbmaps</option>
+  			<option value="/images/xbmaps/gpx">/images/xbmaps/gpx</option>
 		</field>
 		<field name="def_track_colour" type="color" 
 			label="XBMAPS_TRACK_DEFCOL_LABEL"

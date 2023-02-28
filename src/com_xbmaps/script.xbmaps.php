@@ -2,7 +2,7 @@
 /*******
  * @package xbMaps Component
  * @filesource script.xbmaps.php
- * @version 0.1.2.b 4th September 2021
+ * @version 1.2.1.7 28th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html 
@@ -54,7 +54,11 @@ class com_xbmapsInstallerScript
     
     function update($parent) {
     	
-    	$message = '<br />Visit the <a href="index.php?option=com_xbmaps&view=cpanel" class="btn btn-small btn-info">';
+        if (!file_exists(JPATH_ROOT.'/images/xbmaps/gpx')) {
+            $res = mkdir(JPATH_ROOT.'/images/xbmaps/gpx', 0775, true);
+            $message .= ($res) ? 'New alternate GPX tracks folder <code>/images/xbmaps/gpx</code> created.<br />' : 'error creating new alternate track upload folder';
+        } 
+        $message = '<br />Visit the <a href="index.php?option=com_xbmaps&view=cpanel" class="btn btn-small btn-info">';
     	$message .= 'xbMaps Control Panel</a> page for overview of status.</p>';
     	$message .= '<br />For ChangeLog see <a href="http://crosborne.co.uk/xbmaps/changelog" target="_blank">
             www.crosborne.co.uk/xbmaps/changelog</a></p>';
@@ -67,28 +71,36 @@ class com_xbmapsInstallerScript
     	if ($type=='install') {
     		$message = 'xbMaps '.$componentXML['version'].' '.$componentXML['creationDate'].'<br />';
          	//create xbmaps tracks folder
-         	$folder = 'xbmaps-tracks';
-        	if (!file_exists(JPATH_ROOT.'/'. $folder)) {
-        		$res = mkdir(JPATH_ROOT.'/'.$folder,0775);
-         		$message .= ($res) ? 'Default GPX tracks folder "'.$folder.'"created.<br />' : 'error creating default track upload folder';
-        	} else{
-         		$message .= $folder.' already exists. Existing tracks preserved.<br />';
+         	$folder = '/xbmaps-tracks';
+        	if (!file_exists(JPATH_ROOT . $folder)) {
+        	    if (mkdir(JPATH_ROOT . $folder, 0775)) {
+                    $message .= 'Default GPX tracks folder <code>'.$folder.'</code> created.';
+        	    } else {
+                    '<b>Problem</b> creating default track upload folder <code>'.$folder.'</code>';
+        	    }
          	}
+         	$folder = JPATH_ROOT.'/images/xbmaps/gpx';
+         	if (!file_exists($folder)) {
+         	    if (mkdir($folder,0775,true)) {
+         	        $message .= 'Alternate track folder <code>'.$folder.'<code> created.<br />';
+             	} else {
+             	    $message .= '<b>Problem</b> creating alternate track folder <code>'.$folder.'</code>.<br />';
+         	    }
+         	}         	    
          	$folder = JPATH_ROOT.'/images/xbmaps/markers';
          	if (!file_exists($folder)) {
          		$res = mkdir($folder,0775,true);
          		if ($res) {
-             		$message .= 'Folder "'.$folder.'" created.';
-                 	$res = copy(JPATH_ROOT.'/media/com_xbmaps/images/marker-red.png',$folder.'/marker-red.png');
-                 	$message .= ($res) ? ' sample marker-red image copied.' : ' error copying file.';
-                 	$res = copy(JPATH_ROOT.'/media/com_xbmaps/images/marker-green.png',$folder.'/marker-green.png');
-                 	$message .= ($res) ? ' sample marker-green image copied.' : ' error copying file.';
+             		$message .= 'Markers folder <code>'.$folder.'</code> created.';
+             		$source = JPATH_ROOT.'/media/com_xbmaps/images/';
+                 	$res = copy($source . 'marker-red.png', $folder.'/marker-red.png');
+                 	$message .= ($res) ? ' <code>sample marker-red</code> copied.' : ' error copying samle marker file.';
+                 	$res = copy($source . 'marker-green.png', $folder.'/marker-green.png');
+                 	$message .= ($res) ? ' <code>sample marker-green image</code> copied.' : ' error copying sample marker file.';
                  	$message .= '<br />';
-    	       } else {
-                    $message .= 'error creating image folder '.$folder.'.<br />';
-    	       }
-         	} else {
-         	    $message .= 'Folder images/xbmaps/markers already exists. Sample markers not copied.<br />';
+         		} else {
+         		    $message .= 'error creating markers folder '.$folder.'.<br />';
+         		}
          	}
          	// create default categories using category table
          	$cats = array(

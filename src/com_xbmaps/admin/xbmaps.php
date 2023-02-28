@@ -2,6 +2,7 @@
 /*******
  * @package xbMaps Component
  * @version 0.8.0.g 20th October 2021
+ * @since 0.1.0 2nd July 2021
  * @filesource admin/xbmaps.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021

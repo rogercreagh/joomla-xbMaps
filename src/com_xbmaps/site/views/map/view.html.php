@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.2.1.5 22nd February 2023
+ * @version 1.3.1.0 17th May 2023
  * @filesource site/views/map/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
 require_once(JPATH_COMPONENT_ADMINISTRATOR.'/helpers/xbparsedown.php');
 
 use Xbmaps\Xbparsedown\Xbparsedown;
-
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 
@@ -178,7 +178,7 @@ class XbmapsViewMap extends JViewLegacy {
 		    if ($this->desc_title) {
 		        $this->descbox .= '<h4>'.$this->desc_title.'</h4>';
 		    }
-		    $this->descbox .= $this->item->description.'</div>';
+		    $this->descbox .= HTMLHelper::_('content.prepare', $this->item->description).'</div>';
 		    if ($this->infopos == 'topbot') $this->descbox .= '</div></div>';
 		}
 		

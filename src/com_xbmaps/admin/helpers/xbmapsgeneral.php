@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.2.1.5 22nd February 2023
+ * @version 1.3.2.0 2nd December 2023
  * @filesource admin/helpers/xbmapsgeneral.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -159,7 +159,7 @@ class XbmapsGeneral extends ContentHelper {
 			}
 			//link if isAdmin or isPublished
 			if (($isAdmin) || ($item->mstate == 1)) {
-				$item->linkedtitle = '<a href="'.$ilink.'">'.$item->display.'</a>';
+				$item->linkedtitle = '<a href="'.$ilink.'" target="_parent" >'.$item->display.'</a>';
 			} else {
 				$item->linkedtitle = $item->display;
 			}
@@ -199,7 +199,7 @@ class XbmapsGeneral extends ContentHelper {
 			}
 			//if item not published only link if isAdmin
 			if (($isAdmin) || ($item->tstate == 1)) {
-				$item->linkedtitle = '<a href="'.$ilink.'">'.$item->display.'</a>';
+				$item->linkedtitle = '<a href="'.$ilink.'" target="_parent" >'.$item->display.'</a>';
 			} else {
 				$item->linkedtitle = $item->display;
 			}

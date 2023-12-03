@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 0.4.0.a 24th September 2021
+ * @version 1.3.2.0 3rd December 2023
  * @filesource admin/models/fields/tracks.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -34,10 +34,10 @@ class JFormFieldTracks extends JFormFieldList {
         $query  = $db->getQuery(true);
         
         $query->select('id As value')
-        ->select('CONCAT(title, IF (state <>1, " (unpub)", "") ) AS text')
+        ->select('CONCAT(a.title," : ", DATE_FORMAT(a.rec_date, "%y %b %d") ) AS text')
 	        ->from('#__xbmaps_tracks')
-	        ->where('state IN (0,1)')
-	        ->order('state DESC, text ASC');
+	        ->where('state = 1')
+	        ->order('rec_date DESC, text ASC');
         $db->setQuery($query);
         $all = $db->loadObjectList();
         

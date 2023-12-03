@@ -48,8 +48,6 @@ CREATE TABLE IF NOT EXISTS `#__xbmaps_tracks` (
   `rec_device` varchar(190) NOT NULL DEFAULT '',
   `activity` varchar(190) NOT NULL DEFAULT '',
   `track_colour` varchar(10),
-  `track_start_date` datetime,
-  `track_end_date` datetime,
    
   `catid` int NOT NULL  DEFAULT '0',
   `access` int NOT NULL  DEFAULT '0',

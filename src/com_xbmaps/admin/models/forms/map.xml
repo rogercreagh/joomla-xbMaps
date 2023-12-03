@@ -149,9 +149,18 @@
 				class="trkcol"
 				hint="XBMAPS_TRACK_COL_HINT"
 				/>
+				<field name="recdate" type="text" readonly="true" />
 
 			</form>
-		</field>			
+		</field>	
+		
+		<field name="map_start_date" type="text"
+			label="First track date" description="taken from track data"
+			/>	
+			
+		<field name="map_end_date" type="text"
+			label="Last track date" description="taken from track data"
+			/>	
 			
 		<field name="markerlist" type= "subform"
 			label= "XBMAPS_MARKERLIST_LABEL"

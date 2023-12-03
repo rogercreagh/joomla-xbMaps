@@ -88,7 +88,10 @@ class XbmapsModelMap extends JModelAdmin {
  			    $data->default_zoom = $params->get('default_zoom','');
  			}
  			//load subform data as required
- 			$data->tracklist=$this->getTrackList();
+ 			$tracks=$this->getTrackList();
+ 			$data->tracklist = $tracks;
+ 			$data->map_start_date = min(array_column($tracks,'recdate'));
+ 			$data->map_end_date = max(array_column($tracks,'recdate'));
  			$data->markerlist=$this->getMarkerList();
  			$data->params['hid_w3wapi'] = $params->get('w3w_api','');
 		}
@@ -196,7 +199,10 @@ class XbmapsModelMap extends JModelAdmin {
 			$data['state'] = 0;
 		}
 		//set empty dates to null to stop j3 creating zero dates in mysql
-		if ($data['rec_date']=='') { $data['rec_date'] = NULL; }
+		//if ($data['map_start_date']=='') { $data['map_start_date'] = NULL; }
+		$data['map_start_date'] = min(array_column($data['tracklist'],'recdate'));
+		$data['map_end_date'] = max(array_column($data['tracklist'],'recdate'));
+		
 		
 		if (parent::save($data)) {
 			//other stuff if req - eg saving subform data
@@ -213,7 +219,7 @@ class XbmapsModelMap extends JModelAdmin {
 	private function getTrackList() {
 	    $db = $this->getDbo();
 	    $query = $db->getQuery(true);
-	    $query->select('mt.track_id as track_id,  mt.track_colour AS track_colour');
+	    $query->select('mt.track_id as track_id,  mt.track_colour AS track_colour, a.rec_date AS recdate');
 	    $query->from('#__xbmaps_maptracks AS mt');
 	    //$query->innerjoin('#__xbmaps_tracks AS a ON mt.track_id = a.id');
 	    $query->where('mt.map_id = '.(int) $this->getItem()->id);
@@ -298,4 +304,8 @@ class XbmapsModelMap extends JModelAdmin {
 		}
 	}
 	
+	private function getTrackDates($tracklist) {
+	    $ids = implode(',', array_column($tracklist,'track_id'));
+	    
+	}
 }

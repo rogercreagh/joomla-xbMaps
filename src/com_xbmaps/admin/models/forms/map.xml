@@ -149,7 +149,7 @@
 				class="trkcol"
 				hint="XBMAPS_TRACK_COL_HINT"
 				/>
-				<field name="recdate" type="text" readonly="true" />
+				<field name="recdate" type="text" readonly="true"/>
 
 			</form>
 		</field>	

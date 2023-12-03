@@ -34,7 +34,7 @@ class JFormFieldTracks extends JFormFieldList {
         $query  = $db->getQuery(true);
         
         $query->select('id As value')
-        ->select('CONCAT(a.title," : ", DATE_FORMAT(a.rec_date, "%y %b %d") ) AS text')
+        ->select('CONCAT(title," : ", DATE_FORMAT(rec_date, "%y %b %d") ) AS text')
 	        ->from('#__xbmaps_tracks')
 	        ->where('state = 1')
 	        ->order('rec_date DESC, text ASC');

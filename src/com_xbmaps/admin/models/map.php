@@ -221,7 +221,7 @@ class XbmapsModelMap extends JModelAdmin {
 	    $query = $db->getQuery(true);
 	    $query->select('mt.track_id as track_id,  mt.track_colour AS track_colour, a.rec_date AS recdate');
 	    $query->from('#__xbmaps_maptracks AS mt');
-	    //$query->innerjoin('#__xbmaps_tracks AS a ON mt.track_id = a.id');
+	    $query->innerjoin('#__xbmaps_tracks AS a ON mt.track_id = a.id');
 	    $query->where('mt.map_id = '.(int) $this->getItem()->id);
 	    $query->order('mt.listorder ASC');
 	    $db->setQuery($query);

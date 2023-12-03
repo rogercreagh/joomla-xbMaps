@@ -96,7 +96,9 @@ $tagclass = $this->show_tags? 'label-info' : 'label-grey';
     						' <span style="font-size:0.9em;">'.
     						'</span>';
 						?>
-					</th>					
+					</th>	
+					<th><?php echo HTMLHelper::_('searchtools.sort','Date','map_start_date',$listDirn,$listOrder); ?>
+					</th>				
 					<th>
 						<?php echo Text::_('XBMAPS_SUMMARY');?>
 					</th>

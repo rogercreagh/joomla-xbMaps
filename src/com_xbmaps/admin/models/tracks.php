@@ -22,6 +22,7 @@ class XbmapsModelTracks extends JModelList {
 					'id', 'a.id',
 					'title', 'a.title',
 			         'rec_date', 'a.rec_date',
+			         'startdate', 'enddate',
 					'ordering','a.ordering',
 					'category_title', 'c.title',
 					'catid', 'a.catid', 'category_id',
@@ -87,6 +88,12 @@ class XbmapsModelTracks extends JModelList {
 			}
 		}
 	
+		// Filter by start/end date
+		$startdate =  $this->getState('filter.startdate','');
+		$enddate =  $this->getState('filter.enddate','');
+		if ($startdate!='') $query->where('a.rec_date >= '.$db->q($startdate));
+		if ($enddate!='') $query->where('CAST(a.rec_date AS date)s =< '.$db->q($enddate));
+		
 		//filter by tags
 		//TODO move this whole tag filter section to a helper function passing in query object
 		$tagId = $app->getUserStateFromRequest('tagid', 'tagid','');

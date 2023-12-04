@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.3.3.0 4th December 2023
+ * @version 1.3.4.0 4th December 2023
  * @filesource admin/models/maps.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -27,6 +27,7 @@ class XbmapsModelMaps extends JModelList {
 					'published','a.state',
 			    'map_start_date', 'a.map_start_date',
 			    'map_end_date', 'a.map_end_date',
+			    'startdate', 'enddate',
 			);
 		}
 		parent::__construct($config);
@@ -87,6 +88,12 @@ class XbmapsModelMaps extends JModelList {
 			}
 		}
 	
+		// Filter by start/end date
+		$startdate =  $this->getState('filter.startdate','');
+		$enddate =  $this->getState('filter.enddate','');
+		if ($startdate!='') $query->where('a.map_start_date >= '.$db->q($startdate));
+		if ($enddate!='') $query->where('CAST(a.map_end_date AS date) <= '.$db->q($enddate));
+		
 		//filter by tags
 		//TODO move this whole tag filter section to a helper function passing in query object
 		$tagId = $app->getUserStateFromRequest('tagid', 'tagid','');

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbMaps admin/models/forms/filter_maps.xml v0.1.0.h 11th July 2021 -->
+<!-- xbMaps admin/models/forms/filter_maps.xml v1.3.4.0 4th December 2023 -->
 <form>
 	<fields name="filter" addfieldpath="administrator/components/com_xbmaps/models/fields">
 		<field
@@ -50,6 +50,16 @@
 			<option value="0" onchange="this.form.submit();">XBMAPS_ANY</option>
 			<option value="2" onchange="this.form.submit();">XBMAPS_EXCLUDE</option>
 		</field>	
+		<field name="startdate" type="calendar"
+			label="Since" description="only show tracks recorded on or after this date, leave blank for no start"
+			class="inputbox" size="20" format="%Y-%m-%d" filter="user_utc" 
+			onchange="this.form.submit();"
+		/>
+		<field name="enddate" type="calendar"
+			label="Before" description="only show tracks recorded on or before this date, leave blank for no end"
+			class="inputbox" size="20" format="%Y-%m-%d" filter="user_utc" 
+			onchange="this.form.submit();"
+		/>
 	</fields>
 	<fields name="list">
   		<field name="fullordering" type="hidden" default="" />

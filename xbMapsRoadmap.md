@@ -10,11 +10,9 @@
 - v1.5.0 -  Update leaflet to latest version
 - v1.6.0 - elevation plot from leaflet plugin
 
-
-
 - v1.7.0 -  Modal preview map/track admin and site 
 
-- 
+##### Others to be scheduled
 
 - add option to have additional tile sets and selector on maps ->v2
 

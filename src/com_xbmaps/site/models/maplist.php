@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.3.3.0 4th December 2023
+ * @version 1.3.4.0 4th December 2023
  * @filesource site/models/maplist.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -19,7 +19,7 @@ class XbmapsModelMaplist extends JModelList {
 		if (empty($config['filter_fields'])) {
 			$config['filter_fields'] = array ('title', 'a.title',
 					'catid', 'a.catid', 'category_id',
-					'category_title',
+					'category_title', 'startdate', 'enddate',
 			     'a.map_start_date','map_start_date', 'a.map_end_date','map_end_date',
 			);
 		}
@@ -76,8 +76,26 @@ class XbmapsModelMaplist extends JModelList {
 //			$query->where('(state IN (0, 1))');
 //		}
 		
-		// Filter by category.
+		// Filter by search in title/id
+		$search = $this->getState('filter.search');
+		
+		if (!empty($search)) {
+			if (stripos($search, 'i:') === 0) {
+				$query->where($db->quoteName('a.id') . ' = ' . (int) substr($search, 2));
+			} elseif (stripos($search,':')!= 1) {
+				$search = $db->quote('%' . str_replace(' ', '%', $db->escape(trim($search), true) . '%'));
+				$query->where('a.title LIKE ' . $search );
+			}
+		}
+		
+		// Filter by start/end date
+		$startdate =  $this->getState('filter.startdate','');
+		$enddate =  $this->getState('filter.enddate','');
+		if ($startdate!='') $query->where('a.map_start_date >= '.$db->q($startdate));
+		if ($enddate!='') $query->where('CAST(a.map_end_date AS date) <= '.$db->q($enddate));
+		
 		$app = Factory::getApplication('site');
+		// Filter by category.
 		$categoryId = $app->getUserStateFromRequest('catid', 'catid','');
 		$app->setUserState('catid', '');
 		$subcats=0;
@@ -91,18 +109,6 @@ class XbmapsModelMaplist extends JModelList {
 			//            } else {
 			$query->where($db->quoteName('a.catid') . ' = ' . (int) $categoryId);
 			//            }
-		}
-		
-		// Filter by search in title/id
-		$search = $this->getState('filter.search');
-		
-		if (!empty($search)) {
-			if (stripos($search, 'i:') === 0) {
-				$query->where($db->quoteName('a.id') . ' = ' . (int) substr($search, 2));
-			} elseif (stripos($search,':')!= 1) {
-				$search = $db->quote('%' . str_replace(' ', '%', $db->escape(trim($search), true) . '%'));
-				$query->where('a.title LIKE ' . $search );
-			}
 		}
 		
 		//filter by tags

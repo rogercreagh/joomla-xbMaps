@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.2.1.1 20th February 2023
+ * @version 1.3.3.0 4th December 2023
  * @filesource admin/views/maps/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -97,8 +97,6 @@ $tagclass = $this->show_tags? 'label-info' : 'label-grey';
     						'</span>';
 						?>
 					</th>	
-					<th><?php echo HTMLHelper::_('searchtools.sort','Date','map_start_date',$listDirn,$listOrder); ?>
-					</th>				
 					<th>
 						<?php echo Text::_('XBMAPS_SUMMARY');?>
 					</th>
@@ -106,7 +104,9 @@ $tagclass = $this->show_tags? 'label-info' : 'label-grey';
 						<?php echo ucfirst(Text::_('XBMAPS_MARKERS'));?>
 					</th>
 					<th>
-						<?php echo ucfirst(Text::_('XBMAPS_TRACKS'));?>
+						<?php echo ucfirst(Text::_('XBMAPS_TRACKS'));?> : 
+						<?php echo HTMLHelper::_('searchtools.sort','First','map_start_date',$listDirn,$listOrder); ?>
+						<?php echo HTMLHelper::_('searchtools.sort','Last','map_end_date',$listDirn,$listOrder); ?>						
 					</th>
 					<th class="hidden-tablet hidden-phone" style="width:15%;">
 						<?php if ($this->show_cats) {
@@ -249,6 +249,7 @@ $tagclass = $this->show_tags? 'label-info' : 'label-grey';
 					echo '<ul class="xblist" style="margin:0;">';
 						foreach ($item->tracks as $trk) {
 							echo '<li><i class="fas fa-project-diagram" style="color:'.$trk->track_colour.';"></i> ';
+							echo HTMLHelper::_('date',$trk->rec_date,'d-m-y').' ';
  							echo $trk->linkedtitle;
 							echo '</li>';
 						}
@@ -274,7 +275,7 @@ $tagclass = $this->show_tags? 'label-info' : 'label-grey';
 				</td>
 				<td class="hidden-phone">
 					<?php echo $item->id; ?>
-					<br /><span class="xbnit"><?php echo HtmlHelper::date($item->modified, 'd M Y');?></span>
+					<br /><span class="xbnit"><?php echo HtmlHelper::date($item->modified, 'd m y');?></span>
 				</td>
 			</tr>			
 			<?php endforeach; ?>

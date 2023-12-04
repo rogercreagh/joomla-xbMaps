@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 0.7.0.d 11th October 2021
+ * @version 1.3.3.0 4th December 2023
  * @filesource site/models/maplist.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -19,7 +19,9 @@ class XbmapsModelMaplist extends JModelList {
 		if (empty($config['filter_fields'])) {
 			$config['filter_fields'] = array ('title', 'a.title',
 					'catid', 'a.catid', 'category_id',
-					'category_title' );
+					'category_title',
+			     'a.map_start_date','map_start_date', 'a.map_end_date','map_end_date',
+			);
 		}
 		parent::__construct($config);
 	}
@@ -52,6 +54,7 @@ class XbmapsModelMaplist extends JModelList {
 		$db    = Factory::getDbo();
 		$query = $db->getQuery(true);
 		$query->select('a.id AS id, a.title AS title, a.alias AS alias,
+            a.map_start_date AS map_start_date, a.map_end_date AS map_end_date,
             a.description AS description, a.summary AS summary, a.catid AS catid,
             a.state AS published, a.access AS access,
 			a.created AS created, a.created_by AS created_by, a.created_by_alias AS created_by_alias,

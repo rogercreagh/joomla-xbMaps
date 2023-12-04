@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.3.2.0 2nd December 2023
+ * @version 1.3.3.0 4th December 2023
  * @filesource admin/helpers/xbmapsgeneral.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -179,7 +179,7 @@ class XbmapsGeneral extends ContentHelper {
 		->from('#__xbmaps_maptracks AS a')
 		->join('LEFT','#__xbmaps_tracks AS t ON t.id=a.track_id')
 		->where('a.map_id = "'.$mapid.'"' )
-		->order('a.listorder', 'ASC');
+		->order('t.rec_date', 'ASC');
 		if ($state!=4){
 			$query->where('t.state = '.$state);
 		}
@@ -367,6 +367,7 @@ class XbmapsGeneral extends ContentHelper {
 	            $trklist .= '<div class="pull-left">';
 	        }
 	        $trklist .=	'<i class="fas fa-project-diagram" style="color:'.$trk->track_colour.'"></i>&nbsp; &nbsp;';
+	        $trklist .= HTMLHelper::_('date', $trk->rec_date, 'D d-m-\'y').'&nbsp;&nbsp;';
 	        $trklist .=	'<b>'.$trk->linkedtitle.'</b> </div> ';
 	        
 	        if (is_array($infodisp)) {

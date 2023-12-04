@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 0.7.0.a 5th October 2021
+ * @version 1.3.3.0 4th December 2023
  * @filesource site/models/tracklist.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -18,7 +18,7 @@ class XbmapsModelTracklist extends JModelList {
 	public function __construct($config = array()) {
 		if (empty($config['filter_fields'])) {
 			$config['filter_fields'] = array ('title', 'a.title',
-					'catid', 'a.catid', 'category_id',
+					'catid', 'a.catid', 'category_id', 'a.rec_date', 'rec_date',
 					'category_title' );
 		}
 		parent::__construct($config);
@@ -53,7 +53,7 @@ class XbmapsModelTracklist extends JModelList {
 		$db    = Factory::getDbo();
 		$query = $db->getQuery(true);
 		$query->select('a.id AS id, a.title AS title, a.alias AS alias,
-            a.description AS description, a.summary AS summary, a.catid AS catid,
+            a.description AS description, a.summary AS summary, a.rec_date AS rec_date, a.catid AS catid,
             a.state AS published, a.access AS access, a.track_colour AS track_colour,
 			a.created AS created, a.created_by AS created_by, a.created_by_alias AS created_by_alias,
 			a.modified AS modified, a.modified_by AS modified_by,

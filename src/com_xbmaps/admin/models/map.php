@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 0.8.0.i 26th October 2021
+ * @version 1.3.3.0 4th December 2023
  * @filesource admin/models/map.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -90,8 +90,10 @@ class XbmapsModelMap extends JModelAdmin {
  			//load subform data as required
  			$tracks=$this->getTrackList();
  			$data->tracklist = $tracks;
- 			$data->map_start_date = min(array_column($tracks,'recdate'));
- 			$data->map_end_date = max(array_column($tracks,'recdate'));
+ 			if (!empty($tracks)) {
+     			$data->map_start_date = min(array_column($tracks,'recdate'));
+ 	      		$data->map_end_date = max(array_column($tracks,'recdate'));
+ 			}
  			$data->markerlist=$this->getMarkerList();
  			$data->params['hid_w3wapi'] = $params->get('w3w_api','');
 		}
@@ -199,10 +201,11 @@ class XbmapsModelMap extends JModelAdmin {
 			$data['state'] = 0;
 		}
 		//set empty dates to null to stop j3 creating zero dates in mysql
-		//if ($data['map_start_date']=='') { $data['map_start_date'] = NULL; }
-		$data['map_start_date'] = min(array_column($data['tracklist'],'recdate'));
-		$data['map_end_date'] = max(array_column($data['tracklist'],'recdate'));
-		
+		if ($data['map_start_date']=='') { $data['map_start_date'] = NULL; }
+		if (!empty($data['tracklist'])) { 
+            $data['map_start_date'] = min(array_column($data['tracklist'],'recdate'));
+            $data['map_end_date'] = max(array_column($data['tracklist'],'recdate'));
+		}
 		
 		if (parent::save($data)) {
 			//other stuff if req - eg saving subform data
@@ -304,8 +307,4 @@ class XbmapsModelMap extends JModelAdmin {
 		}
 	}
 	
-	private function getTrackDates($tracklist) {
-	    $ids = implode(',', array_column($tracklist,'track_id'));
-	    
-	}
 }

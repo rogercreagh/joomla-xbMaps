@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.2.1.6 27th February 2023
+ * @version 1.3.3.0 4th December 2023
  * @filesource admin/models/track.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -229,6 +229,9 @@ class XbmapsModelTrack extends JModelAdmin {
             }
         }
             
+        //set empty dates to null to stop j3 creating zero dates in mysql
+        if ($data['rec_date']=='') { $data['rec_date'] = NULL; }
+        
         if (parent::save($data)) {
             //other stuff if req - eg saving subform data
         	$tid = $this->getState('track.id');

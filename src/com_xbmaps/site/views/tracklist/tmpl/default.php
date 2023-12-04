@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.2.1.1 20th February 2023
+ * @version 1.3.3.0 4th December 2023
  * @filesource site/views/tracklist/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -81,7 +81,10 @@ $tlink = 'index.php?option=com_xbmaps&view=track'.$itemid.'&id=';
 			<tr>
 				<th>
 					<?php echo HTMLHelper::_('searchtools.sort','Title','title',$listDirn,$listOrder);?>
-				</th>					
+				</th>				
+				<th>
+					<?php echo HTMLHelper::_('searchtools.sort','Date','rec_date',$listDirn,$listOrder ); ?>
+				</th>	
 				<th class="hidden-phone">
 					<?php echo JText::_('XBMAPS_SUMMARY');?>
 				</th>
@@ -113,6 +116,9 @@ $tlink = 'index.php?option=com_xbmaps&view=track'.$itemid.'&id=';
 							<?php if($this->enable_track_view) { echo '</a>'; } ?>
 						</p>
 					</td>
+    				<td>
+    					<?php  if (!is_null($item->rec_date)) echo HTMLHelper::_('date',$item->rec_date, 'd M \'y'); ?>
+    				</td>
 					<td class="hidden-phone">
 						<p class="xb095">
 	    					<?php echo Xbparsedown::instance()->text($item->summary); ?>

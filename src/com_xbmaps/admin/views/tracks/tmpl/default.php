@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.2.1.1 20th February 2023
+ * @version 1.3.3.0 4th December 2023
  * @filesource admin/views/tracks/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -99,9 +99,14 @@ $tagclass = $this->show_tags? 'label-info' : 'label-grey';
     						' <span style="font-size:0.9em;">'.
     						'</span>';
 						?>
+					</th>
+					<th>
+						<?php echo HTMLHelper::_('searchtools.sort','Date','rec_date',$listDirn,$listOrder ); ?>
 					</th>	
 					<th style="width:4em;text-align:center;"><?php echo Text::_('XBMAPS_COLOUR');?></th>	
-					<th>File &amp; Date</th>			
+					<th>
+						Filename
+					</th>			
 					<th>
 						<?php echo Text::_('XBMAPS_SUMMARY');?>
 					</th>
@@ -187,12 +192,14 @@ $tagclass = $this->show_tags? 'label-info' : 'label-grey';
                     	<span class="xbnit xb08"><?php echo $alias;?></span>
 					</p>
 				</td>
+				<td>
+					<?php  if (!is_null($item->rec_date)) echo HTMLHelper::_('date',$item->rec_date, 'd M \'y'); ?>
+				</td>
 				<td style="text-align:center;">
 					<i class="fas fa-project-diagram" style="color:<?php echo $item->track_colour; ?>;"></i>
 				</td>
 				<td>
-				<?php echo pathinfo($item->gpx_filename,PATHINFO_BASENAME);?>
-				<br /><?php echo HtmlHelper::date($item->rec_date, 'd M Y');?>
+					<?php echo pathinfo($item->gpx_filename,PATHINFO_BASENAME);?>
 				</td>
 				<td>
 					<p class="xb095">
@@ -236,7 +243,7 @@ $tagclass = $this->show_tags? 'label-info' : 'label-grey';
 				</td>
 				<td class="hidden-phone">
 					<?php echo $item->id; ?>
-					<br /><span class="xbnit"><?php echo HtmlHelper::date($item->modified, 'd M Y');?></span>
+					<br /><span class="xbnit"><?php echo HtmlHelper::date($item->modified, 'd m y');?></span>
 				</td>
 			</tr>			
 			<?php endforeach; ?>

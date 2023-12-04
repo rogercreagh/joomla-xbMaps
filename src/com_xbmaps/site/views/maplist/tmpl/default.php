@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.2.1.1 20th February 2023
+ * @version 1.3.3.0 4th December 2023
  * @filesource site/views/maplist/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -82,13 +82,15 @@ $mlink = 'index.php?option=com_xbmaps&view=map'.$itemid.'&id=';
 					<?php echo HTMLHelper::_('searchtools.sort','Title','title',$listDirn,$listOrder);?>
 				</th>					
 				<th class="hidden-phone">
+					<?php echo JText::_('XBMAPS_TRACKS');?> : 
+					<?php echo HTMLHelper::_('searchtools.sort','First','map_start_date',$listDirn,$listOrder); ?>
+					<?php echo HTMLHelper::_('searchtools.sort','Last','map_end_date',$listDirn,$listOrder); ?>
+				</th>
+				<th class="hidden-phone">
 					<?php echo JText::_('XBMAPS_SUMMARY');?>
 				</th>
 				<th class="hidden-phone">
 					<?php echo JText::_('XBMAPS_MARKERS');?>
-				</th>
-				<th class="hidden-phone">
-					<?php echo JText::_('XBMAPS_TRACKS');?>
 				</th>
 				<?php if($this->show_cats || $this->show_tags) : ?>
     				<th class="hidden-tablet hidden-phone">
@@ -112,6 +114,22 @@ $mlink = 'index.php?option=com_xbmaps&view=map'.$itemid.'&id=';
 						<p class="xbtitle">
 							<a href="<?php echo $mlink.$item->id;?>" >
 								<b><?php echo $this->escape($item->title); ?></b></a></p> 
+					</td>
+					<td class="hidden-phone">
+						<p class="xb095">
+							<?php if (!empty($item->tracks)) : ?>
+								<?php foreach ($item->tracks as $trk) {
+									echo '<i class="fas fa-project-diagram" style="color:'.$trk->track_colour.';"></i> ';
+									echo HTMLHelper::_('date',$trk->rec_date,'D d-m-y').' ';
+									echo $trk->linkedtitle;
+									echo '<br />';
+								}?>
+    						<?php else : ?>
+     							<span class="xbnit">
+    								<?php echo Text::_('XBMAPS_NO_TRACKS'); ?>
+    							</span>
+    						<?php endif; ?>
+                        </p>
 					</td>
 					<td class="hidden-phone">
 						<p class="xb095">
@@ -167,21 +185,6 @@ $mlink = 'index.php?option=com_xbmaps&view=map'.$itemid.'&id=';
 					<p class="xbnit"><?php echo Text::_('XBMAPS_NO_MARKERS'); ?></p>
 				<?php endif; ?>
 				</td>
-					<td class="hidden-phone">
-						<p class="xb095">
-							<?php if (!empty($item->tracks)) : ?>
-								<?php foreach ($item->tracks as $trk) {
-									echo '<i class="fas fa-project-diagram" style="color:'.$trk->track_colour.';"></i> ';
- 									echo $trk->linkedtitle;
-									echo '<br />';
-								}?>
-    						<?php else : ?>
-     							<span class="xbnit">
-    								<?php echo Text::_('XBMAPS_NO_TRACKS'); ?>
-    							</span>
-    						<?php endif; ?>
-                        </p>
-					</td>
     				<?php if($this->show_cats || $this->show_tags) : ?>
     					<td class="hidden-phone">
      						<?php if($this->show_cats) : ?>	

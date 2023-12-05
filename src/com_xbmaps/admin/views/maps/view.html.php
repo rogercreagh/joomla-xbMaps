@@ -57,7 +57,7 @@ class XbmapsViewMaps extends JViewLegacy {
 /** We are NOT doing j4 compatibility 
 		$version = new Version();
 		if (!$version->isCompatible('4.0.0-alpha')) {
-			XbmapsHelper::addSubmenu('cpanel');
+			XbmapsHelper::addSubmenu('dashboard');
 			$this->sidebar = JHtmlSidebar::render();			
 		}		
  */		

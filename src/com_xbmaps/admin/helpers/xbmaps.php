@@ -35,11 +35,11 @@ class XbmapsHelper extends ContentHelper {
 		return $result;
 	}
 	
-	public static function addSubmenu($vName = 'cpanel') {
+	public static function addSubmenu($vName = 'dashboard') {
 			JHtmlSidebar::addEntry(
-					Text::_('XBMAPS_ICONMENU_CPANEL'),
-					'index.php?option=com_xbmaps&view=cpanel',
-					$vName == 'cpanel'
+					Text::_('XBMAPS_ICONMENU_DASHBOARD'),
+					'index.php?option=com_xbmaps&view=dashboard',
+					$vName == 'dashboard'
 					);
 			JHtmlSidebar::addEntry(
 					Text::_('XBMAPS_ICONMENU_MAPS'),

@@ -59,8 +59,8 @@ class com_xbmapsInstallerScript
             $message = ($res) ? 'New alternate GPX tracks folder <code>/images/xbmaps/gpx</code> created.<br />' : 'error creating new alternate track upload folder';
             Factory::getApplication()->enqueueMessage($message,'Info');
         } 
-        $message = '<br />Visit the <a href="index.php?option=com_xbmaps&view=cpanel" class="btn btn-small btn-info">';
-    	$message .= 'xbMaps Control Panel</a> page for overview of status.</p>';
+        $message = '<br />Visit the <a href="index.php?option=com_xbmaps&view=dashboard" class="btn btn-small btn-info">';
+    	$message .= 'xbMaps Dashboard</a> page for overview of status.</p>';
     	$message .= '<br />For ChangeLog see <a href="http://crosborne.co.uk/xbmaps/changelog" target="_blank">
             www.crosborne.co.uk/xbmaps/changelog</a></p>';
      	
@@ -118,7 +118,7 @@ class com_xbmapsInstallerScript
 	        echo '<h3>xbMaps Component installed</h3>';
 	        echo '<p>version '.$componentXML['version'].' '.$componentXML['creationDate'].'<br />';
 	        echo '<p>For help and information see <a href="https://crosborne.co.uk/xbmaps/doc" target="_blank">
-	            www.crosborne.co.uk/xbmaps/doc</a> or use Help button in xbMaps Control Panel</p>';
+	            www.crosborne.co.uk/xbmaps/doc</a> or use Help button in xbMaps Dashboard</p>';
 	        echo '<h4>Next steps:</h4>';
 		        echo '<p>IMPORTANT - <i>Review &amp; set the options</i>&nbsp;&nbsp;';
 		        echo '<a href="index.php?option=com_config&view=component&component=com_xbmaps" class="btn btn-small btn-info">xbMaps Options</a>';

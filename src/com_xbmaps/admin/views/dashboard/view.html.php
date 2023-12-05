@@ -2,7 +2,7 @@
 /*******
  * @package xbMaps Component
  * @version 0.6.0.e 4th October 2021
- * @filesource admin/views/cpanel/view.html.php
+ * @filesource admin/views/dashboard/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -15,7 +15,7 @@ use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Installer\Installer;
 
-class XbmapsViewCpanel extends JViewLegacy {
+class XbmapsViewDashboard extends JViewLegacy {
 		
 	public function display($tpl = null) {
 		
@@ -85,7 +85,7 @@ class XbmapsViewCpanel extends JViewLegacy {
 		
 	
 	   $this->addToolbar();
-		XbmapsHelper::addSubmenu('cpanel');
+		XbmapsHelper::addSubmenu('dashboard');
 		$this->sidebar = JHtmlSidebar::render();
 		
 		parent::display($tpl);
@@ -96,7 +96,7 @@ class XbmapsViewCpanel extends JViewLegacy {
 	protected function addToolbar() {
 		$canDo = XbmapsHelper::getActions();
 		
-		ToolbarHelper::title(Text::_( 'XBMAPS_TITLE_CPANEL' ), '' );
+		ToolbarHelper::title(Text::_( 'XBMAPS_TITLE_DASHBOARD' ), '' );
 		
 		if ($canDo->get('core.admin')) {
 			ToolbarHelper::preferences('com_xbmaps');
@@ -106,7 +106,7 @@ class XbmapsViewCpanel extends JViewLegacy {
 	
 	protected function setDocument() {
 		$document = Factory::getDocument();
-		$document->setTitle(strip_tags(Text::_('XBMAPS_TITLE_CPANEL')));
+		$document->setTitle(strip_tags(Text::_('XBMAPS_TITLE_DASHBOARD')));
 	}
 	
 }

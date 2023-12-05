@@ -144,8 +144,8 @@ $mlink = 'index.php?option=com_xbmaps&view=map'.$itemid.'&id=';
 					</td>
 				<td class="hidden-phone"><?php if (count($item->markers)>0) : ?>
 				<?php if (count($item->markers)>3) {
-			        echo HTMLHelper::_('bootstrap.startAccordion', 'slide-cpanel', array('active' => ''));
-			        echo HTMLHelper::_('bootstrap.addSlide', 'slide-cpanel', Text::_(count($item->markers).' markers assigned'), 'show'.$item->id,'xbaccordion');
+			        echo HTMLHelper::_('bootstrap.startAccordion', 'slide-dashboard', array('active' => ''));
+			        echo HTMLHelper::_('bootstrap.addSlide', 'slide-dashboard', Text::_(count($item->markers).' markers assigned'), 'show'.$item->id,'xbaccordion');
 				} ?>
 				
 					<ul class="xblist" style="margin:0;">

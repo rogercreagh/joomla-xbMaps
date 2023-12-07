@@ -95,7 +95,7 @@ class XbmapsModelTracklist extends JModelList {
 		$startdate =  $this->getState('filter.startdate','');
 		$enddate =  $this->getState('filter.enddate','');
 		if ($startdate!='') $query->where('a.rec_date >= '.$db->q($startdate));
-		if ($enddate!='') $query->where('CAST(a.rec_date AS date)s =< '.$db->q($enddate));
+		if ($enddate!='') $query->where('CAST(a.rec_date AS date)s <= '.$db->q($enddate));
 		
 		// Filter by category.
 		$app = Factory::getApplication('site');

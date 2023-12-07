@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.2.1.6 27th February 2023
+ * @version 1.4.0.0 7th December 2023
  * @filesource admin/views/track/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -31,6 +31,10 @@ class XbmapsViewTrack extends JViewLegacy {
         $this->gpxfolder = '';
         if ($this->item->id > 0) {
             $this->gpxfolder = array_key_exists('gpx_folder', $this->item->params) ? $this->item->params['gpx_folder'] : '';
+        }
+        $this->elevfolder = '';
+        if ($this->item->id > 0) {
+            $this->elevfolder = array_key_exists('elev_folder', $this->item->params) ? $this->item->params['elev_folder'] : '';
         }
         // Check for errors.
 		if (count($errors = $this->get('Errors'))) {

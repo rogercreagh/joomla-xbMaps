@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.2.1.7 28th February 2023
+ * @version 1.4.0.0 7th December 2023
  * @filesource admin/controllers/track.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -23,6 +23,7 @@ class XbmapsControllerTrack extends FormController {
         parent::__construct($config, $factory);
         $this->registerTask('savepreview', 'save');
         $this->registerTask('setgpxfile', 'save');
+        $this->registerTask('setelevfile', 'save');
     }
     
     protected function postSaveHook(JModelLegacy $model, $validData = array()) {
@@ -30,15 +31,18 @@ class XbmapsControllerTrack extends FormController {
         $task = $this->getTask();
         $item = $model->getItem();
 	    
-	    if (isset($item->params) && is_array($item->params)) {
-	        $gpxfolder = $item->params['gpx_folder'];
-	        Factory::getSession()->set('gpxfolder',$gpxfolder);
-	        
-	        $registry = new Registry($item->params);
-	        $item->params = (string) $registry;
-	    }
-	    
-	    if ($task == 'savepreview') {
+        if (isset($item->params) && is_array($item->params)) {
+            $gpxfolder = $item->params['gpx_folder'];
+            Factory::getSession()->set('gpxfolder',$gpxfolder);
+            
+            $elevfolder = $item->params['elev_folder'];
+            Factory::getSession()->set('elevfolder',$elevfolder);
+            
+            $registry = new Registry($item->params);
+            $item->params = (string) $registry;
+        }
+        
+        if ($task == 'savepreview') {
 	        $tid = $validData['id'];
 	        if ($tid>0) {
 	            $this->setRedirect('index.php?option=com_xbmaps&view=trackview&id='.$tid);

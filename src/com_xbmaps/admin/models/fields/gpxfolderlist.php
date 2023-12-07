@@ -15,6 +15,12 @@ use Joomla\CMS\Form\FormHelper;
 
 FormHelper::loadFieldClass('folderlist');
 
+/**
+ * @name GpxFolderList
+ * @desc extends FolderList to set directory to the parameter base_gpx_folder and allow selection of directory itself as well as subfolders
+ * @author rogerco
+ *
+ */
 class JFormFieldGpxFolderList extends JFormFieldFolderList {
     
     protected $type = 'GpxFolderList';
@@ -23,6 +29,7 @@ class JFormFieldGpxFolderList extends JFormFieldFolderList {
  
         $params = ComponentHelper::getParams('com_xbmaps');
         $def_folder = trim($params->get('base_gpx_folder','xbmaps-tracks'),'/');
+        $this->element['directory'] = $def_folder;
         $def = new stdClass;
         $def->text = $def_folder;
         $def->value = $def_folder;

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.3.3.0 4th December 2023
+ * @version 1.4.0.0 7th December 2023
  * @filesource admin/models/track.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -70,9 +70,12 @@ class XbmapsModelTrack extends JModelAdmin {
 	    $form->setFieldAttribute('gpx_upload_folder','directory',$base_gpx_folder);
     	$form->setFieldAttribute('gpx_folder','directory',$base_gpx_folder,'params');
     	
-    	$gpxfolder = Factory::getSession()->get('gpxfolder',''); 
+    	$gpxfolder = Factory::getSession()->get('gpxfolder','');
     	$form->setFieldAttribute('gpx_file','directory', $gpxfolder,'params');
-	    
+    	
+    	$elevfolder = Factory::getSession()->get('elevfolder','');
+    	if ($elevfolder != '') $form->setFieldAttribute('elev_file','directory', $elevfolder,'params');
+    	
     	$def_track_colour = $params->get('def_track_colour','');
     	$form->setFieldAttribute('track_colour','default',$def_track_colour);
     	
@@ -219,7 +222,7 @@ class XbmapsModelTrack extends JModelAdmin {
             $data['state'] = 0;
         }
         if ($task == 'setgpxfile') {
-//            $data['gpx_filename'] = $data['params']['base_gpx_folder'] .'/'.$data['params']['gpx_folder'].'/'.$data['params']['gpx_file'];
+            //            $data['gpx_filename'] = $data['params']['base_gpx_folder'] .'/'.$data['params']['gpx_folder'].'/'.$data['params']['gpx_file'];
             $gpxfilename = '/'.$data['params']['gpx_folder'].'/'.$data['params']['gpx_file'];
             if (is_file(JPATH_ROOT.'/'.$gpxfilename)) {
                 $data['gpx_filename'] = $gpxfilename;
@@ -228,7 +231,18 @@ class XbmapsModelTrack extends JModelAdmin {
                 $data['gpx_filename'] = '';
             }
         }
-            
+        
+        if ($task == 'setelevfile') {
+            //            $data['gpx_filename'] = $data['params']['base_gpx_folder'] .'/'.$data['params']['gpx_folder'].'/'.$data['params']['gpx_file'];
+            $elevfilename = '/'.$data['params']['elev_folder'].'/'.$data['params']['elev_file'];
+            if (is_file(JPATH_ROOT.'/'.$elevfilename)) {
+                $data['elev_filename'] = $elevfilename;
+            } else {
+                $data['elev_file'] = '';
+                $data['elev_filename'] = '';
+            }
+        }
+        
         //set empty dates to null to stop j3 creating zero dates in mysql
         if ($data['rec_date']=='') { $data['rec_date'] = NULL; }
         

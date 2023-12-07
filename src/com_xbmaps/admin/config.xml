@@ -1,10 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbMaps config.xml v0.9.0.c 6th November 2021 -->
+<!-- xbMaps config.xml v1.4.0.0 6th November 2023 -->
 <config>
 <!-- GENERAL TAB -->				
 	<fieldset name="general"
 		label="XBMAPS_GENERAL" description="XBMAPS_FSET_GENERAL_DESC"
 		>
+  		<field name="savedata" type="radio"
+			label="Uninstall save data"
+			description="Selecting Yes will leave data tables in place when uninstalling xbMaps."
+ 			class="btn-group btn-group-yesno"
+			default="0"
+			>
+				<option value="0" >JNO</option>
+				<option value="1">JYES</option>
+		</field>	
+  		<field name="savefiles" type="radio"
+			label="Uninstall save files"
+			description="Selecting yes will not delete the image and track folders when uninstalling xbMaps"
+ 			class="btn-group btn-group-yesno"
+			default="0"
+			>
+				<option value="0" >JNO</option>
+				<option value="1">JYES</option>
+		</field>	
   		<field name="showcatsnote" type="note"
 			label="XBMAPS_SHOW_CATSTAGS_NOTE_LABEL"
 			description="XBMAPS_SHOW_CATSTAGS_NOTE_DESC"
@@ -455,7 +473,10 @@
 			description="XBMAPS_TRACK_DEFCOL_DESC" 
 			default="#808" format="hex"
 		/>	
-		
+		<field name="elevation_note" type="note"
+			label="Elevation Images" 
+			description="Elevation image files should be stored in /images/xbmaps/elevations. You can create and select subfolders of this to organise your files in the track edit page, or using Joomla media manager."
+		/>
  		<field name="trk_disp_note" type="note"
 			label="XBMAPS_TRACKDISP_NOTE_LABEL" description="XBMAPS_TRACKDISP_NOTE_DESC"
 		/>	

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.2.1.7 28th February 2023
+ * @version 1.4.0.0 7th December 2023
  * @filesource admin/views/track/tmpl/edit.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -49,19 +49,19 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 		<div class="span5">
 			<?php echo $this->form->renderField('summary'); ?>
 			<?php if($this->item->id >0) : ?>
-			<p><?php echo Text::_('XBMAPS_GPX_PARENT').' <code>'.$this->basegpxfolder.'</code> ';?>&nbsp;
-			<i><?php echo Text::_('XBMAPS_GPX_FOLDER_NOTE1'); ?>  
-				<a href="index.php?option=com_config&view=component&component=com_xbmaps#Tracks">
-					<?php echo Text::_('XBMAPS_GPX_BASE_FOLDER'); ?></a> 
-				<?php echo Text::_('XBMAPS_GPX_FOLDER_NOTE2'); ?>
-			</i></p>
-			<div class="pull-left">
-	    		<?php echo $this->form->renderField('gpx_folder','params'); ?>   
-			</div>
-			<div>
-	    		<?php echo $this->form->renderField('gpx_file','params'); ?>   
-			</div>  
-			<div class="clearfix"></div>        	    	 					
+    			<p><?php echo Text::_('XBMAPS_GPX_PARENT').' <code>'.$this->basegpxfolder.'</code> ';?>&nbsp;
+    			<i><?php echo Text::_('XBMAPS_GPX_FOLDER_NOTE1'); ?>  
+    				<a href="index.php?option=com_config&view=component&component=com_xbmaps#Tracks">
+    					<?php echo Text::_('XBMAPS_GPX_BASE_FOLDER'); ?></a> 
+    				<?php echo Text::_('XBMAPS_GPX_FOLDER_NOTE2'); ?>
+    			</i></p>
+    			<div class="pull-left">
+    	    		<?php echo $this->form->renderField('gpx_folder','params'); ?>   
+    			</div>
+    			<div>
+    	    		<?php echo $this->form->renderField('gpx_file','params'); ?>   
+    			</div>  
+    			<div class="clearfix"></div>        	    	 					
 			<?php else : ?>
 				<p class="xbnit">
 					<?php echo Text::_('XBMAPS_SAVE_BEFORE_SELECT'); ?>
@@ -74,11 +74,50 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 			<div class="form-hortizontal">
         		<?php echo $this->form->renderField('is_loop','params'); ?> 
 			</div>          	    	 					
+	    	<?php echo $this->form->renderField('elev_filename'); ?>   
 		</div>
 	</div>
     <div class="row-fluid form-horizontal">
  		<div class="span12">
-			<?php echo HTMLHelper::_('bootstrap.startTabSet', 'myTab', array('active' => 'details')); ?>	
+			<?php echo HTMLHelper::_('bootstrap.startTabSet', 'myTab', array('active' => 'details')); ?>
+    			<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'files', Text::_('Files')); ?>
+        			<div class="pull-left">
+        	    		<?php echo $this->form->renderField('elev_folder','params'); ?>   
+        			</div>
+        			<div>
+        	    		<?php echo $this->form->renderField('elev_file','params'); ?>   
+        			</div>  
+        			<div class="clearfix"></div>        	    	 					
+					<?php if($this->elevfolder != '') : ?>
+			        	<?php echo HTMLHelper::_('bootstrap.startAccordion', 'slide-dashboard', array('active' => '')); ?>
+		        		<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-dashboard', Text::_('XBMAPS_GPX_UPLOAD_CLICK'),'upload','xbaccordion'); ?>
+		        		
+		    				<div class="pull-left">
+		    					<p class="xbnit"><?php echo JText::_('XBMAPS_UPLOAD_SAVE_CHANGES'); ?></p>
+			    				<?php echo $this->form->renderField('upload_elevfile'); ?>   					
+		    				</div> 					
+            				<div class="pull-left">
+            					<p>File will upload to <code><?php echo $this->elevfolder; ?></code>.
+                 	    		<?php echo $this->form->renderField('upload_newname'); ?> 
+            				</div>	
+		    				<div class="pull-right xbmr20">
+		    					<p> </p>
+	    						<button class="btn btn-warning" type="submit" 
+									onclick="if(confirmImport()) {this.form.submit();}" >
+									<i class="icon-upload icon-white"></i><?php echo JText::_('XBMAPS_UPLOAD_ELEV'); ?>
+								</button>
+		    				</div> 					
+		    				<div class="clearfix"></div> 	
+	        			<?php echo HTMLHelper::_('bootstrap.endSlide'); ?>
+	        			<?php echo HTMLHelper::_('bootstrap.endAccordion'); ?>
+        			<?php else : ?>
+        				<p class="xbnit">
+        					<?php echo Text::_('XBMAPS_SAVE_BEFORE_UPLOAD'); ?>
+        				</p>
+        			<?php endif; ?>
+    				
+        		<?php echo HTMLHelper::_('bootstrap.endTab'); ?>   
+				
     			<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'details', Text::_('XBMAPS_DETAILS')); ?>
             		<div class="row-fluid">
             			<div class="span9">  

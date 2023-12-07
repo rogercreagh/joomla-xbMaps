@@ -2,15 +2,16 @@
 /*******
  * @package xbMaps Component
  * @filesource script.xbmaps.php
- * @version 1.3.0.0 28th February 2023
+ * @version 1.4.0.0 6th December 2023
  * @author Roger C-O
- * @copyright Copyright (c) Roger Creagh-Osborne, 2021
+ * @copyright Copyright (c) Roger Creagh-Osborne, 2021, 2023
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html 
  ******/
 // No direct access to this file
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Version;
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\Filesystem\Path;
@@ -47,9 +48,20 @@ class com_xbmapsInstallerScript
     
     function uninstall($parent) {
         $componentXML = Installer::parseXMLInstallFile(Path::clean(JPATH_ADMINISTRATOR . '/components/com_xbmaps/xbmaps.xml'));
-        $message = 'Uninstalling xbMaps component v.'.$componentXML['version'].' '.$componentXML['creationDate'];
-    	$message .= '<br />GPX track files and any tags used have <b>not</b> been deleted.';
-    	Factory::getApplication()->enqueueMessage($message,'');
+        $message = 'Uninstalling xbMaps component v.'.$componentXML['version'].' '.$componentXML['creationDate'].'<br />';
+        
+        $savedata = ComponentHelper::getParams('com_xbmaps')->get('savedata',0);
+        if ($savedata == 0) {
+            $tables = array('#__xbmaps_maps','#__xbmaps_tracks','#__xbmaps_maptracks','#__xbmaps_markers','#__xbmaps_mapmarkers');
+            $message .= $this->uninstallTables($tables);
+        }
+        $savefiles = ComponentHelper::getParams('com_xbmaps')->get('savefiles',0);
+        if ($savefiles == 0) {
+            $folders = array('/xbmaps-tracks','/images/xbmaps/gpx','/images/xbmaps/markers','/images/xbmaps/elevations');
+            $message .= $this->uninstallFolders($folders);
+        }
+        
+        Factory::getApplication()->enqueueMessage($message,'');
     }
     
     function update($parent) {
@@ -71,44 +83,24 @@ class com_xbmapsInstallerScript
     	$componentXML = Installer::parseXMLInstallFile(Path::clean(JPATH_ADMINISTRATOR . '/components/com_xbmaps/xbmaps.xml'));
     	if ($type=='install') {
     		$message = 'xbMaps '.$componentXML['version'].' '.$componentXML['creationDate'].'<br />';
-         	//create xbmaps tracks folder
-         	$folder = '/xbmaps-tracks';
-        	if (!file_exists(JPATH_ROOT . $folder)) {
-        	    if (mkdir(JPATH_ROOT . $folder, 0775)) {
-                    $message .= 'Default GPX tracks folder <code>'.$folder.'</code> created.';
-        	    } else {
-                    '<b>Problem</b> creating default track upload folder <code>'.$folder.'</code>';
-        	    }
-         	}
-         	$folder = JPATH_ROOT.'/images/xbmaps/gpx';
-         	if (!file_exists($folder)) {
-         	    if (mkdir($folder,0775,true)) {
-         	        $message .= 'Alternate track folder <code>'.$folder.'<code> created.<br />';
-             	} else {
-             	    $message .= '<b>Problem</b> creating alternate track folder <code>'.$folder.'</code>.<br />';
-         	    }
-         	}         	    
-         	$folder = JPATH_ROOT.'/images/xbmaps/markers';
-         	if (!file_exists($folder)) {
-         		$res = mkdir($folder,0775,true);
-         		if ($res) {
-             		$message .= 'Markers folder <code>'.$folder.'</code> created.';
-             		$source = JPATH_ROOT.'/media/com_xbmaps/images/';
-                 	$res = copy($source . 'marker-red.png', $folder.'/marker-red.png');
-                 	$message .= ($res) ? ' <code>sample marker-red</code> copied.' : ' error copying samle marker file.';
-                 	$res = copy($source . 'marker-green.png', $folder.'/marker-green.png');
-                 	$message .= ($res) ? ' <code>sample marker-green image</code> copied.' : ' error copying sample marker file.';
-                 	$message .= '<br />';
-         		} else {
-         		    $message .= 'error creating markers folder '.$folder.'.<br />';
-         		}
-         	}
+    		
+         	//create xbmaps gpx and images folders
+         	$message .= '<i>Creating default folders</i><br />';
+         	$folders = array(         	
+         	    array('folder'=>'/xbmaps-tracks','title'=>'Default GPX tracks folder'),  		
+         	    array('folder'=>'/images/xbmaps/gpx','title'=>'Alternate track folder'),
+         	    array('folder'=>'/images/xbmaps/markers','title'=>'Marker images folder'),
+         	    array('folder'=>'/images/xbmaps/elevations','title'=>'Elevation images folder')
+         	);
+    		$message .= $this->createFolders($folders);
+    		
          	// create default categories using category table
          	$cats = array(
 	         			array("title"=>"Uncategorised","desc"=>"default fallback category for all xbMaps items"),
 	         			array("title"=>"Maps","desc"=>"default parent category for xbMaps Maps"),
 	         			array("title"=>"Markers","desc"=>"default parent category for xbMaps Markers"),
-	         			array("title"=>"Tracks","desc"=>"default parent category for xbMaps Tracks"));
+	         			array("title"=>"Tracks","desc"=>"default parent category for xbMaps Tracks")
+         	);
          	$message .= $this->createCategory($cats);
          	
 	        Factory::getApplication()->enqueueMessage($message,'Info');        
@@ -169,6 +161,58 @@ class com_xbmapsInstallerScript
 		return $message;
 	}
 	
+	public function createFolders(array $folders) {
+	    $message = '';
+	    foreach ($folders as $folder) {
+    	    $title = $folder['title'].' <code>'.$folder['folder'].'<code> ';
+    	    if (!file_exists(JPATH_ROOT . $folder['folder'])) {
+    	        if (mkdir(JPATH_ROOT . $folder['folder'], 0775)) {
+    	            copy(JPATH_ROOT.'/media/com_xbmaps/index.html', JPATH_ROOT.$folder['folder'].'/index.html' );
+    	            $message .= $title.' created okay.<br />';
+    	        } else {
+    	            $errmess = 'Error creating '.lcfirst($title).'. Please create folder manually to avoid errors<br />';
+    	            Factory::getApplication()->enqueueMessage($errmess,'Error');
+    	        }
+    	    } else{
+    	        $message .= $title.' already exists.<br />';
+    	    }
+	    }
+	    return $message;
+	}
+	
+	protected function uninstallTables(array $tablenames) {
+	    $message = '';
+	    $db = Factory::getDBO();
+	    foreach ($tablenames as $table) {
+    	    $db->setQuery('DROP TABLE IF EXISTS '.$db->qn($table));
+    	    $res = $db->execute();
+    	    if ($res === false) {
+    	        $errmess .= 'Error deleting table '.$table.', please check manually';
+    	        Factory::getApplication()->enqueueMessage($errmess,'Error');
+    	    } else {
+    	        $message .= ' - '.$table.' dropped, all data deleted<br />';
+    	    }
+	    }
+//	    if ($message == '') $message = 'problems deleting all tables<br />';
+	    return $message;
+	}
+	
+	protected function uninstallFolders(array $foldernames) {
+	    $message = 'Deleting folders...<br />';
+	    foreach ($foldernames as $folder) {
+	        if (JFolder::exists(JPATH_ROOT.$folder)) {
+	            if (JFolder::delete(JPATH_ROOT.$folder)){
+	                $message .= ' - '.$folder.' deleted okay<br />';
+	            } else {
+	                $errmess = 'Problem deleting '.$folder.' - please check with a file manager (eg PhocaCommander component)';
+	                Factory::getApplication()->enqueueMessage($errmess,'Error');
+	            }
+	        } else {
+	            $message .= ' - '.$folder.' not found. Have you already deleted it? please check.<br />';
+	        }
+	    }
+        return $message;
+	}
 	
 }
 

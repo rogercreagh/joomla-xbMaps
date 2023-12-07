@@ -63,21 +63,21 @@
 			<option value="0">- Select file -</option>
  		</field>		
  -->
-		<field name="upload_gpxfile" type="file" 
+		<field name="upload_file_gpx" type="file" 
 			accept=".gpx"
 			label="XBMAPS_UPLOAD_GPX_LABEL"
 			description="XBMAPS_UPLOAD_GPX_DESC"
 		/>
-		<field name="upload_newname" type="text"
+		<field name="upload_newname_gpx" type="text"
 			label="New name (optional)" description="Set a new name for the uploaded file"
 			default="" hint="include extension (eg .gpx)"
 		/>			
-		<field name="upload_elevfile" type="file" 
+		<field name="upload_file_elev" type="file" 
 			accept="image/*"
 			label="Upload Elevation Image"
 			description="Only use jpg or png filetypes"
 		/>
-		<field name="upload_newelevname" type="text"
+		<field name="upload_newname_elev" type="text"
 			label="New name (optional)" description="Set a new name for the uploaded file"
 			default="" hint="include extension (eg .jpg"
 		/>			
@@ -215,7 +215,7 @@
 
 		<field name="elev_folder" type="basefolderlist"
 			label="Elevtion Image Folder" description="Choose folder to select elevation image file"
-			hide_none="false" hide_default="true" recursive="true"
+			hide_none="true" hide_default="true" recursive="true"
 			directory="images/xbmaps/elevations"
 			onchange="document.getElementById('task').value='track.setelevfile';this.form.submit();"
 		>

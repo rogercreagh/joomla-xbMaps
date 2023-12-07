@@ -70,7 +70,12 @@ class com_xbmapsInstallerScript
             $res = mkdir(JPATH_ROOT.'/images/xbmaps/gpx', 0775, true);
             $message = ($res) ? 'New alternate GPX tracks folder <code>/images/xbmaps/gpx</code> created.<br />' : 'error creating new alternate track upload folder';
             Factory::getApplication()->enqueueMessage($message,'Info');
-        } 
+        }
+        if (!file_exists(JPATH_ROOT.'/images/xbmaps/elevations')) {
+            $res = mkdir(JPATH_ROOT.'/images/xbmaps/elevations', 0775, true);
+            $message = ($res) ? 'New alternate Elevation images tracks folder <code>/images/xbmaps/elevations</code> created.<br />' : 'error creating new alternate elevations folder';
+            Factory::getApplication()->enqueueMessage($message,'Info');
+        }
         $message = '<br />Visit the <a href="index.php?option=com_xbmaps&view=dashboard" class="btn btn-small btn-info">';
     	$message .= 'xbMaps Dashboard</a> page for overview of status.</p>';
     	$message .= '<br />For ChangeLog see <a href="http://crosborne.co.uk/xbmaps/changelog" target="_blank">

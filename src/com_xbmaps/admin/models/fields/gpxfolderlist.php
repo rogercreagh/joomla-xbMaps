@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.2.1.6 23rd February 2023
+ * @version 1.4.0.0 7th December 2023
  * @filesource admin/models/fields/gpxfolderlist.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -36,7 +36,7 @@ class JFormFieldGpxFolderList extends JFormFieldFolderList {
         $default = array($def);
         $options = parent::getOptions();
         foreach ($options as $opt) {
-            $opt->text = ' -- '.$opt->text;
+            $opt->text = ' └─ '.$opt->text;
             $opt->value = $def_folder.'/'.$opt->value;
         }
         

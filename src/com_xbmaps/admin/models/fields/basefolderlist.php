@@ -30,7 +30,7 @@ class JFormFieldBaseFolderList extends JFormFieldFolderList {
         $default = array($base);
         $options = parent::getOptions();
         foreach ($options as $opt) {
-            $opt->text = '└─ '.$opt->text;
+            $opt->text = ' └─ '.$opt->text;
             $opt->value = $base_folder.'/'.$opt->value;
         }       
         $options = array_merge($default, $options );

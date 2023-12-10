@@ -13,6 +13,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 
+HtmlHelper::_('behavior.tabState');
 HTMLHelper::_('behavior.formvalidator');
 HTMLHelper::_('behavior.keepalive');
 HTMLHelper::_('formbehavior.chosen', '#jform_catid', null, array('disable_search_threshold' => 0 ));
@@ -53,7 +54,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 			<?php echo $this->form->renderField('maplist'); ?>  
 		</div>
 	</div>
-	<div class="pull-left">
+	<div class="pull-left xbmr20">
     	<?php echo $this->form->renderField('gpx_filename'); ?>   
 	</div>
 	<div class="pull-left xbmr20">
@@ -68,6 +69,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
  		<div class="span12">
 			<?php echo HTMLHelper::_('bootstrap.startTabSet', 'myTab'); ?>
     			<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'files', Text::_('Select &amp; Upload Files')); ?>
+
  					<h4><?php echo Text::_('Select GPX file for track'); ?></h4>
         			<p><?php echo Text::_('XBMAPS_GPX_PARENT').' <code>'.$this->basegpxfolder.'</code> ';?>&nbsp;
         			<i><?php echo Text::_('XBMAPS_GPX_FOLDER_NOTE1'); ?>  
@@ -75,6 +77,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
         					<?php echo Text::_('XBMAPS_GPX_BASE_FOLDER'); ?></a> 
         				<?php echo Text::_('XBMAPS_GPX_FOLDER_NOTE2'); ?>
         			</i></p>
+
         			<div class="pull-left">
         	    		<?php echo $this->form->renderField('gpx_folder','params'); ?>   
         			</div>

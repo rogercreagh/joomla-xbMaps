@@ -2,7 +2,7 @@
 /*******
  * @package xbMaps Component
  * @filesource script.xbmaps.php
- * @version 1.4.0.0 6th December 2023
+ * @version 1.4.0.0 9th December 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021, 2023
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html 
@@ -54,11 +54,16 @@ class com_xbmapsInstallerScript
         if ($savedata == 0) {
             $tables = array('#__xbmaps_maps','#__xbmaps_tracks','#__xbmaps_maptracks','#__xbmaps_markers','#__xbmaps_mapmarkers');
             $message .= $this->uninstallTables($tables);
+        } else {
+            $message .= 'Data tables NOT removed, ';
+            $message .= $this->saveCategories('com_xbmaps');            
         }
         $savefiles = ComponentHelper::getParams('com_xbmaps')->get('savefiles',0);
         if ($savefiles == 0) {
             $folders = array('/xbmaps-tracks','/images/xbmaps/gpx','/images/xbmaps/markers','/images/xbmaps/elevations');
             $message .= $this->uninstallFolders($folders);
+        } else {
+            $message .= 'Files in <code>/xbmaps/tracks</code> and <code>/images/xbmaps</code> have NOT been deleted';
         }
         
         Factory::getApplication()->enqueueMessage($message,'');
@@ -99,7 +104,8 @@ class com_xbmapsInstallerScript
          	);
     		$message .= $this->createFolders($folders);
     		
-         	// create default categories using category table
+            $message .= $this->recoverCategories('com_xbmaps');
+         	// create default categories using category table if they haven't been recovered
          	$cats = array(
 	         			array("title"=>"Uncategorised","desc"=>"default fallback category for all xbMaps items"),
 	         			array("title"=>"Maps","desc"=>"default parent category for xbMaps Maps"),
@@ -219,5 +225,46 @@ class com_xbmapsInstallerScript
         return $message;
 	}
 	
+    protected function saveCategories(string $component) {
+	    $mess = 'saving categories... ';
+        $db = Factory::getDbo();
+	    $query = $db->getQuery(true);
+	    $query->update('#__categories')
+	       ->set('extension='.$db->q('!'.$component.'!'))
+	       ->where('extension='.$db->q($component));
+        try {
+	        $query->execute();
+            $cnt = $db->getAffectedRows();	        
+	    } catch (Exception $e) {
+	        Factory::getApplication()->enqueueMessage($e->getMessage(),'Error');
+	        return;
+	    }
+        if ($cnt>0) {
+            $mess .= $cnt.' category.extension renamed as "<b>!</b>'.$component.'<b>!</b>". They will be recovered with original ids if reinstalling '.$component.'<br />';
+        } else {
+            $mess .= 'failed to save any '.$component.' categories<br />';
+        }
+        return $mess;
+	}
+	
+	protected function recoverCategories(string $component) {
+	    // Recover categories if they exist assigned to extension !com_xbfilms!
+	    $cnt = 0;
+	    $mess = 'recovering saved categories if they exist... ';
+	    $db = Factory::getDbo();
+	    $query = $db->getQuery(true);
+	    $query->update('#__categories')
+	       ->set('extension='.$db->q($component))
+	       ->where('extension='.$db->q('!'.$component.'!'));
+	    $db->setQuery($query);
+	    try {
+	        $db->execute();
+	        $cnt = $db->getAffectedRows();
+	    } catch (Exception $e) {
+	        $app->enqueueMessage($e->getMessage(),'Error');
+	    }
+	    $mess .= $cnt.' previous '.$component.' categories restored.<br />';
+	    return $mess;
+	}
 }
 

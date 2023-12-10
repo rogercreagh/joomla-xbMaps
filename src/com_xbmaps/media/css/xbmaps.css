@@ -175,39 +175,93 @@ ul.nav-tabs {
 	border: solid 1px #ccc;
 }
 
-/* general font size, margin,width and padding classes */
-.xbtc {text-align:center;}
+/* xb classes for simple styles 
+some common combinations are also defined (eg xbnit - normal weight,italic, 5px left pad)
+*/
+
+/* centre div or table cell */
+.xbcentre { margin-left:auto; margin-right:auto;}
+
+/* text alignment */
+.xbtc, .xbcredit {text-align:center;}
+.xbtr {text-align:right;}
+
+/* font sizes in em */
 .xb15 { font-size:1.5em; }
-.xb12 { font-size:1.2em; }
-.xb11 { font-size:1.1em; }
+.xb12, .xbtitle { font-size:1.2em; }
+.xb11, .xbsubtitle { font-size:1.1em; }
 .xb10 { font-size:1.0em; }
 .xb095 { font-size:0.95em; }
-.xb09 { font-size:0.9em; }
+.xb09, .xbnote { font-size:0.9em; }
 .xb085 { font-size:0.85em; }
-.xb08 { font-size:0.8em; }
-.xbnorm { font-weight: normal; }
-.xbbold { font-weight: bold; }
+.xb08, .xbcredit { font-size:0.8em; }
+
+/* font weights and styles */
+.xbnorm, .xbnit { font-weight: normal; }
+.xbbold, .xbtitle { font-weight: bold; }
+.xbit, .xbnit, .xbcredit { font-style:italic; }
+.xbfw300, .xbsubtitle {font-weight:300;}
+
+/* margins */
 .xbm0 { margin:0 !important; } /*flagged important as we want to override any template margins*/
 .xbml10 { margin-left:10px; }
 .xbml15 { margin-left:15px; }
 .xbml20 { margin-left:20px; }
 .xbmr10 { margin-right:10px; }
+.xbml100 { margin-left:100px; }
+
+.xbmr10 { margin-right:10px; }
 .xbmr15 { margin-right:15px; }
 .xbmr20 { margin-right:20px; }
+
 .xbmt2 { margin-top:2px; }
 .xbmt10 { margin-top:10px; }
 .xbmt16 { margin-top:16px; }
+.xbmt20 { margin-top:20px; }
+
+.xbmb0 { margin-bottom:0; }
+.xbmb8, .xbtitle { margin-bottom:8px; }
 .xbmb8 { margin-bottom:8px; }
 .xbmb12 { margin-bottom:12px; }
 .xbpr20 { padding-right:20px }
-.xbbb1 { border-bottom:solid 1px gray;}
+
+/* padding */
+.xbpl10 {padding-left:10px;}
+.xbpl20 {padding-left:20px;}
+.xbpr5, .xbnit { padding-right:5px; }
+.xbpr10 { padding-right:10px;}
+.xbpr20 { padding-right:20px;}
+.xbpt17 { padding-top:17px;}
+
+/* heights */
+.xbht200 {height:200px;};
+
+/* maxheights */
 .xbmh200 {max-height:200px; }
 .xbmh300 {max-height:300px; }
 .xbmh400 {max-height:400px; }
-.xbmw400 {max-width:400px; }
+
+/* widths */
+.xbw18 {width: 18px; }
 .xbw50p {width:50px; }
+.xbw100 {width:100px; }
 .xbwid100 {width:100%; }
-.xbw100 {width:100px;}
+
+.xbwp100 {width:100%; }
+.xbwp60 {width:60%; }
+.xbwp50 {width:50%; }
+.xbwp40 {width:40%; }
+
+/* maxwidth eg for divs */
+.xbmw400 {max-width:400px; }
+.xbmw1000 { max-width:1000px; }
+.xbmw1100 { max-width:1100px; }
+.xbmw1200 { max-width:1200px; }
+.xbmw1400 { max-width:1400px; }
+
+/* borders */
+.xbbb1 { border-bottom:solid 1px gray;}
+
 .xbyscroll { overflow-y:scroll;}
 
 .xbilb20 {

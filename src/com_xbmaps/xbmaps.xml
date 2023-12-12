@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" version="3.1" method="upgrade">
 	<name>xbmaps</name>
-	<creationDate>7th December 2023</creationDate>
+	<creationDate>11th December 2023</creationDate>
 	<version>1.4.0.0</version>
 	<author>Roger C-O</author>
 	<authorEmail>roger@crosborne.uk</authorEmail>
@@ -40,11 +40,13 @@
 			<file charset="utf8" driver="mysql">sql/install.mysql.utf8.sql</file>
 		</sql>
 	</install>
+	<!-- 
 	<uninstall>
 		<sql>
 			<file charset="utf8" driver="mysql">sql/uninstall.mysql.utf8.sql</file>
 		</sql>
 	</uninstall>
+	 -->
 	<update>
 		<schemas>
 			<schemapath type="mysql">sql/updates/mysql</schemapath>

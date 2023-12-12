@@ -52,8 +52,13 @@ class com_xbmapsInstallerScript
         
         $savedata = ComponentHelper::getParams('com_xbmaps')->get('savedata',0);
         if ($savedata == 0) {
-            $tables = array('#__xbmaps_maps','#__xbmaps_tracks','#__xbmaps_maptracks','#__xbmaps_markers','#__xbmaps_mapmarkers');
-            $message .= $this->uninstallTables($tables);
+            $tables = array(  '#__xbmaps_maps',
+                '#__xbmaps_tracks',
+                '#__xbmaps_maptracks',
+                '#__xbmaps_markers',
+                '#__xbmaps_mapmarkers'
+            );
+            $message .= $this->uninstallData($tables);
         } else {
             $message .= 'Data tables NOT removed, ';
             $message .= $this->saveCategories('com_xbmaps');            
@@ -94,6 +99,15 @@ class com_xbmapsInstallerScript
     	if ($type=='install') {
     		$message = 'xbMaps '.$componentXML['version'].' '.$componentXML['creationDate'].'<br />';
     		
+    		//create aliases for tables - can't do in installsql in case they already exist in saved data
+//     		$message .= 'creating xbMaps table indicies on alias : ';
+//             $tables = array(
+//                 array('name'=>'xbmaps_maps', 'alias'=>'map'),
+//                 array('name'=>'xbmaps_tracks','alias'=>'track'),
+//                 array('name'=>'xbmaps_markers','alias'=>'marker')
+//                 );
+//             $message .= $this->createTableIndexes($tables);
+
          	//create xbmaps gpx and images folders
          	$message .= '<i>Creating default folders</i><br />';
          	$folders = array(         	
@@ -175,7 +189,7 @@ class com_xbmapsInstallerScript
 	public function createFolders(array $folders) {
 	    $message = '';
 	    foreach ($folders as $folder) {
-    	    $title = $folder['title'].' <code>'.$folder['folder'].'<code> ';
+    	    $title = $folder['title'].' <code>'.$folder['folder'].'</code> ';
     	    if (!file_exists(JPATH_ROOT . $folder['folder'])) {
     	        if (mkdir(JPATH_ROOT . $folder['folder'], 0775)) {
     	            copy(JPATH_ROOT.'/media/com_xbmaps/index.html', JPATH_ROOT.$folder['folder'].'/index.html' );
@@ -191,19 +205,55 @@ class com_xbmapsInstallerScript
 	    return $message;
 	}
 	
-	protected function uninstallTables(array $tablenames) {
+	protected function uninstallData($tablenames) {
 	    $message = '';
 	    $db = Factory::getDBO();
-	    foreach ($tablenames as $table) {
-    	    $db->setQuery('DROP TABLE IF EXISTS '.$db->qn($table));
-    	    $res = $db->execute();
-    	    if ($res === false) {
-    	        $errmess .= 'Error deleting table '.$table.', please check manually';
-    	        Factory::getApplication()->enqueueMessage($errmess,'Error');
-    	    } else {
-    	        $message .= ' - '.$table.' dropped, all data deleted<br />';
-    	    }
-	    }
+ 	    foreach ($tablenames as $table) {
+     	    $db->setQuery('DROP TABLE IF EXISTS '.$db->qn($table));
+     	    $res = $db->execute();
+     	    if ($res === false) {
+     	        $errmess .= 'Error deleting table '.$table.', please check manually';
+     	        Factory::getApplication()->enqueueMessage($errmess,'Error');
+//     	        return 'Not all data deleted';
+     	    } else {
+     	        $message .= ' - '.$table.' dropped, all data deleted<br />';
+     	    } 
+ 	    }
+// 	    $db->setQuery('DELETE FROM `#__categories` WHERE `extension` = '.$db->q('com_xbmaps'));
+// 	    $res = $db->execute();
+ 	    $aliaslist = "'com_xbmaps.map','com_xbmaps.track','com_xbmaps.marker','com_xbmaps.category'";
+ 	    $subquery = 'select type_id from `#__content_types` where type_alias in ('.$aliaslist.')';
+ 	    $db->setQuery('DELETE FROM `#__ucm_history` WHERE `ucm_type_id` in ('.$subquery.')');
+ 	    $res = $db->execute();
+ 	    $db->setQuery('DELETE FROM `#__ucm_base` WHERE `ucm_type_id` in ('.$subquery.')');
+ 	    $res = $db->execute();
+ 	    $db->setQuery('DELETE FROM `#__ucm_content` WHERE `core_type_alias` in ('.$aliaslist.')');
+ 	    $res = $db->execute();
+ 	    $db->setQuery('DELETE FROM `#__contentitem_tag_map` WHERE `type_alias` in ('.$aliaslist.')');
+ 	    $res = $db->execute();
+ 	    $db->setQuery('DELETE FROM `#__content_types` WHERE `type_alias` in ('.$aliaslist.')');
+ 	    $res = $db->execute();
+
+ 	    // 	    $query = file_get_contents(JPATH_ADMINISTRATOR.'/components/com_xbmaps/sql/uninstall.mysql.utf8.sql');
+// 	    $db->setQuery($query);
+// //	    $qs=$db->getQuery();
+// //	    Factory::getApplication()->enqueueMessage($qs->dump());
+// 	    try {
+//     	    $res = $db->execute();	        
+// 	    } catch (Exception $e) {
+// 	        Factory::getApplication()->enqueueMessage($e->getMessage(),'Error');
+// 	        return '';
+// 	    }
+// 	    if ($res) {
+// 	        $message = 'xbMaps data tables dropped, content_types deleted, tag references deleted byt tags themselves not cleared.';
+// 	    } else {
+// 	        $message = 'Error while unistalling xbMaps data, please check manually';
+// 	    }
+// 	    $typelist = $db->q('com_xbmaps.map').'.'.$db->q('com_xbmaps.marker').'.'.$db->q('com_xbmaps.track');
+//         $query = $db->getQuery(true);
+//         $query = 'DELETE FROM `#__ucm_history` WHERE ucm_type_id in 
+// 	       (select type_id from `#__content_types` where type_alias in ($typelist))';
+
 //	    if ($message == '') $message = 'problems deleting all tables<br />';
 	    return $message;
 	}
@@ -240,7 +290,7 @@ class com_xbmapsInstallerScript
 	        return;
 	    }
         if ($cnt>0) {
-            $mess .= $cnt.' category.extension renamed as "<b>!</b>'.$component.'<b>!</b>". They will be recovered with original ids if reinstalling '.$component.'<br />';
+            $mess .='xbMaps categories.extension renamed as "<b>!</b>'.$component.'<b>!</b>". They will be recovered with original ids if reinstalling '.$component.'<br />';
         } else {
             $mess .= 'failed to save any '.$component.' categories<br />';
         }
@@ -261,10 +311,36 @@ class com_xbmapsInstallerScript
 	        $db->execute();
 	        $cnt = $db->getAffectedRows();
 	    } catch (Exception $e) {
-	        $app->enqueueMessage($e->getMessage(),'Error');
+	        Factory::getApplication()->enqueueMessage($e->getMessage(),'Error');
 	    }
 	    $mess .= $cnt.' previous '.$component.' categories restored.<br />';
 	    return $mess;
+	}
+
+	protected function createTableIndices(array $tables) {
+	    $db = Factory::getDbo();
+	    $prefix = Factory::getApplication()->get('dbprefix');
+        $message = 'Checking existing indicies... ';
+	    foreach ($tables as $table) {
+    	    $querystr = 'ALTER TABLE '.$prefix.$table['name'].' ADD INDEX '.$table['alias'].'aliasindex (alias)';
+	        $db->setQuery($querystr);
+	        $err = false;
+	        try {
+        	    $db->execute();
+    	    } catch (Exception $e) {
+    	        if($e->getCode() == 1061) {
+    	            $message .= '- '.$table['alias'].' already exists. ';
+    	        } else {
+    	            $errmess .= '[ERROR] creating '.$table['name'].' index : '.$e->getCode().' '.$e->getMessage().']';
+    	            Factory::getApplcation()->enqueueMessage($errmess, 'Error');
+    	            $err = true;
+    	        }
+    	    }
+    	    if (!$err) {
+    	        $message .= '- '.$table['alias'].' ok, ';
+    	    }
+	    }
+	    return $message.'<br />';
 	}
 }
 

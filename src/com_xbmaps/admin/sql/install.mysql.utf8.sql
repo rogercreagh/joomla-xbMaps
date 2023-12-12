@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `#__xbmaps_maps` (
  PRIMARY KEY (`id`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
-CREATE UNIQUE INDEX `mapaliasindex` ON `#__xbmaps_maps` (`alias`);
+#CREATE UNIQUE INDEX `mapaliasindex` ON `#__xbmaps_maps` (`alias`);
 
 CREATE TABLE IF NOT EXISTS `#__xbmaps_tracks` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `#__xbmaps_tracks` (
  PRIMARY KEY (`id`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
-CREATE UNIQUE INDEX `trackaliasindex` ON `#__xbmaps_tracks` (`alias`);
+#CREATE UNIQUE INDEX `trackaliasindex` ON `#__xbmaps_tracks` (`alias`);
 
 CREATE TABLE IF NOT EXISTS `#__xbmaps_maptracks` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -106,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `#__xbmaps_markers` (
   PRIMARY KEY (`id`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
-CREATE UNIQUE INDEX `markeraliasindex` ON `#__xbmaps_markers` (`alias`);
+#CREATE UNIQUE INDEX `markeraliasindex` ON `#__xbmaps_markers` (`alias`);
 
 CREATE TABLE IF NOT EXISTS `#__xbmaps_mapmarkers` (
   `id` int NOT NULL AUTO_INCREMENT,

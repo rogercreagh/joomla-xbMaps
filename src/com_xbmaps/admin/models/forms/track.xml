@@ -13,6 +13,7 @@
 
 		<field name="title" type="text"
 			label="JGLOBAL_TITLE" description="JFIELD_TITLE_DESC"
+			default="New Track Title"
 			class="inputbox input-xxlarge input-large-text" size="30" required="true" 
 		/>
 
@@ -209,6 +210,7 @@
 			hide_none="true" hide_default="true"
 			class="xbfilecontrol"
 			onchange="document.getElementById('task').value='track.setgpxfile';this.form.submit();"
+			shownon="id!:0"			
 		>
 			<option value="">Select GPX file</option>
  		</field>
@@ -228,6 +230,7 @@
 			hide_none="false" hide_default="true"
 			class="xbfilecontrol"
 			onchange="document.getElementById('task').value='track.setelevfile';this.form.submit();"
+			shownon="id!:0"			
 		>
 			<option value="">Select Elevation file</option>
  		</field>

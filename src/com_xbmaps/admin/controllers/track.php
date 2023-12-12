@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.4.0.0 7th December 2023
+ * @version 1.4.0.0 12th December 2023
  * @filesource admin/controllers/track.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -109,7 +109,7 @@ class XbmapsControllerTrack extends FormController {
         $this->import('gpx');
     }
     
-    function importelec() {
+    function importelev() {
         $this->import('elev');
     }
     
@@ -119,6 +119,10 @@ class XbmapsControllerTrack extends FormController {
         $jinput = Factory::getApplication()->input;
         $post   = $jinput->get('jform', '', 'RAW');
         $id = $post['id'];
+        if ($id == 0) {
+            Factory::getApplication()->enqueueMessage('Please save track before uploading file','Warning');
+            return;
+        }
         $link = 'index.php?option=com_xbmaps&view=track&layout=edit&id='.$id;
         if ($id != 0)  {
             // get the destination folder

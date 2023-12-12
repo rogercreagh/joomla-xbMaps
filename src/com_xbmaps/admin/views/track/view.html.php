@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.4.0.0 7th December 2023
+ * @version 1.4.0.0 12th December 2023
  * @filesource admin/views/track/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -28,13 +28,14 @@ class XbmapsViewTrack extends JViewLegacy {
         $this->params = ComponentHelper::getParams('com_xbmaps');
         $this->track_map_type = $this->params->get('track_map_type','');
         $this->basegpxfolder = $this->params->get('base_gpx_folder');
-        $this->gpxfolder = '';
+        $this->baseelevfolder = 'images/xbmaps/elevations';
+        $this->gpxfolder = $this->basegpxfolder;
         if ($this->item->id > 0) {
-            $this->gpxfolder = array_key_exists('gpx_folder', $this->item->params) ? $this->item->params['gpx_folder'] : '';
+            $this->gpxfolder = array_key_exists('gpx_folder', $this->item->params) ? $this->item->params['gpx_folder'] : $this->basegpxfolder;
         }
-        $this->elevfolder = '';
+        $this->elevfolder = $this->baseelevfolder;
         if ($this->item->id > 0) {
-            $this->elevfolder = array_key_exists('elev_folder', $this->item->params) ? $this->item->params['elev_folder'] : '';
+            $this->elevfolder = array_key_exists('elev_folder', $this->item->params) ? $this->item->params['elev_folder'] : $this->baseelevfolder;
         }
         // Check for errors.
 		if (count($errors = $this->get('Errors'))) {

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.2.1.6 27th February 2023
+ * @version 1.4.0.0 12th December 2023
  * @filesource admin/tables/track.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -34,18 +34,38 @@ class XbmapsTableTrack extends Table
 	        $this->setError(Text::_('XBMAPS_PROVIDE_VALID_TITLE'));
 	        return false;
 	    }
-	    
-	    if (($this->id == 0) && (XbmapsHelper::checkTitleExists($title,'#__xbmaps_tracks'))) {
-	        $this->setError(Text::sprintf('XBMAPS_TITLE_EXISTS',$title));
-	        return false;
+	    //check title & alias are unique
+	    // really we need also to check if they have changed if the id is already set
+	    if ($this->id == 0) {
+	        $test = $title;
+	        
+            $cycle = 0;
+            while (XbmapsHelper::checkTitleExists($test,'#__xbmaps_tracks')) {
+                $cycle ++;
+                $test = $title.'-'.sprintf("%02d", $cycle);;
+            }
+            $title = $test;
+    	    
+    	    $this->title = $title;
+    	    //create alias if not set - title is already unique
+    	    if (trim($this->alias) == '') {
+    	        $this->alias = $title;
+    	    } 
+    	    $this->alias = OutputFilter::stringURLSafe(strtolower($this->alias));
+    	    //need to check alias is unique
+    	    $test = $this->alias;
+    	    $cycle = 0;
+    	    while (XbmapsHelper::checkTitleExists($test,'#__xbmaps_tracks','alias')) {
+    	        $cycle ++;
+    	        $test = $this->alias.'-'.sprintf("%02d", $cycle);;
+    	    }
+    	    $this->alias = $test;
 	    }
+//	    if ($cycle>0) {
+//	        $this->setError('Title already exists, suffix appended: '.$title);
+	        //	            $this->alias = $title;
+//	    }
 	    
-	    $this->title = $title;
-	    //create alias if not set - title is already unique
-	    if (trim($this->alias) == '') {
-	        $this->alias = $title;
-	    } 
-	    $this->alias = OutputFilter::stringURLSafe(strtolower($this->alias));
 	    
 	    //warn if no summary or description 
 	    if (trim($this->summary) =='') {
@@ -58,7 +78,7 @@ class XbmapsTableTrack extends Table
 	    }
 	    
 	    //warn if gpx filename not valid
-	    if (!file_exists(JPATH_ROOT.'/'.$this->gpx_filename)) {
+	    if (($this->id != 0) && !(file_exists(JPATH_ROOT.'/'.$this->gpx_filename))) {
 	        Factory::getApplication()->enqueueMessage(Text::_('XBMAPS_GPXFILENAME_MISSING'),'Warning');
 	    }    
 	    
@@ -168,6 +188,5 @@ class XbmapsTableTrack extends Table
         
         return true;
     }
-    
     
 }

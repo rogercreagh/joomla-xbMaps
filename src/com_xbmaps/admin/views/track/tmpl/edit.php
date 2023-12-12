@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.4.0.0 7th December 2023
+ * @version 1.4.0.0 12th December 2023
  * @filesource admin/views/track/tmpl/edit.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -63,108 +63,101 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 	<div class="pull-left xbmr20">
     	<?php echo $this->form->renderField('elev_filename'); ?>   
 	</div>
-	<div class="clearfix"
+	<div class="clearfix"></div>
 	
     <div class="row-fluid form-horizontal">
  		<div class="span12">
 			<?php echo HTMLHelper::_('bootstrap.startTabSet', 'myTab'); ?>
     			<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'files', Text::_('Select &amp; Upload Files')); ?>
 
- 					<h4><?php echo Text::_('Select GPX file for track'); ?></h4>
-        			<p><?php echo Text::_('XBMAPS_GPX_PARENT').' <code>'.$this->basegpxfolder.'</code> ';?>&nbsp;
-        			<i><?php echo Text::_('XBMAPS_GPX_FOLDER_NOTE1'); ?>  
-        				<a href="index.php?option=com_config&view=component&component=com_xbmaps#Tracks">
-        					<?php echo Text::_('XBMAPS_GPX_BASE_FOLDER'); ?></a> 
-        				<?php echo Text::_('XBMAPS_GPX_FOLDER_NOTE2'); ?>
-        			</i></p>
-
-        			<div class="pull-left">
-        	    		<?php echo $this->form->renderField('gpx_folder','params'); ?>   
-        			</div>
-        			<div class="pull-left xbm15">
-        	    		<?php echo $this->form->renderField('gpx_file','params'); ?>   
-        			</div>  
-        			<div class="clearfix"></div>   
-        			     	    	 					
-    			<?php if($this->item->id >0) : ?>
-    			<?php else : ?>
-    				<p class="xbnit">
-    					<?php echo Text::_('XBMAPS_SAVE_BEFORE_SELECT'); ?>
-    				</p>
-    			<?php endif; ?>
-				<?php if($this->gpxfolder != '') : ?>
-					<div style="max-width:1100px;">
-    		        	<?php echo HTMLHelper::_('bootstrap.startAccordion', 'slide-dashboard', array('active' => '')); ?>
-    	        		<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-dashboard', Text::_('XBMAPS_GPX_UPLOAD_CLICK'),'uploadgpx','xbaccordion'); ?>
-    	        		
-    	    				<div class="pull-left">
-    	    					<p class="xbnit"><?php echo JText::_('XBMAPS_UPLOAD_SAVE_CHANGES'); ?></p>
-    		    				<?php echo $this->form->renderField('upload_file_gpx'); ?>   					
-    	    				</div> 					
-            				<div class="pull-left xbml15">
-            					<p>File will upload to <code><?php echo $this->gpxfolder; ?></code>.
-                 	    		<?php echo $this->form->renderField('upload_newname_gpx'); ?> 
-            				</div>	
-            				<div class="clearfix"></div>
-    	    				<div class="pull-right">
-    	    					<p> </p>
-        						<button class="btn btn-warning" type="submit" 
-    								onclick="if(confirmImport('importgpx')) {this.form.submit();}" >
-    								<i class="icon-upload icon-white"></i><?php echo JText::_('XBMAPS_UPLOAD_GPX'); ?>
-    							</button>
-    	    				</div> 					
-    	    				<div class="clearfix"></div> 	
-            			<?php echo HTMLHelper::_('bootstrap.endSlide'); ?>
-            			<?php echo HTMLHelper::_('bootstrap.endAccordion'); ?>
-            		</div>
-    			<?php else : ?>
-        			<p class="xbnit">
-        				<?php echo Text::_('XBMAPS_SAVE_BEFORE_UPLOAD'); ?>
-        			</p>
-    			<?php endif; ?>
-    			<div class="clearfix"></div>
-    			
-    			<h4><?php echo Text::_('Select Elevation Image file for track (optional)'); ?></h4>
-    			<p>
-    				<?php echo Text::_('Base Elevation Images folder').' <code>'.$this->elevfolder.'</code> ';?>
-				</p>
- 
-        			<div class="pull-left">
-        	    		<?php echo $this->form->renderField('elev_folder','params'); ?>   
-        			</div>
-        			<div class="pull-left xbml15">
-        	    		<?php echo $this->form->renderField('elev_file','params'); ?>   
-        			</div>  
-        			<div class="clearfix"></div>        	    	 					
-					<?php if($this->elevfolder != '') : ?>
-						<div style="max-width:1100px;">
-    			        	<?php echo HTMLHelper::_('bootstrap.startAccordion', 'slide-upelev', array('active' => '')); ?>
-    		        		<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-upelev', Text::_('Upload new elevation file'),'uploadelev','xbaccordion'); ?>		        		
-    		    				<div class="pull-left">
-    		    					<p class="xbnit"><?php echo JText::_('XBMAPS_UPLOAD_SAVE_CHANGES'); ?></p>
-    			    				<?php echo $this->form->renderField('upload_file_elev'); ?>   					
-    		    				</div> 					
-                				<div class="pull-left">
-                					<p>File will upload to <code><?php echo $this->elevfolder; ?></code>.
-                     	    		<?php echo $this->form->renderField('upload_newname_elev'); ?> 
-                				</div>	
-     		    				<div class="clearfix"></div> 	
-    		    				<div class="pull-right">
-    		    					<p> </p>
-    	    						<button class="btn btn-warning" type="submit" 
-    									onclick="if(confirmImport('importelev')) {this.form.submit();}" >
-    									<i class="icon-upload icon-white"></i><?php echo JText::_('XBMAPS_UPLOAD_ELEV'); ?>
-    								</button>
-    		    				</div> 					
-    		    				<div class="clearfix"></div> 	
-    	        			<?php echo HTMLHelper::_('bootstrap.endSlide'); ?>
-    	        			<?php echo HTMLHelper::_('bootstrap.endAccordion'); ?>
-    	        		</div>
-        			<?php else : ?>
-        				<p class="xbnit">
-        					<?php echo Text::_('XBMAPS_SAVE_BEFORE_UPLOAD'); ?>
+        			<?php if($this->item->id >0) : ?>
+     					<h4><?php echo Text::_('Select GPX file for track'); ?></h4>
+            			<p><?php echo Text::_('XBMAPS_GPX_PARENT').' <code>'.$this->basegpxfolder.'</code> ';?>&nbsp;
+            			<i><?php echo Text::_('XBMAPS_GPX_FOLDER_NOTE1'); ?>  
+            				<a href="index.php?option=com_config&view=component&component=com_xbmaps#Tracks">
+            					<?php echo Text::_('XBMAPS_GPX_BASE_FOLDER'); ?></a> 
+            				<?php echo Text::_('XBMAPS_GPX_FOLDER_NOTE2'); ?>
+            			</i></p>
+    
+            			<div class="pull-left">
+            	    		<?php echo $this->form->renderField('gpx_folder','params'); ?>   
+            			</div>
+            			<div class="pull-left xbm15">
+            	    		<?php echo $this->form->renderField('gpx_file','params'); ?>   
+            			</div>  
+            			<div class="clearfix"></div>   
+            			     	    	 					
+        				<?php if($this->gpxfolder != '') : ?>
+        					<div style="max-width:1100px;">
+            		        	<?php echo HTMLHelper::_('bootstrap.startAccordion', 'slide-dashboard', array('active' => '')); ?>
+            	        		<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-dashboard', Text::_('XBMAPS_GPX_UPLOAD_CLICK'),'uploadgpx','xbaccordion'); ?>
+            	        		
+            	    				<div class="pull-left">
+            	    					<p class="xbnit"><?php echo JText::_('XBMAPS_UPLOAD_SAVE_CHANGES'); ?></p>
+            		    				<?php echo $this->form->renderField('upload_file_gpx'); ?>   					
+            	    				</div> 					
+                    				<div class="pull-left xbml15">
+                    					<p>File will upload to <code><?php echo $this->gpxfolder; ?></code>.
+                         	    		<?php echo $this->form->renderField('upload_newname_gpx'); ?> 
+                    				</div>	
+                    				<div class="clearfix"></div>
+            	    				<div class="pull-right">
+            	    					<p> </p>
+                						<button class="btn btn-warning" type="submit" 
+            								onclick="if(confirmImport('importgpx')) {this.form.submit();}" >
+            								<i class="icon-upload icon-white"></i><?php echo JText::_('XBMAPS_UPLOAD_GPX'); ?>
+            							</button>
+            	    				</div> 					
+            	    				<div class="clearfix"></div> 	
+                    			<?php echo HTMLHelper::_('bootstrap.endSlide'); ?>
+                    			<?php echo HTMLHelper::_('bootstrap.endAccordion'); ?>
+                    		</div>
+            			<?php endif; ?>
+        				<div class="clearfix"></div>
+        			
+            			<h4><?php echo Text::_('Select Elevation Image file for track (optional)'); ?></h4>
+            			<p>
+            				<?php echo Text::_('Base Elevation Images folder').' <code>'.$this->baseelevfolder.'</code> ';?>
         				</p>
-        			<?php endif; ?>    				
+     
+            			<div class="pull-left">
+            	    		<?php echo $this->form->renderField('elev_folder','params'); ?>   
+            			</div>
+            			<div class="pull-left xbml15">
+            	    		<?php echo $this->form->renderField('elev_file','params'); ?>   
+            			</div>  
+            			<div class="clearfix"></div>        	    	 					
+    					<?php if($this->elevfolder != '') : ?>
+    						<div style="max-width:1100px;">
+        			        	<?php echo HTMLHelper::_('bootstrap.startAccordion', 'slide-upelev', array('active' => '')); ?>
+        		        		<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-upelev', Text::_('Upload new elevation file'),'uploadelev','xbaccordion'); ?>		        		
+        		    				<div class="pull-left">
+        		    					<p class="xbnit"><?php echo JText::_('XBMAPS_UPLOAD_SAVE_CHANGES'); ?></p>
+        			    				<?php echo $this->form->renderField('upload_file_elev'); ?>   					
+        		    				</div> 					
+                    				<div class="pull-left xbml15">
+                    					<p>File will upload to <code><?php echo $this->elevfolder; ?></code>.
+                         	    		<?php echo $this->form->renderField('upload_newname_elev'); ?> 
+                    				</div>	
+         		    				<div class="clearfix"></div> 	
+        		    				<div class="pull-right">
+        		    					<p> </p>
+        	    						<button class="btn btn-warning" type="submit" 
+        									onclick="if(confirmImport('importelev')) {this.form.submit();}" >
+        									<i class="icon-upload icon-white"></i><?php echo Text::_('Upload Image'); ?>
+        								</button>
+        		    				</div> 					
+        		    				<div class="clearfix"></div> 	
+        	        			<?php echo HTMLHelper::_('bootstrap.endSlide'); ?>
+        	        			<?php echo HTMLHelper::_('bootstrap.endAccordion'); ?>
+        	        		</div>
+            			<?php endif; ?>    				
+         			<?php else : ?>
+        				<h4 class="xbit">
+        					<?php echo Text::_('XBMAPS_SAVE_BEFORE_SELECT'); ?>
+        				</h4>
+        				<p class="xbit"><?php echo Text::_('Options to select folder and file for GPX and Elevation images, and to upload new files, will appear here once the Track has been initially saved')?>
+        			<?php endif; ?>
         		<?php echo HTMLHelper::_('bootstrap.endTab'); ?>   
 				
     			<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'details', Text::_('XBMAPS_DETAILS')); ?>

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.4.0.0 7th December 2023
+ * @version 1.4.0.0 12th December 2023
  * @filesource admin/models/track.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -14,6 +14,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Application\ApplicationHelper;
+use Joomla\CMS\Table\Table;
 
 class XbmapsModelTrack extends JModelAdmin {
 	
@@ -51,7 +52,7 @@ class XbmapsModelTrack extends JModelAdmin {
 
 	public function getTable($type = 'Track', $prefix = 'XbmapsTable', $config = array()) {
 	    
-	    return JTable::getInstance($type, $prefix, $config);
+	    return Table::getInstance($type, $prefix, $config);
 	}
 	
 	public function getForm($data = array(), $loadData = true) {
@@ -109,8 +110,7 @@ class XbmapsModelTrack extends JModelAdmin {
  	            }
  	            if ($data->rec_device == '') {
  	                $data->rec_device = $gpxinfo['creator'];
- 	            }
- 	            
+ 	            } 	            
  	        }
 	    }
 	    return $data;

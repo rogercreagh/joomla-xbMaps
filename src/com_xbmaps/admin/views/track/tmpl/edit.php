@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.4.0.0 12th December 2023
+ * @version 1.4.1.0 13th December 2023
  * @filesource admin/views/track/tmpl/edit.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -31,6 +31,15 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 		return true;
 	}
 	
+	function showNewFolder(type) {
+		document.getElementById(type+'_newfolder_name').style['display']='inline-block';
+        document.getElementById(type+'_create_folder').style['display']='inline';
+        document.getElementById(type+'_newfolder_name').placeholder='subfolder of: '+document.getElementById('jform_params_'+type+'_folder').value+'/';
+        document.getElementById(type+'_newfolder_name').focus();
+        this.style['display']='none';	
+        return true;
+    }
+    
 </script>
 
 <form action="<?php echo JRoute::_('index.php?option=com_xbmaps&view=track&layout=edit&id=' . (int) $this->item->id); ?>"
@@ -79,13 +88,22 @@ HTMLHelper::_('formbehavior.chosen', 'select');
             				<?php echo Text::_('XBMAPS_GPX_FOLDER_NOTE2'); ?>
             			</i></p>
     
-            			<div class="pull-left">
-            	    		<?php echo $this->form->renderField('gpx_folder','params'); ?>   
-            			</div>
-            			<div class="pull-left xbm15">
-            	    		<?php echo $this->form->renderField('gpx_file','params'); ?>   
-            			</div>  
-            			<div class="clearfix"></div>   
+    					<div class="form-vertical">
+                			<div class="pull-left">
+                	    		<?php echo $this->form->renderField('gpx_folder','params'); ?>   
+                			</div>
+                            <div class="pull-left xbmt25" >
+                            	<button id="gpx_newfolder_btn" class="btn btn-small" type="button" 
+                            	onclick="showNewFolder('gpx');">New folder</button>
+                            	<input id="gpx_newfolder_name" name="jform[gpx_newfolder_name]" style="display:none;" type="text" />
+                            	<button id="gpx_create_folder" style="display:none;" type="button" 
+                            		onclick="document.getElementById('task').value='track.newgpxfolder';this.form.submit();">Create</button>
+                            </div>
+                			<div class="pull-left xbml25">
+                	    		<?php echo $this->form->renderField('gpx_file','params'); ?>   
+                			</div>  
+                			<div class="clearfix"></div>   
+    					</div>
             			     	    	 					
         				<?php if($this->gpxfolder != '') : ?>
         					<div style="max-width:1100px;">
@@ -103,7 +121,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
                     				<div class="clearfix"></div>
             	    				<div class="pull-right">
             	    					<p> </p>
-                						<button class="btn btn-warning" type="submit" 
+                						<button class="btn btn-warning" type="button" id="btn_upload_gpx"
             								onclick="if(confirmImport('importgpx')) {this.form.submit();}" >
             								<i class="icon-upload icon-white"></i><?php echo JText::_('XBMAPS_UPLOAD_GPX'); ?>
             							</button>
@@ -120,13 +138,23 @@ HTMLHelper::_('formbehavior.chosen', 'select');
             				<?php echo Text::_('Base Elevation Images folder').' <code>'.$this->baseelevfolder.'</code> ';?>
         				</p>
      
-            			<div class="pull-left">
-            	    		<?php echo $this->form->renderField('elev_folder','params'); ?>   
+            			<div class="form-vertical">
+                			<div class="pull-left">
+                	    		<?php echo $this->form->renderField('elev_folder','params'); ?>   
+                			</div>
+                            <div class="pull-left xbmt25" >
+                            	<button id="elev_newfolder_btn" class="btn btn-small" type="button" 
+                            	onclick="showNewFolder('elev');">New folder</button>
+                            	<input id="elev_newfolder_name" name="jform[elev_newfolder_name]" style="display:none;" type="text" />
+                            	<button id="elev_create_folder" style="display:none;" type="button" 
+                            		onclick="document.getElementById('task').value='track.newelevfolder';this.form.submit();">Create</button>
+                            </div>
+                			<div class="pull-left xbml25">
+                	    		<?php echo $this->form->renderField('elev_file','params'); ?>   
+                			</div>  
+                			<div class="clearfix"></div>   
             			</div>
-            			<div class="pull-left xbml15">
-            	    		<?php echo $this->form->renderField('elev_file','params'); ?>   
-            			</div>  
-            			<div class="clearfix"></div>        	    	 					
+            			     	    	 					
     					<?php if($this->elevfolder != '') : ?>
     						<div style="max-width:1100px;">
         			        	<?php echo HTMLHelper::_('bootstrap.startAccordion', 'slide-upelev', array('active' => '')); ?>
@@ -142,7 +170,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
          		    				<div class="clearfix"></div> 	
         		    				<div class="pull-right">
         		    					<p> </p>
-        	    						<button class="btn btn-warning" type="submit" 
+        	    						<button class="btn btn-warning" type="button" id="btn_elev_upload" 
         									onclick="if(confirmImport('importelev')) {this.form.submit();}" >
         									<i class="icon-upload icon-white"></i><?php echo Text::_('Upload Image'); ?>
         								</button>

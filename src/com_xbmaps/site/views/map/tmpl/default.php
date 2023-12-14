@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.1.0.e 26th December 2021
+ * @version 1.4.3.0 14th December 2023
  * @filesource site/views/map/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -25,7 +25,16 @@ $clink = 'index.php?option=com_xbmaps&view=category'.$itemid.'&id=';
 $mapslink = 'index.php?option=com_xbmaps&view=maplist';
 
 ?>
-
+<script>
+  function handleClick(cb) {
+  if (cb.checked) {
+      document.cookie="hide"+cb.id+"= ;expires=Thu, 01 Jan 1970 00:00:01 GMT";
+  } else {
+      document.cookie="hide"+cb.id+"=1";
+  }
+  location.reload();
+}
+</script>
 <div class="xbmaps">
 <?php if (!$this->tmplcomp) : ?>
 	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
@@ -77,7 +86,14 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
 			}	
 			
 			if (!empty($item->tracks)) {
-				$map->renderTracks($item->tracks,$this->fit_bounds,0,$this->show_track_popover);
+			    $showtracks = array();
+			    foreach ($item->tracks as $track) {
+			        $showhide = key_exists('hidetrack'.$track->id,$_COOKIE) ?  $_COOKIE['hidetrack'.$track->id] : 0;
+			        if ($showhide == 0) {
+			            $showtracks[] = $track;
+			        }
+			    }
+				if (!empty($showtracks)) $map->renderTracks($showtracks,$this->fit_bounds,0,$this->show_track_popover);
 			}
 			if (!empty($item->markers)) {
 			    foreach ($item->markers as $mrk) {

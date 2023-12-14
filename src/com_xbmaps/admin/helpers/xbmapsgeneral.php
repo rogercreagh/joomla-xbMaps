@@ -27,7 +27,7 @@ use What3words\Geocoder\Geocoder;
 class XbmapsGeneral extends ContentHelper {
 
 	/**
-	 * @name makeSummaryText
+	 * @name makeSummaryText()
 	 * @desc returns a plain text version of the source trunctated at the first or last sentence within the specified length
 	 * @param string $source the string to make a summary from
 	 * @param int $len the maximum length of the summary
@@ -85,6 +85,14 @@ class XbmapsGeneral extends ContentHelper {
 		return $credit;
 	}
 	
+	/** 
+	 * @name Deg2DMS()
+	 * @desc converts a fractional degree value to a degree-minutes-seconds string or array
+	 * @param unknown $value
+	 * @param boolean $islat
+	 * @param string $rettype
+	 * @return number[]|string[]|unknown
+	 */
 	public static function Deg2DMS($value, $islat=true, $rettype="string") {
 		$isnortheast = ($value >= 0);
 		if ($islat) {
@@ -104,6 +112,15 @@ class XbmapsGeneral extends ContentHelper {
 		return sprintf('%d&deg; %d\' %d&quot; %s', $deg, $min, $sec, $dir);
 	}
 	
+	/**
+	 * @name DMS2Deg()
+	 * @desc converts degree minute and seconds into fractional degrees
+	 * @param unknown $deg
+	 * @param unknown $min
+	 * @param unknown $sec
+	 * @param unknown $dir offset from Greenwich N | S | E | W
+	 * @return number
+	 */
 	public static function DMS2Deg($deg, $min, $sec, $dir) {
 		$value = $deg + ($min/60) + ($sec/3600);
 		$neg = (($dir='W') || ($dir='S')) ? -1 : 1;

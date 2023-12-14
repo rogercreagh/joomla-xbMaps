@@ -6,7 +6,7 @@
 - **DONE** v1.1.0 - Bug fixes
 - **DONE** v1.2.0 - Improved file upload, 
 - **DONE** v1.3.0 - Markdown for summaries
-- v1.4.0 -  Add optional elevation image to track  **database change**
+- **DONE** v1.4.2 -  Add optional elevation image to track  **database change**
 - v1.5.0 -  Update leaflet to latest version
 - v1.6.0 - elevation plot from leaflet plugin
 
@@ -46,7 +46,7 @@
 #### Plugin plg_content_xbmaps
 
 - **DONE** v0.1.0 beta test
-- v1.0.0 - parse xbmap shortcode to insert map or track in an article
+- v1.0.0 - 
 
 
 

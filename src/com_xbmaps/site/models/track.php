@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 0.7.0.b 9th October 2021
+ * @version 1.4.2.0 13th December 2023
  * @filesource site/models/track.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -33,7 +33,7 @@ class XbmapsModelTrack extends JModelItem {
 			$db = $this->getDbo();
 			$query = $db->getQuery(true);
 			$query->select('a.id AS id, a.title AS title, a.description AS description,a.alias AS alias,
-                a.gpx_filename AS gpx_filename, a.rec_date AS rec_date, a.track_colour AS track_colour,
+                a.gpx_filename AS gpx_filename, a.elev_filename AS elev_filename, a.rec_date AS rec_date, a.track_colour AS track_colour,
 				a.rec_device AS rec_device, a.activity AS activity, a.summary AS summary,
 				a.state AS published, a.catid AS catid, a.params AS params ');
 			$query->from('#__xbmaps_tracks AS a');

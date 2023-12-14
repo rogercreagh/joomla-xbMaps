@@ -1,3 +1,5 @@
+# NOT USED SINCE V1.3 to allow for keeping data on uninstall
+# functionality now handled in component script file
 # sql uninstall file for component xbMaps 1st July 2021
 # NB tags themselves are not deleted, categories and tag content map entries are deleted
 

@@ -141,7 +141,13 @@ class XbmapsHelper extends ContentHelper {
 		return $db->loadObjectList()[0];
 	}
 	
-	public static function parseGpxHeader($gpxfile) {
+	/**
+	 * @name parseGpxHeader
+	 * @desc reads xml attributes from given gpx file
+	 * @param string $gpxfile
+	 * @return array
+	 */
+	public static function parseGpxHeader(string $gpxfile) {
 		$gpxinfo=array();
 		$xml = simplexml_load_file(JPATH_ROOT.$gpxfile);
 		$root_attributes = $xml->attributes();

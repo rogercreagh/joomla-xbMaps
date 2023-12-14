@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.1.0.c 24th December 2021
+ * @version 1.4.2.0 13th December 2023
  * @filesource site/views/track/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -10,6 +10,9 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\HTML\HTMLHelper;
+
+HTMLHelper::_('behavior.modal');
 
 $item = $this->item;
 
@@ -74,7 +77,16 @@ $trackslink = 'index.php?option=com_xbmaps&view=tracklist';
 				
 				</div>
 			</div>
-		</div>			
+		</div>	
+		<?php if ($item->elev_filename !='') : ?>
+			<?php if (file_exists(JPATH_ROOT.$item->elev_filename)) : ?>
+			<div id="elevimg">
+				<a href="<?php echo $item->elev_filename; ?>" class="modal">
+					<img src="<?php echo $item->elev_filename; ?>" />
+				</a>
+			</div>
+			<?php endif; ?>
+		<?php endif; ?>	
 	</div>
 	<?php if (($this->show_track_info === 'right')): ?>
     	<div class="span<?php echo $this->track_info_width; ?>">

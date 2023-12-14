@@ -64,7 +64,7 @@ class XbmapsControllerTrack extends FormController {
         $this->newfolder('elev');
     }
     
-    public function newfolder($type ='gpx') {
+    private function newfolder($type ='gpx') {
         $basefolder = $type.'_folder';
         $newfolder = $type.'_newfolder_name';
         $jinput = Factory::getApplication()->input;
@@ -91,7 +91,7 @@ class XbmapsControllerTrack extends FormController {
         $this->import('elev');
     }
     
-    public function import($type) {
+    private function import($type = 'gpx') {
         $msg = '';
         $msgtype = 'Success';
         $jinput = Factory::getApplication()->input;

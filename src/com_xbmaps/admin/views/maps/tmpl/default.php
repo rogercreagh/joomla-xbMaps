@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.3.3.0 4th December 2023
+ * @version 1.4.4.0 14th December 2023
  * @filesource admin/views/maps/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -17,6 +17,8 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
 
 HTMLHelper::_('behavior.multiselect');
 HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => Text::_('JOPTION_SELECT_TAG')));
@@ -46,8 +48,12 @@ $tvlink = 'index.php?option=com_tags&id=';
 $catclass = $this->show_cats? 'label-success' : 'label-grey';
 $tagclass = $this->show_tags? 'label-info' : 'label-grey';
 ?>
+<style type="text/css" media="screen">
+    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 190px);}
+    .xbpvmodal .modal-body { max-height:none; height:auto;}
+</style>
 <div class="row-fluid">
-<form action="<?php echo JRoute::_('index.php?option=com_xbmaps&view=maps'); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo Route::_('index.php?option=com_xbmaps&view=maps'); ?>" method="post" name="adminForm" id="adminForm">
 	<div id="j-sidebar-container">
 		<?php echo $this->sidebar; ?>
 	</div>
@@ -175,9 +181,14 @@ $tagclass = $this->show_tags? 'label-info' : 'label-grey';
 					    echo HTMLHelper::_('jgrid.checkedout', $i, JText::_('XBMAPS_OPENED_BY').': '.$couname, $item->checked_out_time, 'map.', $canCheckin);
 					} ?>
 					<?php if ($canEdit || $canEditOwn) : ?>
-						<a href="<?php echo JRoute::_($mapelink.$item->id);?>"
-							title="<?php echo JText::_('XBMAPS_EDIT_MAP'); ?>" >
-							<b><?php echo $this->escape($item->title); ?></b></a> 
+							<a href="<?php echo Route::_($mapelink.$item->id);?>"
+								title="<?php echo Text::_('XBMAPS_EDIT_MAP'); ?>" >
+								<b><?php echo $this->escape($item->title); ?></b>
+							</a>&nbsp;<a href="#ajax-xbmodal" 
+								data-toggle="modal" data-target="#ajax-xbmodal" 
+								onclick="window.com='maps';window.view='map';window.pvid=<?php echo $item->id; ?>;">
+									<i class="far fa-eye"></i>
+							</a>
 					<?php else : ?>
 						<?php echo $this->escape($item->title); ?>
 					<?php endif; ?>
@@ -301,4 +312,5 @@ $tagclass = $this->show_tags? 'label-info' : 'label-grey';
 </div>
 <div class="clearfix"></div>
 <p><?php echo XbmapsGeneral::credit();?></p>
+<?php echo LayoutHelper::render('xbpvmodal.layoutpvmodal', array(), JPATH_ROOT .'/components/com_xbmaps/layouts');   ?>
 

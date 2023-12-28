@@ -385,8 +385,8 @@ class XbmapsGeneral extends ContentHelper {
 	        }
 	        $showhide = key_exists('hidetrack'.$trk->id,$_COOKIE) ?  $_COOKIE['hidetrack'.$trk->id] : 0;
 	        $trklist .='<input type="checkbox" id="track'.$trk->id.'" ';
-	        if($showhide == 0) $trklist .= 'checked="true"';
-	        $trklist .= ' onclick="handleClick(this);" />&nbsp;';
+	        if ($trk->show == 1) $trklist .= 'checked="true"';
+	        $trklist .= ' onclick="this.form.submit();" />&nbsp;'; //handleClick(this);" />&nbsp;';
 	        $trklist .=	'<i class="fas fa-project-diagram" style="color:'.$trk->track_colour.'"></i>&nbsp; ';
 	        $trklist .= HTMLHelper::_('date', $trk->rec_date, 'D d-m-\'y').'&nbsp;&nbsp;';
 	        $trklist .=	'<b>'.$trk->linkedtitle.'</b> </div> ';

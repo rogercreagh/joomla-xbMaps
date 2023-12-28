@@ -13,6 +13,7 @@ require_once(JPATH_COMPONENT_ADMINISTRATOR.'/helpers/geocoder.php');
 
 use What3words\Geocoder\Geocoder;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
 
 $item = $this->item;
 
@@ -27,12 +28,12 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
 ?>
 <script>
   function handleClick(cb) {
-  if (cb.checked) {
-      document.cookie="hide"+cb.id+"= ;expires=Thu, 01 Jan 1970 00:00:01 GMT";
-  } else {
-      document.cookie="hide"+cb.id+"=1";
-  }
-  location.reload();
+//  if (cb.checked) {
+//      document.cookie="hide"+cb.id+"= ;expires=Thu, 01 Jan 1970 00:00:01 GMT";
+//  } else {
+//      document.cookie="hide"+cb.id+"=1";
+//  }
+  ;
 }
 </script>
 <div class="xbmaps">
@@ -41,7 +42,7 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
 		echo XbmapsHelper::sitePageheader($this->header);
 	} ?>
 <?php endif; ?>
-
+<form action="<?php echo Route::_('index.php?option=com_xbmaps&view=map&id='.$item->id); ?>" method="post" name="adminForm" id="adminForm">       
 <?php  if($this->show_map_title) :?>
 <div class="row-fluid">
 	<div class="span12">
@@ -88,8 +89,8 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
 			if (!empty($item->tracks)) {
 			    $showtracks = array();
 			    foreach ($item->tracks as $track) {
-			        $showhide = key_exists('hidetrack'.$track->id,$_COOKIE) ?  $_COOKIE['hidetrack'.$track->id] : 0;
-			        if ($showhide == 0) {
+//			        $showhide = key_exists('hidetrack'.$track->id,$_COOKIE) ?  $_COOKIE['hidetrack'.$track->id] : 0;
+			        if ($track->show == 0) {
 			            $showtracks[] = $track;
 			        }
 			    }
@@ -198,7 +199,7 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
 				<div class="pull-left xbnit xbmr10"><?php echo JText::_('XBMAPS_CATEGORY'); ?></div>
 				<div class="pull-left">
 					<?php if($this->show_cats==2) : ?>
-						<a class="label label-success" href="<?php echo JRoute::_($clink.$item->catid); ?>">
+						<a class="label label-success" href="<?php echo Route::_($clink.$item->catid); ?>">
     						<?php echo $item->category_title; ?></a>
     				<?php else: ?>
     					<span class="label label-success"><?php echo $item->category_title; ?></span>
@@ -229,24 +230,29 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
 		</span>&nbsp;
 		<?php endif; ?>
 		<?php if($item->prev > 0) : ?>
-			<a href="<?php echo JRoute::_(XbmapsHelperRoute::getMapLink($item->prev)); ?>" class="btn btn-small">
+			<a href="<?php echo Route::_(XbmapsHelperRoute::getMapLink($item->prev)); ?>" class="btn btn-small">
 				<?php echo Text::_('XBMAPS_PREV'); ?></a>
 	    <?php endif; ?>
 	</div>
 	<div class="span8"><center>
-		<a href="<?php echo JRoute::_($mapslink); ?>" class="btn btn-small">
+		<a href="<?php echo Route::_($mapslink); ?>" class="btn btn-small">
 			<?php echo JText::_('XBMAPS_MAPSLIST'); ?></a></center>
 	</div>
 	<div class="span2">
 		<?php if($item->next > 0) : ?>
-			<a href="<?php echo JRoute::_(XbmapsHelperRoute::getMapLink($item->next)); ?>" class="btn btn-small pull-right">
+			<a href="<?php echo Route::_(XbmapsHelperRoute::getMapLink($item->next)); ?>" class="btn btn-small pull-right">
 				<?php echo JText::_('XBMAPS_NEXT'); ?></a>
 	    <?php endif; ?>
 	</div>
 </div>
+</form>
 	<div class="clearfix"></div>
 
 	<?php echo XbmapsGeneral::credit();?>
 <?php endif; ?>
-
+<div id="mapid" data=""></div>
 </div>
+
+<script>
+//	get all checkboxes, if none checked check them all
+</script>

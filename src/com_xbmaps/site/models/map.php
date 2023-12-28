@@ -28,6 +28,7 @@ class XbmapsModelMap extends JModelItem {
 	}
 	
 	public function getItem($id = null) {
+	    $app = Factory::getApplication();
 		if (!isset($this->item) || !is_null($id)) {
 			
 			$id    = is_null($id) ? $this->getState('map.id') : $id;
@@ -54,6 +55,18 @@ class XbmapsModelMap extends JModelItem {
 				$params->merge($this->item->params);
 				$this->item->params = $params;
 				$this->item->tracks = XbmapsGeneral::mapTracksArray($this->item->id,1);
+				$sum = 0;
+				foreach ($this->item->tracks as &$track) {
+				    $checked = $app->getUserStateFromRequest('track'.$track->id, 'track'.$track->id,'0');
+				    $sum += $checked;
+				    $track->show = ($checked == 0) ? 0 : 1;
+				}
+				//if no checkboxes check we'll check them all as if a map has any tracks we must show at least 1
+				if ($sum == 0) {
+				    foreach ($this->item->tracks as &$track) {
+				        $track->show = 1;
+				    }
+				}
 				//get markers
 				$this->item->markers = XbmapsGeneral::mapMarkersArray($this->item->id,1);
 				

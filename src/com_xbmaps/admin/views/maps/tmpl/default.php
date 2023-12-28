@@ -191,6 +191,11 @@ $tagclass = $this->show_tags? 'label-info' : 'label-grey';
 							</a>
 					<?php else : ?>
 						<?php echo $this->escape($item->title); ?>
+							&nbsp;<a href="#ajax-xbmodal" 
+								data-toggle="modal" data-target="#ajax-xbmodal" 
+								onclick="window.com='maps';window.view='map';window.pvid=<?php echo $item->id; ?>;">
+									<i class="far fa-eye"></i>
+							</a>
 					<?php endif; ?>
                     <br />                        
 					<?php $alias = JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?>

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.3.3.0 4th December 2023
+ * @version 1.4.4.1 20th December 2023
  * @filesource site/views/maplist/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -12,11 +12,11 @@ defined('_JEXEC') or die;
 require_once(JPATH_COMPONENT_ADMINISTRATOR.'/helpers/xbparsedown.php');
 
 use Xbmaps\Xbparsedown\Xbparsedown;
-
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Layout\FileLayout;
+use Joomla\CMS\Router\Route;
 
 HTMLHelper::_('behavior.multiselect');
 HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => JText::_('JOPTION_SELECT_TAG')));
@@ -39,13 +39,17 @@ $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
 $mlink = 'index.php?option=com_xbmaps&view=map'.$itemid.'&id=';
 
 ?>
+<style type="text/css" media="screen">
+    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 190px);}
+    .xbpvmodal .modal-body { max-height:none; height:auto;}
+</style>
 
 <div class="xbmaps">
 	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
 		echo XbmapsHelper::sitePageheader($this->header);
 	} ?>
 	
-	<form action="<?php echo JRoute::_('index.php?option=com_xbmaps&view=maplist'); ?>" method="post" name="adminForm" id="adminForm">       
+	<form action="<?php echo Route::_('index.php?option=com_xbmaps&view=maplist'); ?>" method="post" name="adminForm" id="adminForm">       
 		<?php  // Search tools bar
 			if ($this->search_bar) {
 				$hide = '';
@@ -113,7 +117,12 @@ $mlink = 'index.php?option=com_xbmaps&view=map'.$itemid.'&id=';
 					<td>
 						<p class="xbtitle">
 							<a href="<?php echo $mlink.$item->id;?>" >
-								<b><?php echo $this->escape($item->title); ?></b></a></p> 
+								<b><?php echo $this->escape($item->title); ?></b></a>&nbsp;<a href="#ajax-xbmodal" 
+								data-toggle="modal" data-target="#ajax-xbmodal" 
+								onclick="window.com='maps';window.view='map';window.pvid=<?php echo $item->id; ?>;">
+									<i class="far fa-eye"></i>
+							</a>
+								</p> 
 					</td>
 					<td class="hidden-phone">
 						<p class="xb095">
@@ -215,5 +224,6 @@ $mlink = 'index.php?option=com_xbmaps&view=map'.$itemid.'&id=';
 	</form>
 	<div class="clearfix"></div>
 	<?php echo XbmapsGeneral::credit();?>
+<?php echo LayoutHelper::render('xbpvmodal.layoutpvmodal', array(), JPATH_ROOT .'/components/com_xbmaps/layouts');   ?>
 </div>
 	

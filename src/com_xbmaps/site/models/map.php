@@ -22,7 +22,7 @@ class XbmapsModelMap extends JModelItem {
 		$this->setState('map.id', $id);
 		
 		// Load the parameters.
-		$this->setState('params', Factory::getApplication()->getParams());
+		$this->setState('params', $app->getParams());
 		parent::populateState();
 		
 	}
@@ -70,7 +70,7 @@ class XbmapsModelMap extends JModelItem {
 				if (array_sum($trackstate) == 0) {
 				    foreach ($trackstate as $track=>$state) {
 				        $trackstate[$track] = 1;
-				        setcookie('track'.$track, 1, time() + 86400, "/");
+				        setcookie('track'.$track, 1, time() + 3600, "/");
 				    }
 				}
 				$this->item->trackstate = $trackstate;

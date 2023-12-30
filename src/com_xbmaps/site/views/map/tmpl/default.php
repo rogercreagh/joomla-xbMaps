@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.4.4.2 29th December 2023
+ * @version 1.4.4.2 30th December 2023
  * @filesource site/views/map/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -12,6 +12,7 @@ defined('_JEXEC') or die;
 require_once(JPATH_COMPONENT_ADMINISTRATOR.'/helpers/geocoder.php');
 
 use What3words\Geocoder\Geocoder;
+use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 
@@ -28,11 +29,13 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
 ?>
 <script>
   	function handleClick(cb) {
-		if (cb.checked) {
-			document.cookie=cb.id+"=1;
+		document.cookie = cb.id + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+		if (cb.checked == true) {
+			document.cookie=cb.id+"=1; path=/;";
 		} else {
-			document.cookie="hide"+cb.id+"=0; expires=Thu, 01 Jan 1970 00:00:01 GMT";
+			document.cookie=cb.id+"=0; path=/;";
 		}
+  		location.reload();
     }
 </script>
 <div class="xbmaps">
@@ -88,7 +91,6 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
 			if (!empty($item->tracks)) {
 			    $showtracks = array();
 			    foreach ($item->tracks as $track) {
-//			        $showhide = key_exists('hidetrack'.$track->id,$_COOKIE) ?  $_COOKIE['hidetrack'.$track->id] : 0;
 			        if ($item->trackstate[$track->id] == 1) {
 			            $showtracks[] = $track;
 			        }

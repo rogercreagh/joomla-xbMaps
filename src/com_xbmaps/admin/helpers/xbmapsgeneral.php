@@ -383,7 +383,6 @@ class XbmapsGeneral extends ContentHelper {
 	        } else {
 	            $trklist .= '<div class="pull-left">';
 	        }
-//	        $showhide = key_exists('track'.$trk->id, $_COOKIE) ?  $_COOKIE['track'.$trk->id] : 0;
 	        $trklist .='<input type="checkbox" id="track'.$trk->id.'"';
 	        if (key_exists($trk->id, $trackstate)) {
 	            $trklist .= ($trackstate[$trk->id] == 1) ? ' checked="true"' : '';

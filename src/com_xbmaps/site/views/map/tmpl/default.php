@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.4.3.0 14th December 2023
+ * @version 1.4.4.2 29th December 2023
  * @filesource site/views/map/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -27,14 +27,13 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
 
 ?>
 <script>
-  function handleClick(cb) {
-//  if (cb.checked) {
-//      document.cookie="hide"+cb.id+"= ;expires=Thu, 01 Jan 1970 00:00:01 GMT";
-//  } else {
-//      document.cookie="hide"+cb.id+"=1";
-//  }
-  ;
-}
+  	function handleClick(cb) {
+		if (cb.checked) {
+			document.cookie=cb.id+"=1;
+		} else {
+			document.cookie="hide"+cb.id+"=0; expires=Thu, 01 Jan 1970 00:00:01 GMT";
+		}
+    }
 </script>
 <div class="xbmaps">
 <?php if (!$this->tmplcomp) : ?>
@@ -90,7 +89,7 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
 			    $showtracks = array();
 			    foreach ($item->tracks as $track) {
 //			        $showhide = key_exists('hidetrack'.$track->id,$_COOKIE) ?  $_COOKIE['hidetrack'.$track->id] : 0;
-			        if ($track->show == 0) {
+			        if ($item->trackstate[$track->id] == 1) {
 			            $showtracks[] = $track;
 			        }
 			    }

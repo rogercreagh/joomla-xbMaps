@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.3.1.0 17th May 2023
+ * @version 1.4.4.2 29th December 2023
  * @filesource site/views/map/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -203,7 +203,7 @@ class XbmapsViewMap extends JViewLegacy {
 		                    $this->keybox .= (!empty($this->item->markers))? '<div class="span6">' : '<div class="span12">';
 		                }
 		                $this->keybox .= '<p><b>Tracks</b></p>';
-		                $this->keybox .= XbmapsGeneral::buildTrackList($this->item->tracks, $this->infopos,$this->track_info);
+		                $this->keybox .= XbmapsGeneral::buildTrackList($this->item->tracks, $this->infopos, $this->track_info, $this->item->trackstate);
 		                $this->keybox .= ($this->infopos == 'topbot')? '</div>' : '';
 		            }
 		            if (($this->infopos != 'topbot') && ((!empty($this->item->tracks)) && (!empty($this->item->markers)))) {

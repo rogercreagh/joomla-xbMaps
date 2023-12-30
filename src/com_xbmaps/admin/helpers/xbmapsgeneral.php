@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.3.3.0 4th December 2023
+ * @version 1.4.4.2 29th December 2023
  * @filesource admin/helpers/xbmapsgeneral.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -373,7 +373,7 @@ class XbmapsGeneral extends ContentHelper {
 	    return $trklist;
 	}
  */	
-	public static function buildTrackList($tracks, $infopos, $infodisp) {
+	public static function buildTrackList($tracks, $infopos, $infodisp, $trackstate = array()) {
 	    $trklist = '';
 	    foreach ($tracks as $trk) {
 	        $trklist .=	'<div>';
@@ -383,10 +383,12 @@ class XbmapsGeneral extends ContentHelper {
 	        } else {
 	            $trklist .= '<div class="pull-left">';
 	        }
-	        $showhide = key_exists('hidetrack'.$trk->id,$_COOKIE) ?  $_COOKIE['hidetrack'.$trk->id] : 0;
-	        $trklist .='<input type="checkbox" id="track'.$trk->id.'" ';
-	        if ($trk->show == 1) $trklist .= 'checked="true"';
-	        $trklist .= ' onclick="this.form.submit();" />&nbsp;'; //handleClick(this);" />&nbsp;';
+//	        $showhide = key_exists('track'.$trk->id, $_COOKIE) ?  $_COOKIE['track'.$trk->id] : 0;
+	        $trklist .='<input type="checkbox" id="track'.$trk->id.'"';
+	        if (key_exists($trk->id, $trackstate)) {
+	            $trklist .= ($trackstate[$trk->id] == 1) ? ' checked="true"' : '';
+	        }
+	        $trklist .= ' onclick="handleClick(this);" />&nbsp;';
 	        $trklist .=	'<i class="fas fa-project-diagram" style="color:'.$trk->track_colour.'"></i>&nbsp; ';
 	        $trklist .= HTMLHelper::_('date', $trk->rec_date, 'D d-m-\'y').'&nbsp;&nbsp;';
 	        $trklist .=	'<b>'.$trk->linkedtitle.'</b> </div> ';

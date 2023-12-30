@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 0.7.0.a 5th October 2021
+ * @version 1.4.4.2 29th December 2023
  * @filesource site/models/map.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -56,17 +56,24 @@ class XbmapsModelMap extends JModelItem {
 				$this->item->params = $params;
 				$this->item->tracks = XbmapsGeneral::mapTracksArray($this->item->id,1);
 				$sum = 0;
-				foreach ($this->item->tracks as &$track) {
-				    $checked = $app->getUserStateFromRequest('track'.$track->id, 'track'.$track->id,'0');
-				    $sum += $checked;
-				    $track->show = ($checked == 0) ? 0 : 1;
-				}
-				//if no checkboxes check we'll check them all as if a map has any tracks we must show at least 1
-				if ($sum == 0) {
-				    foreach ($this->item->tracks as &$track) {
-				        $track->show = 1;
+				$trackstate = array();				
+				foreach ($this->item->tracks as $track) {
+				    $trackstate[$track->id] = 1;
+				    $cookie_name = 'track'.$track->id;
+				    if(!isset($_COOKIE[$cookie_name])) {
+				        $trackstate[$track->id] = 0;
+				    } else {
+				        $trackstate[$track->id] = $_COOKIE[$cookie_name];
 				    }
 				}
+				//if no checkboxes check we'll check them all as if a map has any tracks we must show at least 1
+				if (array_sum($trackstate) == 0) {
+				    foreach ($trackstate as $track=>$state) {
+				        $trackstate[$track] = 1;
+				        setcookie('track'.$track, 1, time() + 86400, "/");
+				    }
+				}
+				$this->item->trackstate = $trackstate;
 				//get markers
 				$this->item->markers = XbmapsGeneral::mapMarkersArray($this->item->id,1);
 				

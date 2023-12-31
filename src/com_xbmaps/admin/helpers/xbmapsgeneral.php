@@ -330,51 +330,9 @@ class XbmapsGeneral extends ContentHelper {
 			return $list;
 	}
 	
-/* 	public static function buildTrackList($tracks, $infopos, $infodisp) {
-	    $trklist = '<ul class="xblist" style="margin:0;">';
-	    foreach ($tracks as $trk) {
-	        $trklist .=	'<li><i class="fas fa-project-diagram" style="color:'.$trk->track_colour.'"></i>&nbsp; &nbsp;';
-	        $trklist .= '<span';
-	        $trksum = $trk->summary;
-	        if ($trksum!=''){$trklist .= ' class= "hasTooltip" title="" data-original-title="'.$trksum.'"';}
-	        $trklist .=	'><b>'.$trk->linkedtitle.'</b></span> ';
-	        
-	        if (is_array($infodisp)) {
-	            $cleanalias = str_replace('-','_',$trk->alias);
-	            $parts = 'x'.implode(',', $infodisp);
-	            $trklist .= ': ';
-	            if (strpos($parts,'A')) {
-	                $trklist .= '<span class="xbml20">'.$trk->activity.'</span>';
-	            }
-	            if (strpos($parts,'V')) {
-	                $trklist .= '<span class="xbnit xbml20">Device: </span>' ;
-	                $trklist .= $trk->rec_device;
-	            }
-	            if (strpos($parts,'S')) {
-	                $trklist .= '<span class="xbnit xbml20">Start: </span>' ;
-	                $trklist .= $trk->rec_date;
-	            }
-	            if (strpos($parts,'D')) {
-	                $trklist .= '<span id="'.$cleanalias.'-d" class="xbml20"> </span>';
-	            }
-	            if (strpos($parts,'C')) {
-	                $trklist .= '<span id="'.$cleanalias.'-c" class="xbml20"> </span>';
-	            }
-	            if (strpos($parts,'M')) {
-	                $trklist .= '<span id="'.$cleanalias.'-m" class="xbml20"> </span>';
-	            }
-	            if (strpos($parts,'T')) {
-	                $trklist .= '<span id="'.$cleanalias.'-t" class="xbml20"> </span>';
-	            }
-	        }
-	        $trklist .=	 '</li>';
-	    } // endforeach;
-	    $trklist .=	 '</ul>';
-	    return $trklist;
-	}
- */	
 	public static function buildTrackList($tracks, $infopos, $infodisp, $trackstate = array()) {
 	    $trklist = '';
+	    $showcheck = (count($tracks) > 1) ? true : false;
 	    foreach ($tracks as $trk) {
 	        $trklist .=	'<div>';
 	        $trksum = $trk->summary;
@@ -383,11 +341,13 @@ class XbmapsGeneral extends ContentHelper {
 	        } else {
 	            $trklist .= '<div class="pull-left">';
 	        }
-	        $trklist .='<input type="checkbox" id="track'.$trk->id.'"';
-	        if (key_exists($trk->id, $trackstate)) {
-	            $trklist .= ($trackstate[$trk->id] == 1) ? ' checked="true"' : '';
+	        if ($showcheck) {
+    	        $trklist .='<input type="checkbox" id="track'.$trk->id.'"';
+    	        if (key_exists($trk->id, $trackstate)) {
+    	            $trklist .= ($trackstate[$trk->id] == 1) ? ' checked="true"' : '';
+    	        }
+    	        $trklist .= ' onclick="handleClick(this);" />&nbsp;';	            
 	        }
-	        $trklist .= ' onclick="handleClick(this);" />&nbsp;';
 	        $trklist .=	'<i class="fas fa-project-diagram" style="color:'.$trk->track_colour.'"></i>&nbsp; ';
 	        $trklist .= HTMLHelper::_('date', $trk->rec_date, 'D d-m-\'y').'&nbsp;&nbsp;';
 	        $trklist .=	'<b>'.$trk->linkedtitle.'</b> </div> ';

@@ -206,6 +206,7 @@ class XbmapsModelMaplist extends JModelList {
 			$item->markers = XbmapsGeneral::mapMarkersArray($item->id,1);;
     		$item->tracks = XbmapsGeneral::mapTracksArray($item->id,1);
 		}
+		$item->sortdate
 		return $items;
 	}
 	

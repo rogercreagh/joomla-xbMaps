@@ -183,12 +183,12 @@ $tagclass = $this->show_tags? 'label-info' : 'label-grey';
 					<?php if ($canEdit || $canEditOwn) : ?>
 							<a href="<?php echo Route::_($mapelink.$item->id);?>"
 								title="<?php echo Text::_('XBMAPS_EDIT_MAP'); ?>" >
-								<b><?php echo $this->escape($item->title); ?></b>
-							</a>&nbsp;<a href="#ajax-xbmodal" 
+								<b><?php echo $this->escape($item->title); ?></b></a>
+							&nbsp;<a href="#ajax-xbmodal" 
 								data-toggle="modal" data-target="#ajax-xbmodal" 
-								onclick="window.com='maps';window.view='map';window.pvid=<?php echo $item->id; ?>;">
-									<i class="far fa-eye"></i>
-							</a>
+								onclick="window.com='maps';window.view='map';window.pvid=<?php echo $item->id; ?>;"
+									><i class="far fa-eye"></i></a>
+							
 					<?php else : ?>
 						<?php echo $this->escape($item->title); ?>
 							&nbsp;<a href="#ajax-xbmodal" 

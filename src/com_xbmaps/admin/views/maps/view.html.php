@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.2.1.1 20th February 2023
+ * @version 1.5.0.0 31st December 2023
  * @filesource admin/views/maps/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -102,8 +102,8 @@ class XbmapsViewMaps extends JViewLegacy {
 			$batchButtonHtml = $layout->render(array('title' => Text::_('JTOOLBAR_BATCH')));
 			$bar->appendButton('Custom', $batchButtonHtml, 'batch');
 		}
-		ToolbarHelper::custom('','spacer');
-		ToolBarHelper::custom('map.preview', 'eye', '', 'Preview Map', true) ;
+//		ToolbarHelper::custom('','spacer');
+//		ToolBarHelper::custom('map.preview', 'eye', '', 'Preview Map', true) ;
 		
 		
 		if ($canDo->get('core.admin')) {

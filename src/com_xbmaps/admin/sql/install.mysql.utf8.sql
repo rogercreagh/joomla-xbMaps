@@ -116,6 +116,14 @@ CREATE TABLE IF NOT EXISTS `#__xbmaps_mapmarkers` (
   PRIMARY KEY (`id`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `#__xbmaps_mapmarkers` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `map_id` int NOT NULL,
+  `marker_id` int NOT NULL,
+  `listorder` int NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
+
 ###Create content types ---------------------
 
 INSERT INTO `#__content_types` (`type_title`, `type_alias`, `content_history_options`, `table`, `field_mappings`, `router`,`rules`) 

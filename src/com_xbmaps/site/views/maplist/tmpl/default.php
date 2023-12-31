@@ -119,10 +119,9 @@ $mlink = 'index.php?option=com_xbmaps&view=map'.$itemid.'&id=';
 							<a href="<?php echo $mlink.$item->id;?>" >
 								<b><?php echo $this->escape($item->title); ?></b></a>&nbsp;<a href="#ajax-xbmodal" 
 								data-toggle="modal" data-target="#ajax-xbmodal" 
-								onclick="window.com='maps';window.view='map';window.pvid=<?php echo $item->id; ?>;">
-									<i class="far fa-eye"></i>
-							</a>
-								</p> 
+								onclick="window.com='maps';window.view='map';window.pvid=<?php echo $item->id; ?>;"
+								><i class="far fa-eye"></i></a>
+						</p> 
 					</td>
 					<td class="hidden-phone">
 						<p class="xb095">

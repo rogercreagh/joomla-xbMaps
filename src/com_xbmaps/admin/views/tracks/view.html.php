@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 0.1.1.j 26th August 2021
+ * @version 1.5.0.2 2nd January 2024
  * @filesource admin/views/tracks/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -90,8 +90,8 @@ class XbmapsViewTracks extends JViewLegacy {
 			$batchButtonHtml = $layout->render(array('title' => Text::_('JTOOLBAR_BATCH')));
 			$bar->appendButton('Custom', $batchButtonHtml, 'batch');
 		}
-		ToolbarHelper::custom('','spacer');
-		ToolBarHelper::custom('track.preview', 'eye', '', 'Preview Track', true) ;
+//		ToolbarHelper::custom('','spacer');
+//		ToolBarHelper::custom('track.preview', 'eye', '', 'Preview Track', true) ;
 				
 		if ($canDo->get('core.admin')) {
 			ToolbarHelper::preferences('com_xbmaps');

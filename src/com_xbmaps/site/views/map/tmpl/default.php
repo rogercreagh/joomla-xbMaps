@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.4.4.2 30th December 2023
+ * @version 1.5.0.1 2nd January 2024
  * @filesource site/views/map/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -14,6 +14,7 @@ require_once(JPATH_COMPONENT_ADMINISTRATOR.'/helpers/geocoder.php');
 use What3words\Geocoder\Geocoder;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 
 $item = $this->item;
@@ -38,6 +39,11 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
   		location.reload();
     }
 </script>
+<style type="text/css" media="screen">
+    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 190px);}
+    .xbpvmodal .modal-body { max-height:none; height:auto;}
+</style>
+
 <div class="xbmaps">
 <?php if (!$this->tmplcomp) : ?>
 	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
@@ -252,8 +258,6 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
 	<?php echo XbmapsGeneral::credit();?>
 <?php endif; ?>
 <div id="mapid" data=""></div>
+<?php echo LayoutHelper::render('xbpvmodal.layoutpvmodal', array(), JPATH_ROOT .'/components/com_xbmaps/layouts');   ?>
 </div>
 
-<script>
-//	get all checkboxes, if none checked check them all
-</script>

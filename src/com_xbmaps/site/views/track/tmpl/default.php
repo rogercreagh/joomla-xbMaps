@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.4.2.0 13th December 2023
+ * @version 1.5.0.2 2nd January 2024
  * @filesource site/views/track/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -11,6 +11,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Layout\LayoutHelper;
 
 HTMLHelper::_('behavior.modal');
 
@@ -27,8 +28,13 @@ $trackslink = 'index.php?option=com_xbmaps&view=tracklist';
 
 ?>
 
+<style type="text/css" media="screen">
+    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 190px);}
+    .xbpvmodal .modal-body { max-height:none; height:auto;}
+</style>
+
 <div class="xbmaps">
-<?php if (!$this->tmplcomp) : ?>
+<?php if (!$this->nottmplcomp) : ?>
 	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
 		echo XbmapsHelper::sitePageheader($this->header);
 	} ?>
@@ -107,7 +113,7 @@ $trackslink = 'index.php?option=com_xbmaps&view=tracklist';
 <?php endif; ?>
 
 
-<?php if ($this->tmplcomp) : ?>
+<?php if ($this->nottmplcomp) : ?>
 	<div class="row-fluid xbmt16">
 	<?php if ($this->show_cats >0) : ?>       
 		<div class="span4">
@@ -158,5 +164,6 @@ $trackslink = 'index.php?option=com_xbmaps&view=tracklist';
 	<div class="clearfix"></div>
 	<?php echo XbmapsGeneral::credit();?>
 <?php endif; ?>
+<?php echo LayoutHelper::render('xbpvmodal.layoutpvmodal', array(), JPATH_ROOT .'/components/com_xbmaps/layouts');   ?>
 
 </div>

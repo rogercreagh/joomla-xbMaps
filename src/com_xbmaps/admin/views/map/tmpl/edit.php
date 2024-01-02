@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.2.1.5 21st February 2023
+ * @version 1.5.0.2 2nd January 2024
  * @filesource admin/views/map/tmpl/edit.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -20,22 +20,27 @@ HTMLHelper::_('formbehavior.chosen', '#jform_tags', null, array('placeholder_tex
 HTMLHelper::_('formbehavior.chosen', 'select');
 
 ?>
+<style type="text/css" media="screen">
+    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 190px);}
+    .xbpvmodal .modal-body { max-height:none; height:auto;}
+</style>
+
 <form action="<?php echo JRoute::_('index.php?option=com_xbmaps&layout=edit&id=' . (int) $this->item->id); ?>"
     method="post" name="adminForm" id="adminForm">
  	<div class="row-fluid">
 		<div class="span10">
          	<div class="row-fluid">
-        		<div class="span11">
+        		<div class="span10">
         			<?php echo LayoutHelper::render('joomla.edit.title_alias', $this); ?>
+ 					<?php echo $this->form->renderField('summary'); ?>            	    	 					
+       			</div>
+        		<div class="span2">
+        			<?php echo $this->form->renderField('id'); ?>
+        			<?php echo $this->form->renderField('map_start_date'); ?>
+        			<?php echo $this->form->renderField('map_end_date'); ?>
         		</div>
-        		<div class="span1"><?php echo $this->form->renderField('id'); ?></div>
         	</div>
         </div>
-	</div>
-	<div class="row-fluid">
-		<div class="span8 form-horizontal">
-			<?php echo $this->form->renderField('summary'); ?>            	    	 					
-		</div>		
 	</div>
     <div class="row-fluid form-horizontal">
 		<div class="span12">
@@ -155,6 +160,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 </form>
 <div class="clearfix"></div>
 <p><?php echo XbmapsGeneral::credit();?></p>
+<?php echo LayoutHelper::render('xbpvmodal.layoutpvmodal', array(), JPATH_ROOT .'/components/com_xbmaps/layouts');   ?>
 
 <script>
 jQuery(document).ready(function(){

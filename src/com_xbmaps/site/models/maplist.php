@@ -206,7 +206,8 @@ class XbmapsModelMaplist extends JModelList {
 			$item->markers = XbmapsGeneral::mapMarkersArray($item->id,1);;
     		$item->tracks = XbmapsGeneral::mapTracksArray($item->id,1);
 		}
-		$item->sortdate
+		//track list is sorted by date ascending so first item is earliest and will be used for sort date
+//		$item->sortdate = $item->tracks[0]->rec_date;
 		return $items;
 	}
 	

@@ -156,10 +156,12 @@
 		
 		<field name="map_start_date" type="text"
 			label="First track date" description="taken from track data"
+			readonly="true"
 			/>	
 			
 		<field name="map_end_date" type="text"
 			label="Last track date" description="taken from track data"
+			readonly="true"
 			/>	
 			
 		<field name="markerlist" type= "subform"

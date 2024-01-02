@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.3.1.0 17th May 2023
+ * @version 1.5.0.2 2nd January 2024
  * @filesource site/views/track/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -24,7 +24,7 @@ class XbmapsViewTrack extends JViewLegacy {
 		
 		$input = Factory::getApplication()->input;
 		
-		$this->tmplcomp = ($input->getString('tmpl', '')=='component') ? false : true;
+		$this->nottmplcomp = ($input->getString('tmpl', '')=='component') ? false : true;
 		
 		$this->item = $this->get('Item');
 		$this->state = $this->get('State');
@@ -182,7 +182,10 @@ class XbmapsViewTrack extends JViewLegacy {
 				if (!empty($this->item->maps)) {
 					$this->infobox .= '<p><b>Used on Maps</b></p><ul class="xblist">';
 					foreach ($this->item->maps as $map) {
-						$this->infobox .= '<li>'.$map->linkedtitle.'</li>';
+					    $this->infobox .= '<li>'.$map->linkedtitle.'&nbsp;';
+					    $this->infobox .= '&nbsp;<a href="#ajax-xbmodal" data-toggle="modal" data-target="#ajax-xbmodal" ';
+					    $this->infobox .= 'onclick="window.com=\'maps\';window.view=\'map\';window.pvid='.$map->id.'" ';
+					    $this->infobox .= '><i class="far fa-eye"></i></a></li>';
 					}
 					$this->infobox .= '</ul>';
 				} elseif ($this->show_empty) {

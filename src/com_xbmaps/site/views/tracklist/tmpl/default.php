@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.3.3.0 4th December 2023
+ * @version 1.5.0.2 2nd January 2024
  * @filesource site/views/tracklist/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -40,6 +40,11 @@ $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
 $tlink = 'index.php?option=com_xbmaps&view=track'.$itemid.'&id=';
 
 ?>
+<style type="text/css" media="screen">
+    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 190px);}
+    .xbpvmodal .modal-body { max-height:none; height:auto;}
+</style>
+
 
 <div class="xbmaps">
 	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
@@ -112,7 +117,11 @@ $tlink = 'index.php?option=com_xbmaps&view=track'.$itemid.'&id=';
 					<td>
 						<p class="xbtitle">
 							<?php if($this->enable_track_view) { echo '<a href="'.$tlink.$item->id.'">'; }?>
-								<b><?php echo $this->escape($item->title); ?></b> 
+								<b><?php echo $this->escape($item->title); ?></b></a>&nbsp;<a href="#ajax-xbmodal" 
+								data-toggle="modal" data-target="#ajax-xbmodal" 
+								onclick="window.com='maps';window.view='track';window.pvid=<?php echo $item->id; ?>;"
+								><i class="far fa-eye"></i></a>
+								 
 							<?php if($this->enable_track_view) { echo '</a>'; } ?>
 						</p>
 					</td>
@@ -131,20 +140,23 @@ $tlink = 'index.php?option=com_xbmaps&view=track'.$itemid.'&id=';
 						<?php endif; ?>
 					</td>
 					<td class="hidden-phone">
-						<p class="xb095">
-							<?php if (!empty($item->maps)) : ?>
-								<?php foreach ($item->maps as $map) {
-									$tcol = is_null($map->maptrack_colour) ? $item->track_colour : $map->maptrack_colour;
-									echo '<i class="far fa-map" style="color:'.$tcol.';"></i> ';
-									echo $map->linkedtitle;
-									echo '<br />';
-								}?>
-    						<?php else : ?>
-     							<span class="xbnit">
-    								<?php echo Text::_('XBMAPS_NO_MAPS'); ?>
-    							</span>
-    						<?php endif; ?>
-                        </p>
+						<?php if (!empty($item->maps)) : ?>
+        					<ul class="xblist" style="margin:0;">
+    							<?php foreach ($item->maps as $map) : ?>
+    								<?php $tcol = is_null($map->maptrack_colour) ? $item->track_colour : $map->maptrack_colour; ?>
+    								<li><i class="far fa-map" style="color:<?php echo $tcol; ?>;"></i> 
+    									<?php echo $map->linkedtitle; ?>
+             							&nbsp;<a href="#ajax-xbmodal" 
+            								data-toggle="modal" data-target="#ajax-xbmodal" 
+            								onclick="window.com='maps';window.view='map';window.pvid=<?php echo $map->id; ?>;"
+            								><i class="far fa-eye"></i></a>							
+            						</li>
+    							<?php endforeach; ?>
+						<?php else : ?>
+ 							<span class="xbnit">
+								<?php echo Text::_('XBMAPS_NO_MAPS'); ?>
+							</span>
+						<?php endif; ?>
 					</td>
     				<?php if($this->show_cats || $this->show_tags) : ?>
     					<td class="hidden-phone">
@@ -176,5 +188,6 @@ $tlink = 'index.php?option=com_xbmaps&view=track'.$itemid.'&id=';
 	</form>
 	<div class="clearfix"></div>
 	<?php echo XbmapsGeneral::credit();?>
+<?php echo LayoutHelper::render('xbpvmodal.layoutpvmodal', array(), JPATH_ROOT .'/components/com_xbmaps/layouts');   ?>
 </div>
 	

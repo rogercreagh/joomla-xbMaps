@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 0.1.0 28th June 2021
+ * @version 1.5.0.2 2nd January 2024
  * @filesource admin/views/map/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -10,6 +10,7 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\CMS\Language\Text;
 
@@ -70,7 +71,12 @@ class XbmapsViewMap extends JViewLegacy {
 		}
 		ToolbarHelper::custom('','spacer');
 		if (!$isNew) {
-			ToolBarHelper::custom('map.savepreview', 'eye', '', 'Preview Map', false) ;
+//			ToolBarHelper::custom('map.savepreview', 'eye', '', 'Preview Map', false) ;
+		    $bar = Toolbar::getInstance( 'toolbar' );
+		    $dhtml = '<a href="#ajax-xbmodal" data-toggle="modal" data-target="#ajax-xbmodal" '
+		        .'onclick="window.com=\'maps\';window.view=\'map\';window.pvid='.$this->item->id.'" '
+		        .'class="btn btn-small btn-primary"><i class="icon-eye"></i> '.Text::_('Preview').'</a>';
+		    $bar->appendButton('Custom', $dhtml);
 		}
 		ToolbarHelper::help( '', false,'https://crosborne.uk/xbmaps/doc?tmpl=component#mapedit' );
 	}

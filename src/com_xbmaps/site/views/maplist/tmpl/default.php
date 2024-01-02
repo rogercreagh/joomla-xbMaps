@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.4.4.1 20th December 2023
+ * @version 1.5.0.0 2nd January 2024
  * @filesource site/views/maplist/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -83,12 +83,12 @@ $mlink = 'index.php?option=com_xbmaps&view=map'.$itemid.'&id=';
 		<thead>
 			<tr>
 				<th>
-					<?php echo HTMLHelper::_('searchtools.sort','Title','title',$listDirn,$listOrder);?>
+					<?php echo HTMLHelper::_('searchtools.sort','Title','title',$listDirn,$listOrder);?>&nbsp;&nbsp;
+					<?php echo HTMLHelper::_('searchtools.sort','Start date','map_start_date',$listDirn,$listOrder); ?>
 				</th>					
 				<th class="hidden-phone">
 					<?php echo JText::_('XBMAPS_TRACKS');?> : 
-					<?php echo HTMLHelper::_('searchtools.sort','First','map_start_date',$listDirn,$listOrder); ?>
-					<?php echo HTMLHelper::_('searchtools.sort','Last','map_end_date',$listDirn,$listOrder); ?>
+					<?php // echo HTMLHelper::_('searchtools.sort','Last','map_end_date',$listDirn,$listOrder); ?>
 				</th>
 				<th class="hidden-phone">
 					<?php echo JText::_('XBMAPS_SUMMARY');?>
@@ -122,16 +122,22 @@ $mlink = 'index.php?option=com_xbmaps&view=map'.$itemid.'&id=';
 								onclick="window.com='maps';window.view='map';window.pvid=<?php echo $item->id; ?>;"
 								><i class="far fa-eye"></i></a>
 						</p> 
+						<p class="xb095"><?php HTMLHelper::_('date',$item->map_start_date,'jS F Y'); ?></p>
 					</td>
 					<td class="hidden-phone">
 						<p class="xb095">
 							<?php if (!empty($item->tracks)) : ?>
-								<?php foreach ($item->tracks as $trk) {
-									echo '<i class="fas fa-project-diagram" style="color:'.$trk->track_colour.';"></i> ';
-									echo HTMLHelper::_('date',$trk->rec_date,'D d-m-y').' ';
-									echo $trk->linkedtitle;
-									echo '<br />';
-								}?>
+            					<ul class="xblist" style="margin:0;">
+            						<?php foreach ($item->tracks as $trk) : ?>
+            							<li><i class="fas fa-project-diagram" style="color:<?php echo $trk->track_colour; ?>;"></i>
+            							<?php echo HTMLHelper::_('date',$trk->rec_date,'d-m-y').' '.$trk->linkedtitle; ?>
+             							&nbsp;<a href="#ajax-xbmodal" 
+            								data-toggle="modal" data-target="#ajax-xbmodal" 
+            								onclick="window.com='maps';window.view='track';window.pvid=<?php echo $trk->id; ?>;"
+            									><i class="far fa-eye"></i></a>							
+            							</li>
+            						<?php endforeach; ?>
+            					</ul>
     						<?php else : ?>
      							<span class="xbnit">
     								<?php echo Text::_('XBMAPS_NO_TRACKS'); ?>

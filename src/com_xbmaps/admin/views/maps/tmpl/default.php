@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.4.4.0 14th December 2023
+ * @version 1.5.0.2 2nd January 2024
  * @filesource admin/views/maps/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -261,18 +261,21 @@ $tagclass = $this->show_tags? 'label-info' : 'label-grey';
 				
 				</td>
 				<td><?php 
-				if (count($item->tracks)>0) {
-					echo '<ul class="xblist" style="margin:0;">';
-						foreach ($item->tracks as $trk) {
-							echo '<li><i class="fas fa-project-diagram" style="color:'.$trk->track_colour.';"></i> ';
-							echo HTMLHelper::_('date',$trk->rec_date,'d-m-y').' ';
- 							echo $trk->linkedtitle;
-							echo '</li>';
-						}
-					echo '</ul>';
-				} else {
-					echo '<p class="xbnit">'.Text::_('XBMAPS_NO_TRACKS').'</p>';
-				}
+				if (count($item->tracks)>0) : ?>
+					<ul class="xblist" style="margin:0;">
+						<?php foreach ($item->tracks as $trk) : ?>
+							<li><i class="fas fa-project-diagram" style="color:<?php echo $trk->track_colour; ?>;"></i>
+							<?php echo HTMLHelper::_('date',$trk->rec_date,'d-m-y').' '.$trk->linkedtitle; ?>
+ 							&nbsp;<a href="#ajax-xbmodal" 
+								data-toggle="modal" data-target="#ajax-xbmodal" 
+								onclick="window.com='maps';window.view='track';window.pvid=<?php echo $trk->id; ?>;"
+									><i class="far fa-eye"></i></a>							
+							</li>
+						<?php endforeach; ?>
+					</ul>
+				<?php else : ?>
+					<p class="xbnit"><?php echo Text::_('XBMAPS_NO_TRACKS'); ?></p>
+				<?php endif; ?>
 				?>
 				</td>
 				<td>
@@ -291,7 +294,7 @@ $tagclass = $this->show_tags? 'label-info' : 'label-grey';
 				</td>
 				<td class="hidden-phone">
 					<?php echo $item->id; ?>
-					<br /><span class="xbnit"><?php echo HtmlHelper::date($item->modified, 'd m y');?></span>
+					<br /><span class="xbnit xb09"><?php echo HtmlHelper::date($item->modified, 'd/m/y');?></span>
 				</td>
 			</tr>			
 			<?php endforeach; ?>

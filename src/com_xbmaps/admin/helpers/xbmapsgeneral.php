@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.4.4.2 29th December 2023
+ * @version 1.5.0.1 2nd January 2024
  * @filesource admin/helpers/xbmapsgeneral.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -224,8 +224,8 @@ class XbmapsGeneral extends ContentHelper {
 			
 			if (($item->rec_date == '0000-00-00 00:00:00') || is_null($item->rec_date)) {
 			    $item->rec_date = '';
-			} else {
-			     $item->rec_date = HtmlHelper::date($item->rec_date, 'd M Y');
+//			} else {
+//			     $item->rec_date = HtmlHelper::date($item->rec_date, 'd M Y');
 			}
 			// get the track params - actually at present only using show_track_popover so counld simplify
 			$params = new Registry;
@@ -349,13 +349,14 @@ class XbmapsGeneral extends ContentHelper {
     	        $trklist .= ' onclick="handleClick(this);" />&nbsp;';	            
 	        }
 	        $trklist .=	'<i class="fas fa-project-diagram" style="color:'.$trk->track_colour.'"></i>&nbsp; ';
-	        $trklist .= HTMLHelper::_('date', $trk->rec_date, 'D d-m-\'y').'&nbsp;&nbsp;';
-	        $trklist .=	'<b>'.$trk->linkedtitle.'</b> </div> ';
-	        
+	        $trklist .= HTMLHelper::_('date', $trk->rec_date, 'D d M \'y').'&nbsp;&nbsp;';
+	        $trklist .=	'<b>'.$trk->linkedtitle.'</b>&nbsp;<a href="#ajax-xbmodal" data-toggle="modal" data-target="#ajax-xbmodal" ';
+	        $trklist .=	'onclick="window.com=\'maps\';window.view=\'track\';window.pvid='.$trk->id.'" ';
+	        $trklist .=	'><i class="far fa-eye"></i></a></div>';	        
 	        if (is_array($infodisp)) {
 	            $cleanalias = str_replace('-','_',$trk->alias);
 	            $parts = 'x'.implode(',', $infodisp);
-	            $trklist .= '<div>';
+	            $trklist .= '<br /><div>';
 	            if (strpos($parts,'A') && ($trk->activity!='')) {
 	                $trklist .= '<span class="xbilb20">';
 	                $trklist .= '<span class="xbnit">Activity: </span>'.$trk->activity;
@@ -365,13 +366,16 @@ class XbmapsGeneral extends ContentHelper {
 	                $trklist .= '<span class="xbilb20">';
 	                $trklist .= '<span class="xbnit">Device: </span>' ;
 	                $trklist .= $trk->rec_device;
-	                $trklist .= '</span>';
+	                $trklist .= '</span><br />';
 	            }
 	            if (strpos($parts,'S')) {
 	                $trklist .= '<span class="xbilb20">';
 	                $trklist .= '<span class="xbnit">Start: </span>' ;
-	                $trklist .= $trk->rec_date;
+	                $trklist .= HTMLHelper::date($trk->rec_date,'H:i:s');
 	                $trklist .= '</span>';
+	            }
+	            if (strpos($parts,'T')) {
+	                $trklist .= '<span id="'.$cleanalias.'-t" class="xbilb20"> </span><br />';
 	            }
 	            if (strpos($parts,'D')) {
 	                $trklist .= '<span id="'.$cleanalias.'-d" class="xbilb20"> </span>';
@@ -381,9 +385,6 @@ class XbmapsGeneral extends ContentHelper {
 	            }
 	            if (strpos($parts,'M')) {
 	                $trklist .= '<span id="'.$cleanalias.'-m" class="xbilb20"> </span>';
-	            }
-	            if (strpos($parts,'T')) {
-	                $trklist .= '<span id="'.$cleanalias.'-t" class="xbilb20"> </span>';
 	            }
 	            $trklist .= '</div>';
 	        }

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.4.0.0 12th December 2023
+ * @version 1.5.0.2 2nd January 2024
  * @filesource admin/views/track/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -86,7 +86,12 @@ class XbmapsViewTrack extends JViewLegacy {
 	    
 	    if (!$isNew) {
 		    ToolbarHelper::custom('','spacer');
-		    ToolBarHelper::custom('track.savepreview', 'eye', '', 'Preview Track', false) ;
+//		    ToolBarHelper::custom('track.savepreview', 'eye', '', 'Preview Track', false) ;
+		    $bar = Toolbar::getInstance( 'toolbar' );
+		    $dhtml = '<a href="#ajax-xbmodal" data-toggle="modal" data-target="#ajax-xbmodal" '
+		        .'onclick="window.com=\'maps\';window.view=\'track\';window.pvid='.$this->item->id.'" '
+		            .'class="btn btn-small btn-primary"><i class="icon-eye"></i> '.Text::_('Preview').'</a>';
+		            $bar->appendButton('Custom', $dhtml);
 	    }
 	    
 	    ToolbarHelper::help( '', false,'https://crosborne.uk/xbmaps/doc?tmpl=component#trackedit' );

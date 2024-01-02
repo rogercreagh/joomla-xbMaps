@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.3.3.0 4th December 2023
+ * @version 1.5.0.2 2nd January 2024
  * @filesource admin/views/tracks/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -12,7 +12,6 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 require_once(JPATH_COMPONENT_ADMINISTRATOR.'/helpers/xbparsedown.php');
 
 use Xbmaps\Xbparsedown\Xbparsedown;
-
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
@@ -49,6 +48,10 @@ $tvlink = 'index.php?option=com_tags&id=';
 $catclass = $this->show_cats? 'label-success' : 'label-grey';
 $tagclass = $this->show_tags? 'label-info' : 'label-grey';
 ?>
+<style type="text/css" media="screen">
+    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 190px);}
+    .xbpvmodal .modal-body { max-height:none; height:auto;}
+</style>
 <div class="row-fluid">
 <form action="<?php echo JRoute::_('index.php?option=com_xbmaps&view=tracks'); ?>" method="post" name="adminForm" id="adminForm">
 	<div id="j-sidebar-container">
@@ -184,6 +187,10 @@ $tagclass = $this->show_tags? 'label-info' : 'label-grey';
 						<a href="<?php echo JRoute::_($trackelink.$item->id);?>"
 							title="<?php echo JText::_('XBMAPS_EDIT_TRACK'); ?>" >
 							<b><?php echo $this->escape($item->title); ?></b></a> 
+							&nbsp;<a href="#ajax-xbmodal" 
+								data-toggle="modal" data-target="#ajax-xbmodal" 
+								onclick="window.com='maps';window.view='track';window.pvid=<?php echo $item->id; ?>;"
+									><i class="far fa-eye"></i></a>
 					<?php else : ?>
 						<?php echo $this->escape($item->title); ?>
 					<?php endif; ?>
@@ -213,19 +220,22 @@ $tagclass = $this->show_tags? 'label-info' : 'label-grey';
 					<?php endif; ?>
 				</td>
 				<td><?php 
-				if (count($item->maps)>0) {
-					echo '<p>';
-						foreach ($item->maps as $map) {
-							$tcol = $map->maptrack_colour=='' ? $item->track_colour : $map->maptrack_colour;
-							echo '<i class="far fa-map" style="color:'.$tcol.';"></i> ';
-							echo $map->linkedtitle;
-							echo '<br />';
-						}
-					echo '</p>';
-				} else {
-					echo '<p class="xbnit">'.Text::_('XBMAPS_NO_MAPS').'</p>';
-				}
-				?>
+				if (count($item->maps)>0) : ?>
+					<ul class="xblist" style="margin:0;">
+						<?php foreach ($item->maps as $map) : ?>
+							<?php $tcol = $map->maptrack_colour=='' ? $item->track_colour : $map->maptrack_colour; ?>
+							<li><i class="fas fa-map" style="color:<?php echo $tcol; ?>;"></i>
+							<?php echo $map->linkedtitle; ?>
+ 							&nbsp;<a href="#ajax-xbmodal" 
+								data-toggle="modal" data-target="#ajax-xbmodal" 
+								onclick="window.com='maps';window.view='map';window.pvid=<?php echo $map->id; ?>;"
+									><i class="far fa-eye"></i></a>							
+							</li>
+						<?php endforeach; ?>
+					</ul>
+				<?php else : ?>
+					<p class="xbnit"><?php  echo Text::_('XBMAPS_NO_MAPS'); ?>
+				<?php endif; ?>	
 				</td>
 				<td>
 					<p><a class="label <?php echo $catclass; ?>" href="<?php echo $cvlink.$item->catid; ?>" 
@@ -243,7 +253,7 @@ $tagclass = $this->show_tags? 'label-info' : 'label-grey';
 				</td>
 				<td class="hidden-phone">
 					<?php echo $item->id; ?>
-					<br /><span class="xbnit"><?php echo HtmlHelper::date($item->modified, 'd m y');?></span>
+					<br /><span class="xbnit xb09"><?php echo HtmlHelper::date($item->modified, 'd/m/y');?></span>
 				</td>
 			</tr>			
 			<?php endforeach; ?>
@@ -269,3 +279,5 @@ $tagclass = $this->show_tags? 'label-info' : 'label-grey';
 </div>
 <div class="clearfix"></div>
 <p><?php echo XbmapsGeneral::credit();?></p>
+<?php echo LayoutHelper::render('xbpvmodal.layoutpvmodal', array(), JPATH_ROOT .'/components/com_xbmaps/layouts');   ?>
+

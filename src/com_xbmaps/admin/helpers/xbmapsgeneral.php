@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.5.0.1 2nd January 2024
+ * @version 1.5.1.0 3rd January 2024
  * @filesource admin/helpers/xbmapsgeneral.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -279,6 +279,50 @@ class XbmapsGeneral extends ContentHelper {
 		return $list;
 	}
 	
+	public static function markerTracksArray(int $mrkid, int $state = 4) {
+	    $isAdmin = Factory::getApplication()->isClient('administrator');
+	    $link = 'index.php?option=com_xbmaps';
+	    $link .= $isAdmin ? '&task=track.edit&id=' : '&view=track&id=';
+	    $db = Factory::getDBO();
+	    $query = $db->getQuery(true);
+	    
+	    $query->select('m.title, m.id, m.rec_date AS rec_date, m.track_colour AS track_colour, m.state AS mstate ')
+	    ->from('#__xbmaps_trackmarkers AS a')
+	    ->join('LEFT','#__xbmaps_tracks AS m ON m.id=a.track_id')
+	    ->where('a.marker_id = "'.$mrkid.'"' )
+	    
+	    ->order('m.title', 'ASC');
+	    if ($state!=4){
+	        $query->where('m.state = '.$state);
+	    }
+	    
+	    $db->setQuery($query);
+	    $list = $db->loadObjectList();
+	    foreach ($list as $i=>$item){
+	        if (($isAdmin) || ($item->mstate == 1)) {
+	            $ilink = Route::_($link . $item->id);
+	            
+	        } else {
+	            $ilink='';
+	        }
+	        $item->display = '';
+	        //if not published highlight in yellow if admin or grey if view
+	        if ($item->mstate != 1) {
+	            $flag = $isAdmin ? 'xbhlt' : 'xbdim';
+	            $item->display .= '<span class="'.$flag.'">'.$item->title.'</span>';
+	        } else {
+	            $item->display .= $item->title;
+	        }
+	        //link if isAdmin or isPublished
+	        if (($isAdmin) || ($item->mstate == 1)) {
+	            $item->linkedtitle = '<a href="'.$ilink.'">'.$item->display.'</a>';
+	        } else {
+	            $item->linkedtitle = $item->display;
+	        }
+	    }
+	    return $list;
+	}
+	
 	public static function mapMarkersArray(int $mapid, int $state = 4) {
 		$isAdmin = Factory::getApplication()->isClient('administrator');
 		$link = 'index.php?option=com_xbmaps';
@@ -328,6 +372,57 @@ class XbmapsGeneral extends ContentHelper {
 				
 			}
 			return $list;
+	}
+	
+	public static function trackMarkersArray(int $trackid, int $state = 4) {
+	    $isAdmin = Factory::getApplication()->isClient('administrator');
+	    $link = 'index.php?option=com_xbmaps';
+	    $link .= $isAdmin ? '&task=marker.edit&id=' : '&view=marker&id=';
+	    $db = Factory::getDBO();
+	    $query = $db->getQuery(true);
+	    
+	    $query->select('mk.title AS mktitle, mk.id AS mkid,
+                mk.summary AS mkdesc, mk.latitude AS mklat, mk.longitude AS mklong,
+                mk.marker_type AS markertype, mk.params AS mkparams, mk.state AS mkstate ')
+                ->from('#__xbmaps_trackmarkers AS a')
+                ->join('LEFT','#__xbmaps_markers AS mk ON mk.id=a.marker_id')
+                ->where('a.track_id = "'.$trackid.'"' )
+                
+                ->order('a.listorder', 'ASC');
+                if ($state!=4){
+                    $query->where('mk.state = '.$state);
+                }
+                
+                
+                $db->setQuery($query);
+                $list = $db->loadObjectList();
+                foreach ($list as $i=>$item){
+                    $params = json_decode($item->mkparams, TRUE);
+                    $item->mkshowdesc = $params['marker_popdesc'];
+                    $item->mkshowcoords = $params['marker_popcoords'];
+                    $ilink = Route::_($link . $item->mkid);
+                    $item->display = '';
+                    //if not published highlight in yellow if editable or grey if view
+                    if ($item->mkstate != 1) {
+                        $flag = $isAdmin ? 'xbhlt' : 'xbdim';
+                        $item->display .= '<span class="'.$flag.'">'.$item->mktitle.'</span>';
+                    } else {
+                        $item->display .= $item->mktitle;
+                    }
+                    //if item not published only link if isAdmin
+                    if (($isAdmin) || ($item->mkstate == 1)) {
+                        $item->linkedtitle = '<a href="'.$ilink.'">'.$item->display.'</a>';
+                    } else {
+                        $item->linkedtitle = $item->display;
+                    }
+                    $item->mklat = $item->mklat;
+                    $item->mklong = $item->mklong;
+                    $params = new Registry;
+                    $params->loadString($item->mkparams, 'JSON');
+                    $item->mkparams = $params;
+                    
+                }
+                return $list;
 	}
 	
 	public static function buildTrackList($tracks, $infopos, $infodisp, $trackstate = array()) {

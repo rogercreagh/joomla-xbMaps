@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.4.0.0 12th December 2023
+ * @version 1.5.1.0 3rd January 2024
  * @filesource admin/models/track.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -112,6 +112,7 @@ class XbmapsModelTrack extends JModelAdmin {
  	                $data->rec_device = $gpxinfo['creator'];
  	            } 	            
  	        }
+ 	        $data->markerlist=$this->getMarkerList();
 	    }
 	    return $data;
 	}
@@ -250,6 +251,7 @@ class XbmapsModelTrack extends JModelAdmin {
             //other stuff if req - eg saving subform data
         	$tid = $this->getState('track.id');
         	$this->storeMapList($tid, $data['maplist'],$data['track_colour']);
+        	$this->storeMarkerList($tid, $data['markerlist']);
         	
             return true;
         }
@@ -300,6 +302,42 @@ class XbmapsModelTrack extends JModelAdmin {
     			$db->execute();
     		}
     	}
+    }
+    
+    private function getMarkerList() {
+        $db = $this->getDbo();
+        $query = $db->getQuery(true);
+        $query->select('mt.marker_id as marker_id');
+        $query->from('#__xbmaps_trackmarkers AS mt');
+        $query->where('mt.track_id = '.(int) $this->getItem()->id);
+        $query->order('mt.listorder ASC');
+        $db->setQuery($query);
+        $list = $db->loadAssocList();
+        return $list;
+    }
+    
+    private function storeMarkerList($track_id, $markerList) {
+        //delete existing role list
+        $db = $this->getDbo();
+        $query = $db->getQuery(true);
+        $query->delete($db->quoteName('#__xbmaps_trackmarkers'));
+        $query->where('track_id = '.$track_id);
+        $db->setQuery($query);
+        $db->execute();
+        //restore the new list
+        $listorder=0;
+        foreach ($markerList as $mrk) {
+            if ($mrk['marker_id'] > 0) {
+                $listorder ++;
+                $query = $db->getQuery(true);
+                $query->insert($db->quoteName('#__xbmaps_trackmarkers'));
+                $query->columns('track_id,marker_id,listorder');
+                $query->values('"'.$track_id.'","'.$mrk['marker_id'].'","'.$listorder.'"');
+                //try
+                $db->setQuery($query);
+                $db->execute();
+            }
+        }
     }
     
 }

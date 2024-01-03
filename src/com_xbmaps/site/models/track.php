@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.4.2.0 13th December 2023
+ * @version 1.5.1.0 3rd January 2024
  * @filesource site/models/track.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -11,6 +11,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\Registry\Registry;
+use Joomla\CMS\Helper\TagsHelper;
 
 class XbmapsModelTrack extends JModelItem {
 		
@@ -21,7 +22,7 @@ class XbmapsModelTrack extends JModelItem {
 		$this->setState('track.id', $id);
 		
 		// Load the parameters.
-		$this->setState('params', Factory::getApplication()->getParams());
+		$this->setState('params', $app->getParams());
 		parent::populateState();
 		
 	}
@@ -54,6 +55,11 @@ class XbmapsModelTrack extends JModelItem {
 				$params = clone $this->getState('params');
 				$params->merge($this->item->params);
 				$this->item->params = $params;
+				
+				$this->item->markers = XbmapsGeneral::trackMarkersArray($this->item->id,1);
+				
+				$tagsHelper = new TagsHelper;
+				$this->item->tags = $tagsHelper->getItemTags('com_xbmaps.track' , $this->item->id);
 				
 				return $this->item;			
 			}

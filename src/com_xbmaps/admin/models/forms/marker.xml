@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbMaps admin/models/forms/marker.xml v0.8.0.h 22nd October 2021 -->
+<!-- xbMaps admin/models/forms/marker.xml v1.5.1.0 3rd January 2024 -->
 <form>
 
 	<fieldset name="markerset" addfieldpath="/administrator/components/com_xbmaps/models/fields">
@@ -117,7 +117,26 @@
 		>
 			<form>
 				<field name="map_id" type="maps" 
-				label="XBMAPS_ADDMAP_LABEL" >
+				label="Select Maps to use this marker" >
+					<option value="">JSELECT</option>	
+				</field>
+			</form>
+		</field>			
+		
+		<field name="tracklist" type= "subform"
+			label= "Add to Tracks"
+			description="Select tracks to use this marker"
+			min= "0"
+			max= "30"
+			multiple= "true"
+			buttons= "add,remove"
+			layout="joomla.form.field.subform.repeatable-table"
+			groupByFieldset="false" 
+			class="xbmw400"
+		>
+			<form>
+				<field name="track_id" type="tracks" 
+				label="Track Title" >
 					<option value="">JSELECT</option>	
 				</field>
 			</form>

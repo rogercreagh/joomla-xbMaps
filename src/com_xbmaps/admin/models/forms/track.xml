@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbMaps admin/models/forms/track.xml v1.4.0.0 12th December 2023 -->
+<!-- xbMaps admin/models/forms/track.xml v1.5.1.0 3rd January 2024 -->
 <form>
 
 	<fieldset name="trackset" addfieldpath="/administrator/components/com_xbmaps/models/fields">
@@ -193,6 +193,24 @@ targ.value=value; targ.dispatchEvent(new Event('change'));"
 				/>
 			</form>
 		</field>			
+
+		<field name="markerlist" type= "subform"
+			label= "XBMAPS_MARKERLIST_LABEL"
+			description="XBMAPS_MARKERLIST_DESC"
+			min= "0"
+			max= "30"
+			multiple= "true"
+			buttons= "add,remove,move"
+			layout="joomla.form.field.subform.repeatable-table"
+			groupByFieldset="false" 
+		>
+			<form>
+				<field name="marker_id" type="markers" label="XBMAPS_ADDMARKER_LABEL" >
+					<option value="">JSELECT</option>	
+				</field>
+			</form>
+		</field>			
+			
 		
 	</fieldset>
 	<fields name="params">

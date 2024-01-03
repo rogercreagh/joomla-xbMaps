@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 0.9.1.a 14th November 2021
+ * @version 1.5.1.0 3rd January 2024
  * @filesource admin/views/marker/tmpl/edit.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -103,11 +103,14 @@ $map->renderMap();
         		<div class="span1"><?php echo $this->form->renderField('id'); ?></div>
         	</div>
         	<div class="row-fluid">
-        		<div class="span5">
+        		<div class="span4">
             	    <?php echo $this->form->renderField('summary'); ?>            	    	 					
         		</div>
-        		<div class="span7">
+        		<div class="span4">
             	    <?php echo $this->form->renderField('maplist'); ?>            	    	 					
+        		</div>
+        		<div class="span4">
+            	    <?php echo $this->form->renderField('tracklist'); ?>            	    	 					
         		</div>
         	</div>
         </div>

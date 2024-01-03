@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.5.0.2 2nd January 2024
+ * @version 1.5.1.0 3rd January 2024
  * @filesource admin/views/tracks/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -114,6 +114,9 @@ $tagclass = $this->show_tags? 'label-info' : 'label-grey';
 						<?php echo Text::_('XBMAPS_SUMMARY');?>
 					</th>
 					<th>
+						<?php echo ucfirst(Text::_('XBMAPS_MARKERS'));?>
+					</th>
+					<th>
 						<?php echo ucfirst(Text::_('XBMAPS_MAPS'));?>
 					</th>
 					<th class="hidden-tablet hidden-phone" style="width:15%;">
@@ -219,6 +222,54 @@ $tagclass = $this->show_tags? 'label-info' : 'label-grey';
 						</p>
 					<?php endif; ?>
 				</td>
+				<td><?php if (count($item->markers)>0) : ?>
+				
+    				<?php if (count($item->markers)>2) : ?>
+    					<details>
+    						<summary>
+    							<?php echo Text::_(count($item->markers).' markers assigned'); ?>
+    						</summary>						
+    				<?php endif; ?>
+					<ul class="xblist" style="margin:0;">
+						<?php foreach ($item->markers as $mrk) {
+						    $pv = '<img src="/media/com_xbmaps/images/marker-icon.png" style="height:20px;" />';
+						    switch ($mrk->markertype) {
+						        case 1:
+						            $pv = '<img src="'.$this->marker_image_path.'/'.$mrk->mkparams['marker_image'].'" style="height:20px;" />';
+						            break;
+						        case 2:
+						            $pv = '<span class="fa-stack fa-2x" style="font-size:6pt;">';
+						            $pv .='<i class="'.$mrk->mkparams['marker_outer_icon'].' fa-stack-2x" ';
+						            $pv .= 'style="color:'.$mrk->mkparams['marker_outer_colour'].';"></i>';
+						            if ($mrk->mkparams['marker_inner_icon']!=''){
+						                $pv .= '<i class="'.$mrk->mkparams['marker_inner_icon'].' fa-stack-1x fa-inverse" ';
+						                $pv .= 'style="color:'.$mrk->mkparams['marker_inner_colour'].';';
+						                if ($mrk->mkparams['marker_outer_icon']=='fas fa-map-marker') {
+						                    $pv .= 'line-height:1.75em;font-size:0.8em;';
+						                }
+						                $pv .= '"></i>';
+						            }
+						            $pv .= '</span>';
+						            break;
+						        default:
+						            break;
+						    }
+						    echo '<li>'.$pv.'&nbsp;';
+ 							echo $mrk->linkedtitle;
+ 							echo '&nbsp;<a href="#ajax-xbmodal" data-toggle="modal" data-target="#ajax-xbmodal" ';
+ 							echo 'onclick="window.com=\'maps\';window.view=\'marker\';window.pvid='.$mrk->mkid.';" ';
+ 							echo '><i class="far fa-eye"></i></a>';
+						} ?>
+					</ul>
+    				<?php if (count($item->markers)>2) : ?>
+    					</details>
+    				<?php endif; ?>
+				<?php else: ?>
+					<p class="xbnit"><?php echo Text::_('XBMAPS_NO_MARKERS'); ?></p>
+				<?php endif; ?>
+				
+				</td>
+				
 				<td><?php 
 				if (count($item->maps)>0) : ?>
 					<ul class="xblist" style="margin:0;">

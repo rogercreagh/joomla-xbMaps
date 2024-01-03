@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.5.0.2 2nd January 2024
+ * @version 1.5.1.0 3rd January 2024
  * @filesource site/views/track/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -31,6 +31,8 @@ class XbmapsViewTrack extends JViewLegacy {
 		$this->params = $this->item->params;
 		
 		$this->show_empty = $this->params->get('show_empty',1);
+		
+		$this->marker_image_path = 'images/'.$this->params->get('def_markers_folder','');
 		
 		$gcat = $this->params->get('global_use_cats');
 		$mcat = $this->params->get('tracks_use_cats');
@@ -113,6 +115,12 @@ class XbmapsViewTrack extends JViewLegacy {
 		$this->default_zoom = $this->params->get('default_zoom','12');
 		$this->track_map_type = $this->params->get('track_map_type');
 		
+		$this->marker_infocoords = $this->params->get('marker_infocoords','');
+		
+		$this->map_click_marker = $this->params->get('map_click_marker','0');
+		$this->w3w_api =  trim($this->params->get('w3w_api',''));
+		$this->w3w_lang = $this->params->get('w3w_lang');
+		
 		
 		$this->header = array();
 		$this->header['showheading'] = $this->params->get('show_page_heading',0,'int');
@@ -175,7 +183,7 @@ class XbmapsViewTrack extends JViewLegacy {
 				$this->infobox .= '</div>';
 				$this->infobox .= '</ul>';
 			}
-			if (($this->show_empty) || (!empty($this->item->maps))) {
+			if (($this->show_empty) || (!empty($this->item->maps)) || (!empty($this->item->markers))) {
 				if ($this->infopos == 'topbot') {
 					$this->infobox .= '</div><div class="span4">';
 				}
@@ -191,6 +199,12 @@ class XbmapsViewTrack extends JViewLegacy {
 				} elseif ($this->show_empty) {
 					$this->infobox .= '<p><i>Not assigned to any map</i></p>';
 				}					
+				if (!empty($this->item->markers)) {
+				    $this->infobox .= ($this->infopos == 'topbot')? '<div class="span6">' : '';
+				    $this->infobox .= '<p><b>Markers</b></p>';
+				    $this->infobox .= XbmapsGeneral::buildMarkerList($this->item->markers, $this->infopos, $this->marker_image_path,$this->marker_infocoords);
+				    $this->infobox .= ($this->infopos == 'topbot')? '</div>' : '';
+				}
 			}
 			if ($this->infopos == 'topbot') {
 				$this->infobox .= '</div></div>';
@@ -218,8 +232,8 @@ class XbmapsViewTrack extends JViewLegacy {
 		}
 		//TODO now test pagination for next page
 		
-		$tagsHelper = new TagsHelper;
-		$this->item->tags = $tagsHelper->getItemTags('com_xbmaps.track' , $this->item->id);
+//		$tagsHelper = new TagsHelper;
+//		$this->item->tags = $tagsHelper->getItemTags('com_xbmaps.track' , $this->item->id);
 		
 		$document = $this->document; //Factory::getDocument();
 		$document->setTitle($this->item->title);

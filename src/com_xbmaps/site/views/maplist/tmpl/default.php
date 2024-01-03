@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.5.0.0 2nd January 2024
+ * @version 1.5.1.0 3rd January 2024
  * @filesource site/views/maplist/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -157,44 +157,51 @@ $mlink = 'index.php?option=com_xbmaps&view=map'.$itemid.'&id=';
 						<?php endif; ?>
 					</td>
 				<td class="hidden-phone"><?php if (count($item->markers)>0) : ?>
-				<?php if (count($item->markers)>3) {
-			        echo HTMLHelper::_('bootstrap.startAccordion', 'slide-dashboard', array('active' => ''));
-			        echo HTMLHelper::_('bootstrap.addSlide', 'slide-dashboard', Text::_(count($item->markers).' markers assigned'), 'show'.$item->id,'xbaccordion');
-				} ?>
-				
-					<ul class="xblist" style="margin:0;">
-						<?php foreach ($item->markers as $mrk) {
-						    $pv = '<img src="/media/com_xbmaps/images/marker-icon.png" style="height:24px;" />';
-						    switch ($mrk->markertype) {
-						        case 1:
-						            $pv = '<img src="'.$this->marker_image_path.'/'.$mrk->mkparams['marker_image'].'" style="height:24px;" />';
-						            break;
-						        case 2:
-						            $pv = '<span class="fa-stack fa-2x" style="font-size:8pt;">';
-						            $pv .='<i class="'.$mrk->mkparams['marker_outer_icon'].' fa-stack-2x" ';
-						            $pv .= 'style="color:'.$mrk->mkparams['marker_outer_colour'].';"></i>';
-						            if ($mrk->mkparams['marker_inner_icon']!=''){
-						                $pv .= '<i class="'.$mrk->mkparams['marker_inner_icon'].' fa-stack-1x fa-inverse" ';
-						                $pv .= 'style="color:'.$mrk->mkparams['marker_inner_colour'].';';
-						                if ($mrk->mkparams['marker_outer_icon']=='fas fa-map-marker') {
-						                    $pv .= 'line-height:1.75em;font-size:0.8em;';
-						                }
-						                $pv .= '"></i>';
-						            }
-						            $pv .= '</span>';
-						            break;
-						        default:
-						            break;
-						    }
-						    echo '<li>'.$pv.'&nbsp;';
- 							echo '<span class="hasTooltip"  data-original-title="'.$mrk->mkdesc.'">'.$mrk->display.'</span>';
-							echo '</li>';
-						} ?>
-					</ul>
-				<?php if (count($item->markers)>3) { 
-	        		echo HTMLHelper::_('bootstrap.endSlide');
-	        		echo HTMLHelper::_('bootstrap.endAccordion');
-				} ?>
+				<?php if (count($item->markers)>2) : ?>
+					<details>
+						<summary>
+							<?php echo Text::_(count($item->markers).' markers assigned'); ?>
+						</summary>						
+				<?php endif; ?>
+				<ul class="xblist" style="margin:0;">
+					<?php foreach ($item->markers as $mrk) {
+					    $pv = '<img src="/media/com_xbmaps/images/marker-icon.png" style="height:20px;" />';
+					    switch ($mrk->markertype) {
+					        case 1:
+					            $pv = '<img src="'.$this->marker_image_path.'/'.$mrk->mkparams['marker_image'].'" style="height:20px;" />';
+					            break;
+					        case 2:
+					            $pv = '<span class="fa-stack fa-2x" style="font-size:6pt;">';
+					            $pv .='<i class="'.$mrk->mkparams['marker_outer_icon'].' fa-stack-2x" ';
+					            $pv .= 'style="color:'.$mrk->mkparams['marker_outer_colour'].';"></i>';
+					            if ($mrk->mkparams['marker_inner_icon']!=''){
+					                $pv .= '<i class="'.$mrk->mkparams['marker_inner_icon'].' fa-stack-1x fa-inverse" ';
+					                $pv .= 'style="color:'.$mrk->mkparams['marker_inner_colour'].';';
+					                if ($mrk->mkparams['marker_outer_icon']=='fas fa-map-marker') {
+					                    $pv .= 'line-height:1.75em;font-size:0.8em;';
+					                }
+					                $pv .= '"></i>';
+					            }
+					            $pv .= '</span>';
+					            break;
+					        default:
+					            break;
+					    }
+					    echo '<li>'.$pv.'&nbsp;';
+					    if ($mrk->mkdesc =='') {
+					        echo $mrk->display;
+					    } else {
+					        echo '<span class="hasTooltip"  data-original-title="'.$mrk->mkdesc.'">'.$mrk->display.'</span>';
+					    }
+					    echo '&nbsp;<a href="#ajax-xbmodal" data-toggle="modal" data-target="#ajax-xbmodal" ';
+					    echo 'onclick="window.com=\'maps\';window.view=\'marker\';window.pvid='.$mrk->mkid.';" ';
+					    echo '><i class="far fa-eye"></i></a>';
+					    echo '</li>';
+					} ?>
+				</ul>
+				<?php if (count($item->markers)>2) : ?>
+					</details>
+				<?php endif; ?>
 				<?php else: ?>
 					<p class="xbnit"><?php echo Text::_('XBMAPS_NO_MARKERS'); ?></p>
 				<?php endif; ?>

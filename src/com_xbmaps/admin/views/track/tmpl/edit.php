@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.5.0.2 2nd January 2024
+ * @version 1.5.1.0 3rd January 2024
  * @filesource admin/views/track/tmpl/edit.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -60,11 +60,14 @@ HTMLHelper::_('formbehavior.chosen', 'select');
         </div>
 	</div>
 	<div class="row-fluid">
-		<div class="span5">
+		<div class="span4">
 			<?php echo $this->form->renderField('summary'); ?>
 		</div>		
-		<div class="span7">
+		<div class="span4">
 			<?php echo $this->form->renderField('maplist'); ?>  
+		</div>
+		<div class="span4">
+			<?php echo $this->form->renderField('markerlist'); ?>  
 		</div>
 	</div>
 	<div class="pull-left xbmr20">

@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 0.8.0.h 25th October 2021
+ * @version 1.5.1.0 3rd January 2024
  * @filesource admin/models/marker.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -87,6 +87,7 @@ class XbmapsModelMarker extends JModelAdmin {
             //load subform data as required
             if ($data->id) {
                 $data->maplist=$this->getMaplist($data->id);
+                $data->tracklist=$this->getTracklist($data->id);
             }
             $data->params['hid_w3wapi'] = $params->get('w3w_api','');
         }
@@ -197,6 +198,7 @@ class XbmapsModelMarker extends JModelAdmin {
 	        //other stuff if req - eg saving subform data
 	        $tid = $this->getState('marker.id');
 	        $this->storeMapList($tid, $data['maplist']);
+	        $this->storeTrackList($tid, $data['tracklist']);
 	        
 	        return true;
 	    }
@@ -210,6 +212,19 @@ class XbmapsModelMarker extends JModelAdmin {
 	    $query->select('mt.map_id as map_id,  mt.listorder AS maplistorder');
 	    $query->from('#__xbmaps_mapmarkers AS mt');
 	    $query->innerjoin('#__xbmaps_maps AS a ON mt.map_id = a.id');
+	    $query->where('mt.marker_id = '.$mkid);
+	    $query->order('a.title ASC');
+	    $db->setQuery($query);
+	    $list = $db->loadAssocList();
+	    return $list;
+	}
+	
+	private function getTrackList($mkid) {
+	    $db = $this->getDbo();
+	    $query = $db->getQuery(true);
+	    $query->select('mt.track_id as track_id,  mt.listorder AS tracklistorder');
+	    $query->from('#__xbmaps_trackmarkers AS mt');
+	    $query->innerjoin('#__xbmaps_tracks AS a ON mt.track_id = a.id');
 	    $query->where('mt.marker_id = '.$mkid);
 	    $query->order('a.title ASC');
 	    $db->setQuery($query);
@@ -241,4 +256,28 @@ class XbmapsModelMarker extends JModelAdmin {
 	    }
 	}
 
+	private function storeTrackList($marker_id, $trackList) {
+	    //delete existing role list
+	    $db = $this->getDbo();
+	    $query = $db->getQuery(true);
+	    $query->delete($db->quoteName('#__xbmaps_trackmarkers'));
+	    $query->where('marker_id = '.$marker_id);
+	    $db->setQuery($query);
+	    $db->execute();
+	    //restore the new list
+	    //$listorder=0;
+	    foreach ($trackList as $track) {
+	        if ($track['track_id'] > 0) {
+	            //$listorder ++;
+	            $query = $db->getQuery(true);
+	            $query->insert($db->quoteName('#__xbmaps_trackmarkers'));
+	            $query->columns('track_id,marker_id,listorder');
+	            $query->values('"'.$track['track_id'].'","'.$marker_id.'","'.$track['tracklistorder'].'"');
+	            //try
+	            $db->setQuery($query);
+	            $db->execute();
+	        }
+	    }
+	}
+	
 }

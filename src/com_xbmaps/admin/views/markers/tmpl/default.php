@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.2.1.1 20th February 2023
+ * @version 1.5.1.0 3rd January 2024
  * @filesource admin/views/markers/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -62,6 +62,10 @@ $map->loadXbmapsJS();
   });
 });
   </script>
+<style type="text/css" media="screen">
+    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 190px);}
+    .xbpvmodal .modal-body { max-height:none; height:auto;}
+</style>
 <div class="row-fluid">
 <form action="<?php echo JRoute::_('index.php?option=com_xbmaps&view=markers'); ?>" method="post" name="adminForm" id="adminForm">
 	<div id="j-sidebar-container">
@@ -122,6 +126,9 @@ $map->loadXbmapsJS();
 					<th>
 						<?php echo ucfirst(Text::_('XBMAPS_MAPS'));?>
 					</th>
+					<th>
+						<?php echo ucfirst(Text::_('XBMAPS_TRACKS'));?>
+					</th>
 					<th class="hidden-tablet hidden-phone" style="width:15%;">
 						<?php if ($this->show_cats) {
 						    echo HTMLHelper::_('searchtools.sort','XBMAPS_CATEGORY','category_title',$listDirn,$listOrder );
@@ -151,13 +158,13 @@ $map->loadXbmapsJS();
                 $canChange  = $user->authorise('core.edit.state', 'com_xbmaps.marker.'.$item->id) && $canCheckin;
                 //$tc = $item->params->get('track_colour','#444');
                 $markertype = $item->marker_type;
-                $pv = '<img src="/media/com_xbmaps/images/marker-icon.png" />';
+                $pv = '<img src="/media/com_xbmaps/images/marker-icon.png" style="height:24px;" />';
                 switch ($markertype) {
                 	case 1:
-                		$pv = '<img src="'.$this->marker_image_path.'/'.$item->params->get('marker_image','').'" style="height:40px;" />';
+                		$pv = '<img src="'.$this->marker_image_path.'/'.$item->params->get('marker_image','').'" style="height:24px;" />';
 	                	break;
                 	case 2:
-                		$pv = '<span class="fa-stack fa-2x" style="font-size:12pt;">';
+                		$pv = '<span class="fa-stack fa-2x" style="font-size:8pt;">';
                 		$pv .='<i class="'.$item->params->get('marker_outer_icon','').' fa-stack-2x" ';
                 		$pv .= 'style="color:'.$item->params->get('marker_outer_colour','').';"></i>';
                 		if ($item->params->get('marker_inner_icon')!=''){
@@ -227,10 +234,9 @@ $map->loadXbmapsJS();
 				<td style="text-align:center;">
 					<div class="hasTooltip" title="" data-original-title="Latitude: <?php echo $item->latitude; ?><br />Longitude: <?php echo $item->longitude; ?>" >
 
-						<a href="#" data-href="index.php?option=com_xbmaps&view=marker&layout=preview&id=<?php echo $item->id;?>&tmpl=component"  
-                         	onclick="jQuery('#mrktit').html('<?php echo $item->title; ?>');" class="showModal">
-                         		<?php echo $pv; ?>
-						</a>
+						<a href="#ajax-xbmodal" data-toggle="modal" data-target="#ajax-xbmodal"
+                            onclick="window.com='maps';window.view='marker';window.pvid=<?php echo $item->id; ?>;"
+                            ><?php echo $pv; ?></a>
 
 					</div>
 				</td>
@@ -244,19 +250,39 @@ $map->loadXbmapsJS();
 					</p>
 				</td>
 				<td><?php 
-				if (count($item->maps)>0) {
-					echo '<p>';
-						foreach ($item->maps as $map) {
-							$tcol = (empty($map->track_colour)) ? '#ccf' : $map->track_colour;
-							echo '<i class="far fa-map" style="color:'.$tcol.';"></i> ';
-							echo $map->linkedtitle;
-							echo '<br />';
-						}
-					echo '</p>';
-				} else {
-					echo '<p class="xbnit">'.Text::_('XBMAPS_NO_MAPS').'</p>';
-				}
-				?>
+				if (count($item->maps)>0) : ?>
+					<p>
+						<?php foreach ($item->maps as $map) : ?>
+							<?php $tcol = (empty($map->track_colour)) ? '#484' : $map->track_colour; ?>
+							<i class="far fa-map" style="color:<?php echo $tcol; ?>;"></i> 
+							<?php echo $map->linkedtitle; ?>
+							&nbsp;<a href="#ajax-xbmodal"
+                            data-toggle="modal" data-target="#ajax-xbmodal"
+                            onclick="window.com='maps';window.view='map';window.pvid=<?php echo $map->id; ?>;"
+                            ><i class="far fa-eye"></i></a>
+                            <br />
+						<?php endforeach; ?>
+					</p>
+				<?php else : ?>
+					<p class="xbnit"><?php echo Text::_('XBMAPS_NO_MAPS'); ?></p>
+				<?php endif; ?>
+				</td>
+				<td><?php 
+				if (count($item->tracks)>0) : ?>
+					<ul class="xblist" style="margin:0;">
+						<?php foreach ($item->tracks as $trk) : ?>
+							<li><i class="fas fa-project-diagram" style="color:<?php echo $trk->track_colour; ?>;"></i>
+							<?php echo HTMLHelper::_('date',$trk->rec_date,'d-m-y').' '.$trk->linkedtitle; ?>
+ 							&nbsp;<a href="#ajax-xbmodal" 
+								data-toggle="modal" data-target="#ajax-xbmodal" 
+								onclick="window.com='maps';window.view='track';window.pvid=<?php echo $trk->id; ?>;"
+									><i class="far fa-eye"></i></a>							
+							</li>
+						<?php endforeach; ?>
+					</ul>
+				<?php else : ?>
+					<p class="xbnit"><?php echo Text::_('XBMAPS_NO_TRACKS'); ?></p>
+				<?php endif; ?>
 				</td>
 				<td>
 					<p><a class="label <?php echo $catclass; ?>" href="<?php echo $cvlink.$item->catid; ?>" 
@@ -274,7 +300,7 @@ $map->loadXbmapsJS();
 				</td>
 				<td class="hidden-phone">
 					<?php echo $item->id; ?>
-					<br /><span class="xbnit"><?php echo HtmlHelper::date($item->modified, 'd M Y');?></span>
+					<br /><span class="xbnit"><?php echo HtmlHelper::date($item->modified, 'd/m/y');?></span>
 				</td>
 			</tr>			
 			<?php endforeach; ?>
@@ -293,32 +319,36 @@ $map->loadXbmapsJS();
 	<?php echo XbmapsGeneral::credit();?>
 </div>
 <?php // load the modal for displaying the batch options
-	echo HTMLHelper::_( 'bootstrap.renderModal', 'collapseModal',
-		array(
-			'title' => JText::_('XBMAPS_BATCH_TITLE'),
-			'footer' => $this->loadTemplate('batch_footer')
-		),
-		$this->loadTemplate('batch_body')
-	); 
+//	echo HTMLHelper::_( 'bootstrap.renderModal', 'collapseModal',
+//		array(
+//			'title' => JText::_('XBMAPS_BATCH_TITLE'),
+//			'footer' => $this->loadTemplate('batch_footer')
+//		),
+//		$this->loadTemplate('batch_body')
+//	); 
 ?>
+<?php echo LayoutHelper::render('xbpvmodal.layoutpvmodal', array(), JPATH_ROOT .'/components/com_xbmaps/layouts');   ?>
+
+<!-- 
 <div class="modal hide" id="pvModal" style="width:600px;top:150px;" >
 	<div class="modal-dialog modal-lg modal-dialog-centered">
 		<div class="modal-content">
-	   <!-- Modal Header -->
+	   < !-- Modal Header -- >
 		<div class="modal-header">
 	    	<button type="button" role="presentation" class="close" data-dismiss="modal"
 	     		style="opacity:0.5;font-size:1.5em; line-height:1em;">x</button>
 	    	<h4 id="mrktit" style="margin:5px 10px;">Marker preview</h4>
     	</div>
-        <!-- Modal body -->
+        < !-- Modal body -- >
     	<div class="modal-body">
       		<iframe src="" width="100%" height="400" frameborder="0" allowtransparency="true"></iframe>
     	</div>
-        <!-- Modal footer -->
+        < !-- Modal footer -- >
     	<div class="modal-footer" style="padding:10px 20px;">
     		<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 		</div>
 	</div>
 </div>
+ -->
 
 

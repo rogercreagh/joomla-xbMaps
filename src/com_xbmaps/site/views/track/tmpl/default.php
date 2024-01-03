@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.5.0.2 2nd January 2024
+ * @version 1.5.1.0 3rd January 2024
  * @filesource site/views/track/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -75,7 +75,62 @@ $trackslink = 'index.php?option=com_xbmaps&view=tracklist';
 			$map->renderFullScreenControl();
 			//$map->renderEasyPrint();
 			$map->renderTracks(array($item),true,$this->show_stats,$this->show_track_popover);
+			if (!empty($item->markers)) {
+			    foreach ($item->markers as $mrk) {
+			        $popuptitle =  '';
+			        $popupdesc = '';
+			        $popuptitle = ($mrk->mktitle=='') ? '' : $mrk->mktitle;
+			        if ($mrk->mkshowdesc==1) {
+			            $popupdesc = ($mrk->mkdesc =='') ? '' : $mrk->mkdesc.'<br />';
+			        }
+			        $disp = $mrk->mkshowcoords;
+			        //			        	Factory::getApplication()->enqueueMessage($disp);
+			        if ($disp=='') $disp=0;
+			        if ($disp>0) $popupdesc .= '<hr /><b>'.Text::_('XBMAPS_LOCATION').'</b></br>';
+			        
+			        if (($disp & 1)==1) {
+			            $popupdesc .= '<span style="padding-right:20px"><i>Lat:</i> '.$mrk->mklat.'</span><i>Long:</i> '.$mrk->mklong.'<br />';
+			        }
+			        if (($disp & 2)==2) {
+			            $popupdesc .= '<span style="padding-right:20px"><i>Lat:</i> '.XbmapsGeneral::Deg2DMS($mrk->mklat).'</span><i>Long:</i> '.XbmapsGeneral::Deg2DMS($mrk->mklong,false).'<br />';
+			        }
+			        if ($disp > 3) {
+			            $api = new Geocoder($this->w3w_api);
+			            $w3w = $api->convertTo3wa($mrk->mklat,$mrk->mklong,$this->w3w_lang)['words'];
+			            $popupdesc .= '<i>w3w</i>: ///<b>'.$w3w.'</b>';
+			        }
+			        switch ($mrk->markertype) {
+			            case 1:
+			                $image = $this->marker_image_path.'/'.$mrk->mkparams['marker_image'];
+			                $map->setImageMarker($uid, $mrk->mklat, $mrk->mklong, $image, $popuptitle, $popupdesc,'','',0);
+			                break;
+			            case 2:
+			                $outer = $mrk->mkparams['marker_outer_icon'];
+			                $inner = $mrk->mkparams['marker_inner_icon'];
+			                $outcol = $mrk->mkparams['marker_outer_colour'];
+			                $incol = $mrk->mkparams['marker_inner_colour'];
+			                $insize = '';
+			                if ($mrk->mkparams['marker_outer_icon']=='fas fa-map-marker') {
+			                    $insize = 'line-height:1.75em;font-size:0.8em;';
+			                }
+			                
+			                $div = '<div><span class="fa-stack fa-2x" style="margin-left:-1em;margin-top:-2em;font-size:12pt;">';
+			                $div .= '<i class="'.$outer.' fa-stack-2x" style="color:'.$outcol.';"></i>';
+			                
+			                $div .= '<i class="'.$inner.' fa-stack-1x fa-inverse" style="color:'.$incol.';'.$insize.'"></i>';
+			                $div .= '</span></div>';
+			                $map->setDivMarker($uid, $mrk->mklat,$mrk->mklong,$div, $popuptitle,$popupdesc,'','',0);
+			                break;
+			            default:
+			                $map->setMarker($uid, $mrk->mklat, $mrk->mklong, $popuptitle, $popupdesc,'','',0);
+			                
+			                break;
+			        }
+			        
+			    }
+			}
 			$map->renderMap();
+
 		?>
 		<div id="xbmaps" style="margin:0;padding:0;">
 			<div align="center" style="margin:0;padding:0; <?php echo $this->borderstyle; ?>">

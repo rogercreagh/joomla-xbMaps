@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 0.8.0.b 17th October 2021
+ * @version 1.5.1.0 3rd January 2024
  * @filesource admin/models/markers.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -173,6 +173,7 @@ class XbmapsModelMarkers extends JModelList {
 		foreach ($items as $i=>$item) {
 			$item->tags = $tagsHelper->getItemTags('com_xbmaps.marker' , $item->id);
 			$item->maps = XbmapsGeneral::markerMapsArray($item->id);
+			$item->tracks = XbmapsGeneral::markerTracksArray($item->id);
 			
 			$params = new Registry;
 			$params->loadString($item->params, 'JSON');

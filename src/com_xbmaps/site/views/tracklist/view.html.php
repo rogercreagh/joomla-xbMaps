@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 0.1.1.j 24th August 2021
+ * @version 1.5.1.0 3rd January 2024
  * @filesource site/views/tracklist/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -50,6 +50,7 @@ class XbmapsViewTracklist extends JViewLegacy {
 		}
 		
 		$this->enable_track_view = $this->params['enable_track_view']; //$cparams->get('enable_track_view'); //
+		$this->marker_image_path = '/images/'.$this->params->get('def_markers_folder','');
 		
 		$this->header = array();
 		$this->header['showheading'] = $this->params->get('show_page_heading',0,'int');

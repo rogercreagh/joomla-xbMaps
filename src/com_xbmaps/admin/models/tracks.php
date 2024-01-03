@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.3.3.0 4th December 2023
+ * @version 1.5.1.0 3rd January 2024
  * @filesource admin/models/tracks.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -181,6 +181,7 @@ class XbmapsModelTracks extends JModelList {
 			$item->tags = $tagsHelper->getItemTags('com_xbmaps.track' , $item->id);
 			//$item->maps = $this->getTrackMapsArray($item->id);
 			$item->maps = XbmapsGeneral::trackMapsArray($item->id);
+			$item->markers = XbmapsGeneral::trackMarkersArray($item->id);
 			
 			$params = new Registry;
 			$params->loadString($item->params, 'JSON');

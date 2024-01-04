@@ -21,7 +21,7 @@ class XbmapsControllerTrack extends FormController {
     public function __construct($config = array(), MVCFactoryInterface $factory = null)
     {
         parent::__construct($config, $factory);
-        $this->registerTask('savepreview', 'save');
+//        $this->registerTask('savepreview', 'save');
         $this->registerTask('setgpxfile', 'save');
         $this->registerTask('setelevfile', 'save');
     }
@@ -42,12 +42,12 @@ class XbmapsControllerTrack extends FormController {
             $item->params = (string) $registry;
         }
         
-        if ($task == 'savepreview') {
-	        $tid = $validData['id'];
-	        if ($tid>0) {
-	            $this->setRedirect('index.php?option=com_xbmaps&view=trackview&id='.$tid);
-	        }
-	    }
+//         if ($task == 'savepreview') {
+// 	        $tid = $validData['id'];
+// 	        if ($tid>0) {
+// 	            $this->setRedirect('index.php?option=com_xbmaps&view=trackview&id='.$tid);
+// 	        }
+// 	    }
 	    if (($task=='importgpx') || ($task=='setgpxfile') || ($task=='importelev') || ($task=='setelevfile')) {
 	        $tid = $validData['id'];
 	        if ($tid>0) {
@@ -206,12 +206,12 @@ class XbmapsControllerTrack extends FormController {
 	    return parent::batch($model);
 	}
 
-	public function preview() {
-	    $jip =  Factory::getApplication()->input;
-	    $pid =  $jip->get('cid');
-	    $redirectTo =('index.php?option=com_xbmaps&task=display&view=trackview&id='.$pid[0]);
-	    $this->setRedirect($redirectTo );
-	}
+// 	public function preview() {
+// 	    $jip =  Factory::getApplication()->input;
+// 	    $pid =  $jip->get('cid');
+// 	    $redirectTo =('index.php?option=com_xbmaps&task=display&view=trackview&id='.$pid[0]);
+// 	    $this->setRedirect($redirectTo );
+// 	}
 	
 	
 }

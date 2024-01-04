@@ -23,6 +23,8 @@ if (!Factory::getUser()->authorise('core.manage', 'com_xbmaps')) {
 $document = Factory::getDocument();
 $cssFile = Uri::root(true)."/media/com_xbmaps/css/xbmaps.css";
 $document->addStyleSheet($cssFile);
+$cssFile = Uri::root(true)."/media/com_xbmaps/css/xblib.css";
+$document->addStyleSheet($cssFile);
 
 $params = ComponentHelper::getParams('com_xbmaps');
 $fasource = $params->get('fasource',2);	

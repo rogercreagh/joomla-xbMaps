@@ -95,7 +95,17 @@ class com_xbmapsInstallerScript
     	
     	// Delete redundant files : for site files preceed with s/ for admin prefix a/, for media files prefx m/ images files prefix i/
     	$delfiles = '';
-    	$delfiles .= 'a/views/marker/tmpl/preview.php';
+    	//v1.5.2.2 4th jan
+    	$delfiles .= 's/views/marker/tmpl/preview.php';
+    	$delfiles .= ',a/views/marker/tmpl/preview.php';
+    	$delfiles .= ',a/controllers/mapview.php';
+    	$delfiles .= ',a/models/mapview.php';
+    	$delfiles .= ',a/controllers/trackview.php';
+    	$delfiles .= ',a/models/trackview.php';
+    	$delfiles .= ',a/views/marker/tmpl/preview.php';
+    	$delfiles .= ',a/views/mapview';
+    	$delfiles .= ',a/views/trackview';
+    	
     	$delfiles = explode(',',$delfiles);
     	$this->deleteFiles($delfiles);
     	

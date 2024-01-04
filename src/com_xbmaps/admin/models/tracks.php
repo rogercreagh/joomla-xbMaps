@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.5.1.0 3rd January 2024
+ * @version 1.5.2.0 4th January 2024
  * @filesource admin/models/tracks.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -39,7 +39,7 @@ class XbmapsModelTracks extends JModelList {
 		$query = $db->getQuery(true);
 		
 		$query->select('a.id AS id, a.title AS title, a.alias AS alias,
-			a.gpx_filename AS gpx_filename, a.rec_date AS rec_date, a.track_colour AS track_colour,
+			a.gpx_filename AS gpx_filename, a.elev_filename AS elev_filename, a.rec_date AS rec_date, a.track_colour AS track_colour,
             a.description AS description, a.summary AS summary, a.rec_date AS rec_date, a.catid AS catid,
             a.state AS published, a.access AS access,
 			a.created AS created, a.created_by AS created_by, a.created_by_alias AS created_by_alias,

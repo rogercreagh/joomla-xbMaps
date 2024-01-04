@@ -20,7 +20,7 @@ class XbmapsControllerMap extends FormController {
 	public function __construct($config = array(), MVCFactoryInterface $factory = null)
 	{
 		parent::__construct($config, $factory);
-		$this->registerTask('savepreview', 'save');
+//		$this->registerTask('savepreview', 'save');
 	}
 	
 	protected function postSaveHook(JModelLegacy $model, $validData = array()) {
@@ -38,12 +38,12 @@ class XbmapsControllerMap extends FormController {
 			$item->metadata = (string) $registry;
 		}
 		
-		if ($task == 'savepreview') {
-			$tid = $validData['id'];
-			if ($tid>0) {
-				$this->setRedirect('index.php?option=com_xbmaps&view=mapview&id='.$tid,Text::_('XBMAPS_MAP_SAVED'));
-			}
-		}
+//		if ($task == 'savepreview') {
+//			$tid = $validData['id'];
+//			if ($tid>0) {
+//				$this->setRedirect('index.php?option=com_xbmaps&view=mapview&id='.$tid,Text::_('XBMAPS_MAP_SAVED'));
+//			}
+//		}
 	}
 	
 	public function publish() {
@@ -106,11 +106,11 @@ class XbmapsControllerMap extends FormController {
 		return parent::batch($model);
 	}
 	
-	public function preview() {
-		$jip =  Factory::getApplication()->input;
-		$pid =  $jip->get('cid');
-		$redirectTo =('index.php?option=com_xbmaps&task=display&view=mapview&id='.$pid[0]);
-		$this->setRedirect($redirectTo );
-	}
+// 	public function preview() {
+// 		$jip =  Factory::getApplication()->input;
+// 		$pid =  $jip->get('cid');
+// 		$redirectTo =('index.php?option=com_xbmaps&task=display&view=mapview&id='.$pid[0]);
+// 		$this->setRedirect($redirectTo );
+// 	}
 	
 }

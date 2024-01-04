@@ -18,7 +18,61 @@ use Joomla\CMS\Plugin\PluginHelper;
 	<div class="row-fluid">
 		<div id="j-sidebar-container">
 			<?php echo $this->sidebar; ?>
+			<hr />
+			<?php echo HTMLHelper::_('bootstrap.startAccordion', 'slide-info', array('active' => 'sysinfo')); ?>
+        		<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-info', Text::_('XBMAPS_SYSINFO'), 'sysinfo','xbaccordion'); ?>
+    			<p><b><?php echo Text::_( 'XBMAPS_COMPONENT' ); ?></b>
+					<br /><?php echo Text::_('XBMAPS_VERSION').': <b>'.$this->xmldata['version'].'</b><br/>'.
+						$this->xmldata['creationDate'];?>
+				</p>
+				<p><b><?php echo Text::_( 'XBMAPS_CONTENT_PLUGIN' ); ?></b>: ;
+				<?php if(PluginHelper::isEnabled('content','xbmaps')) {
+					$man = XbmapsGeneral::getExtManifest('plugin','xbmaps','content');
+					if ($man) {
+						$man = json_decode($man);
+						echo '<br />'.Text::_('XBMAPS_VERSION').': '.$man->version;
+						echo '<br />'.$man->creationDate;
+					} else {
+						echo 'problem with manifest';
+					}
+				} else {
+					echo Text::_( 'XBMAPS_NOT_INSTALLED' ); 
+				}?>
+				</p>
+				<p><b><?php echo Text::_( 'XBMAPS_BUTTON_PLUGIN' ); ?></b>: ;
+				<?php if(PluginHelper::isEnabled('editor-xtd','xbmaps')) {
+					$man = XbmapsGeneral::getExtManifest('plugin','xbmaps','editors-xtd');
+					if ($man) {
+						$man = json_decode($man);
+						echo '<br />'.Text::_('XBMAPS_VERSION').': '.$man->version;
+						echo '<br />'.$man->creationDate;
+					} else {
+						echo 'problem with manifest';
+					}
+				} else {
+					echo Text::_( 'XBMAPS_NOT_INSTALLED' ); 
+				}?>
+				</p>
+				<p><b><?php echo Text::_( 'XBMAPS_YOUR_CLIENT' ); ?></b>
+					<br/><?php echo $this->client['platform'].'<br/>'.$this->client['browser']; ?>
+				</p>
+    			<?php echo HTMLHelper::_('bootstrap.endSlide'); ?>
+        			<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-info', Text::_('XBMAPS_LICENSE'), 'license','xbaccordion'); ?>
+        			<p><?php echo Text::_( 'XBMAPS_LICENSE_INFO' ); ?></p>
+        			<hr />
+        				<?php echo Text::_( 'XBMAPS' ).' '.$this->xmldata['copyright']; ?>       			
+				<?php echo HTMLHelper::_('bootstrap.endSlide'); ?>
+            	<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-info', Text::_('XBMAPS_REGINFO'), 'reginfo','xbaccordion'); ?>
+            		 <?php if (XbmapsGeneral::penPont()) : ?>
+            			<p><?php echo Text::_('XBMAPS_THANKS_REG'); ?></p>
+            		<?php else : ?>
+            			<p><b><?php echo Text::_('XBMAPS'); ?></b> <?php echo Text::_('XBMAPS_REG_ASK'); ?></p>
+            			<p class="xbtc"><?php echo Text::_('XBMAPS_BEER_TAG').'<br />'.Text::_('XBMAPS_BEER_FORM');?></p>
+            		<?php endif; ?>
+        		<?php echo HTMLHelper::_('bootstrap.endSlide'); ?>
+			<?php echo HTMLHelper::_('bootstrap.endAccordion'); ?>
 		</div>
+		
 		<div id="j-main-container" >
 			<h3><?php echo Text::_('XBMAPS_STATUS_SUM'); ?></h3>
 			<div class="row-fluid">
@@ -161,7 +215,7 @@ use Joomla\CMS\Plugin\PluginHelper;
               	</div>
 				<div id="xbinfo" class="span4">
 					<div class="row-fluid">
-			        	<?php echo HTMLHelper::_('bootstrap.startAccordion', 'slide-dashboard', array('active' => 'sysinfo')); ?>
+			        	<?php echo HTMLHelper::_('bootstrap.startAccordion', 'slide-dashboard', array('active' => 'keyconfig')); ?>
 		        		<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-dashboard', Text::_('XBMAPS_KEY_CONFIG'), 'keyconfig','xbaccordion'); ?>
 		        		<?php echo Text::_('XBMAPS_UNINSTALL_OPTIONS'); ?>
 		        		<ul>
@@ -201,112 +255,58 @@ use Joomla\CMS\Plugin\PluginHelper;
 		        		</ul>
 		        		<?php echo ucfirst(Text::_('XBMAPS_MAPS')); ?>
 		        		<ul>
-		        			<li><?php echo Text::_('XBMAPS_CATEGORIES'); ?>: 
+    		        		<li><?php echo Text::_('XBMAPS_DEF_MAP_TYPE'); ?>: <b><?php echo $this->params->get('map_type')?></b>
+    		        		</li>
+		        			<li><?php echo Text::_('XBMAPS_CATEGORIES'); ?> 
 		        				<?php if (!$this->mapcats) {
-		        				    echo Text::_('XBMAPS_DISABLED');
+		        				    echo ': <b>'.Text::_('XBMAPS_DISABLED').'</b>';
 		        				} else {
-		        				    echo 'Default '.$this->mapcat;
-		        				} ?>
-		        				
+		        				    echo Text::_('XBMAPS_DEFAULT').': <b>'.$this->mapcat.'</b>';
+		        				} ?>		        				
 		        			</li>
 		        			<li><?php echo Text::_('XBMAPS_TAGS'); ?>:
 		        			 <b><?php echo Text::_($this->maptags ? 'XBMAPS_ENABLED' : 'XBMAPS_DISABLED'); ?></b>
 		        			</li>
-		        			<li>Default Type: <b><?php echo $this->params->get('map_type')?></b>
-		        			</li>
 		        		</ul>
-		        		Markers
+		        		<?php echo ucfirst(Text::_('XBMAPS_MARKERS')); ?>
 		        		<ul>
-		        			<li><?php echo Text::_('XBMAPS_CATEGORIES'); ?>:      			
+		        			<li><?php echo Text::_('XBMAPS_CATEGORIES'); ?>     			
 		        				<?php if (!$this->mrkcats) {
-		        				    echo Text::_('XBMAPS_DISABLED');
+		        				    echo ': <b>'.Text::_('XBMAPS_DISABLED').'</b>';
 		        				} else {
-		        				    echo 'Default '.$this->markercat;
-		        				} ?>
-		        				
+		        				    echo Text::_('XBMAPS_DEFAULT').': <b>'.$this->markercat.'</b>';
+		        				} ?>		        				
 		        			</li>
 		        			<li><?php echo Text::_('XBMAPS_TAGS'); ?>: 
 		        			 <b><?php echo Text::_($this->mrktags ? 'XBMAPS_ENABLED' : 'XBMAPS_DISABLED'); ?></b>
 		        			</li>
-		        			<li>Images Folder: <code>/images/<?php echo $this->params->get('def_markers_folder')?></code>
-		        			</li>
+    		        		<li><?php echo Text::_('XBMAPS_IMG_FOLDER'); ?>: <b><code>/images/<?php echo $this->params->get('def_markers_folder')?></code></b>
+    		        		</li>
 		        		</ul>
-		        		Tracks
+		        		<?php echo ucfirst(Text::_('XBMAPS_TRACKS')); ?>
 		        		<ul>
 		        			<li><?php echo Text::_('XBMAPS_CATEGORIES'); ?>:		        			
 		        				<?php if (!$this->trkcats) {
-		        				    echo Text::_('XBMAPS_DISABLED');
+		        				    echo ': <b>'.Text::_('XBMAPS_DISABLED').'</b>';
 		        				} else {
-		        				    echo 'Default '.$this->trackcat;
+		        				    echo Text::_('XBMAPS_DEFAULT').': <b>'.$this->trackcat.'</b>';
 		        				} ?>
 		        				
 		        			</li>
 		        			<li><?php echo Text::_('XBMAPS_TAGS'); ?>: <b>
 		        				<?php echo Text::_($this->trktags ? 'XBMAPS_ENABLED' : 'XBMAPS_DISABLED'); ?></b>
 		        			</li>
-		        			<li>GPX Folder: <code><?php echo $this->params->get('base_gpx_folder')?></code>
-		        			<li>Elevation Images: <code>/images/xbmaps/elevations</code>
+		        			<li>GPX Folder: <b><code><?php echo $this->params->get('base_gpx_folder')?></code></b>
+		        			<li>Elevation Images: <b><code>/images/xbmaps/elevations</code></b>
 		        			</li>
 		        			<li>Single Track View: <b>
 		        				<?php echo Text::_($this->trkview ? 'XBMAPS_ENABLED' : 'XBMAPS_DISABLED');?></b>
 		        			</li>
 		        		</ul>
 	        			<?php echo HTMLHelper::_('bootstrap.endSlide'); ?>
-		        		<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-dashboard', Text::_('XBMAPS_SYSINFO'), 'sysinfo','xbaccordion'); ?>
-	        			<p><b><?php echo Text::_( 'XBMAPS_COMPONENT' ); ?></b>
-							<br /><?php echo Text::_('XBMAPS_VERSION').': '.$this->xmldata['version'].'<br/>'.
-								$this->xmldata['creationDate'];?>
-						</p>
-						<p><b><?php echo Text::_( 'XBMAPS_CONTENT_PLUGIN' ); ?></b>: ;
-						<?php if(PluginHelper::isEnabled('content','xbmaps')) {
-							$man = XbmapsGeneral::getExtManifest('plugin','xbmaps','content');
-							if ($man) {
-								$man = json_decode($man);
-								echo '<br />'.Text::_('XBMAPS_VERSION').': '.$man->version;
-								echo '<br />'.$man->creationDate;
-							} else {
-								echo 'problem with manifest';
-							}
-						} else {
-							echo Text::_( 'XBMAPS_NOT_INSTALLED' ); 
-						}?>
-						</p>
-						<p><b><?php echo Text::_( 'XBMAPS_BUTTON_PLUGIN' ); ?></b>: ;
-						<?php if(PluginHelper::isEnabled('editor-xtd','xbmaps')) {
-							$man = XbmapsGeneral::getExtManifest('plugin','xbmaps','editors-xtd');
-							if ($man) {
-								$man = json_decode($man);
-								echo '<br />'.Text::_('XBMAPS_VERSION').': '.$man->version;
-								echo '<br />'.$man->creationDate;
-							} else {
-								echo 'problem with manifest';
-							}
-						} else {
-							echo Text::_( 'XBMAPS_NOT_INSTALLED' ); 
-						}?>
-						</p>
-						<p><b><?php echo Text::_( 'XBMAPS_YOUR_CLIENT' ); ?></b>
-							<br/><?php echo $this->client['platform'].'<br/>'.$this->client['browser']; ?>
-						</p>
+	        			<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-dashboard', Text::_('XBMAPS_ABOUT'), 'about','xbaccordion'); ?>
+	        			<p><?php echo Text::_( 'XBMAPS_ABOUT_INFO' ); ?></p>
 	        			<?php echo HTMLHelper::_('bootstrap.endSlide'); ?>
-		        		<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-dashboard', Text::_('XBMAPS_REGINFO'), 'reginfo','xbaccordion'); ?>
-		        		 <?php if (XbmapsGeneral::penPont()) : ?>
-		        			<p><?php echo Text::_('XBMAPS_THANKS_REG'); ?></p>
-		        		<?php else : ?>
-		        			<p><b><?php echo Text::_('XBMAPS'); ?></b> <?php echo Text::_('XBMAPS_REG_ASK'); ?></p>
-		        			 <?php echo Text::_('XBMAPS_BEER_TAG').'<br />'.Text::_('XBMAPS_BEER_FORM');?>
-		        		<?php endif; ?>
-	        			<?php echo HTMLHelper::_('bootstrap.endSlide'); ?>
-	        			<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-dashboard', JText::_('XBMAPS_ABOUT'), 'about','xbaccordion'); ?>
-	        			<p><?php echo JText::_( 'XBMAPS_ABOUT_INFO' ); ?></p>
-	        			<?php echo HTMLHelper::_('bootstrap.endSlide'); ?>
-	        			<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-dashboard', JText::_('XBMAPS_LICENSE'), 'license','xbaccordion'); ?>
-	        			<p><?php echo JText::_( 'XBMAPS_LICENSE_INFO' ); ?></p>
-	        			<hr />
-	        			<p>
-	        				<?php echo Text::_( 'XBMAPS' ).' '.$this->xmldata['copyright']; ?>
-	        			</p>
-						<?php echo HTMLHelper::_('bootstrap.endSlide'); ?>
 						<?php echo HTMLHelper::_('bootstrap.endAccordion'); ?>
 					</div>		
 				</div>
@@ -356,16 +356,22 @@ use Joomla\CMS\Plugin\PluginHelper;
 				</h3>
 				<div class="row-striped">
 					<div class="row-fluid">
-                      <?php echo 'Films: ';
-						echo '<span class="bkcnt badge  pull-right">'.$this->tags['tagcnts']['mapcnt'].'</span>'; ?>
+                      <?php echo 'Maps: ';
+						echo '<span class="bkcnt badge ';
+						if ($this->tags['tagcnts']['mapcnt'] > 0 ) echo 'badge-cyan ';
+						echo 'pull-right">'.$this->tags['tagcnts']['mapcnt'].'</span>'; ?>
                     </div>  
                     <div class="row-fluid">
-                      <?php echo 'People: ';
-						echo '<span class="percnt badge pull-right">'.$this->tags['tagcnts']['mrkcnt'].'</span>'; ?>
+                      <?php echo 'Narkers: ';
+						echo '<span class="percnt badge ';
+						if ($this->tags['tagcnts']['mrkcnt'] > 0 ) echo 'badge-cyan ';
+						echo 'pull-right">'.$this->tags['tagcnts']['mrkcnt'].'</span>'; ?>
                     </div>  
                     <div class="row-fluid">
-                      <?php echo 'Reviews: ';
-						echo '<span class="revcnt badge pull-right">'.$this->tags['tagcnts']['trkcnt'].'</span>'; ?>
+                      <?php echo 'Tracks: ';
+						echo '<span class="revcnt badge ';
+						if ($this->tags['tagcnts']['trkcnt'] > 0 ) echo 'badge-cyan ';
+						echo 'pull-right">'.$this->tags['tagcnts']['trkcnt'].'</span>'; ?>
                     </div>  
                  </div>
 				 <h3 class="xbsubtitle"><?php echo Text::_('XBMAPS_COUNT_TAGS'); ?><span class="xb09 xbnorm"><i>(<?php echo Text::_('XBMAPS_MAPS_MRKS_TRKS'); ?>)</i></span></h3>

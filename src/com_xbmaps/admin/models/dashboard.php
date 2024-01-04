@@ -93,7 +93,7 @@ class XbmapsModelDashboard extends JModelList {
 		//first we get the total number of each type of item with one or more tags
 		$query->select('type_alias,core_content_id, COUNT(*) AS numtags')
 		->from('#__contentitem_tag_map')
-		->where('type_alias LIKE '.$db->quote('com_xbbooks%'))
+		->where('type_alias LIKE '.$db->quote('com_xbmaps%'))
 		->group('core_content_id, type_alias');
 		//not checking that tag is published, not using numtags at this stage - poss in future
 		$db->setQuery($query);

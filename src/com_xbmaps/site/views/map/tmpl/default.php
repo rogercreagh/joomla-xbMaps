@@ -15,6 +15,7 @@ use What3words\Geocoder\Geocoder;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Layout\FileLayout;
 use Joomla\CMS\Router\Route;
 
 $item = $this->item;
@@ -209,7 +210,7 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
 						<a class="label label-success" href="<?php echo Route::_($clink.$item->catid); ?>">
     						<?php echo $item->category_title; ?></a>
     				<?php else: ?>
-    					<span class="label label-success"><?php echo $item->category_title; ?></span>
+    					<span class="label label-cat"><?php echo $item->category_title; ?></span>
     				<?php endif; ?>		
 				</div>
 				<div class="clearfix"></div>
@@ -221,7 +222,7 @@ $mapslink = 'index.php?option=com_xbmaps&view=maplist';
    			<div class="xbbox xbboxmag">
 				<div class="pull-left xbnit xbmr10"><?php echo JText::_('XBMAPS_TAGS'); ?></div>
 				<div class="pull-left">
-					<?php  $tagLayout = new JLayoutFile('joomla.content.tags');
+					<?php  $tagLayout = new FileLayout('joomla.content.tags');
 	    				echo $tagLayout->render($item->tags); ?>
 				</div>
 				<div class="clearfix"></div>

@@ -91,11 +91,11 @@ class XbmapsControllerMarker extends FormController {
 		return parent::batch($model);
 	}
 	
-	public function preview() {
-		$jip =  Factory::getApplication()->input;
-		$pid =  $jip->get('cid');
-		$redirectTo =('index.php?option=com_xbmaps&task=display&view=markerview&id='.$pid[0]);
-		$this->setRedirect($redirectTo );
-	}
+// 	public function preview() {
+// 		$jip =  Factory::getApplication()->input;
+// 		$pid =  $jip->get('cid');
+// 		$redirectTo =('index.php?option=com_xbmaps&task=display&view=markerview&id='.$pid[0]);
+// 		$this->setRedirect($redirectTo );
+// 	}
 	
 }

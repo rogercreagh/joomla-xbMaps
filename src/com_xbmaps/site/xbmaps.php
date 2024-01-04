@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.5.2.0 3rd January 2023
+ * @version 1.5.2.0 4th January 2023
  * @filesource site/xbmaps.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -11,9 +11,12 @@ defined( '_JEXEC' ) or die();
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Uri\Uri;
 
 $document = Factory::getDocument();
-$document->addStyleSheet(JUri::root() . 'media/com_xbmaps/css/xbmaps.css', array('version'=>'auto'));
+$document->addStyleSheet(Uri::root(true) . '/media/com_xbmaps/css/xbmaps.css', array('version'=>'auto'));
+$cssFile = Uri::root(true)."/media/com_xbmaps/css/xblib.css";
+$document->addStyleSheet($cssFile);
 //$cssFile = "https://use.fontawesome.com/releases/v5.8.1/css/all.css\" integrity=\"sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf\" crossorigin=\"anonymous";
 //$document->addStyleSheet($cssFile);
 //$fascript="https://kit.fontawesome.com/012857417f.js\" crossorigin=\"anonymous";

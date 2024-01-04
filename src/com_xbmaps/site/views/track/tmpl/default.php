@@ -12,6 +12,8 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Layout\FileLayout;
+use Joomla\CMS\Router\Route;
 
 HTMLHelper::_('behavior.modal');
 
@@ -172,22 +174,22 @@ $trackslink = 'index.php?option=com_xbmaps&view=tracklist';
 	<div class="row-fluid xbmt16">
 	<?php if ($this->show_cats >0) : ?>       
 		<div class="span4">
-			<div class="pull-left xbnit xbmr10"><?php echo JText::_('XBMAPS_CATEGORY'); ?></div>
+			<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBMAPS_CATEGORY'); ?></div>
 				<div class="pull-left">
 					<?php if($this->show_cats==2) : ?>
-						<a class="label label-success" href="<?php echo JRoute::_($clink.$item->catid); ?>">
+						<a class="label label-success" href="<?php echo Route::_($clink.$item->catid); ?>">
     						<?php echo $item->category_title; ?></a>
     				<?php else: ?>
-    					<span class="label label-success"><?php echo $item->category_title; ?></span>
+    					<span class="label label-cat"><?php echo $item->category_title; ?></span>
     				<?php endif; ?>		
 				</div>
 	        </div>
         <?php endif; ?>
         <?php if (($this->show_tags) && (!empty($item->tags))) : ?>
         	<div class="span<?php echo ($this->show_tags>0) ? '8' : '12'; ?>">
-				<div class="pull-left xbnit xbmr10"><?php echo JText::_('XBMAPS_TAGS'); ?></div>
+				<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBMAPS_TAGS'); ?></div>
 				<div class="pull-left">
-					<?php  $tagLayout = new JLayoutFile('joomla.content.tags');
+					<?php  $tagLayout = new FileLayout('joomla.content.tags');
 	    				echo $tagLayout->render($item->tags); ?>
 				</div>
         	</div>
@@ -197,22 +199,22 @@ $trackslink = 'index.php?option=com_xbmaps&view=tracklist';
 		<div class="span2">
 			<?php if (($item->prev>0) || ($item->next>0)) : ?>
 			<span class="hasTooltip xbinfo" title 
-				data-original-title="<?php echo JText::_('XBMAPS_INFO_PREVNEXT'); ?>" >
+				data-original-title="<?php echo Text::_('XBMAPS_INFO_PREVNEXT'); ?>" >
 			</span>&nbsp;
 			<?php endif; ?>
 			<?php if($item->prev > 0) : ?>
-				<a href="<?php echo JRoute::_(XbmapsHelperRoute::getTrackLink($item->prev)); ?>" class="btn btn-small">
+				<a href="<?php echo Route::_(XbmapsHelperRoute::getTrackLink($item->prev)); ?>" class="btn btn-small">
 					<?php echo Text::_('XBMAPS_PREV'); ?></a>
 		    <?php endif; ?>
 		</div>
 		<div class="span8"><center>
-			<a href="<?php echo JRoute::_($trackslink); ?>" class="btn btn-small">
-				<?php echo JText::_('XBMAPS_TRACKSLIST'); ?></a></center>
+			<a href="<?php echo Route::_($trackslink); ?>" class="btn btn-small">
+				<?php echo Text::_('XBMAPS_TRACKSLIST'); ?></a></center>
 		</div>
 		<div class="span2">
 			<?php if($item->next > 0) : ?>
-				<a href="<?php echo JRoute::_(XbmapsHelperRoute::getTrackLink($item->next)); ?>" class="btn btn-small pull-right">
-					<?php echo JText::_('XBMAPS_NEXT'); ?></a>
+				<a href="<?php echo Route::_(XbmapsHelperRoute::getTrackLink($item->next)); ?>" class="btn btn-small pull-right">
+					<?php echo Text::_('XBMAPS_NEXT'); ?></a>
 		    <?php endif; ?>
 		</div>
 	</div>

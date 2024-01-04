@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.5.1.0 3rd January 2024
+ * @version 1.5.2.0 4th January 2024
  * @filesource admin/views/tracks/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -108,7 +108,7 @@ $tagclass = $this->show_tags? 'label-info' : 'label-grey';
 					</th>	
 					<th style="width:4em;text-align:center;"><?php echo Text::_('XBMAPS_COLOUR');?></th>	
 					<th>
-						Filename
+						<?php echo Text::_('XBMAPS_FILENAME'); ?>
 					</th>			
 					<th>
 						<?php echo Text::_('XBMAPS_SUMMARY');?>
@@ -210,6 +210,9 @@ $tagclass = $this->show_tags? 'label-info' : 'label-grey';
 				</td>
 				<td>
 					<?php echo pathinfo($item->gpx_filename,PATHINFO_BASENAME);?>
+					<?php if ($item->elev_filename != '') : ?>
+						<br><span class="xbit xb09"><?php echo pathinfo($item->elev_filename,PATHINFO_BASENAME);?></span>
+					<?php endif; ?>
 				</td>
 				<td>
 					<p class="xb095">

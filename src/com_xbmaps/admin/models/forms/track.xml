@@ -7,7 +7,7 @@
 		<field 
 			name="id"  type="number" 
 			label="JGLOBAL_FIELD_ID_LABEL" description="JGLOBAL_FIELD_ID_DESC" 
-			readonly="true" class="readonly xbw50p" 
+			readonly="true" class="readonly xbw50" 
 			size="10" default="0" 
     onchange="var targ=document.getElementById('jform_params_hidden_id'); 
 targ.value=value; targ.dispatchEvent(new Event('change'));"

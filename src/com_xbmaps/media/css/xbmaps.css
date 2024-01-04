@@ -1,13 +1,14 @@
 /*******
  * @package xbMaps Component
- * @version 1.4.1.0 13th December 2023
+ * @version 1.5.2.0 4th January 2024
  * @filesource media/css/xbmaps.css
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ * @desc COMMON ITEMS MOVED TO xblib.css
  ******/
  
-/* set height for editor:none if markdowne editor not available */
+/* set height for editor:none if markdown editor not available */
 .js-editor-none textarea {
   height: 100px !important;
 }
@@ -41,81 +42,8 @@
 /* make file and folder controls wide enough for longer path */
 .xbfilecontrol, .xbfoldercontrol {width:400px !important; }
 
-/*hide default icon in admin toolbar */
-.page-title>.icon-generic {display:none;}
-
-/*adjust default margins round labels for tags and cats */
-.label { margin:2px;}
-.tags ul.inline > li {
-	margin:0;
-}
-
- /*give visual hint to presence of tooltips*/
-.hasTooltip {
-  	text-decoration-line: underline; 
-	text-decoration-color: #a0a0a0;
-	text-decoration-style: dotted; 
-    text-underline-position: under;
-}
-.hasPopover {
-  	text-decoration-line: underline; 
-	text-decoration-color: #a0a0a0;
-	text-decoration-style: dashed; 
-    text-underline-position: under;
-}
-/* override the annoying default transparency on bootstrap tooltips */
-.tooltip.in {
-  opacity: 1 !important;
-  filter: alpha(opacity=100) !important;
-}
-
-/* use an spacer custom button as a toolbar spacer (22px is minimum width*/
-#toolbar-spacer .btn {
-	visibility:hidden; width:22px;
-}
- 
-/* make tab titles a bit more prominent */
-ul.nav-tabs { 
-	font-weight:bold;
-	font-size:1.1em;
-}
-	
-/*shade background of subform headings */
-.subform-repeatable thead { 
-	background-color:aliceblue;
-}
-.subform-repeatable .table th {
-  font-weight:normal;
-  font-style:italic;
-}
-
-/* style accordions */
-.xbaccordion .accordion-heading {
-	background-color:#eee;	
-}
-.xbaccordion .accordion-body {
-	background-color:aliceblue;
-}
 
 /* additional badge/label colours with info(blue) success(green), warning(orange) important(red) */
-.badge-yellow, .label-yellow {
-	background-color: #ffff5f !important;
-	color: #5f5f5f !important;
-}
-.badge-cyan, .badge-cyan {
-	background-color: #cfffff !important;
-	color: #5f5f5f !important;
-	border: 1px solid #31708F;
-}
-.badge-mag, .badge-mag {
-	background-color: #ffcfff !important;
-	color: #5f5f5f !important;
-	border: 1px solid #812c8F;
-}
-.badge-grey, .label-grey {
-	background-color: #aaa !important;
-	color: #fff !important;
-}
 .mapcnt, .mrkcnt, .trkcnt, .othcnt {
     border: solid 1px #31708f;
       color: #31708f !important;
@@ -125,15 +53,6 @@ ul.nav-tabs {
 .trkcnt { background-color: #efdeef !important;  }      
 .othcnt { background-color: #efefef !important;  }    
 
-/* boxes with rounded corner border and gradient shading */
-.xbbox {
-	padding: 8px 7px 7px 15px;
-	margin: 0 0 8px;
-	list-style: none;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
-}
 
 /* box 200px high with internal scroll */
 .xbboxscroll200 {
@@ -179,90 +98,6 @@ ul.nav-tabs {
 some common combinations are also defined (eg xbnit - normal weight,italic, 5px left pad)
 */
 
-/* centre div or table cell */
-.xbcentre { margin-left:auto; margin-right:auto;}
-
-/* text alignment */
-.xbtc, .xbcredit {text-align:center;}
-.xbtr {text-align:right;}
-
-/* font sizes in em */
-.xb15 { font-size:1.5em; }
-.xb12, .xbtitle { font-size:1.2em; }
-.xb11, .xbsubtitle { font-size:1.1em; }
-.xb10 { font-size:1.0em; }
-.xb095 { font-size:0.95em; }
-.xb09, .xbnote { font-size:0.9em; }
-.xb085 { font-size:0.85em; }
-.xb08, .xbcredit { font-size:0.8em; }
-
-/* font weights and styles */
-.xbnorm, .xbnit { font-weight: normal; }
-.xbbold, .xbtitle { font-weight: bold; }
-.xbit, .xbnit, .xbcredit { font-style:italic; }
-.xbfw300, .xbsubtitle {font-weight:300;}
-
-/* margins */
-.xbm0 { margin:0 !important; } /*flagged important as we want to override any template margins*/
-.xbml10 { margin-left:10px; }
-.xbml15 { margin-left:15px; }
-.xbml20 { margin-left:20px; }
-.xbml25 { margin-left:25px; }
-.xbml100 { margin-left:100px; }
-
-.xbmr10 { margin-right:10px; }
-.xbmr15 { margin-right:15px; }
-.xbmr20 { margin-right:20px; }
-.xbmr25 { margin-right:25px; }
-
-.xbmt2 { margin-top:2px; }
-.xbmt10 { margin-top:10px; }
-.xbmt16 { margin-top:16px; }
-.xbmt20 { margin-top:20px; }
-.xbmt25 { margin-top:25px; }
-
-.xbmb0 { margin-bottom:0; }
-.xbmb8, .xbtitle { margin-bottom:8px; }
-.xbmb8 { margin-bottom:8px; }
-.xbmb12 { margin-bottom:12px; }
-.xbpr20 { padding-right:20px }
-
-/* padding */
-.xbpl10 {padding-left:10px;}
-.xbpl20 {padding-left:20px;}
-.xbpr5, .xbnit { padding-right:5px; }
-.xbpr10 { padding-right:10px;}
-.xbpr20 { padding-right:20px;}
-.xbpt17 { padding-top:17px;}
-
-/* heights */
-.xbht200 {height:200px;};
-
-/* maxheights */
-.xbmh200 {max-height:200px; }
-.xbmh300 {max-height:300px; }
-.xbmh400 {max-height:400px; }
-
-/* widths */
-.xbw18 {width: 18px; }
-.xbw50p {width:50px; }
-.xbw100 {width:100px; }
-.xbwid100 {width:100%; }
-
-.xbwp100 {width:100%; }
-.xbwp60 {width:60%; }
-.xbwp50 {width:50%; }
-.xbwp40 {width:40%; }
-
-/* maxwidth eg for divs */
-.xbmw400 {max-width:400px; }
-.xbmw1000 { max-width:1000px; }
-.xbmw1100 { max-width:1100px; }
-.xbmw1200 { max-width:1200px; }
-.xbmw1400 { max-width:1400px; }
-
-/* borders */
-.xbbb1 { border-bottom:solid 1px gray;}
 
 .xbyscroll { overflow-y:scroll;}
 
@@ -271,24 +106,6 @@ some common combinations are also defined (eg xbnit - normal weight,italic, 5px 
 	margin-left:20px;
 }
 
-.xbhlt {
-	background-color: yellow;
-	color: #444;
-}
-.xbdim {
-	background-color: #ccc;
-	color: #888;
-}
-.xbnit {
-	font-style:italic;
-	font-weight:normal;
-	padding-right:5px;	
-}
-.xbcredit {
-	text-align:center;
-	font-size:0.8em;
-	font-style:italic;
-}
 .xbinfo:after {
 	color:#44f;
 	font-size:12px;
@@ -299,33 +116,6 @@ some common combinations are also defined (eg xbnit - normal weight,italic, 5px 
 	color:#fff;
 	background-color: #189735;
 	padding: 3px 5px;
-}
-
-/* unordered list with no bullet and margins adjusted */
-ul.xblist {
-	margin: 0 0 9px 10px;
-}
-ul.xblist li {
-	list-style-type: none;
-}
-
-/* definition list with term and definition on same line */
-dl.xbdl dt{
-  display: inline-block;
-  font-style:italic;
-  font-weight:normal;
-  min-width: 100px;
-}
-dl.xbdl dd:before{
-	content:' : ';
-}
-dl.xbdl dd {
-  display: inline;
-  margin: 0;
-}
-dl.xbdl dd:after{
-  display: block;
-  content: '';
 }
 
 /* leaflet classes */

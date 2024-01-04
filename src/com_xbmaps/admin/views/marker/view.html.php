@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 0.8.0.i 26th October 2021
+ * @version 1.5.2.0 4th January 2024
  * @filesource admin/views/marker/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -39,10 +39,7 @@ class XbmapsViewMarker extends JViewLegacy {
 			throw new Exception(implode("\n", $errors), 500);
 		}
 		
-		if ($this->getLayout() !== 'preview')
-		{
-		    $this->addToolBar();
-		}
+		$this->addToolBar();
 		
 		parent::display($tpl);
 		

@@ -2,11 +2,11 @@
 <extension type="component" version="3.1" method="upgrade">
 	<name>xbmaps</name>
 	<creationDate>4th January 2024</creationDate>
-	<version>1.5.2.0</version>
+	<version>1.5.2.2</version>
 	<author>Roger C-O</author>
 	<authorEmail>roger@crosborne.uk</authorEmail>
 	<authorUrl>www.crosborne.uk</authorUrl>
-	<copyright>(c) Roger Creagh-Osborne, 2021. All rights reserved.</copyright>
+	<copyright>(c) Roger Creagh-Osborne, 2024. All rights reserved.</copyright>
 	<license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
 	<description>COM_XBMAPS_XML_DESCRIPTION</description>
 

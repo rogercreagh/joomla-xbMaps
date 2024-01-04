@@ -276,7 +276,6 @@ $tagclass = $this->show_tags? 'label-info' : 'label-grey';
 				<?php else : ?>
 					<p class="xbnit"><?php echo Text::_('XBMAPS_NO_TRACKS'); ?></p>
 				<?php endif; ?>
-				?>
 				</td>
 				<td>
 					<p><a class="label <?php echo $catclass; ?>" href="<?php echo $cvlink.$item->catid; ?>" 

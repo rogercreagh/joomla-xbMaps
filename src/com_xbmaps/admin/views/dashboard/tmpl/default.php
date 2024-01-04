@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 1.1.0 26th December 2021
+ * @version 1.5.2.0 4th January 2024
  * @filesource admin/views/dashboard/tmpl/default.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -59,7 +59,7 @@ use Joomla\CMS\Plugin\PluginHelper;
         							</div>
         							<div class="row-fluid">
         								<div class="span12">
-        									<span class="badge <?php echo $this->markerCnts['mapswithmarkers']>0 ?'badge-mag' : ''; ?> xbmr10"><?php echo $this->markerCnts['mapswithmarkers']; ?></span>
+        									<span class="badge <?php echo $this->markerMapCnts['mapswithmarkers']>0 ?'badge-mag' : ''; ?> xbmr10"><?php echo $this->markerMapCnts['mapswithmarkers']; ?></span>
         									<?php echo Text::_('XBMAPS_MAPS_WITH_MARKERS'); ?>
         								</div>
         							</div>
@@ -102,6 +102,12 @@ use Joomla\CMS\Plugin\PluginHelper;
         									<?php echo Text::_('XBMAPS_TRACKS_WITH_MAPS'); ?>
         								</div>
         							</div>
+        							<div class="row-fluid">
+        								<div class="span12">
+        									<span class="badge <?php echo $this->markerTrackCnts['trackswithmarkers']>0 ?'badge-mag' : ''; ?> xbmr10"><?php echo $this->markerTrackCnts['trackswithmarkers']; ?></span>
+        									<?php echo Text::_('XBMAPS_TRACKS_WITH_MARKERS'); ?>
+        								</div>
+        							</div>
         						</div>
         					</div>
             			
@@ -112,7 +118,7 @@ use Joomla\CMS\Plugin\PluginHelper;
         					<div class="xbbox xbboxblue">
         						<h3 class="xbtitle">
         							<span class="badge badge-info pull-right"><?php echo Text::_('XBMAPS_TOTAL').' '. $this->markerStates['total']; ?></span> 
-        							<a href="index.php?option=com_xbmaps&view=markers"><?php echo ucfirst(Text::_('XBMAPS_MARKERS')); ?>
+        							<a href="index.php?option=com_xbmaps&view=markers"><?php echo ucfirst(Text::_('XBMAPS_MARKERS')); ?></a>
         						</h3>
         						<div class="row-striped">
         							<div class="row-fluid">
@@ -137,8 +143,14 @@ use Joomla\CMS\Plugin\PluginHelper;
         							</div>
         							<div class="row-fluid">
         								<div class="span12">
-        									<span class="badge <?php echo $this->markerCnts['markersonmaps']>0 ?'badge-mag' : ''; ?> xbmr10"><?php echo $this->markerCnts['markersonmaps']; ?></span>
+        									<span class="badge <?php echo $this->markerMapCnts['markersonmaps']>0 ?'badge-mag' : ''; ?> xbmr10"><?php echo $this->markerMapCnts['markersonmaps']; ?></span>
         									<?php echo Text::_('XBMAPS_MARKERS_WITH_MAPS'); ?>
+        								</div>
+        							</div>
+        							<div class="row-fluid">
+        								<div class="span12">
+        									<span class="badge <?php echo $this->markerTrackCnts['markersontracks']>0 ?'badge-mag' : ''; ?> xbmr10"><?php echo $this->markerTrackCnts['markersontracks']; ?></span>
+        									<?php echo Text::_('XBMAPS_MARKERS_WITH_TRACKS'); ?>
         								</div>
         							</div>
         						</div>
@@ -151,9 +163,45 @@ use Joomla\CMS\Plugin\PluginHelper;
 					<div class="row-fluid">
 			        	<?php echo HTMLHelper::_('bootstrap.startAccordion', 'slide-dashboard', array('active' => 'sysinfo')); ?>
 		        		<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-dashboard', Text::_('XBMAPS_KEY_CONFIG'), 'keyconfig','xbaccordion'); ?>
-		        		Maps
+		        		<?php echo Text::_('XBMAPS_UNINSTALL_OPTIONS'); ?>
 		        		<ul>
-		        			<li>Categories: 
+		        			<li>
+		        				<?php echo Text::_('XBMAPS_UNINSTALL_DATA').': '; ?>
+		        				<b>
+		        				<?php echo ($this->savedata) ? Text::_('XBMAPS_KEEP') : Text::_('XBMAPS_DELETE'); ?>
+		        				</b>
+		        			</li>
+		        			<li>
+		        				<?php echo Text::_('XBMAPS_UNINSTALL_FILES').': '; ?>
+		        				<b>
+		        				<?php echo ($this->savefiles) ? Text::_('XBMAPS_KEEP') : Text::_('XBMAPS_DELETE'); ?>
+		        				</b>
+		        			</li>
+		        		</ul>
+		        		<?php echo Text::_('XBMAPS_FASOURCE'); ?>
+		        		<ul>
+		        			<li><b>
+		        				<?php switch ($this->fasource) {
+		        				    case 1:
+		        				        echo Text::_('XBMAPS_FAKIT');
+		        				        break;
+		        				    case 2:
+		        				        echo Text::_('XBMAPS_CDN');
+		        				        break;		        				        
+		        				    default:
+		        				        echo Text::_('XBMAPS_NOFA');
+    		        				    break;
+		        				}?>
+		        			</b></li>
+		        			<?php if ($this->fasource==1) : ?>
+		        				<li>
+		        					<?php echo Text::_('XBMAPS_FAKITID').': <b>'.$this->fakitid.'</b>'; ?>
+		        				</li>
+		        			<?php endif; ?>
+		        		</ul>
+		        		<?php echo ucfirst(Text::_('XBMAPS_MAPS')); ?>
+		        		<ul>
+		        			<li><?php echo Text::_('XBMAPS_CATEGORIES'); ?>: 
 		        				<?php if (!$this->mapcats) {
 		        				    echo Text::_('XBMAPS_DISABLED');
 		        				} else {
@@ -161,14 +209,15 @@ use Joomla\CMS\Plugin\PluginHelper;
 		        				} ?>
 		        				
 		        			</li>
-		        			<li>Tags: <b><?php echo Text::_($this->maptags ? 'XBMAPS_ENABLED' : 'XBMAPS_DISABLED'); ?></b>
+		        			<li><?php echo Text::_('XBMAPS_TAGS'); ?>:
+		        			 <b><?php echo Text::_($this->maptags ? 'XBMAPS_ENABLED' : 'XBMAPS_DISABLED'); ?></b>
 		        			</li>
 		        			<li>Default Type: <b><?php echo $this->params->get('map_type')?></b>
 		        			</li>
 		        		</ul>
 		        		Markers
 		        		<ul>
-		        			<li>Categories:        			
+		        			<li><?php echo Text::_('XBMAPS_CATEGORIES'); ?>:      			
 		        				<?php if (!$this->mrkcats) {
 		        				    echo Text::_('XBMAPS_DISABLED');
 		        				} else {
@@ -176,14 +225,15 @@ use Joomla\CMS\Plugin\PluginHelper;
 		        				} ?>
 		        				
 		        			</li>
-		        			<li>Tags: <b><?php echo Text::_($this->mrktags ? 'XBMAPS_ENABLED' : 'XBMAPS_DISABLED'); ?></b>
+		        			<li><?php echo Text::_('XBMAPS_TAGS'); ?>: 
+		        			 <b><?php echo Text::_($this->mrktags ? 'XBMAPS_ENABLED' : 'XBMAPS_DISABLED'); ?></b>
 		        			</li>
-		        			<li>Images Folder: <b>/images/<?php echo $this->params->get('def_markers_folder')?></b>
+		        			<li>Images Folder: <code>/images/<?php echo $this->params->get('def_markers_folder')?></code>
 		        			</li>
 		        		</ul>
 		        		Tracks
 		        		<ul>
-		        			<li>Categories:		        			
+		        			<li><?php echo Text::_('XBMAPS_CATEGORIES'); ?>:		        			
 		        				<?php if (!$this->trkcats) {
 		        				    echo Text::_('XBMAPS_DISABLED');
 		        				} else {
@@ -191,10 +241,11 @@ use Joomla\CMS\Plugin\PluginHelper;
 		        				} ?>
 		        				
 		        			</li>
-		        			<li>Tags: <b>
+		        			<li><?php echo Text::_('XBMAPS_TAGS'); ?>: <b>
 		        				<?php echo Text::_($this->trktags ? 'XBMAPS_ENABLED' : 'XBMAPS_DISABLED'); ?></b>
 		        			</li>
-		        			<li>GPX Folder: <b>/<?php echo $this->params->get('base_gpx_folder')?></b>
+		        			<li>GPX Folder: <code><?php echo $this->params->get('base_gpx_folder')?></code>
+		        			<li>Elevation Images: <code>/images/xbmaps/elevations</code>
 		        			</li>
 		        			<li>Single Track View: <b>
 		        				<?php echo Text::_($this->trkview ? 'XBMAPS_ENABLED' : 'XBMAPS_DISABLED');?></b>

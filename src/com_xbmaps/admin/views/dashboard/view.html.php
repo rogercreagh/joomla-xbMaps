@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 0.6.0.e 4th October 2021
+ * @version 1.5.2.0 4th January 2024
  * @filesource admin/views/dashboard/view.html.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -27,12 +27,17 @@ class XbmapsViewDashboard extends JViewLegacy {
 	    $this->mrktags = $this->params->get('global_use_tags') && $this->params->get('markers_use_tags');
 	    $this->trktags = $this->params->get('global_use_tags') && $this->params->get('tracks_use_tags');
 	    $this->trkview = $this->params->get('enable_track_view');
+	    $this->fasource = $this->params->get('fasource');
+	    $this->fakitid = $this->params->get('fakitid');
+	    $this->savedata = $this->params->get('savedata');
+	    $this->savefiles = $this->params->get('savefiles');
 	    
 		$this->mapStates = $this->get('MapStates');
 		$this->markerStates = $this->get('MarkerStates');
 		$this->trackStates = $this->get('TrackStates');
 		$this->trackCnts = $this->get('TrackCounts');
-		$this->markerCnts = $this->get('MarkerCounts');
+		$this->markerMapCnts = $this->get('MarkerMapCounts');
+		$this->markerTrackCnts = $this->get('MarkerTrackCounts');
 		
 		$this->catStates = $this->get('CatStates');
 		$this->cats = $this->get('Cats');

@@ -2,7 +2,7 @@
 /*******
  * @package xbMaps Component
  * @filesource script.xbmaps.php
- * @version 1.4.0.0 9th December 2023
+ * @version 1.5.2.0 3rd January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021, 2023
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html 
@@ -90,8 +90,15 @@ class com_xbmapsInstallerScript
     	$message .= 'xbMaps Dashboard</a> page for overview of status.</p>';
     	$message .= '<br />For ChangeLog see <a href="http://crosborne.co.uk/xbmaps/changelog" target="_blank">
             www.crosborne.co.uk/xbmaps/changelog</a></p>';
-     	
+    	
     	Factory::getApplication()->enqueueMessage($message,'Message');
+    	
+    	// Delete redundant files : for site files preceed with s/ for admin prefix a/, for media files prefx m/ images files prefix i/
+    	$delfiles = '';
+    	$delfiles .= 'a/views/marker/tmpl/preview.php';
+    	$delfiles = explode(',',$delfiles);
+    	$this->deleteFiles($delfiles);
+    	
     }
     
     function postflight($type, $parent) {
@@ -274,6 +281,78 @@ class com_xbmapsInstallerScript
 	    }
         return $message;
 	}
+
+	protected function deleteFiles(array $delfiles) {
+	    $cnt = 0; $dcnt=0;
+	    $ecnt = 0;
+	    $message = 'Deleting Redundant Files<br />';
+	    foreach ($delfiles as $f) {
+	        $loc = (substr($f,0,2));
+	        switch ($loc) {
+	            case 'a/':
+        	        $name = JPATH_ADMINISTRATOR.'/components/com_xbmaps/'.(substr($f,2));
+        	        break;
+	            case 'i/':
+	                $name = JPATH_ROOT.'/images/xbmaps/'.(substr($f,2));
+	                break;
+	            case 'm/':
+	                $name = JPATH_ROOT.'/media/com_xbmaps/'.(substr($f,2));
+	                break;
+	            case 's/':
+	                $name = JPATH_ROOT.'/components/com_xbmaps/'.(substr($f,2));
+	                ;
+	                break;	                
+	            default:
+	                $name = JPATH_ROOT.'/'.$f;
+	                break;
+	        }
+	        
+	        if (file_exists($name)) {
+	            if (is_dir($name)) {
+	                if ($this->rrmdir($name)) {
+	                    $dcnt ++;
+	                    $message .= 'RMDIR '.$f.'<br />';
+	                }
+	            } else {
+	                if (unlink($name)) {
+	                    $message .= 'DEL '.$f.'<br />';
+	                    $cnt ++;
+	                } else {
+	                    $message .= 'DELETE FAILED: '.$f.'<br />';
+	                    $ecnt ++;
+	                }
+	            }
+	        } else {
+	            //        	    $message .= 'FILE NOT FOUND: '.$f.'<br />';
+	        }
+	    }
+	    if (($cnt+$ecnt+$dcnt)>0) {
+	        $message .= $cnt.' files, '.$dcnt.' folders cleared.';
+	        $mtype = ($ecnt>0) ? 'Warning' : 'Message';
+	        Factory::getApplication()->enqueueMessage($message, $mtype);
+	    }
+	    
+	}
+
+	protected function rrmdir($dir) {
+	    if (is_dir($dir)) {
+	        $objects = scandir($dir);
+	        foreach ($objects as $object) {
+	            if ($object != "." && $object != "..") {
+	                if (filetype($dir."/".$object) == "dir") {
+	                    $this->rrmdir($dir."/".$object);
+	                } else {
+	                    unlink($dir."/".$object);
+	                }
+	            }
+	        }
+	        reset($objects);
+	        rmdir($dir);
+	        return true;
+	    }
+	    return false;
+	}
+	
 	
     protected function saveCategories(string $component) {
 	    $mess = 'saving categories... ';

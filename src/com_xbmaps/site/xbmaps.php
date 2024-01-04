@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 0.1.0.n 4th August 2021
+ * @version 1.5.2.0 3rd January 2023
  * @filesource site/xbmaps.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -10,15 +10,25 @@
 defined( '_JEXEC' ) or die();
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Component\ComponentHelper;
 
 $document = Factory::getDocument();
 $document->addStyleSheet(JUri::root() . 'media/com_xbmaps/css/xbmaps.css', array('version'=>'auto'));
-$cssFile = "https://use.fontawesome.com/releases/v5.8.1/css/all.css\" integrity=\"sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf\" crossorigin=\"anonymous";
-$document->addStyleSheet($cssFile);
+//$cssFile = "https://use.fontawesome.com/releases/v5.8.1/css/all.css\" integrity=\"sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf\" crossorigin=\"anonymous";
+//$document->addStyleSheet($cssFile);
 //$fascript="https://kit.fontawesome.com/012857417f.js\" crossorigin=\"anonymous";
 //$document->addScript($fascript);
 
-//Factory::getDocument()->addScipt();
+$params = ComponentHelper::getParams('com_xbmaps');
+$fasource = $params->get('fasource',2);
+if ($fasource==2) {
+    $cssFile = "https://use.fontawesome.com/releases/v5.8.1/css/all.css\" integrity=\"sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf\" crossorigin=\"anonymous";
+    $document->addStyleSheet($cssFile);
+} elseif ($fasource==1) {
+    $fascript="https://kit.fontawesome.com/".$params->get('fakitid').".js\" crossorigin=\"anonymous";
+    $document->addScript($fascript);
+}
+
 JLoader::register('XbMapHelper', JPATH_ADMINISTRATOR . '/components/com_xbmaps/helpers/xbmaphelper.php');
 JLoader::register('XbmapsGeneral', JPATH_ADMINISTRATOR . '/components/com_xbmaps/helpers/xbmapsgeneral.php');
 

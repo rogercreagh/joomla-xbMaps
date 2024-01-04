@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 0.6.0.e 4th October 2021
+ * @version 1.5.2.0 4th January 2024
  * @filesource admin/models/dashboard.php
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -44,12 +44,20 @@ class XbmapsModelDashboard extends JModelList {
 		return $db->loadAssoc();
 	}
 	
-	public function getMarkerCounts() {
+	public function getMarkerMapCounts() {
 		$db = $this->getDbo();
 		$query = $db->getQuery(true);
 		$query->select('COUNT(DISTINCT map_id) AS mapswithmarkers, COUNT(DISTINCT marker_id) AS markersonmaps')->from('#__xbmaps_mapmarkers');
 		$db->setQuery($query);
 		return $db->loadAssoc();
+	}
+	
+	public function getMarkerTrackCounts() {
+	    $db = $this->getDbo();
+	    $query = $db->getQuery(true);
+	    $query->select('COUNT(DISTINCT track_id) AS trackswithmarkers, COUNT(DISTINCT marker_id) AS markersontracks')->from('#__xbmaps_trackmarkers');
+	    $db->setQuery($query);
+	    return $db->loadAssoc();
 	}
 	
 	public function getCats() {

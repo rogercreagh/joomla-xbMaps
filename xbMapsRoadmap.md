@@ -8,8 +8,9 @@
 - **DONE** v1.3.0 - Markdown for summaries
 - **DONE** v1.4.3 -  Add optional elevation image for track  **database change**
 - **DONE** v1.4.4 - Add track selector on multitrack maps
-- **DONE v1.5.0** -  Modal preview map/track admin and site 
-- v1.5.1 - add track markers
+- **DONE** v1.5.0 -  Modal preview map/track admin and site 
+- **DONE** v1.5.1 - add track markers
+- **DONE** v1.5.2 - config setting for fontawesome source
 - v1.6.0 -  Update leaflet to latest version
 - v1.7.0 - elevation plot from leaflet plugin
 

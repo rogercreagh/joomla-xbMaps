@@ -74,8 +74,22 @@
 			>
 				<option value="1" >JSHOW</option>
 				<option value="0">JHIDE</option>
-		</field>	
-
+		</field>
+		<field name="fasource" type="radio"
+			label="Fontawesome source" description="select source for fontawesome icons. Use 'none' if fontawesome is already installed in your template. Use 'kit' if you have your own fontawesome login and a kit, use CDN to use an open CDN source for v5.x free icons only"	
+ 			class="btn-group btn-group-yesno"
+ 			default="2"
+			>
+			<option value="0">None</option>
+			<option value="1">Kit</option>
+			<option value="2">CDN</option>	
+		</field>
+		<field name="fakitid" type="text"
+			label="FA Kit ID" description="Enter the id code for your kit. Just the (typically) 10 characters that are the id for your code."
+			class="inputbox" size="20" 
+			showon="fasource:1"
+		/>
+			
 	</fieldset>
 	
 <!-- MAPS TAB -->				

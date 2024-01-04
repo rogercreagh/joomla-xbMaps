@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbMaps Component
- * @version 0.8.0.g 20th October 2021
+ * @version 1.5.2.0 3rd January 2023
  * @since 0.1.0 2nd July 2021
  * @filesource admin/xbmaps.php
  * @author Roger C-O
@@ -11,6 +11,7 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Uri\Uri;
 
 if (!Factory::getUser()->authorise('core.manage', 'com_xbmaps')) {
@@ -22,8 +23,16 @@ if (!Factory::getUser()->authorise('core.manage', 'com_xbmaps')) {
 $document = Factory::getDocument();
 $cssFile = Uri::root(true)."/media/com_xbmaps/css/xbmaps.css";
 $document->addStyleSheet($cssFile);
-$cssFile = "https://use.fontawesome.com/releases/v5.8.1/css/all.css\" integrity=\"sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf\" crossorigin=\"anonymous";
-$document->addStyleSheet($cssFile);
+
+$params = ComponentHelper::getParams('com_xbmaps');
+$fasource = $params->get('fasource',2);	
+if ($fasource==2) {
+    $cssFile = "https://use.fontawesome.com/releases/v5.8.1/css/all.css\" integrity=\"sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf\" crossorigin=\"anonymous";
+    $document->addStyleSheet($cssFile);
+} elseif ($fasource==1) {
+    $fascript="https://kit.fontawesome.com/".$params->get('fakitid').".js\" crossorigin=\"anonymous";
+    $document->addScript($fascript);   
+}
 
 JLoader::register('XbmapsHelper', JPATH_ADMINISTRATOR . '/components/com_xbmaps/helpers/xbmaps.php');
 JLoader::register('XbMapHelper', JPATH_ADMINISTRATOR . '/components/com_xbmaps/helpers/xbmaphelper.php');
